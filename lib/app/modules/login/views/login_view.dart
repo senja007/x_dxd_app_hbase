@@ -192,7 +192,7 @@ class LoginView extends GetView<LoginController> {
                   width: MediaQuery.of(context).size.width,
                   child: ElevatedButton(
                     onPressed: () async {
-                      Get.toNamed(Routes.LOGIN);
+                      Get.toNamed(Routes.REGISTER);
                     },
                     child: Text(
                       'Daftar',

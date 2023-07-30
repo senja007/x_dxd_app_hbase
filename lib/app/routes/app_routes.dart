@@ -6,6 +6,12 @@ abstract class Routes {
   static const HOME = _Paths.HOME;
   static const START = _Paths.START;
   static const LOGIN = _Paths.LOGIN;
+  static const REGISTER = _Paths.REGISTER;
+  static const APP_POST = _Paths.APP_POST;
+  static const ALL_POST = _Paths.ALL_POST;
+  static const ADD_POST = _Paths.ADD_POST;
+  static const DETAIL_POST = _Paths.DETAIL_POST;
+  static const EDIT_POST = _Paths.EDIT_POST;
 }
 
 abstract class _Paths {
@@ -13,4 +19,10 @@ abstract class _Paths {
   static const HOME = '/home';
   static const START = '/start';
   static const LOGIN = '/login';
+  static const REGISTER = '/register';
+  static const APP_POST = '/app-post';
+  static const ALL_POST = '/all-post';
+  static const ADD_POST = '/add-post';
+  static const DETAIL_POST = '/detail-post';
+  static const EDIT_POST = '/edit-post';
 }
