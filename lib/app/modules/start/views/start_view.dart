@@ -36,7 +36,7 @@ class StartView extends GetView<StartController> {
                         ),
                         Text(
                           "Post app",
-                          style: GoogleFonts.tajawal(
+                          style: GoogleFonts.archivo(
                               fontSize: 24,
                               fontWeight: FontWeight.w500,
                               color: Color(0xffffca54)),

@@ -15,7 +15,7 @@ class NoNetwork extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/images/no-internet.png',
+            'assets/img/no-internet.png',
             height: 180,
             width: 180,
           ),
@@ -24,7 +24,7 @@ class NoNetwork extends StatelessWidget {
           ),
           Text(
             "Terputus",
-            style: GoogleFonts.tajawal(
+            style: GoogleFonts.archivo(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
                 color: Color(0xffffca54)),

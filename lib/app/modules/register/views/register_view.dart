@@ -38,7 +38,7 @@ class RegisterView extends GetView<RegisterController> {
             decoration: BoxDecoration(
               gradient: AppColor.primaryGradient,
               image: DecorationImage(
-                image: AssetImage('assets/images/pattern-1-1.png'),
+                image: AssetImage('assets/images/background.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
@@ -191,7 +191,7 @@ class RegisterView extends GetView<RegisterController> {
                                 border: InputBorder.none,
                                 hintText: "*************",
                                 suffixIcon: IconButton(
-                                  icon: (controller.obsecureText != false)
+                                  icon: (controller.obsecureText != true)
                                       ? SvgPicture.asset(
                                           'assets/icons/show.svg')
                                       : SvgPicture.asset(
