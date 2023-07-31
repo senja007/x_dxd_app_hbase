@@ -21,14 +21,14 @@ class StartController extends GetxController {
       } else if (userModel!.status == 401) {
         box.remove("token");
         box.remove("id");
-        Get.offAndToNamed(Routes.START);
+        Get.offAndToNamed(Routes.LOGIN);
       } else {
         box.remove("token");
         box.remove("id");
-        Get.offAndToNamed(Routes.START);
+        Get.offAndToNamed(Routes.LOGIN);
       }
     } else {
-      Get.offAndToNamed(Routes.START);
+      Get.offAndToNamed(Routes.LOGIN);
     }
   }
 }
