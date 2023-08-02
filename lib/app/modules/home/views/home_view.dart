@@ -1,282 +1,361 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import '../controllers/home_controller.dart';
-import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
-import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
-import 'package:crud_flutter_api/app/widgets/message/no_network.dart';
-import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
-class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+class HomeView extends StatelessWidget {
+  HomeView({Key? key}) : super(key: key);
+
+  final List<String> imageUrls = [
+    'assets/images/eksotik.jpg',
+    'assets/images/dkpp.jpg',
+    'assets/images/pet.jpg',
+    'assets/images/pet2.jpg',
+    'assets/images/pet3.jpg',
+  ];
+
+  int _currentIndex = 0;
+  CarouselController _carouselController = CarouselController();
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<HomeController>(
-      builder: (controller) => AutoLoad(
-        onInit: () async {
-          await controller.loadPost();
-        },
-        child: Scaffold(
-          extendBody: true,
-          body: controller.homeScreen == false
-              ? ListView(
-                  shrinkWrap: true,
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 36),
-                  children: [
-                    SizedBox(height: 16),
-                    // Section 1 - Welcome Back
-                    Container(
-                      margin: EdgeInsets.only(bottom: 16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          'TERNAK',
+          style: TextStyle(color: Colors.white),
+        ),
+        automaticallyImplyLeading: false,
+        backgroundColor: Color(0xff132137), // Warna latar belakang AppBar
+        elevation: 0.0, // Menghilangkan shadow // Warna latar belakang AppBar
+      ),
+      body: SafeArea(
+          child: Container(
+              color: Color(0xffF7EBE1),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Text(
+                        "Dinas Ketahanan Pangan Dan Pertanian",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )),
+                  Padding(
+                      padding: EdgeInsets.all(0),
+                      child: Text(
+                        "Selamat Datang Di Sistem Manajemen Aplikasi Ternak \n",
+                        textAlign: TextAlign.left,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      )),
+                  SizedBox(
+                      width: double.infinity,
+                      height: 250,
+                      child: CarouselSlider.builder(
+                        itemCount: imageUrls.length,
+                        itemBuilder: (context, index, _) {
+                          return Image.asset(
+                            imageUrls[index],
+                            fit: BoxFit.cover,
+                          );
+                        },
+                        options: CarouselOptions(
+                          autoPlay: true,
+                          autoPlayInterval: Duration(seconds: 5),
+                          autoPlayCurve: Curves.fastOutSlowIn,
+                          enlargeCenterPage: true,
+                        ),
+                      )),
+                  Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Container(
+                        child: Center(
+                          child: Wrap(
+                            spacing: 80.0,
+                            runSpacing: 20.0,
                             children: [
-                              ClipOval(
-                                child: Container(
-                                  width: 42,
-                                  height: 42,
-                                  child: Image.network(
-                                    "https://ui-avatars.com/api/?name=${controller.box.read('name')}/",
-                                    fit: BoxFit.cover,
+                              SizedBox(
+                                width: 250,
+                                height: 30,
+                                child: Card(
+                                  color: Color(0xff132137),
+                                  elevation: 2.0,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(5.0)),
+                                  child: Text(
+                                    "Informasi Data Peternakan",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.bold,
+                                    ),
                                   ),
                                 ),
-                              ),
-                              SizedBox(width: 24),
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Selamat datang kembali",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      color: AppColor.secondarySoft,
-                                    ),
-                                  ),
-                                  SizedBox(height: 4),
-                                  Text(
-                                    controller.box.read('name'),
-                                    style: TextStyle(
-                                      fontWeight: FontWeight.w500,
-                                      fontFamily: 'poppins',
-                                    ),
-                                  ),
-                                ],
-                              ),
+                              )
                             ],
                           ),
-                          InkWell(
-                            onTap: () => {controller.logout()},
-                            child: Text("Logout"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // section 2 - card
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: EdgeInsets.only(
-                          left: 24, top: 24, right: 24, bottom: 16),
-                      decoration: BoxDecoration(
-                        color: AppColor.primary,
-                        borderRadius: BorderRadius.circular(8),
-                        image: DecorationImage(
-                          image: AssetImage('assets/images/background.jpg'),
-                          fit: BoxFit.cover,
                         ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-// job
-                          Text(
-                            controller.box.read('email'),
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontFamily: 'poppins',
-                              fontWeight: FontWeight.w500,
-                            ),
-                          ),
-                          SizedBox(
-                            height: 20,
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width,
-                            padding: EdgeInsets.symmetric(
-                              horizontal: 8,
-                              vertical: 16,
-                            ),
-                            decoration: BoxDecoration(
-                              color: AppColor.primarySoft,
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: Row(
-                              children: [
-                                GetBuilder<HomeController>(
-                                  builder: (controller) => controller
-                                              .posts!.status ==
-                                          200
-                                      ? Expanded(
+                        // alignment: Alignment.center,
+                        // width: 80,
+                        // height: 21,
+                        // decoration: BoxDecoration(
+                        //   borderRadius: BorderRadius.circular(10),
+                        //   gradient: LinearGradient(
+                        //     begin: Alignment.centerLeft,
+                        //     end: Alignment.centerRight,
+                        //     colors: [
+                        //       Color(0xff132137),
+                        //     ],
+                        //   ),
+                        // ),
+                        // child: Text(
+                        //   "Informasi Data Peternakan",
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     color: Colors.white,
+                        //     fontSize: 18,
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      )),
+                  Expanded(
+                    child: GridView.count(
+                      padding: EdgeInsets.all(30),
+                      crossAxisCount: 2,
+                      children: [
+                        Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Center(
+                              child: Wrap(
+                                spacing: 20.0,
+                                runSpacing: 20.0,
+                                children: [
+                                  SizedBox(
+                                    width: 160.0,
+                                    height: 160.0,
+                                    child: Card(
+                                      color: Color(0xff132137),
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: Center(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/homePage'),
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                    "assets/images/cow.png",
+                                                    width: 70.0),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "118",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                ),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "Ternak",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                )
+                                              ],
+                                            )),
+                                      )),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            )),
+                        Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Center(
+                              child: Wrap(
+                                spacing: 20.0,
+                                runSpacing: 20.0,
+                                children: [
+                                  SizedBox(
+                                    width: 160.0,
+                                    height: 160.0,
+                                    child: Card(
+                                      color: Color(0xff132137),
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: Center(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new InkWell(
+                                          onTap: () =>
+                                              Navigator.pushNamed(context, '/'),
                                           child: Column(
                                             children: [
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 6),
-                                                child: Text(
-                                                  "Jumlah Todo",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
+                                              Image.asset(
+                                                  "assets/images/man.png",
+                                                  width: 70.0),
+                                              SizedBox(height: 10.0),
                                               Text(
-                                                "${controller.posts!.items!.length.toString()}",
+                                                "56",
                                                 style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                ),
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.0),
                                               ),
-                                            ],
-                                          ),
-                                        )
-                                      : Expanded(
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                margin:
-                                                    EdgeInsets.only(bottom: 6),
-                                                child: Text(
-                                                  "Jumlah Todo",
-                                                  style: TextStyle(
-                                                    fontSize: 12,
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ),
+                                              SizedBox(height: 10.0),
                                               Text(
-                                                "0",
+                                                "Peternak",
                                                 style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
+                                                    color: Color.fromARGB(
+                                                        255, 255, 255, 255),
+                                                    fontWeight: FontWeight.bold,
+                                                    fontSize: 20.0),
+                                              )
                                             ],
                                           ),
                                         ),
-                                )
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    SizedBox(
-                      height: 14,
-                    ),
-                    Container(
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "List Todo Terbaru",
-                            style: TextStyle(
-                              fontFamily: "poppins",
-                              fontWeight: FontWeight.w600,
-                            ),
-                          ),
-                          TextButton(
-                            onPressed: () => Get.toNamed(Routes.ALL_POST),
-                            child: Text("tampilkan semua"),
-                            style: TextButton.styleFrom(
-                              primary: AppColor.primary,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    GetBuilder<HomeController>(
-                      builder: (controller) => controller.posts!.status == 200
-                          ? ListView.separated(
-                              itemCount: controller.posts!.items!.length,
-                              shrinkWrap: true,
-                              physics: BouncingScrollPhysics(),
-                              separatorBuilder: (context, index) =>
-                                  SizedBox(height: 16),
-                              itemBuilder: (context, index) {
-                                var postData = controller.posts!.items![index];
-                                return InkWell(
-                                  onTap: () => {
-                                    Get.toNamed(
-                                      Routes.DETAIL_POST,
-                                      arguments: {
-                                        "id": "${postData.id}",
-                                        "title": "${postData.title}",
-                                        "content": "${postData.content}",
-                                      },
+                                      )),
                                     ),
-                                  },
-                                  borderRadius: BorderRadius.circular(8),
-                                  child: Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8),
-                                      border: Border.all(
-                                        width: 1,
-                                        color: AppColor.primaryExtraSoft,
-                                      ),
+                                  )
+                                ],
+                              ),
+                            )),
+                        Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Center(
+                              child: Wrap(
+                                spacing: 20.0,
+                                runSpacing: 20.0,
+                                children: [
+                                  SizedBox(
+                                    width: 160.0,
+                                    height: 160.0,
+                                    child: Card(
+                                      color: Color(0xff132137),
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: Center(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/'),
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                    "assets/images/people.png",
+                                                    width: 70.0),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "20",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                ),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "Petugas",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                )
+                                              ],
+                                            )),
+                                      )),
                                     ),
-                                    padding: EdgeInsets.only(
-                                        left: 24,
-                                        top: 20,
-                                        right: 29,
-                                        bottom: 20),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              (postData.title == null)
-                                                  ? "-"
-                                                  : "${postData.title}",
-                                              style: TextStyle(fontSize: 12),
-                                            ),
-                                            Text(
-                                              "${postData.content}",
-                                              style: TextStyle(fontSize: 12),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                  )
+                                ],
+                              ),
+                            )),
+                        Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Center(
+                              child: Wrap(
+                                spacing: 20.0,
+                                runSpacing: 20.0,
+                                children: [
+                                  SizedBox(
+                                    width: 160.0,
+                                    height: 160.0,
+                                    child: Card(
+                                      color: Color(0xff132137),
+                                      elevation: 2.0,
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      child: Center(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: new InkWell(
+                                            onTap: () => Navigator.pushNamed(
+                                                context, '/'),
+                                            child: Column(
+                                              children: [
+                                                Image.asset(
+                                                    "assets/images/house.png",
+                                                    width: 70.0),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "38",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                ),
+                                                SizedBox(height: 10.0),
+                                                Text(
+                                                  "Kandang",
+                                                  style: TextStyle(
+                                                      color: Color.fromARGB(
+                                                          255, 255, 255, 255),
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      fontSize: 20.0),
+                                                )
+                                              ],
+                                            )),
+                                      )),
                                     ),
-                                  ),
-                                );
-                              },
-                            )
-                          : NoData(),
+                                  )
+                                ],
+                              ),
+                            )),
+                      ],
                     ),
-                    SizedBox(height: 64),
-                  ],
-                )
-              : NoNetwork(onInit: controller.loadPost()),
-          floatingActionButton: FloatingActionButton(
-            onPressed: () {
-              Get.toNamed(Routes.ADD_POST);
-            },
-            child: Icon(
-              Icons.add,
-            ),
-          ),
-        ),
-      ),
+                  )
+                ],
+              ))),
     );
   }
 }

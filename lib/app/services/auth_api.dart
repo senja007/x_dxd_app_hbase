@@ -17,23 +17,28 @@ class AuthApi extends SharedApi {
         body: {'usernameOrEmail': email, 'password': password},
       );
       stopLoading();
-      jsonData = json.decode(data.body);
+      
       if (data.statusCode == 200) {
-        jsonData['data'] ??=
-            {}; // Inisialisasi jsonData['data'] sebagai Map kosong jika bernilai null
+      jsonData = json.decode(data.body);
+      if (jsonData != null && jsonData['data'] != null) {
         jsonData['data']['status'] = 200;
         jsonData['data']['access_token'] = jsonData['access_token'];
         jsonData['data']['token_type'] = jsonData['token_type'];
         return UserModel.fromJson(jsonData['data']);
       } else {
-        showErrorMessage(jsonData['message']);
+        showErrorMessage('Invalid response data');
         return UserModel.fromJson({"status": data.statusCode});
       }
-    } on Exception catch (_) {
-      stopLoading();
-      showInternetMessage("Periksa koneksi internet anda");
-      return UserModel.fromJson({"status": 404});
+    } else {
+      jsonData = json.decode(data.body);
+      showErrorMessage(jsonData['message']);
+      return UserModel.fromJson({"status": data.statusCode});
     }
+  } on Exception catch (_) {
+    stopLoading();
+    showInternetMessage("Periksa koneksi internet anda");
+    return UserModel.fromJson({"status": 404});
+  }
   }
 
   // Check Token API
@@ -49,7 +54,7 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData['status'] = 200;
+        jsonData['status'] = '200';
         jsonData['access_token'] = token;
         jsonData['token_type'] = "bearer";
         return UserModel.fromJson(jsonData);
@@ -67,7 +72,7 @@ class AuthApi extends SharedApi {
     }
   }
 
-  // Register API
+  // Login API
   Future<UserModel?> registerAPI(
       String name, String email, String password) async {
     try {
@@ -80,8 +85,6 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData['data'] ??=
-            {}; // Inisialisasi jsonData['data'] sebagai Map kosong jika bernilai null
         jsonData['data']['status'] = 200;
         jsonData['data']['access_token'] = jsonData['access_token'];
         jsonData['data']['token_type'] = jsonData['token_type'];
