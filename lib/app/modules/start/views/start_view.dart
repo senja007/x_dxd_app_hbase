@@ -1,90 +1,114 @@
+import './components/care_view.dart';
+import './components/center_next_button.dart';
+import './components/mood_diary_vew.dart';
+import './components/relax_view.dart';
+import './components/splash_view.dart';
+import './components/top_back_skip_view.dart';
+import './components/welcome_view.dart';
 import 'package:flutter/material.dart';
-import 'package:crud_flutter_api/app/widgets/message/no_network.dart';
-import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
-import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:get/get.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../controllers/start_controller.dart';
-
-class StartView extends GetView<StartController> {
+class StartView extends StatefulWidget {
   const StartView({Key? key}) : super(key: key);
+
+  @override
+  _StartViewState createState() =>
+      _StartViewState();
+}
+
+class _StartViewState
+    extends State<StartView> with TickerProviderStateMixin {
+  AnimationController? _animationController;
+
+  @override
+  void initState() {
+    _animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 8));
+    _animationController?.animateTo(0.0);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animationController?.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<StartController>(
-      builder: (controller) => AutoLoad(
-        onInit: () async {
-          await new Future.delayed(const Duration(seconds: 3));
-          await controller.autoLogin();
-        },
-        child: Scaffold(
-          body: GetBuilder<StartController>(
-            builder: (controller) => controller.startScreen == false
-                ? Container(
-                    color: AppColor.primary,
-                    width: double.infinity,
-                    height: double.infinity,
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Spacer(),
-                        Icon(Icons.account_tree_outlined,
-                            size: 48, color: Colors.white),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Text(
-                          "Post app",
-                          style: GoogleFonts.archivo(
-                              fontSize: 24,
-                              fontWeight: FontWeight.w500,
-                              color: Color(0xffffca54)),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
-                            child: Column(
-                              children: [
-                                Text(
-                                  "Belajar Bersama",
-                                  style: GoogleFonts.cairo(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                                Text(
-                                  "Building the Nation Through Education",
-                                  style: GoogleFonts.cairo(
-                                    color: Colors.white,
-                                  ),
-                                  textAlign: TextAlign.center,
-                                ),
-                              ],
-                            )),
-                        Spacer(),
-                        Text(
-                          "Hummasoft. V1",
-                          style: GoogleFonts.cairo(
-                            color: Colors.white,
-                            fontSize: 12,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        SizedBox(
-                          height: 30,
-                        ),
-                      ],
-                    ),
-                  )
-                : NoNetwork(
-                    onInit: controller.autoLogin,
-                  ),
-          ),
+    print(_animationController?.value);
+    return Scaffold(
+      backgroundColor: Color(0xffF7EBE1),
+      body: ClipRect(
+        child: Stack(
+          children: [
+            SplashView(
+              animationController: _animationController!,
+            ),
+            RelaxView(
+              animationController: _animationController!,
+            ),
+            CareView(
+              animationController: _animationController!,
+            ),
+            MoodDiaryVew(
+              animationController: _animationController!,
+            ),
+            WelcomeView(
+              animationController: _animationController!,
+            ),
+            TopBackSkipView(
+              onBackClick: _onBackClick,
+              onSkipClick: _onSkipClick,
+              animationController: _animationController!,
+            ),
+            CenterNextButton(
+              animationController: _animationController!,
+              onNextClick: _onNextClick,
+            ),
+          ],
         ),
       ),
     );
   }
+
+  void _onSkipClick() {
+    _animationController?.animateTo(0.8,
+        duration: Duration(milliseconds: 1200));
+  }
+
+  void _onBackClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.0);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.2);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.8 &&
+        _animationController!.value <= 1.0) {
+      _animationController?.animateTo(0.8);
+    }
+  }
+
+  void _onNextClick() {
+    if (_animationController!.value >= 0 &&
+        _animationController!.value <= 0.2) {
+      _animationController?.animateTo(0.4);
+    } else if (_animationController!.value > 0.2 &&
+        _animationController!.value <= 0.4) {
+      _animationController?.animateTo(0.6);
+    } else if (_animationController!.value > 0.4 &&
+        _animationController!.value <= 0.6) {
+      _animationController?.animateTo(0.8);
+    } else if (_animationController!.value > 0.6 &&
+        _animationController!.value <= 0.8) {
+    }
+  }
+
+ 
 }

@@ -19,6 +19,8 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
+        jsonData['data'] ??=
+            {}; // Inisialisasi jsonData['data'] sebagai Map kosong jika bernilai null
         jsonData['data']['status'] = 200;
         jsonData['data']['access_token'] = jsonData['access_token'];
         jsonData['data']['token_type'] = jsonData['token_type'];
@@ -65,7 +67,7 @@ class AuthApi extends SharedApi {
     }
   }
 
-  // Login API
+  // Register API
   Future<UserModel?> registerAPI(
       String name, String email, String password) async {
     try {
@@ -78,6 +80,8 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
+        jsonData['data'] ??=
+            {}; // Inisialisasi jsonData['data'] sebagai Map kosong jika bernilai null
         jsonData['data']['status'] = 200;
         jsonData['data']['access_token'] = jsonData['access_token'];
         jsonData['data']['token_type'] = jsonData['token_type'];
