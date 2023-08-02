@@ -13,8 +13,8 @@ class AuthApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + 'login'),
-        body: {'email': email, 'password': password},
+        Uri.parse(baseUrl + "/auth" + "/signin"),
+        body: {'usernameOrEmail': email, 'password': password},
       );
       stopLoading();
       jsonData = json.decode(data.body);
@@ -42,7 +42,8 @@ class AuthApi extends SharedApi {
       };
       var jsonData;
       showLoading();
-      var data = await http.get(Uri.parse(baseUrl + 'user'), headers: headers);
+      var data = await http.get(Uri.parse(baseUrl + '/user' + '/me'),
+          headers: headers);
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
