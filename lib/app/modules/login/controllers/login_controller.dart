@@ -22,7 +22,7 @@ class LoginController extends GetxController {
       await box.write("name", userModel!.name);
       await box.write("email", userModel!.email);
       update();
-      Get.offAndToNamed(Routes.HOME);
+      Get.offAndToNamed(Routes.NAVIGATION);
     } else if (userModel!.status == 404) {
       loginScreen = true;
       update();

@@ -1,5 +1,12 @@
 import 'package:get/get.dart';
 
+import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
+import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
+import 'package:crud_flutter_api/app/modules/sidebar/bindings/sidebar_binding.dart';
+import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
+import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
+import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
+
 import '../modules/add_post/bindings/add_post_binding.dart';
 import '../modules/add_post/views/add_post_view.dart';
 import '../modules/all_post/bindings/all_post_binding.dart';
@@ -22,7 +29,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.START;
+  static const INITIAL = Routes.NAVIGATION;
 
   static final routes = [
     GetPage(
@@ -64,6 +71,21 @@ class AppPages {
       name: _Paths.EDIT_POST,
       page: () => const EditPostView(),
       binding: EditPostBinding(),
+    ),
+    // GetPage(
+    //   name: _Paths.SIDEBAR,
+    //   page: () => SidebarView(),
+    //   binding: SidebarBinding(),
+    // ),
+    GetPage(
+      name: _Paths.NAVIGATION,
+      page: () => NavigationView(),
+      binding: NavigationBinding(),
+    ),
+    GetPage(
+      name: _Paths.USER,
+      page: () => UserView(),
+      binding: UserBinding(),
     ),
   ];
 }

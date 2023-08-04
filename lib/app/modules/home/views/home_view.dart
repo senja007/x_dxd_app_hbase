@@ -1,9 +1,11 @@
+import 'package:crud_flutter_api/app/modules/home/controllers/home_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
   final List<String> imageUrls = [

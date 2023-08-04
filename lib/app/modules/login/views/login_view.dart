@@ -163,7 +163,7 @@ class LoginView extends GetView<LoginController> {
                     child: ElevatedButton(
                       onPressed: () async {
                         if (controller.isLoading.isFalse) {
-                          await controller.login();
+                          controller.login();
                         }
                       },
                       child: Text(

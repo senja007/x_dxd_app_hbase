@@ -17,28 +17,28 @@ class AuthApi extends SharedApi {
         body: {'usernameOrEmail': email, 'password': password},
       );
       stopLoading();
-      
+
       if (data.statusCode == 200) {
-      jsonData = json.decode(data.body);
-      if (jsonData != null && jsonData['data'] != null) {
-        jsonData['data']['status'] = 200;
-        jsonData['data']['access_token'] = jsonData['access_token'];
-        jsonData['data']['token_type'] = jsonData['token_type'];
-        return UserModel.fromJson(jsonData['data']);
+        jsonData = json.decode(data.body);
+        if (jsonData != null && jsonData['data'] != null) {
+          jsonData['data']['status'] = 200;
+          jsonData['data']['access_token'] = jsonData['access_token'];
+          jsonData['data']['token_type'] = jsonData['token_type'];
+          return UserModel.fromJson(jsonData['data']);
+        } else {
+          showErrorMessage('Invalid response data');
+          return UserModel.fromJson({"status": data.statusCode});
+        }
       } else {
-        showErrorMessage('Invalid response data');
+        jsonData = json.decode(data.body);
+        showErrorMessage(jsonData['message']);
         return UserModel.fromJson({"status": data.statusCode});
       }
-    } else {
-      jsonData = json.decode(data.body);
-      showErrorMessage(jsonData['message']);
-      return UserModel.fromJson({"status": data.statusCode});
+    } on Exception catch (_) {
+      stopLoading();
+      showInternetMessage("Periksa koneksi internet anda");
+      return UserModel.fromJson({"status": 404});
     }
-  } on Exception catch (_) {
-    stopLoading();
-    showInternetMessage("Periksa koneksi internet anda");
-    return UserModel.fromJson({"status": 404});
-  }
   }
 
   // Check Token API
