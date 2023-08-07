@@ -1,9 +1,27 @@
 import 'package:get/get.dart';
 
+import 'package:crud_flutter_api/app/modules/buku_lahir/bindings/buku_lahir_binding.dart';
+import 'package:crud_flutter_api/app/modules/buku_lahir/views/buku_lahir_view.dart';
+import 'package:crud_flutter_api/app/modules/kandang/bindings/kandang_binding.dart';
+import 'package:crud_flutter_api/app/modules/kandang/views/kandang_view.dart';
+import 'package:crud_flutter_api/app/modules/kartu_ternak/bindings/kartu_ternak_binding.dart';
+import 'package:crud_flutter_api/app/modules/kartu_ternak/views/kartu_ternak_view.dart';
+import 'package:crud_flutter_api/app/modules/main/bindings/main_binding.dart';
+import 'package:crud_flutter_api/app/modules/main/views/main_view.dart';
+import 'package:crud_flutter_api/app/modules/mutasi/bindings/mutasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/mutasi/views/mutasi_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
+import 'package:crud_flutter_api/app/modules/pakan/bindings/pakan_binding.dart';
+import 'package:crud_flutter_api/app/modules/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/pemilik/bindings/pemilik_binding.dart';
+import 'package:crud_flutter_api/app/modules/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/produksi/bindings/produksi_binding.dart';
+import 'package:crud_flutter_api/app/modules/produksi/views/produksi_view.dart';
 import 'package:crud_flutter_api/app/modules/sidebar/bindings/sidebar_binding.dart';
 import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
+import 'package:crud_flutter_api/app/modules/unit_usaha/bindings/unit_usaha_binding.dart';
+import 'package:crud_flutter_api/app/modules/unit_usaha/views/unit_usaha_view.dart';
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
@@ -86,6 +104,51 @@ class AppPages {
       name: _Paths.USER,
       page: () => UserView(),
       binding: UserBinding(),
+    ),
+    GetPage(
+      name: _Paths.UNIT_USAHA,
+      page: () => UnitUsahaView(),
+      binding: UnitUsahaBinding(),
+    ),
+    GetPage(
+      name: _Paths.KANDANG,
+      page: () => KandangView(),
+      binding: KandangBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAKAN,
+      page: () => PakanView(),
+      binding: PakanBinding(),
+    ),
+    GetPage(
+      name: _Paths.BUKU_LAHIR,
+      page: () => BukuLahirView(),
+      binding: BukuLahirBinding(),
+    ),
+    GetPage(
+      name: _Paths.PEMILIK,
+      page: () => PemilikView(),
+      binding: PemilikBinding(),
+    ),
+    GetPage(
+      name: _Paths.KARTU_TERNAK,
+      page: () => KartuTernakView(),
+      binding: KartuTernakBinding(),
+    ),
+    GetPage(
+      name: _Paths.MUTASI,
+      page: () => MutasiView(),
+      binding: MutasiBinding(),
+    ),
+    GetPage(
+      name: _Paths.PRODUKSI,
+      page: () => ProduksiView(),
+      binding: ProduksiBinding(),
+    ),
+    GetPage(
+      name: _Paths.MAIN,
+      page: () => MainView(),
+      binding: MainBinding(),
     ),
   ];
 }

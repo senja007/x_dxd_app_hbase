@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
+import '../../main/views/main_view.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends StatelessWidget {
@@ -17,7 +18,7 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            SidebarView(),
+            MainView(),
             UserView(),
           ],
         )),

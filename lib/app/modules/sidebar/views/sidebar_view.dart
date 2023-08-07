@@ -1,255 +1,150 @@
+import 'package:crud_flutter_api/app/modules/buku_lahir/views/buku_lahir_view.dart';
+import 'package:crud_flutter_api/app/modules/kandang/views/kandang_view.dart';
+import 'package:crud_flutter_api/app/modules/kartu_ternak/views/kartu_ternak_view.dart';
+import 'package:crud_flutter_api/app/modules/mutasi/views/mutasi_view.dart';
+import 'package:crud_flutter_api/app/modules/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/produksi/views/produksi_view.dart';
+import 'package:crud_flutter_api/app/modules/unit_usaha/views/unit_usaha_view.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
-
+import '../../../routes/app_pages.dart';
 import '../controllers/sidebar_controller.dart';
 
-class SidebarView extends GetView<SidebarController> {
-  SidebarView({Key? key}) : super(key: key);
+class SidebarView extends StatefulWidget {
+  @override
+  _SidebarViewState createState() => _SidebarViewState();
+}
 
-  // final _controller = SidebarXController(selectedIndex: 0, extended: true);
-  // final _key = GlobalKey<ScaffoldState>();
+class _SidebarViewState extends State<SidebarView> {
+  int _currentIndex = 0;
+
+  final List<Widget> _pages = [
+    UnitUsahaView(),
+    KandangView(),
+    PakanView(),
+    BukuLahirView(),
+    PemilikView(),
+    KartuTernakView(),
+    MutasiView(),
+    ProduksiView(),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<SidebarController>(builder: (controller) {
-      return MaterialApp(
-          //   title: 'SidebarX',
-          //   debugShowCheckedModeBanner: false,
-          //   theme: ThemeData(
-          //     primaryColor: primaryColor,
-          //     canvasColor: canvasColor,
-          //     scaffoldBackgroundColor: scaffoldBackgroundColor,
-          //     textTheme: const TextTheme(
-          //       headlineSmall: TextStyle(
-          //         color: Colors.white,
-          //         fontSize: 46,
-          //         fontWeight: FontWeight.w800,
-          //       ),
-          //     ),
-          //   ),
-          //   home: Builder(
-          //     builder: (context) {
-          //       final isSmallScreen = MediaQuery.of(context).size.width < 600;
-          //       return Scaffold(
-          //         key: _key,
-          //         appBar: isSmallScreen
-          //             ? AppBar(
-          //                 backgroundColor: canvasColor,
-          //                 title: Text(_getTitleByIndex(_controller.selectedIndex)),
-          //                 leading: IconButton(
-          //                   onPressed: () {
-          //                     // if (!Platform.isAndroid && !Platform.isIOS) {
-          //                     //   _controller.setExtended(true);
-          //                     // }
-          //                     _key.currentState?.openDrawer();
-          //                   },
-          //                   icon: const Icon(Icons.menu),
-          //                 ),
-          //               )
-          //             : null,
-          //         drawer: ExampleSidebarX(controller: _controller),
-          //         body: Row(
-          //           children: [
-          //             if (!isSmallScreen) ExampleSidebarX(controller: _controller),
-          //             Expanded(
-          //               child: Center(
-          //                 child: _ScreensExample(
-          //                   controller: _controller,
-          //                 ),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     },
-          //   ),
-          );
+      return Scaffold(
+        drawer: Drawer(
+          child: IndexedStack(
+            index: controller.tabIndex,
+            children: [
+              UnitUsahaView(),
+              KandangView(),
+              PakanView(),
+              BukuLahirView(),
+              PemilikView(),
+              KartuTernakView(),
+              MutasiView(),
+              ProduksiView(),
+            ],
+          ),
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color(0xff132137),
+                ),
+                child: Text(
+                  'Sidebar Menu',
+                  style: TextStyle(color: Colors.white, fontSize: 24),
+                ),
+              ),
+              ListTile(
+                leading: Icon(Icons.real_estate_agent),
+                title: Text('Unit Usaha'),
+                onTap: () {
+                  _onItemTapped(0);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.warehouse_rounded),
+                title: Text('Kandang'),
+                onTap: () {
+                  _onItemTapped(1);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.grass),
+                title: Text('Pakan'),
+                onTap: () {
+                  _onItemTapped(2);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.menu_book_rounded),
+                title: Text('Buku Lahir'),
+                onTap: () {
+                  _onItemTapped(3);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.person),
+                title: Text('Pemilik'),
+                onTap: () {
+                  _onItemTapped(4);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.credit_card_rounded),
+                title: Text('Kartu Ternak'),
+                onTap: () {
+                  _onItemTapped(5);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.warning_rounded),
+                title: Text('Mutasi'),
+                onTap: () {
+                  _onItemTapped(6);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.auto_graph),
+                title: Text('Produksi'),
+                onTap: () {
+                  _onItemTapped(7);
+                  Navigator.pop(context); // Close the sidebar
+                },
+              ),
+            ],
+          ),
+        ),
+        body: _pages[_currentIndex],
+      );
+
+      // navigate(int index) {
+      //   if (index == 0) {
+      //     Get.toNamed(Routes.PAKAN);
+      //   } else if (index == 1) {
+      //     Get.toNamed(Routes.PEMILIK);
+      //   }
+      //   if (index == 2) {
+      //     Get.toNamed(Routes.PRODUKSI);
+      //   }
     });
   }
 }
-
-// class ExampleSidebarX extends StatelessWidget {
-//   const ExampleSidebarX({
-//     Key? key,
-//     required SidebarXController controller,
-//   })  : _controller = controller,
-//         super(key: key);
-
-//   final SidebarXController _controller;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SidebarX(
-//       controller: _controller,
-//       theme: SidebarXTheme(
-//         margin: const EdgeInsets.all(10),
-//         decoration: BoxDecoration(
-//           color: canvasColor,
-//           borderRadius: BorderRadius.circular(20),
-//         ),
-//         hoverColor: scaffoldBackgroundColor,
-//         textStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-//         selectedTextStyle: const TextStyle(color: Colors.white),
-//         itemTextPadding: const EdgeInsets.only(left: 30),
-//         selectedItemTextPadding: const EdgeInsets.only(left: 30),
-//         itemDecoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           border: Border.all(color: canvasColor),
-//         ),
-//         selectedItemDecoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           border: Border.all(
-//             color: actionColor.withOpacity(0.37),
-//           ),
-//           gradient: const LinearGradient(
-//             colors: [accentCanvasColor, canvasColor],
-//           ),
-//           boxShadow: [
-//             BoxShadow(
-//               color: Colors.black.withOpacity(0.28),
-//               blurRadius: 30,
-//             )
-//           ],
-//         ),
-//         iconTheme: IconThemeData(
-//           color: Colors.white.withOpacity(0.7),
-//           size: 20,
-//         ),
-//         selectedIconTheme: const IconThemeData(
-//           color: Colors.white,
-//           size: 20,
-//         ),
-//       ),
-//       extendedTheme: const SidebarXTheme(
-//         width: 200,
-//         decoration: BoxDecoration(
-//           color: canvasColor,
-//         ),
-//       ),
-//       footerDivider: divider,
-//       headerBuilder: (context, extended) {
-//         return SizedBox(
-//           height: 100,
-//           child: Padding(
-//             padding: const EdgeInsets.all(16.0),
-//             child: Image.asset('assets/images/avatar.png'),
-//           ),
-//         );
-//       },
-//       items: [
-//         SidebarXItem(
-//           icon: Icons.home,
-//           label: 'Unit Usaha',
-//           onTap: () {
-//             debugPrint('Unit Usaha');
-//           },
-//         ),
-//         // New child widget added to the sidebar item
-
-//         const SidebarXItem(
-//           icon: Icons.warehouse_rounded,
-//           label: 'Kandang',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.rice_bowl_rounded,
-//           label: 'Pakan',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.menu_book_rounded,
-//           label: 'Buku Lahir',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.person_4_rounded,
-//           label: 'Pemiilik',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.card_membership_rounded,
-//           label: 'Kartu Ternak',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.my_library_books_rounded,
-//           label: 'Mutasi',
-//         ),
-//         const SidebarXItem(
-//           icon: Icons.equalizer_rounded,
-//           label: 'Produksi',
-//         ),
-//         // const SidebarXItem(
-//         //   iconWidget: FlutterLogo(size: 20),
-//         //   label: 'Pe',
-//         // ),
-//       ],
-//     );
-//   }
-// }
-
-// class _ScreensExample extends StatelessWidget {
-//   const _ScreensExample({
-//     Key? key,
-//     required this.controller,
-//   }) : super(key: key);
-
-//   final SidebarXController controller;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     final theme = Theme.of(context);
-//     return AnimatedBuilder(
-//       animation: controller,
-//       builder: (context, child) {
-//         final pageTitle = _getTitleByIndex(controller.selectedIndex);
-//         switch (controller.selectedIndex) {
-//           case 0:
-//             return ListView.builder(
-//               padding: const EdgeInsets.only(top: 10),
-//               itemBuilder: (context, index) => Container(
-//                 height: 100,
-//                 width: double.infinity,
-//                 margin: const EdgeInsets.only(bottom: 10, right: 10, left: 10),
-//                 decoration: BoxDecoration(
-//                   borderRadius: BorderRadius.circular(20),
-//                   color: Theme.of(context).canvasColor,
-//                   boxShadow: const [BoxShadow()],
-//                 ),
-//               ),
-//             );
-//           default:
-//             return Text(
-//               pageTitle,
-//               style: theme.textTheme.headlineSmall,
-//             );
-//         }
-//       },
-//     );
-//   }
-// }
-
-// String _getTitleByIndex(int index) {
-//   switch (index) {
-//     case 0:
-//       return 'Unit Usaha';
-//     case 1:
-//       return 'Kandang';
-//     case 2:
-//       return 'Pakan';
-//     case 3:
-//       return 'Buku Lahir';
-//     case 4:
-//       return 'Pemilik';
-//     case 5:
-//       return 'Kartu Ternak';
-//     case 6:
-//       return 'Mutasi';
-//     default:
-//       return 'Produksi';
-//   }
-// }
-
-// const primaryColor = Color(0xFF685BFF);
-// const canvasColor = Color(0xFF2E2E48);
-// const scaffoldBackgroundColor = Color(0xFF464667);
-// const accentCanvasColor = Color(0xFF3E3E61);
-// const white = Colors.white;
-// final actionColor = const Color(0xFF5F5FA7).withOpacity(0.6);
-// final divider = Divider(color: white.withOpacity(0.3), height: 1);
