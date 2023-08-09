@@ -10,6 +10,8 @@ import 'package:crud_flutter_api/app/modules/main/bindings/main_binding.dart';
 import 'package:crud_flutter_api/app/modules/main/views/main_view.dart';
 import 'package:crud_flutter_api/app/modules/mutasi/bindings/mutasi_binding.dart';
 import 'package:crud_flutter_api/app/modules/mutasi/views/mutasi_view.dart';
+import 'package:crud_flutter_api/app/modules/myaccount/bindings/myaccount_binding.dart';
+import 'package:crud_flutter_api/app/modules/myaccount/views/myaccount_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
 import 'package:crud_flutter_api/app/modules/pakan/bindings/pakan_binding.dart';
@@ -149,6 +151,11 @@ class AppPages {
       name: _Paths.MAIN,
       page: () => MainView(),
       binding: MainBinding(),
+    ),
+    GetPage(
+      name: _Paths.MYACCOUNT,
+      page: () => MyaccountView(),
+      binding: MyaccountBinding(),
     ),
   ];
 }

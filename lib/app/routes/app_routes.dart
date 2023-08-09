@@ -24,6 +24,7 @@ abstract class Routes {
   static const MUTASI = _Paths.MUTASI;
   static const PRODUKSI = _Paths.PRODUKSI;
   static const MAIN = _Paths.MAIN;
+  static const MYACCOUNT = _Paths.MYACCOUNT;
 }
 
 abstract class _Paths {
@@ -49,4 +50,5 @@ abstract class _Paths {
   static const MUTASI = '/mutasi';
   static const PRODUKSI = '/produksi';
   static const MAIN = '/main';
+  static const MYACCOUNT = '/myaccount';
 }
