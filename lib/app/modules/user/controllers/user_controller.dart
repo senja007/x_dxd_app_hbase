@@ -2,8 +2,13 @@ import 'package:get/get.dart';
 
 class UserController extends GetxController {
   //TODO: Implement UserController
+  var tabIndex = 0;
 
-  final count = 0.obs;
+  void changeTabIndex(int index) {
+    tabIndex = index;
+    update();
+  }
+
   @override
   void onInit() {
     super.onInit();
@@ -16,5 +21,5 @@ class UserController extends GetxController {
 
   @override
   void onClose() {}
-  void increment() => count.value++;
+  // void increment() => count.value++;
 }
