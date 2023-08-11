@@ -11,13 +11,12 @@ class PostApi extends SharedApi {
   // Login API
   Future<PostListModel> loadPostAPI() async {
     try {
-      var data =
-          await http.get(Uri.parse(baseUrl + 'posts'), headers: getToken());
+      var data = await http.get(Uri.parse(baseUrl + '/department'),
+          headers: getToken());
       print("hasil" + data.statusCode.toString());
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
-        return PostListModel.fromJson(
-            {"status": 200, "items": jsonData['data']});
+        return PostListModel.fromJson({"status": 200, "items": jsonData});
       } else {
         return PostListModel.fromJson({"status": data.statusCode, "items": []});
       }
@@ -26,20 +25,20 @@ class PostApi extends SharedApi {
     }
   }
 
-  Future<PostModel?> addPostAPI(String title, String content) async {
+  Future<PostModel?> addPostAPI(String content, String text) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + 'posts'),
+        Uri.parse(baseUrl + '/department'),
         headers: getToken(),
-        body: {'title': title, 'content': content, 'status': "1"},
+        body: {'content': content, 'status': "1"},
       );
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData['data']['status_code'] = 200;
-        return PostModel.fromJson(jsonData['data']);
+        jsonData['statusCode'] = 200;
+        return PostModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
         return PostModel.fromJson({"status": data.statusCode});
@@ -57,15 +56,15 @@ class PostApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.put(
-        Uri.parse(baseUrl + 'posts/' + id.toString()),
+        Uri.parse(baseUrl + '/department/' + id.toString()),
         headers: getToken(),
-        body: {'title': title, 'content': content, 'status': "1"},
+        body: {'content': content, 'status': "1"},
       );
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData['data']['status_code'] = 200;
-        return PostModel.fromJson(jsonData['data']);
+        jsonData['statusCode'] = 200;
+        return PostModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
         return PostModel.fromJson({"status": data.statusCode});
@@ -90,12 +89,12 @@ class PostApi extends SharedApi {
       if (data.statusCode == 200) {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
-        postData["status_code"] = 200;
+        postData["statusCode"] = 200;
         postData["status"] = 1;
         postData['id'] = 0;
-        postData['title'] = "";
+
         postData['content'] = "";
-        postData['slug'] = "";
+
         print(postData);
         // Kirim variabel postData ke dalam fungsi PostModel.fromJson
         return PostModel.fromJson(postData);

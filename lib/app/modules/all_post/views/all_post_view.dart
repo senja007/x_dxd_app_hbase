@@ -56,7 +56,6 @@ class AllPostView extends GetView<AllPostController> {
                             Routes.DETAIL_POST,
                             arguments: {
                               "id": "${postData.id}",
-                              "title": "${postData.title}",
                               "content": "${postData.content}",
                             },
                           ),
@@ -80,13 +79,9 @@ class AllPostView extends GetView<AllPostController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    (postData.title == null)
+                                    (postData.id == null)
                                         ? "-"
-                                        : "${postData.title}",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                  Text(
-                                    "${postData.content}",
+                                        : "${postData.content}",
                                     style: TextStyle(fontSize: 12),
                                   ),
                                 ],

@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/modules/all_post/views/all_post_view.dart';
 import 'package:crud_flutter_api/app/modules/home/views/home_view.dart';
 import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
@@ -19,7 +20,7 @@ class NavigationView extends StatelessWidget {
           children: [
             HomeView(),
             MainView(),
-            UserView(),
+            AllPostView(),
           ],
         )),
         bottomNavigationBar: BottomNavigationBar(

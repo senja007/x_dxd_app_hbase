@@ -11,20 +11,36 @@ class AuthApi extends SharedApi {
   Future<UserModel?> loginAPI(String email, String password) async {
     try {
       var jsonData;
-      showLoading();
       var data = await http.post(
         Uri.parse(baseUrl + "/auth" + "/signin"),
-        body: {'usernameOrEmail': email, 'password': password},
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({
+          'usernameOrEmail': email,
+          'password': password,
+        }),
       );
       stopLoading();
+      print(data.statusCode);
 
+      print(data.body);
       if (data.statusCode == 200) {
         jsonData = json.decode(data.body);
-        if (jsonData != null && jsonData['data'] != null) {
-          jsonData['data']['status'] = 200;
-          jsonData['data']['access_token'] = jsonData['access_token'];
-          jsonData['data']['token_type'] = jsonData['token_type'];
-          return UserModel.fromJson(jsonData['data']);
+
+        if (jsonData != null) {
+          jsonData['userSummary']['status'] = 200;
+          jsonData['userSummary']['id'] = jsonData['id'];
+          jsonData['userSummary']['username'] = jsonData['username'];
+          jsonData['userSummary']['name'] = jsonData["name"];
+          jsonData['userSummary']['role'] = jsonData["role"];
+          jsonData['userSummary']['description'] = jsonData["description"];
+          jsonData['userSummary']['avatar'] = jsonData["avatar"];
+          jsonData['userSummary']['accessToken'] = jsonData["accessToken"];
+          jsonData['userSummary']['tokenType'] = jsonData["tokenType"];
+
+          print(jsonData);
+          return UserModel.fromJson(jsonData['userSummary']);
         } else {
           showErrorMessage('Invalid response data');
           return UserModel.fromJson({"status": data.statusCode});
@@ -54,9 +70,15 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
-        jsonData['status'] = '200';
-        jsonData['access_token'] = token;
-        jsonData['token_type'] = "bearer";
+        jsonData['status'] = 200;
+        jsonData['userSummary']['id'] = jsonData['id'];
+        jsonData['userSummary']['username'] = jsonData['username'];
+        jsonData['userSummary']['name'] = jsonData["name"];
+        jsonData['userSummary']['role'] = jsonData["role"];
+        jsonData['userSummary']['description'] = jsonData["description"];
+        jsonData['userSummary']['avatar'] = jsonData["avatar"];
+        jsonData['accessToken'] = token;
+        jsonData['tokenType'] = "Bearer ";
         return UserModel.fromJson(jsonData);
       } else if (data.statusCode == 401) {
         showErrorMessage(jsonData['message']);
@@ -79,7 +101,7 @@ class AuthApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + 'register'),
+        Uri.parse(baseUrl + '/auth' + '/signup'),
         body: {'name': name, 'email': email, 'password': password},
       );
       stopLoading();
