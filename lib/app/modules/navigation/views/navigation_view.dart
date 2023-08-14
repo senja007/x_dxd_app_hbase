@@ -19,8 +19,8 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            MainView(),
-            AllPostView(),
+            SidebarNavigation(),
+            UserView(),
           ],
         )),
         bottomNavigationBar: BottomNavigationBar(

@@ -9,13 +9,19 @@ class PemilikView extends GetView<PemilikController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PemilikView'),
-        centerTitle: true,
+        title: Text('Pemilik'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'PemilikView is working',
-          style: TextStyle(fontSize: 20),
+          'Pemilik Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

@@ -6,16 +6,22 @@ import '../controllers/kartu_ternak_controller.dart';
 
 class KartuTernakView extends GetView<KartuTernakController> {
   @override
-  Widget build(BuildContext context) {
+   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KartuTernakView'),
-        centerTitle: true,
+        title: Text('Kartu Ternak'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'KartuTernakView is working',
-          style: TextStyle(fontSize: 20),
+          'Kartu Ternak Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

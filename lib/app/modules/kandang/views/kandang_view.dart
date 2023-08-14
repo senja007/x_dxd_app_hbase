@@ -9,13 +9,19 @@ class KandangView extends GetView<KandangController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('KandangView'),
-        centerTitle: true,
+        title: Text('Kandang'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'KandangView is working',
-          style: TextStyle(fontSize: 20),
+          'Kandang Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

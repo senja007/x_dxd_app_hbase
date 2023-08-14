@@ -9,13 +9,19 @@ class PakanView extends GetView<PakanController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('PakanView'),
-        centerTitle: true,
+        title: Text('Pakan'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'PakanView is working',
-          style: TextStyle(fontSize: 20),
+          'Pakan Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

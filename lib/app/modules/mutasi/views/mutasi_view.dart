@@ -9,13 +9,19 @@ class MutasiView extends GetView<MutasiController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MutasiView'),
-        centerTitle: true,
+        title: Text('Mutasi'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'MutasiView is working',
-          style: TextStyle(fontSize: 20),
+          'Mutasi Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

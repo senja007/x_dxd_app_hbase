@@ -9,13 +9,19 @@ class ProduksiView extends GetView<ProduksiController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ProduksiView'),
-        centerTitle: true,
+        title: Text('Produksi'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
       ),
       body: Center(
         child: Text(
-          'ProduksiView is working',
-          style: TextStyle(fontSize: 20),
+          'Produksi Page',
+          style: TextStyle(fontSize: 24),
         ),
       ),
     );

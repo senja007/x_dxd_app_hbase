@@ -92,11 +92,11 @@ class AppPages {
       page: () => const EditPostView(),
       binding: EditPostBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.SIDEBAR,
-    //   page: () => SidebarView(),
-    //   binding: SidebarBinding(),
-    // ),
+    GetPage(
+      name: _Paths.SIDEBAR,
+      page: () => SidebarNavigation(),
+      binding: SidebarBinding(),
+    ),
     GetPage(
       name: _Paths.NAVIGATION,
       page: () => NavigationView(),
