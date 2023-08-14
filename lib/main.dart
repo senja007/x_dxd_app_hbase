@@ -11,10 +11,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   Intl.defaultLocale = 'id_ID';
+  
   runApp(
     GetMaterialApp(
       title: "Application",
       initialRoute: AppPages.INITIAL,
+      debugShowCheckedModeBanner: false,
       getPages: AppPages.routes,
       builder: BotToastInit(),
       navigatorObservers: [BotToastNavigatorObserver()],
