@@ -19,13 +19,13 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            SidebarNavigation(),
+            MainView(),
             UserView(),
           ],
         )),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor:
-              Color.fromARGB(255, 19, 33, 55), // Set your desired background color here
+          backgroundColor: Color.fromARGB(
+              255, 19, 33, 55), // Set your desired background color here
           selectedItemColor: Color.fromARGB(
               255, 80, 147, 255), // Set the selected item color to white
           unselectedItemColor: Color.fromARGB(

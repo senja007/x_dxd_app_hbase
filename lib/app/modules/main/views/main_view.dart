@@ -9,7 +9,7 @@ class MainView extends GetView<MainController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: SidebarNavigation(),
+      drawer: SidebarView(),
       appBar: AppBar(
         title: Text('MainView'),
         backgroundColor: Color(0xff132137),
@@ -17,4 +17,4 @@ class MainView extends GetView<MainController> {
       ),
     );
   }
-} 
+}

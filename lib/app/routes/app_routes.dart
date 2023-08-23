@@ -15,7 +15,6 @@ abstract class Routes {
   static const SIDEBAR = _Paths.SIDEBAR;
   static const NAVIGATION = _Paths.NAVIGATION;
   static const USER = _Paths.USER;
-  static const UNIT_USAHA = _Paths.UNIT_USAHA;
   static const KANDANG = _Paths.KANDANG;
   static const PAKAN = _Paths.PAKAN;
   static const BUKU_LAHIR = _Paths.BUKU_LAHIR;
@@ -25,6 +24,7 @@ abstract class Routes {
   static const PRODUKSI = _Paths.PRODUKSI;
   static const MAIN = _Paths.MAIN;
   static const MYACCOUNT = _Paths.MYACCOUNT;
+  static const PETUGAS = _Paths.PETUGAS;
 }
 
 abstract class _Paths {
@@ -41,7 +41,6 @@ abstract class _Paths {
   static const SIDEBAR = '/sidebar';
   static const NAVIGATION = '/navigation';
   static const USER = '/user';
-  static const UNIT_USAHA = '/unit-usaha';
   static const KANDANG = '/kandang';
   static const PAKAN = '/pakan';
   static const BUKU_LAHIR = '/buku-lahir';
@@ -51,4 +50,5 @@ abstract class _Paths {
   static const PRODUKSI = '/produksi';
   static const MAIN = '/main';
   static const MYACCOUNT = '/myaccount';
+  static const PETUGAS = '/petugas';
 }

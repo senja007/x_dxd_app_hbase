@@ -4,8 +4,6 @@ import 'package:crud_flutter_api/app/modules/buku_lahir/bindings/buku_lahir_bind
 import 'package:crud_flutter_api/app/modules/buku_lahir/views/buku_lahir_view.dart';
 import 'package:crud_flutter_api/app/modules/kandang/bindings/kandang_binding.dart';
 import 'package:crud_flutter_api/app/modules/kandang/views/kandang_view.dart';
-import 'package:crud_flutter_api/app/modules/kartu_ternak/bindings/kartu_ternak_binding.dart';
-import 'package:crud_flutter_api/app/modules/kartu_ternak/views/kartu_ternak_view.dart';
 import 'package:crud_flutter_api/app/modules/main/bindings/main_binding.dart';
 import 'package:crud_flutter_api/app/modules/main/views/main_view.dart';
 import 'package:crud_flutter_api/app/modules/mutasi/bindings/mutasi_binding.dart';
@@ -18,12 +16,12 @@ import 'package:crud_flutter_api/app/modules/pakan/bindings/pakan_binding.dart';
 import 'package:crud_flutter_api/app/modules/pakan/views/pakan_view.dart';
 import 'package:crud_flutter_api/app/modules/pemilik/bindings/pemilik_binding.dart';
 import 'package:crud_flutter_api/app/modules/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/petugas/bindings/petugas_binding.dart';
+import 'package:crud_flutter_api/app/modules/petugas/views/petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/produksi/bindings/produksi_binding.dart';
 import 'package:crud_flutter_api/app/modules/produksi/views/produksi_view.dart';
 import 'package:crud_flutter_api/app/modules/sidebar/bindings/sidebar_binding.dart';
 import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
-import 'package:crud_flutter_api/app/modules/unit_usaha/bindings/unit_usaha_binding.dart';
-import 'package:crud_flutter_api/app/modules/unit_usaha/views/unit_usaha_view.dart';
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
@@ -94,7 +92,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SIDEBAR,
-      page: () => SidebarNavigation(),
+      page: () => SidebarView(),
       binding: SidebarBinding(),
     ),
     GetPage(
@@ -106,11 +104,6 @@ class AppPages {
       name: _Paths.USER,
       page: () => UserView(),
       binding: UserBinding(),
-    ),
-    GetPage(
-      name: _Paths.UNIT_USAHA,
-      page: () => UnitUsahaView(),
-      binding: UnitUsahaBinding(),
     ),
     GetPage(
       name: _Paths.KANDANG,
@@ -133,11 +126,6 @@ class AppPages {
       binding: PemilikBinding(),
     ),
     GetPage(
-      name: _Paths.KARTU_TERNAK,
-      page: () => KartuTernakView(),
-      binding: KartuTernakBinding(),
-    ),
-    GetPage(
       name: _Paths.MUTASI,
       page: () => MutasiView(),
       binding: MutasiBinding(),
@@ -156,6 +144,11 @@ class AppPages {
       name: _Paths.MYACCOUNT,
       page: () => MyaccountView(),
       binding: MyaccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.PETUGAS,
+      page: () => PetugasView(),
+      binding: PetugasBinding(),
     ),
   ];
 }
