@@ -10,8 +10,8 @@ class PostApi extends SharedApi {
   // Login API
   Future<PostListModel> loadPostAPI() async {
     try {
-      var data =
-          await http.get(Uri.parse(baseUrl + '/petugas'), headers: getToken());
+      var data = await http.get(Uri.parse(baseUrl + '/kelahiran'),
+          headers: getToken());
       print("hasil" + data.statusCode.toString());
       print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -35,7 +35,7 @@ class PostApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + '/petugas'),
+        Uri.parse(baseUrl + '/kelahiran'),
         headers: getToken(),
         body: {'content': content, 'status': "1"},
       );
@@ -61,7 +61,7 @@ class PostApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.put(
-        Uri.parse(baseUrl + '/petugas/' + id.toString()),
+        Uri.parse(baseUrl + '/kelahiran/' + id.toString()),
         headers: getToken(),
         body: {'content': content, 'status': "1"},
       );
@@ -86,7 +86,7 @@ class PostApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/petugas/' + id.toString()),
+        Uri.parse(baseUrl + '/kelahiran/' + id.toString()),
         headers: getToken(),
       );
       stopLoading();

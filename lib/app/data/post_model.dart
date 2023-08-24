@@ -1,37 +1,57 @@
-import 'dart:convert';
-
 class PostModel {
   final int? id;
-
-  final String? content;
-
+  final String? namaPetugas;
+  final String? nikPetugas;
+  final String? noTelp;
+  final String? email;
   final int? status;
 
   PostModel({
-    this.id,
-    this.content,
     this.status,
+    this.id,
+    this.namaPetugas,
+    this.nikPetugas,
+    this.noTelp,
+    this.email,
   });
 
   factory PostModel.fromJson(Map<String, dynamic> jsonData) {
     return PostModel(
-      id: jsonData['id'],
-      content: jsonData['content'],
-      status: jsonData['statusCode'],
+      status: jsonData['status'] != null ? jsonData['status'] : 0,
+      id: jsonData['id'] != null ? jsonData['id'] : 0,
+      namaPetugas:
+          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
+      nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
+      noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
+      email: jsonData['email'] != null ? jsonData['email'] : "",
     );
   }
 }
 
 class PostListModel {
   final int? status; // 200 - 204 - 400 - 404
-  final List<PostModel>? items;
-  PostListModel({this.status, this.items});
+  final List<PostModel>? content;
+  final int? page;
+  final int? size;
+  final int? totalElements;
+  final int? totalPages;
+  PostListModel(
+      {this.status,
+      this.content,
+      this.page,
+      this.size,
+      this.totalElements,
+      this.totalPages});
   factory PostListModel.fromJson(Map<String, dynamic> jsonData) {
     return PostListModel(
         status: jsonData['status'],
-        items: jsonData['items']
+        content: jsonData['content']
             .map<PostModel>((data) => PostModel.fromJson(data))
-            .toList());
+            .toList(),
+        page: jsonData['page'],
+        size: jsonData['size'],
+        totalElements: jsonData['totalElements'],
+        totalPages: jsonData['totalPages']);
   }
 }
 
@@ -44,40 +64,40 @@ class PostListModel {
 // String usermodelToJson(Usermodel data) => json.encode(data.toJson());
 
 // class Usermodel {
-//   List<Content> content;
-//   int page;
-//   int size;
-//   int totalElements;
+//   List<Content> namaPetugas;
+//   int nikPetugas;
+//   int noTelp;
+//   int email;
 //   int totalPages;
 //   bool last;
 //   int statusCode;
 
 //   Usermodel({
-//     this.content,
-//     this.page,
-//     this.size,
-//     this.totalElements,
+//     this.namaPetugas,
+//     this.nikPetugas,
+//     this.noTelp,
+//     this.email,
 //     this.totalPages,
 //     this.last,
 //     this.statusCode,
 //   });
 
 //   factory Usermodel.fromJson(Map<String, dynamic> json) => Usermodel(
-//         content:
-//             List<Content>.from(json["content"].map((x) => Content.fromJson(x))),
-//         page: json["page"],
-//         size: json["size"],
-//         totalElements: json["totalElements"],
+//         namaPetugas:
+//             List<Content>.from(json["namaPetugas"].map((x) => Content.fromJson(x))),
+//         nikPetugas: json["nikPetugas"],
+//         noTelp: json["noTelp"],
+//         email: json["email"],
 //         totalPages: json["totalPages"],
 //         last: json["last"],
 //         statusCode: json["statusCode"],
 //       );
 
 //   Map<String, dynamic> toJson() => {
-//         "content": List<dynamic>.from(content.map((x) => x.toJson())),
-//         "page": page,
-//         "size": size,
-//         "totalElements": totalElements,
+//         "namaPetugas": List<dynamic>.from(namaPetugas.map((x) => x.toJson())),
+//         "nikPetugas": nikPetugas,
+//         "noTelp": noTelp,
+//         "email": email,
 //         "totalPages": totalPages,
 //         "last": last,
 //         "statusCode": statusCode,

@@ -1,16 +1,20 @@
+import 'package:crud_flutter_api/app/data/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../controllers/user_controller.dart';
 
 class UserView extends StatelessWidget {
   static String routeName = "/profile";
+
   @override
   Widget build(BuildContext context) {
-    Get.put(UserController());
+    UserController userController = Get.find<UserController>();
+    //Get.(UserController());
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(
@@ -30,30 +34,32 @@ class UserView extends StatelessWidget {
                 const SizedBox(height: 40),
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: AssetImage('assets/images/profile.jpg'),
+                  backgroundImage: NetworkImage(""),
                 ),
                 const SizedBox(height: 20),
-                itemProfile('Name', 'Ahad Hashmi', CupertinoIcons.person),
+                itemProfile('Name', '${userController.box.read('name')}',
+                    CupertinoIcons.person),
                 const SizedBox(height: 10),
-                itemProfile('Phone', '03107085816', CupertinoIcons.phone),
+                itemProfile('Role', '${userController.box.read('role')}',
+                    CupertinoIcons.person_3_fill),
+                // const SizedBox(height: 10),
+                // itemProfile('Address', 'abc address, xyz city',
+                //     CupertinoIcons.location),
                 const SizedBox(height: 10),
-                itemProfile('Address', 'abc address, xyz city',
-                    CupertinoIcons.location),
-                const SizedBox(height: 10),
-                itemProfile('Email', 'ahadhashmideveloper@gmail.com',
+                itemProfile('Email', '${userController.box.read('email')}',
                     CupertinoIcons.mail),
                 const SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      onPressed: () {},
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(15),
-                      ),
-                      child: const Text('Edit Profile')),
-                )
+                // SizedBox(
+                //   width: double.infinity,
+                //   child: ElevatedButton(
+                //       onPressed: () {},
+                //       style: ElevatedButton.styleFrom(
+                //         padding: const EdgeInsets.all(15),
+                //       ),
+                //       child: const Text('Edit Profile')),
+                // )
               ],
             )),
       );

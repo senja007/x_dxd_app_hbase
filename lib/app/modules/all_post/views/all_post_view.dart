@@ -5,12 +5,14 @@ import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart';
 import '../controllers/all_post_controller.dart';
 
 class AllPostView extends GetView<AllPostController> {
   const AllPostView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    Get.put(AllPostController());
     return GetBuilder<AllPostController>(
       builder: (controller) => AutoLoad(
         onInit: () async {
@@ -41,22 +43,23 @@ class AllPostView extends GetView<AllPostController> {
               ),
             ),
           ),
+          //body: Container(),
           body: GetBuilder<AllPostController>(
             builder: (controller) => controller.posts!.status == 200
                 ? ListView.separated(
-                    itemCount: controller.posts!.items!.length,
+                    itemCount: controller.posts!.content!.length,
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     separatorBuilder: (context, index) => SizedBox(height: 16),
                     itemBuilder: (context, index) {
-                      var postData = controller.posts!.items![index];
+                      var postData = controller.posts!.content![index];
                       return InkWell(
                         onTap: () => {
                           Get.toNamed(
                             Routes.DETAIL_POST,
                             arguments: {
                               "id": "${postData.id}",
-                              "content": "${postData.content}",
+                              "content": "${postData.id}",
                             },
                           ),
                         },
@@ -79,11 +82,18 @@ class AllPostView extends GetView<AllPostController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    (postData.id == null)
+                                    (postData.status == null)
                                         ? "-"
-                                        : "${postData.content}",
+                                        : "Nama Petugas"
+                                                " "
+                                                "${postData.namaPetugas}" +
+                                            " " +
+                                            "${postData.nikPetugas}",
                                     style: TextStyle(fontSize: 12),
                                   ),
+                                  Text((postData.status == null)
+                                      ? "-"
+                                      : "${postData.email}"),
                                 ],
                               ),
                             ],

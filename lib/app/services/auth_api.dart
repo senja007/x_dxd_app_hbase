@@ -7,7 +7,6 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 
 class AuthApi extends SharedApi {
-  // Login API
   Future<UserModel?> loginAPI(String email, String password) async {
     try {
       var jsonData;
@@ -21,39 +20,20 @@ class AuthApi extends SharedApi {
           'password': password,
         }),
       );
-      stopLoading();
-      print(data.statusCode);
 
-      print(data.body);
+      jsonData = json.decode(data.body);
+
+      //print(data.body);
       if (data.statusCode == 200) {
-        jsonData = json.decode(data.body);
+        jsonData['status'] = 200;
 
-        if (jsonData != null) {
-          jsonData['userSummary']['status'] = 200;
-          jsonData['userSummary']['id'] = jsonData['id'];
-          jsonData['userSummary']['username'] = jsonData['username'];
-          jsonData['userSummary']['name'] = jsonData["name"];
-          jsonData['userSummary']['role'] = jsonData["role"];
-          jsonData['userSummary']['description'] = jsonData["description"];
-          jsonData['userSummary']['avatar'] = jsonData["avatar"];
-          jsonData['userSummary']['accessToken'] = jsonData["accessToken"];
-          jsonData['userSummary']['tokenType'] = jsonData["tokenType"];
-
-          print(jsonData);
-          return UserModel.fromJson(jsonData['userSummary']);
-        } else {
-          showErrorMessage('Invalid response data');
-          return UserModel.fromJson({"status": data.statusCode});
-        }
+        print(jsonData);
+        return UserModel.fromJson(jsonData);
       } else {
-        jsonData = json.decode(data.body);
-        showErrorMessage(jsonData['message']);
-        return UserModel.fromJson({"status": data.statusCode});
+        return null;
       }
     } on Exception catch (_) {
-      stopLoading();
-      showInternetMessage("Periksa koneksi internet anda");
-      return UserModel.fromJson({"status": 404});
+      return null;
     }
   }
 
@@ -69,16 +49,13 @@ class AuthApi extends SharedApi {
           headers: headers);
       stopLoading();
       jsonData = json.decode(data.body);
+      print(data.body);
       if (data.statusCode == 200) {
-        jsonData['status'] = 200;
-        jsonData['userSummary']['id'] = jsonData['id'];
-        jsonData['userSummary']['username'] = jsonData['username'];
-        jsonData['userSummary']['name'] = jsonData["name"];
-        jsonData['userSummary']['role'] = jsonData["role"];
-        jsonData['userSummary']['description'] = jsonData["description"];
-        jsonData['userSummary']['avatar'] = jsonData["avatar"];
+        jsonData['status'] = '200';
         jsonData['accessToken'] = token;
         jsonData['tokenType'] = "Bearer ";
+        print(jsonData);
+        print(data.body);
         return UserModel.fromJson(jsonData);
       } else if (data.statusCode == 401) {
         showErrorMessage(jsonData['message']);

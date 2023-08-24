@@ -23,6 +23,7 @@ class LoginController extends GetxController {
       await box.write("id", userModel!.id);
       await box.write("username", userModel!.username);
       await box.write("name", userModel!.name);
+      await box.write("email", userModel!.email);
       await box.write("role", userModel!.role);
       await box.write("description", userModel!.description);
       await box.write("avatar", userModel!.avatar);

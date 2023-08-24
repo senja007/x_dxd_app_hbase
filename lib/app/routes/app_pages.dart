@@ -47,7 +47,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION;
+  static const INITIAL = Routes.LOGIN;
 
   static final routes = [
     GetPage(
@@ -149,7 +149,7 @@ class AppPages {
       name: _Paths.PETUGAS,
       page: () => PetugasView(),
       binding: PetugasBinding(),
-      transition: Transition.native, 
+      transition: Transition.native,
     ),
   ];
 }
