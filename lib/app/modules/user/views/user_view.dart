@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../controllers/user_controller.dart';
@@ -9,6 +10,7 @@ class UserView extends StatelessWidget {
   static String routeName = "/profile";
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController());
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(

@@ -1,27 +1,27 @@
 import 'package:get/get.dart';
 
-import 'package:crud_flutter_api/app/modules/buku_lahir/bindings/buku_lahir_binding.dart';
-import 'package:crud_flutter_api/app/modules/buku_lahir/views/buku_lahir_view.dart';
-import 'package:crud_flutter_api/app/modules/kandang/bindings/kandang_binding.dart';
-import 'package:crud_flutter_api/app/modules/kandang/views/kandang_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/buku_lahir/bindings/buku_lahir_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/buku_lahir/views/buku_lahir_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/kandang/bindings/kandang_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/kandang/views/kandang_view.dart';
 import 'package:crud_flutter_api/app/modules/main/bindings/main_binding.dart';
 import 'package:crud_flutter_api/app/modules/main/views/main_view.dart';
-import 'package:crud_flutter_api/app/modules/mutasi/bindings/mutasi_binding.dart';
-import 'package:crud_flutter_api/app/modules/mutasi/views/mutasi_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/bindings/mutasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/views/mutasi_view.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/bindings/myaccount_binding.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/views/myaccount_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
-import 'package:crud_flutter_api/app/modules/pakan/bindings/pakan_binding.dart';
-import 'package:crud_flutter_api/app/modules/pakan/views/pakan_view.dart';
-import 'package:crud_flutter_api/app/modules/pemilik/bindings/pemilik_binding.dart';
-import 'package:crud_flutter_api/app/modules/pemilik/views/pemilik_view.dart';
-import 'package:crud_flutter_api/app/modules/petugas/bindings/petugas_binding.dart';
-import 'package:crud_flutter_api/app/modules/petugas/views/petugas_view.dart';
-import 'package:crud_flutter_api/app/modules/produksi/bindings/produksi_binding.dart';
-import 'package:crud_flutter_api/app/modules/produksi/views/produksi_view.dart';
-import 'package:crud_flutter_api/app/modules/sidebar/bindings/sidebar_binding.dart';
-import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/bindings/pakan_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/bindings/pemilik_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/bindings/petugas_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/produksi/bindings/produksi_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/produksi/views/produksi_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/bindings/sidebar_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/views/sidebar_view.dart';
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
@@ -90,11 +90,11 @@ class AppPages {
       page: () => const EditPostView(),
       binding: EditPostBinding(),
     ),
-    GetPage(
-      name: _Paths.SIDEBAR,
-      page: () => SidebarView(),
-      binding: SidebarBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.SIDEBAR,
+    //   page: () => SidebarView(),
+    //   binding: SidebarBinding(),
+    // ),
     GetPage(
       name: _Paths.NAVIGATION,
       page: () => NavigationView(),
@@ -135,11 +135,11 @@ class AppPages {
       page: () => ProduksiView(),
       binding: ProduksiBinding(),
     ),
-    GetPage(
-      name: _Paths.MAIN,
-      page: () => MainView(),
-      binding: MainBinding(),
-    ),
+    // GetPage(
+    //   name: _Paths.MAIN,
+    //   page: () => MainView(),
+    //   binding: MainBinding(),
+    // ),
     GetPage(
       name: _Paths.MYACCOUNT,
       page: () => MyaccountView(),
@@ -149,6 +149,7 @@ class AppPages {
       name: _Paths.PETUGAS,
       page: () => PetugasView(),
       binding: PetugasBinding(),
+      transition: Transition.native, 
     ),
   ];
 }

@@ -1,12 +1,14 @@
 import 'package:crud_flutter_api/app/modules/all_post/views/all_post_view.dart';
 import 'package:crud_flutter_api/app/modules/home/views/home_view.dart';
-import 'package:crud_flutter_api/app/modules/sidebar/views/sidebar_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/views/sidebar_view.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../main/views/main_view.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends StatelessWidget {
@@ -19,7 +21,7 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            MainView(),
+            SidebarNavigation(),
             UserView(),
           ],
         )),

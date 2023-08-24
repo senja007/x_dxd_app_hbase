@@ -2,15 +2,23 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/petugas_controller.dart';
+import '../controllers/pemilik_controller.dart';
 
-class PetugasView extends StatelessWidget {
-  final PetugasController controller = Get.put(PetugasController());
-
+class PemilikView extends GetView<PemilikController> {
+  final PemilikController controller = Get.put(PemilikController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('GetX ListView Example')),
+      appBar: AppBar(
+        title: Text('GetX ListView Example'),
+        // Set the hamburger menu icon to open the sidebar
+        leading: IconButton(
+          icon: Icon(Icons.menu),
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
+        ),
+      ),
       body: Column(
         children: [
           Expanded(

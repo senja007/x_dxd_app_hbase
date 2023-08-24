@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
+class PakanView extends StatelessWidget {
+  const PakanView({Key? key}) : super(key: key);
 
-import '../controllers/pakan_controller.dart';
-
-class PakanView extends GetView<PakanController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
