@@ -12,15 +12,21 @@ class PostApi extends SharedApi {
     try {
       var data =
           await http.get(Uri.parse(baseUrl + '/petugas'), headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        // print(jsonData['content']);
 
-        return PostListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return PostListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return PostListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -63,7 +69,7 @@ class PostApi extends SharedApi {
       var data = await http.put(
         Uri.parse(baseUrl + '/petugas/' + id.toString()),
         headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        body: {'content': content},
       );
       stopLoading();
       jsonData = json.decode(data.body);

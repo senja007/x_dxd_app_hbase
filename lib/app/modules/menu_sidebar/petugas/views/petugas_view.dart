@@ -5,114 +5,106 @@ import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-
-import '../../../petugas/controllers/petugas_controller.dart';
+import 'package:http/http.dart';
+import '../controllers/petugas_controller.dart';
 
 class PetugasView extends GetView<PetugasController> {
   const PetugasView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Data Petugas'),
-        // Set the hamburger menu icon to open the sidebar
-        leading: IconButton(
-          icon: Icon(Icons.menu),
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
-          },
-        ),
-        backgroundColor: Color(0xff132137),
-        elevation: 0,
-        centerTitle: true,
-        bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: 1,
-            color: AppColor.secondaryExtraSoft,
-          ),
-        ),
-      ),
-      body: Column(
-        children: [
-          InkWell(
-            onTap: () => {
-              Get.toNamed(
-                Routes.DETAIL_POST,
-                arguments: {
-                  "id": "1",
-                  "content": "content",
-                },
+    Get.put(PetugasController());
+    return GetBuilder<PetugasController>(
+      builder: (controller) => AutoLoad(
+        onInit: () async {
+          await controller.loadPost();
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              'Semua Data Post',
+              style: TextStyle(
+                color: AppColor.secondary,
+                fontSize: 14,
               ),
-            },
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  width: 1,
-                  color: AppColor.primaryExtraSoft,
-                ),
-              ),
-              padding:
-                  EdgeInsets.only(left: 24, top: 20, right: 29, bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "data 1",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ],
+            ),
+            leading: IconButton(
+              onPressed: () => Get.back(),
+              icon: SvgPicture.asset('assets/icons/arrow-left.svg'),
+            ),
+            backgroundColor: Colors.white,
+            elevation: 0,
+            centerTitle: true,
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(1),
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 1,
+                color: AppColor.secondaryExtraSoft,
               ),
             ),
           ),
-          InkWell(
-            onTap: () => {
-              Get.toNamed(
-                Routes.DETAIL_POST,
-                arguments: {
-                  "id": "2",
-                  "content": "content",
-                },
-              ),
-            },
-            borderRadius: BorderRadius.circular(8),
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(
-                  width: 1,
-                  color: AppColor.primaryExtraSoft,
-                ),
-              ),
-              padding:
-                  EdgeInsets.only(left: 24, top: 20, right: 29, bottom: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        "data2",
-                        style: TextStyle(fontSize: 12),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
+          //body: Container(),
+          body: GetBuilder<PetugasController>(
+            builder: (controller) => controller.posts?.status == 200
+                ? ListView.separated(
+                    itemCount: controller.posts!.content!.length,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => SizedBox(height: 16),
+                    itemBuilder: (context, index) {
+                      var postData = controller.posts!.content![index];
+                      return InkWell(
+                        onTap: () => {
+                          Get.toNamed(
+                            Routes.DETAIL_POST,
+                            arguments: {
+                              "id": "${postData.id}",
+                              "content": "${postData.namaPetugas}",
+                            },
+                          ),
+                        },
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            border: Border.all(
+                              width: 1,
+                              color: AppColor.primaryExtraSoft,
+                            ),
+                          ),
+                          padding: EdgeInsets.only(
+                              left: 24, top: 20, right: 29, bottom: 20),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    (postData.status == null)
+                                        ? "-"
+                                        : "Nama Petugas"
+                                                " "
+                                                "${postData.namaPetugas}" +
+                                            " " +
+                                            "${postData.nikPetugas}",
+                                    style: TextStyle(fontSize: 12),
+                                  ),
+                                  Text((postData.status == null)
+                                      ? "-"
+                                      : "${postData.email}"),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  )
+                : NoData(),
           ),
-        ],
+        ),
       ),
     );
   }

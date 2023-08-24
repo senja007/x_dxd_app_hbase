@@ -47,7 +47,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.LOGIN;
+  static const INITIAL = Routes.START;
 
   static final routes = [
     GetPage(
@@ -57,7 +57,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.START,
-      page: () => const StartView(),
+      page: () => StartView(),
       binding: StartBinding(),
     ),
     GetPage(

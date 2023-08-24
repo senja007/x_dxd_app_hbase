@@ -53,12 +53,12 @@ class DetailPostView extends GetView<DetailPostController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nama Post',
-            hint: 'Berita Terkini',
-            disabled: true,
-          ),
+          // CustomInput(
+          //   controller: controller.titleC,
+          //   label: 'Nama Post',
+          //   hint: 'Berita Terkini',
+          //   disabled: true,
+          // ),
           CustomInput(
             controller: controller.contentC,
             label: 'Kontent Post',

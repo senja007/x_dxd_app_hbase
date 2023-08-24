@@ -10,12 +10,14 @@ import 'app/routes/app_pages.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
+  final box = GetStorage();
   Intl.defaultLocale = 'id_ID';
-  
+
   runApp(
     GetMaterialApp(
       title: "Application",
-      initialRoute: AppPages.INITIAL,
+      initialRoute:
+          box.read("token") == null ? AppPages.INITIAL : Routes.NAVIGATION,
       debugShowCheckedModeBanner: false,
       getPages: AppPages.routes,
       builder: BotToastInit(),

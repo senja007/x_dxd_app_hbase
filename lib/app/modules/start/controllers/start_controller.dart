@@ -1,34 +1,28 @@
+import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:crud_flutter_api/app/data/user_model.dart';
 import 'package:crud_flutter_api/app/services/auth_api.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:get_storage/get_storage.dart';
 
-class StartController extends GetxController {
+class StartController extends GetxController with GetTickerProviderStateMixin {
   UserModel? userModel;
   final box = GetStorage();
   bool startScreen = false;
-  autoLogin() async {
-    startScreen = false;
-    update();
-    if (box.hasData("token") == true) {
-      userModel = await AuthApi().checkTokenApi(box.read("token"));
-      if (userModel!.status == 200) {
-        Get.offAndToNamed(Routes.HOME);
-      } else if (userModel!.status == 404) {
-        startScreen = true;
-        update();
-      } else if (userModel!.status == 401) {
-        box.remove("token");
-        box.remove("id");
-        Get.offAndToNamed(Routes.LOGIN);
-      } else {
-        box.remove("token");
-        box.remove("id");
-        Get.offAndToNamed(Routes.LOGIN);
-      }
-    } else {
-      Get.offAndToNamed(Routes.LOGIN);
-    }
+  AnimationController? animationController;
+
+  @override
+  void onInit() {
+    // TODO: implement onInit
+    animationController =
+        AnimationController(vsync: this, duration: Duration(seconds: 8));
+    animationController?.animateTo(0.0);
+    super.onInit();
+  }
+
+  @override
+  void onClose() {
+    animationController?.dispose();
+    super.onClose();
   }
 }

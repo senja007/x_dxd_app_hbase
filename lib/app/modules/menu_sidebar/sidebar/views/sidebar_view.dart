@@ -6,8 +6,10 @@ import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_
 import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/produksi/views/produksi_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/views/mutasi_view.dart';
+import 'package:crud_flutter_api/app/routes/app_pages.dart';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SidebarNavigation extends StatefulWidget {
   @override
@@ -95,8 +97,9 @@ class _SidebarNavigationState extends State<SidebarNavigation> {
               leading: Icon(Icons.credit_card_rounded),
               title: Text('Petugas'),
               onTap: () {
-                _onItemTapped(3);
+                // _onItemTapped(3);
                 Navigator.pop(context); // Close the sidebar
+                Get.toNamed(Routes.PETUGAS);
               },
             ),
             ListTile(

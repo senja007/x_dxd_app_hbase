@@ -17,7 +17,7 @@ class LoginController extends GetxController {
     loginScreen = false;
     update();
     userModel = await AuthApi().loginAPI(emailC.text, passC.text);
-    print(userModel!.accessToken);
+    //print(userModel!.accessToken);
     if (userModel!.status == 200) {
       await box.write("token", userModel!.accessToken);
       await box.write("id", userModel!.id);

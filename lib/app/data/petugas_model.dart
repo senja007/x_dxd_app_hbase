@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 class PetugasModel {
   final int? id;
   final String? content;
@@ -26,7 +24,7 @@ class PetugasModel {
   factory PetugasModel.fromJson(Map<String, dynamic> jsonData) {
     return PetugasModel(
       status: jsonData['status'],
-      content: jsonData['content'][''],
+      content: jsonData['content'],
       id: jsonData['id'],
       page: jsonData['page'],
       size: jsonData['size'],

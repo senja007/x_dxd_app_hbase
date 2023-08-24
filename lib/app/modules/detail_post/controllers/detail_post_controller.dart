@@ -11,18 +11,17 @@ class DetailPostController extends GetxController {
   PostModel? postModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController titleC = TextEditingController();
+
   TextEditingController contentC = TextEditingController();
   @override
   onClose() {
-    titleC.dispose();
     contentC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
-    titleC.text = argsData["title"];
+
     contentC.text = argsData["content"];
   }
 

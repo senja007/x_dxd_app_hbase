@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/data/user_model.dart';
+import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -53,15 +54,18 @@ class UserView extends StatelessWidget {
                 const SizedBox(
                   height: 20,
                 ),
-                // SizedBox(
-                //   width: double.infinity,
-                //   child: ElevatedButton(
-                //       onPressed: () {},
-                //       style: ElevatedButton.styleFrom(
-                //         padding: const EdgeInsets.all(15),
-                //       ),
-                //       child: const Text('Edit Profile')),
-                // )
+                SizedBox(
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      onPressed: () {
+                        controller.box.remove('token');
+                        Get.offAllNamed(Routes.LOGIN);
+                      },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.all(15),
+                      ),
+                      child: const Text('Edit Profile')),
+                )
               ],
             )),
       );
