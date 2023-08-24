@@ -37,14 +37,16 @@ class UserView extends StatelessWidget {
                   backgroundImage: NetworkImage(""),
                 ),
                 const SizedBox(height: 20),
-                itemProfile('Name', '${userController.box.read('name')}',
+                itemProfile(
+                    'Username',
+                    '${userController.box.read('username')}',
                     CupertinoIcons.person),
                 const SizedBox(height: 10),
-                itemProfile('Role', '${userController.box.read('role')}',
+                itemProfile('Name', '${userController.box.read('name')}',
                     CupertinoIcons.person_3_fill),
-                // const SizedBox(height: 10),
-                // itemProfile('Address', 'abc address, xyz city',
-                //     CupertinoIcons.location),
+                const SizedBox(height: 10),
+                itemProfile('Role', '${userController.box.read('role')}',
+                    CupertinoIcons.person_2_square_stack_fill),
                 const SizedBox(height: 10),
                 itemProfile('Email', '${userController.box.read('email')}',
                     CupertinoIcons.mail),
@@ -74,7 +76,7 @@ class UserView extends StatelessWidget {
           boxShadow: [
             BoxShadow(
                 offset: Offset(0, 5),
-                color: Colors.deepOrange.withOpacity(.2),
+                color: Color.fromARGB(255, 0, 47, 255).withOpacity(.2),
                 spreadRadius: 2,
                 blurRadius: 10)
           ]),
