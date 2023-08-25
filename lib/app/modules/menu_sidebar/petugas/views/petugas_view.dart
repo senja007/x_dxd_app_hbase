@@ -6,19 +6,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import '../../sidebar/views/sidebar_view.dart';
 import '../controllers/petugas_controller.dart';
 
 class PetugasView extends GetView<PetugasController> {
   const PetugasView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Get.put(PetugasController());
     return GetBuilder<PetugasController>(
       builder: (controller) => AutoLoad(
         onInit: () async {
           await controller.loadPost();
         },
         child: Scaffold(
+          drawer: SidebarView(),
           appBar: AppBar(
             title: Text(
               'Semua Data Post',
@@ -26,10 +27,6 @@ class PetugasView extends GetView<PetugasController> {
                 color: AppColor.secondary,
                 fontSize: 14,
               ),
-            ),
-            leading: IconButton(
-              onPressed: () => Get.back(),
-              icon: SvgPicture.asset('assets/icons/arrow-left.svg'),
             ),
             backgroundColor: Colors.white,
             elevation: 0,

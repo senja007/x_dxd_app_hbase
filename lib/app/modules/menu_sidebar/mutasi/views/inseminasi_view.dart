@@ -1,20 +1,19 @@
+import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../../../../routes/app_pages.dart';
-import '../../../../utils/app_color.dart';
 import '../../sidebar/views/sidebar_view.dart';
-import '../controllers/pemilik_controller.dart';
+import '../controllers/inseminasi_controller.dart';
 
-class PemilikView extends GetView<PemilikController> {
-  final PemilikController controller = Get.put(PemilikController());
+class InseminasiView extends GetView<InseminasiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: SidebarView(),
       appBar: AppBar(
-        title: Text('Data Pemilik Ternak'),
+        title: Text('Data Inseminasi'),
         backgroundColor: Color(0xff132137),
         elevation: 0,
         centerTitle: true,

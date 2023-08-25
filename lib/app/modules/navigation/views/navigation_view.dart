@@ -1,6 +1,7 @@
 import 'package:crud_flutter_api/app/modules/all_post/views/all_post_view.dart';
 import 'package:crud_flutter_api/app/modules/home/views/home_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/hewan/views/hewan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pengobatan/views/pengobatan_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/views/sidebar_view.dart';
@@ -21,7 +22,7 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            SidebarNavigation(),
+            HewanView(),
             UserView(),
           ],
         )),

@@ -1,27 +1,23 @@
 import 'package:get/get.dart';
 
-import 'package:crud_flutter_api/app/modules/menu_sidebar/buku_lahir/bindings/buku_lahir_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/buku_lahir/views/buku_lahir_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/kandang/bindings/kandang_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/kandang/views/kandang_view.dart';
-import 'package:crud_flutter_api/app/modules/main/bindings/main_binding.dart';
-import 'package:crud_flutter_api/app/modules/main/views/main_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/bindings/mutasi_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/views/mutasi_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/kelahiran/bindings/kelahiran_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/kelahiran/views/kelahiran_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/hewan/bindings/hewan_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/hewan/views/hewan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/bindings/inseminasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/views/inseminasi_view.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/bindings/myaccount_binding.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/views/myaccount_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/bindings/pakan_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pakan/views/pakan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pengobatan/bindings/pengobatan_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/pengobatan/views/pengobatan_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/bindings/pemilik_binding.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_view.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/bindings/petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/produksi/bindings/produksi_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/produksi/views/produksi_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/bindings/sidebar_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/sidebar/views/sidebar_view.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/vaksin/bindings/vaksin_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu_sidebar/vaksin/views/vaksin_view.dart';
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
@@ -37,6 +33,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
+import '../modules/menu_sidebar/PKB/bindings/pkb_binding.dart';
+import '../modules/menu_sidebar/PKB/views/pkb_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/start/bindings/start_binding.dart';
@@ -47,7 +45,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.START;
+  static const INITIAL = Routes.NAVIGATION;
 
   static final routes = [
     GetPage(
@@ -90,11 +88,11 @@ class AppPages {
       page: () => const EditPostView(),
       binding: EditPostBinding(),
     ),
-    // GetPage(
-    //   name: _Paths.SIDEBAR,
-    //   page: () => SidebarView(),
-    //   binding: SidebarBinding(),
-    // ),
+    GetPage(
+      name: _Paths.PKB,
+      page: () => PkbView(),
+      binding: PkbBinding(),
+    ),
     GetPage(
       name: _Paths.NAVIGATION,
       page: () => NavigationView(),
@@ -106,19 +104,20 @@ class AppPages {
       binding: UserBinding(),
     ),
     GetPage(
-      name: _Paths.KANDANG,
-      page: () => KandangView(),
-      binding: KandangBinding(),
+      name: _Paths.HEWAN,
+      page: () => HewanView(),
+      binding: HewanBinding(),
+      transition: Transition.leftToRight,
     ),
     GetPage(
-      name: _Paths.PAKAN,
-      page: () => PakanView(),
-      binding: PakanBinding(),
+      name: _Paths.PENGOBATAN,
+      page: () => PengobatanView(),
+      binding: PengobatanBinding(),
     ),
     GetPage(
-      name: _Paths.BUKU_LAHIR,
-      page: () => BukuLahirView(),
-      binding: BukuLahirBinding(),
+      name: _Paths.KELAHIRAN,
+      page: () =>KelahiranView(),
+      binding:KelahiranBinding(),
     ),
     GetPage(
       name: _Paths.PEMILIK,
@@ -126,14 +125,14 @@ class AppPages {
       binding: PemilikBinding(),
     ),
     GetPage(
-      name: _Paths.MUTASI,
-      page: () => MutasiView(),
-      binding: MutasiBinding(),
+      name: _Paths.INSEMINASI,
+      page: () => InseminasiView(),
+      binding: InseminasiBinding(),
     ),
     GetPage(
-      name: _Paths.PRODUKSI,
-      page: () => ProduksiView(),
-      binding: ProduksiBinding(),
+      name: _Paths.VAKSIN,
+      page: () => VaksinView(),
+      binding: VaksinBinding(),
     ),
     // GetPage(
     //   name: _Paths.MAIN,
