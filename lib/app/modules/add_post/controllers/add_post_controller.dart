@@ -1,11 +1,11 @@
-import 'package:crud_flutter_api/app/data/post_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/post_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddPostController extends GetxController {
-  PostModel? postModel;
+  PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController titleC = TextEditingController();
@@ -18,11 +18,11 @@ class AddPostController extends GetxController {
 
   Future addPost() async {
     update();
-    postModel = await PostApi().addPostAPI(titleC.text, contentC.text);
-    if (postModel!.status == 200) {
+    petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
+    if (petugasModel!.status == 200) {
       update();
       Get.offAndToNamed(Routes.HOME);
-    } else if (postModel!.status == 404) {
+    } else if (petugasModel!.status == 404) {
       update();
     }
   }

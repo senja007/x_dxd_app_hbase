@@ -41,15 +41,15 @@ class EditPostView extends GetView<EditPostController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nama Post',
-            hint: 'Berita Terkini',
-          ),
+          // CustomInput(
+          //   controller: controller.titleC,
+          //   label: 'Nama Post',
+          //   hint: 'Berita Terkini',
+          // ),
           CustomInput(
             controller: controller.contentC,
-            label: 'Kontent Post',
-            hint: 'Ini contoh content post',
+            label: 'edit data',
+            hint: 'silakan masukkan data',
           ),
           SizedBox(height: 32),
           Container(

@@ -1,14 +1,16 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/post_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import '../data/inseminasi_model.dart';
+
 class PostApi extends SharedApi {
   // Login API
-  Future<PostListModel> loadPostAPI() async {
+  Future<InseminasiListModel> loadPostAPI() async {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/inseminasi'),
           headers: getToken());
@@ -19,18 +21,18 @@ class PostApi extends SharedApi {
 
         print(jsonData['content']);
 
-        return PostListModel.fromJson(
+        return InseminasiListModel.fromJson(
             {"status": 200, "content": jsonData['content']});
       } else {
-        return PostListModel.fromJson(
+        return InseminasiListModel.fromJson(
             {"status": data.statusCode, "content": []});
       }
     } on Exception catch (_) {
-      return PostListModel.fromJson({"status": 404, "content": []});
+      return InseminasiListModel.fromJson({"status": 404, "content": []});
     }
   }
 
-  Future<PostModel?> addPostAPI(String content, String text) async {
+  Future<InseminasiModel?> addPostAPI(String content, String text) async {
     try {
       var jsonData;
       showLoading();
@@ -43,19 +45,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return InseminasiModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return InseminasiModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> editPostAPI(
+  Future<InseminasiModel?> editPostAPI(
       String title, String content, String id) async {
     try {
       var jsonData;
@@ -69,19 +71,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return InseminasiModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return InseminasiModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> deletePostAPI(String id) async {
+  Future<InseminasiModel?> deletePostAPI(String id) async {
     try {
       var jsonData;
       showLoading();
@@ -101,16 +103,16 @@ class PostApi extends SharedApi {
         postData['content'] = "";
 
         print(postData);
-        // Kirim variabel postData ke dalam fungsi PostModel.fromJson
-        return PostModel.fromJson(postData);
+        // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson
+        return InseminasiModel.fromJson(postData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return InseminasiModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return InseminasiModel.fromJson({"status": 404});
     }
   }
 }

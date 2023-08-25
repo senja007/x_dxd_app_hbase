@@ -15,7 +15,7 @@ class DetailPostView extends GetView<DetailPostController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Todo',
+          'Detail Data',
           style: TextStyle(
             color: AppColor.secondary,
             fontSize: 14,
@@ -61,8 +61,8 @@ class DetailPostView extends GetView<DetailPostController> {
           // ),
           CustomInput(
             controller: controller.contentC,
-            label: 'Kontent Post',
-            hint: 'Ini contoh content post',
+            label: 'Data',
+            hint: 'detail data',
             disabled: true,
           ),
           ElevatedButton(

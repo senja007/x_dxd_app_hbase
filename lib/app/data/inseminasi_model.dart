@@ -1,4 +1,4 @@
-class PostModel {
+class InseminasiModel {
   final int? id;
   final String? namaPetugas;
   final String? nikPetugas;
@@ -6,7 +6,7 @@ class PostModel {
   final String? email;
   final int? status;
 
-  PostModel({
+  InseminasiModel({
     this.status,
     this.id,
     this.namaPetugas,
@@ -15,8 +15,8 @@ class PostModel {
     this.email,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> jsonData) {
-    return PostModel(
+  factory InseminasiModel.fromJson(Map<String, dynamic> jsonData) {
+    return InseminasiModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
       namaPetugas:
@@ -28,25 +28,25 @@ class PostModel {
   }
 }
 
-class PostListModel {
+class InseminasiListModel {
   final int? status; // 200 - 204 - 400 - 404
-  final List<PostModel>? content;
+  final List<InseminasiModel>? content;
   final int? page;
   final int? size;
   final int? totalElements;
   final int? totalPages;
-  PostListModel(
+  InseminasiListModel(
       {this.status,
       this.content,
       this.page,
       this.size,
       this.totalElements,
       this.totalPages});
-  factory PostListModel.fromJson(Map<String, dynamic> jsonData) {
-    return PostListModel(
+  factory InseminasiListModel.fromJson(Map<String, dynamic> jsonData) {
+    return InseminasiListModel(
         status: jsonData['status'],
         content: jsonData['content']
-            .map<PostModel>((data) => PostModel.fromJson(data))
+            .map<InseminasiModel>((data) => InseminasiModel.fromJson(data))
             .toList(),
         page: jsonData['page'],
         size: jsonData['size'],

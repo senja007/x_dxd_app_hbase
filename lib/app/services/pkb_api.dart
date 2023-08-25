@@ -1,5 +1,5 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/post_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';

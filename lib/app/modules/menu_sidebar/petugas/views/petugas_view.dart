@@ -16,7 +16,7 @@ class PetugasView extends GetView<PetugasController> {
     return GetBuilder<PetugasController>(
       builder: (controller) => AutoLoad(
         onInit: () async {
-          await controller.loadPost();
+          await controller.loadPetugas();
         },
         child: Scaffold(
           drawer: SidebarView(),
