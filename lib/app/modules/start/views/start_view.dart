@@ -1,7 +1,7 @@
 import 'package:crud_flutter_api/app/modules/start/controllers/start_controller.dart';
 import 'package:get/get.dart';
 
-import '../../menu_sidebar/petugas/controllers/petugas_controller.dart';
+import '../../menu/petugas/controllers/petugas_controller.dart';
 import './components/care_view.dart';
 import './components/center_next_button.dart';
 import './components/mood_diary_vew.dart';

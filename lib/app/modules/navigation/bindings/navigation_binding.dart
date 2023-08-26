@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
 import '../../home/controllers/home_controller.dart';
-import '../../menu_sidebar/sidebar/controllers/sidebar_controller.dart';
+import '../../menu/menu_view/controllers/menu_controller.dart';
 import '../../user/controllers/user_controller.dart';
 import '../controllers/navigation_controller.dart';
 
@@ -14,8 +14,8 @@ class NavigationBinding extends Bindings {
     Get.lazyPut<HomeController>(
       () => HomeController(),
     );
-    Get.lazyPut<SidebarController>(
-      () => SidebarController(),
+    Get.lazyPut<MainMenuController>(
+      () => MainMenuController(),
     );
     Get.lazyPut<UserController>(
       () => UserController(),

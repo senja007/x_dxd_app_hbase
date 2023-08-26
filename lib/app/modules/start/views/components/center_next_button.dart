@@ -1,6 +1,7 @@
 import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class CenterNextButton extends StatelessWidget {
   final AnimationController animationController;
@@ -62,7 +63,7 @@ class CenterNextButton extends StatelessWidget {
               ),
             ),
           ),
-           Center(
+          Center(
             child: SlideTransition(
               position: _topMoveAnimation,
               child: AnimatedBuilder(
@@ -98,10 +99,11 @@ class CenterNextButton extends StatelessWidget {
                           ? InkWell(
                               key: ValueKey('Sign Up button'),
                               onTap: () {
-                                Navigator.pushNamed(context, Routes.LOGIN);
+                                Get.toNamed(Routes.LOGIN);
                               },
                               child: Padding(
-                                padding: EdgeInsets.only(left: 16.0, right: 16.0),
+                                padding:
+                                    EdgeInsets.only(left: 16.0, right: 16.0),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,

@@ -4,8 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 
 import '../controllers/user_controller.dart';
 
@@ -15,7 +13,6 @@ class UserView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     UserController userController = Get.find<UserController>();
-    //Get.(UserController());
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(
@@ -28,7 +25,9 @@ class UserView extends StatelessWidget {
           backgroundColor: Color.fromARGB(255, 19, 33, 55),
           elevation: 0.0,
         ),
-        body: Padding(
+        body: Container(
+          color: Color(0xffF7EBE1), // Background color for the body
+          child: Padding(
             padding: const EdgeInsets.all(20),
             child: Column(
               children: [
@@ -57,17 +56,20 @@ class UserView extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                      onPressed: () {
-                        controller.box.remove('token');
-                        Get.offAllNamed(Routes.LOGIN);
-                      },
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.all(15),
-                      ),
-                      child: const Text('LOG OUT')),
+                    onPressed: () {
+                      controller.box.remove('token');
+                      Get.offAllNamed(Routes.LOGIN);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(15),
+                    ),
+                    child: const Text('LOG OUT'),
+                  ),
                 )
               ],
-            )),
+            ),
+          ),
+        ),
       );
     });
   }
@@ -75,15 +77,17 @@ class UserView extends StatelessWidget {
   itemProfile(String title, String subtitle, IconData iconData) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(10),
-          boxShadow: [
-            BoxShadow(
-                offset: Offset(0, 5),
-                color: Color.fromARGB(255, 0, 47, 255).withOpacity(.2),
-                spreadRadius: 2,
-                blurRadius: 10)
-          ]),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: [
+          BoxShadow(
+            offset: Offset(0, 5),
+            color: Color.fromARGB(255, 0, 47, 255).withOpacity(.2),
+            spreadRadius: 2,
+            blurRadius: 10,
+          )
+        ],
+      ),
       child: ListTile(
         title: Text(title),
         subtitle: Text(subtitle),

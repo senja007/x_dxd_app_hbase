@@ -11,13 +11,6 @@ class LoginView extends GetView<LoginController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.primary,
-        elevation: 0.0,
-        titleSpacing: 10.0,
-        centerTitle: true,
-        title: Text("Login"),
-      ),
       backgroundColor: AppColor.primary,
       body: ListView(
         shrinkWrap: true,

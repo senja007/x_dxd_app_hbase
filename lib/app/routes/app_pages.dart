@@ -1,23 +1,23 @@
 import 'package:get/get.dart';
 
-import 'package:crud_flutter_api/app/modules/menu_sidebar/kelahiran/bindings/kelahiran_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/kelahiran/views/kelahiran_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/hewan/bindings/hewan_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/hewan/views/hewan_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/bindings/inseminasi_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/mutasi/views/inseminasi_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/kelahiran/bindings/kelahiran_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/kelahiran/views/kelahiran_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/hewan/bindings/hewan_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/hewan/views/hewan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/inseminasi/bindings/inseminasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/inseminasi/views/inseminasi_view.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/bindings/myaccount_binding.dart';
 import 'package:crud_flutter_api/app/modules/myaccount/views/myaccount_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pengobatan/bindings/pengobatan_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pengobatan/views/pengobatan_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/bindings/pemilik_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/pemilik/views/pemilik_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/bindings/petugas_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/petugas/views/petugas_view.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/vaksin/bindings/vaksin_binding.dart';
-import 'package:crud_flutter_api/app/modules/menu_sidebar/vaksin/views/vaksin_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/pengobatan/bindings/pengobatan_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/pengobatan/views/pengobatan_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/pemilik/bindings/pemilik_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/pemilik/views/pemilik_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/petugas/bindings/petugas_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/petugas/views/petugas_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/vaksin/bindings/vaksin_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/vaksin/views/vaksin_view.dart';
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
@@ -33,8 +33,8 @@ import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
-import '../modules/menu_sidebar/PKB/bindings/pkb_binding.dart';
-import '../modules/menu_sidebar/PKB/views/pkb_view.dart';
+import '../modules/menu/PKB/bindings/pkb_binding.dart';
+import '../modules/menu/PKB/views/pkb_view.dart';
 import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/start/bindings/start_binding.dart';
@@ -45,7 +45,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.NAVIGATION;
+  static const INITIAL = Routes.START;
 
   static final routes = [
     GetPage(
@@ -116,8 +116,8 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.KELAHIRAN,
-      page: () =>KelahiranView(),
-      binding:KelahiranBinding(),
+      page: () => KelahiranView(),
+      binding: KelahiranBinding(),
     ),
     GetPage(
       name: _Paths.PEMILIK,
