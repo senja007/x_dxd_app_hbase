@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/menu_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MainMenuView extends GetView<MainMenuController> {
   @override
@@ -10,84 +11,107 @@ class MainMenuView extends GetView<MainMenuController> {
       appBar: AppBar(
         title: Text('Main Menu'),
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff132137), // AppBar background color
+        backgroundColor: Color(0xff132137), // Warna latar belakang AppBar
         elevation: 0.0,
       ),
       body: Container(
-        color: Color(0xffF7EBE1), // Background color for the body
+        color: Color(0xffF7EBE1),
         child: Center(
-          child: GridView.count(
-            crossAxisCount: 2, // Number of columns
-            mainAxisSpacing: 16.0,
-            crossAxisSpacing: 16.0,
-            padding: EdgeInsets.all(16.0),
-            children: [
-              _buildMenuItem(
-                icon: Icons.pets,
-                label: 'Hewan',
-                route: Routes.HEWAN,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.only(bottom: 20), // Add padding to the bottom
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(height: 30),
+                  TyperAnimatedTextKit(
+                    // Widget untuk animasi tulisan diketik
+                    text: ["Semua data Peternakan Lumajang"],
+                    speed: Duration(milliseconds: 100),
+                    textStyle: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xff132137),
+                    ),
+                  ),
+                  SizedBox(height: 50),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(Routes.HEWAN, 'Hewan', Icons.pets),
+                      SizedBox(width: 30),
+                      buildButton(Routes.PEMILIK, 'Peternak', Icons.person),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(Routes.PETUGAS, 'Petugas', Icons.people),
+                      SizedBox(width: 30),
+                      buildButton(
+                          Routes.VAKSIN, 'Vaksin', Icons.medical_services),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(
+                          Routes.PENGOBATAN, 'Pengobatan', Icons.healing),
+                      SizedBox(width: 30),
+                      buildButton(
+                          Routes.INSEMINASI, 'Inseminasi', Icons.adjust),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(
+                          Routes.KELAHIRAN, 'Kelahiran', Icons.child_care),
+                      SizedBox(width: 30),
+                      buildButton(Routes.PKB, 'PKB', Icons.work),
+                    ],
+                  ),
+                ],
               ),
-              _buildMenuItem(
-                icon: Icons.person,
-                label: 'Peternak',
-                route: Routes.PEMILIK,
-              ),
-              _buildMenuItem(
-                icon: Icons.person_outline,
-                label: 'Petugas',
-                route: Routes.PETUGAS,
-              ),
-              _buildMenuItem(
-                icon: Icons.medical_services,
-                label: 'Vaksin',
-                route: Routes.VAKSIN,
-              ),
-              _buildMenuItem(
-                icon: Icons.healing,
-                label: 'Inseminasi',
-                route: Routes.INSEMINASI,
-              ),
-              _buildMenuItem(
-                icon: Icons.child_care,
-                label: 'Kelahiran',
-                route: Routes.KELAHIRAN,
-              ),
-              _buildMenuItem(
-                icon: Icons.local_hospital,
-                label: 'Pengobatan',
-                route: Routes.PENGOBATAN,
-              ),
-              _buildMenuItem(
-                icon: Icons.business,
-                label: 'PKB',
-                route: Routes.PKB,
-              ),
-            ],
+            ),
           ),
         ),
       ),
     );
   }
 
-  Widget _buildMenuItem(
-      {required IconData icon, required String label, required String route}) {
-    return ElevatedButton(
-      onPressed: () {
-        Get.toNamed(route);
-      },
-      style: ElevatedButton.styleFrom(
-        primary: Color(0xff132137), // Background color for the button
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, size: 48.0), // Icon
-          SizedBox(height: 8.0),
-          Text(
-            label,
-            style: TextStyle(color: Colors.white), // Text color
-          ), // Label
-        ],
+  Widget buildButton(String route, String text, IconData iconData) {
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(20),
+      child: SizedBox(
+        width: 150,
+        height: 150,
+        child: ElevatedButton(
+          onPressed: () {
+            Get.toNamed(route);
+          },
+          style: ElevatedButton.styleFrom(
+            primary: Color(0xff132137), // Warna latar belakang tombol
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(
+                iconData,
+                size: 40,
+                color: Colors.white,
+              ),
+              SizedBox(height: 10),
+              Text(
+                text,
+                style: TextStyle(color: Colors.white),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
