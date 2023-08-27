@@ -80,12 +80,8 @@ class PetugasView extends GetView<PetugasController> {
                                   Text(
                                     (postData.status == null)
                                         ? "-"
-                                        : "Nama Petugas"
-                                                " "
-                                                "${postData.namaPetugas}" +
-                                            " " +
-                                            "${postData.nikPetugas}",
-                                    style: TextStyle(fontSize: 12),
+                                        : "Nama Petugas: ${postData.namaPetugas} ${postData.nikPetugas}",
+                                    style: TextStyle(fontSize: 18),
                                   ),
                                   Text((postData.status == null)
                                       ? "-"

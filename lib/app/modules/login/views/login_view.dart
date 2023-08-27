@@ -31,9 +31,9 @@ class LoginView extends GetView<LoginController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "POSTS App",
+                  "COW JANG APLIKASI",
                   style: TextStyle(
-                    fontSize: 24,
+                    fontSize: 30,
                     color: Colors.white,
                     fontFamily: 'poppins',
                     height: 150 / 100,
@@ -42,8 +42,8 @@ class LoginView extends GetView<LoginController> {
                 ),
                 SizedBox(height: 10),
                 Text(
-                  "by Hummasoft",
-                  style: TextStyle(color: Colors.white),
+                  "by polinema lumajang",
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
               ],
             ),
@@ -93,7 +93,7 @@ class LoginView extends GetView<LoginController> {
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: InputBorder.none,
-                      hintText: "email@gmail.com",
+                      hintText: "email@gmail.com / username",
                       hintStyle: TextStyle(
                         fontSize: 14,
                         fontFamily: 'poppins',
@@ -183,34 +183,34 @@ class LoginView extends GetView<LoginController> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  child: ElevatedButton(
-                    onPressed: () async {
-                      Get.toNamed(Routes.REGISTER);
-                    },
-                    child: Text(
-                      'Daftar',
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.primary,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      primary: Colors.white,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: BorderSide(
-                          color: AppColor
-                              .primary, // Replace this with your desired border color
-                          width:
-                              1.0, // Replace this with your desired border width
-                        ),
-                      ),
-                    ),
-                  ),
+                  // child: ElevatedButton(
+                  //   onPressed: () async {
+                  //     Get.toNamed(Routes.REGISTER);
+                  //   },
+                  //   child: Text(
+                  //     'Daftar',
+                  //     style: TextStyle(
+                  //       fontSize: 16,
+                  //       fontFamily: 'poppins',
+                  //       fontWeight: FontWeight.w500,
+                  //       color: AppColor.primary,
+                  //     ),
+                  //   ),
+                  //   style: ElevatedButton.styleFrom(
+                  //     padding: EdgeInsets.symmetric(vertical: 18),
+                  //     elevation: 0,
+                  //     primary: Colors.white,
+                  //     shape: RoundedRectangleBorder(
+                  //       borderRadius: BorderRadius.circular(8),
+                  //       side: BorderSide(
+                  //         color: AppColor
+                  //             .primary, // Replace this with your desired border color
+                  //         width:
+                  //             1.0, // Replace this with your desired border width
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                 ),
               ],
             ),

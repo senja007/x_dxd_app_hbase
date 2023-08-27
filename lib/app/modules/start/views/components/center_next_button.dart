@@ -109,7 +109,7 @@ class CenterNextButton extends StatelessWidget {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      'Sign In',
+                                      'NEXT',
                                       style: TextStyle(
                                         color: Colors.white,
                                         fontSize: 18,
@@ -144,22 +144,22 @@ class CenterNextButton extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
-                    'Already have an account? ',
-                    style: TextStyle(
-                      color: Colors.grey,
-                      fontSize: 14,
-                      fontWeight: FontWeight.normal,
-                    ),
-                  ),
-                  Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Color(0xff132137),
-                      fontSize: 16,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  // Text(
+                  //   'Already have an account? ',
+                  //   style: TextStyle(
+                  //     color: Colors.grey,
+                  //     fontSize: 14,
+                  //     fontWeight: FontWeight.normal,
+                  //   ),
+                  // ),
+                  // Text(
+                  //   'Login',
+                  //   style: TextStyle(
+                  //     color: Color(0xff132137),
+                  //     fontSize: 16,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
                 ],
               ),
             ),
