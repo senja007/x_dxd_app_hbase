@@ -6,9 +6,11 @@ import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class PostApi extends SharedApi {
+import '../data/pengobatan_model.dart';
+
+class PengobatanApi extends SharedApi {
   // Login API
-  Future<PostListModel> loadPostAPI() async {
+  Future<PengobatanListModel> loadPengobatanAPI() async {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/pengobatan'),
           headers: getToken());
@@ -19,18 +21,18 @@ class PostApi extends SharedApi {
 
         print(jsonData['content']);
 
-        return PostListModel.fromJson(
+        return PengobatanListModel.fromJson(
             {"status": 200, "content": jsonData['content']});
       } else {
-        return PostListModel.fromJson(
+        return PengobatanListModel.fromJson(
             {"status": data.statusCode, "content": []});
       }
     } on Exception catch (_) {
-      return PostListModel.fromJson({"status": 404, "content": []});
+      return PengobatanListModel.fromJson({"status": 404, "content": []});
     }
   }
 
-  Future<PostModel?> addPostAPI(String content, String text) async {
+  Future<PengobatanModel?> addPengobatanAPI(String content, String text) async {
     try {
       var jsonData;
       showLoading();
@@ -43,19 +45,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return PengobatanModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> editPostAPI(
+  Future<PengobatanModel?> editPengobatanAPI(
       String title, String content, String id) async {
     try {
       var jsonData;
@@ -69,19 +71,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return PengobatanModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> deletePostAPI(String id) async {
+  Future<PengobatanModel?> deletePengobatanAPI(String id) async {
     try {
       var jsonData;
       showLoading();
@@ -101,16 +103,16 @@ class PostApi extends SharedApi {
         postData['content'] = "";
 
         print(postData);
-        // Kirim variabel postData ke dalam fungsi PostModel.fromJson
-        return PostModel.fromJson(postData);
+        // Kirim variabel postData ke dalam fungsi PengobatanModel.fromJson
+        return PengobatanModel.fromJson(postData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return PengobatanModel.fromJson({"status": 404});
     }
   }
 }

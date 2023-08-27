@@ -8,9 +8,9 @@ import 'dart:convert';
 
 import '../data/inseminasi_model.dart';
 
-class PostApi extends SharedApi {
+class InseminasiApi extends SharedApi {
   // Login API
-  Future<InseminasiListModel> loadPostAPI() async {
+  Future<InseminasiListModel> loadInseminasiAPI() async {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/inseminasi'),
           headers: getToken());
@@ -32,7 +32,7 @@ class PostApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> addPostAPI(String content, String text) async {
+  Future<InseminasiModel?> addInseminasiAPI(String content, String text) async {
     try {
       var jsonData;
       showLoading();
@@ -57,7 +57,7 @@ class PostApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> editPostAPI(
+  Future<InseminasiModel?> editInseminasiAPI(
       String title, String content, String id) async {
     try {
       var jsonData;
@@ -83,7 +83,7 @@ class PostApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> deletePostAPI(String id) async {
+  Future<InseminasiModel?> deleteInseminasiAPI(String id) async {
     try {
       var jsonData;
       showLoading();

@@ -1,4 +1,4 @@
-class PostModel {
+class PengobatanModel {
   final int? id;
   final String? idKasus;
   final String? tanggalPengobatan;
@@ -12,7 +12,7 @@ class PostModel {
 
   final int? status;
 
-  PostModel({
+  PengobatanModel({
     this.status,
     this.id,
     this.idKasus,
@@ -26,8 +26,8 @@ class PostModel {
     this.sindrom,
   });
 
-  factory PostModel.fromJson(Map<String, dynamic> jsonData) {
-    return PostModel(
+  factory PengobatanModel.fromJson(Map<String, dynamic> jsonData) {
+    return PengobatanModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
       idKasus: jsonData['idKasus'] != null ? jsonData['idKasus'] : "",
@@ -46,25 +46,25 @@ class PostModel {
   }
 }
 
-class PostListModel {
+class PengobatanListModel {
   final int? status; // 200 - 204 - 400 - 404
-  final List<PostModel>? content;
+  final List<PengobatanModel>? content;
   final int? page;
   final int? size;
   final int? totalElements;
   final int? totalPages;
-  PostListModel(
+  PengobatanListModel(
       {this.status,
       this.content,
       this.page,
       this.size,
       this.totalElements,
       this.totalPages});
-  factory PostListModel.fromJson(Map<String, dynamic> jsonData) {
-    return PostListModel(
+  factory PengobatanListModel.fromJson(Map<String, dynamic> jsonData) {
+    return PengobatanListModel(
         status: jsonData['status'],
         content: jsonData['content']
-            .map<PostModel>((data) => PostModel.fromJson(data))
+            .map<PengobatanModel>((data) => PengobatanModel.fromJson(data))
             .toList(),
         page: jsonData['page'],
         size: jsonData['size'],

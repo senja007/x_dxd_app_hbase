@@ -6,9 +6,11 @@ import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-class PostApi extends SharedApi {
+import '../data/kelahiran_model.dart';
+
+class KelahiranApi extends SharedApi {
   // Login API
-  Future<PostListModel> loadPostAPI() async {
+  Future<KelahiranListModel> loadKelahiranAPI() async {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/kelahiran'),
           headers: getToken());
@@ -19,18 +21,18 @@ class PostApi extends SharedApi {
 
         print(jsonData['content']);
 
-        return PostListModel.fromJson(
+        return KelahiranListModel.fromJson(
             {"status": 200, "content": jsonData['content']});
       } else {
-        return PostListModel.fromJson(
+        return KelahiranListModel.fromJson(
             {"status": data.statusCode, "content": []});
       }
     } on Exception catch (_) {
-      return PostListModel.fromJson({"status": 404, "content": []});
+      return KelahiranListModel.fromJson({"status": 404, "content": []});
     }
   }
 
-  Future<PostModel?> addPostAPI(String content, String text) async {
+  Future<KelahiranModel?> addKelahiranAPI(String content, String text) async {
     try {
       var jsonData;
       showLoading();
@@ -43,19 +45,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return KelahiranModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return KelahiranModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> editPostAPI(
+  Future<KelahiranModel?> editKelahiranAPI(
       String title, String content, String id) async {
     try {
       var jsonData;
@@ -69,19 +71,19 @@ class PostApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PostModel.fromJson(jsonData);
+        return KelahiranModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return KelahiranModel.fromJson({"status": 404});
     }
   }
 
-  Future<PostModel?> deletePostAPI(String id) async {
+  Future<KelahiranModel?> deleteKelahiranAPI(String id) async {
     try {
       var jsonData;
       showLoading();
@@ -101,16 +103,16 @@ class PostApi extends SharedApi {
         postData['content'] = "";
 
         print(postData);
-        // Kirim variabel postData ke dalam fungsi PostModel.fromJson
-        return PostModel.fromJson(postData);
+        // Kirim variabel postData ke dalam fungsi KelahiranModel.fromJson
+        return KelahiranModel.fromJson(postData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PostModel.fromJson({"status": data.statusCode});
+        return KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return PostModel.fromJson({"status": 404});
+      return KelahiranModel.fromJson({"status": 404});
     }
   }
 }

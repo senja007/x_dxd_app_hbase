@@ -1,4 +1,4 @@
-class KelahiranModel {
+class VaksinModel {
   final int? id;
   final String? namaPetugas;
   final String? nikPetugas;
@@ -6,7 +6,7 @@ class KelahiranModel {
   final String? email;
   final int? status;
 
-  KelahiranModel({
+  VaksinModel({
     this.status,
     this.id,
     this.namaPetugas,
@@ -15,8 +15,8 @@ class KelahiranModel {
     this.email,
   });
 
-  factory KelahiranModel.fromJson(Map<String, dynamic> jsonData) {
-    return KelahiranModel(
+  factory VaksinModel.fromJson(Map<String, dynamic> jsonData) {
+    return VaksinModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
       namaPetugas:
@@ -28,25 +28,25 @@ class KelahiranModel {
   }
 }
 
-class KelahiranListModel {
+class VaksinListModel {
   final int? status; // 200 - 204 - 400 - 404
-  final List<KelahiranModel>? content;
+  final List<VaksinModel>? content;
   final int? page;
   final int? size;
   final int? totalElements;
   final int? totalPages;
-  KelahiranListModel(
+  VaksinListModel(
       {this.status,
       this.content,
       this.page,
       this.size,
       this.totalElements,
       this.totalPages});
-  factory KelahiranListModel.fromJson(Map<String, dynamic> jsonData) {
-    return KelahiranListModel(
+  factory VaksinListModel.fromJson(Map<String, dynamic> jsonData) {
+    return VaksinListModel(
         status: jsonData['status'],
         content: jsonData['content']
-            .map<KelahiranModel>((data) => KelahiranModel.fromJson(data))
+            .map<VaksinModel>((data) => VaksinModel.fromJson(data))
             .toList(),
         page: jsonData['page'],
         size: jsonData['size'],
