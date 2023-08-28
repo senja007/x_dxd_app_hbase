@@ -13,17 +13,19 @@ class AddPostView extends GetView<AddPostController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Post',
+          'Tambah Data',
           style: TextStyle(
-            color: AppColor.secondary,
+            color: Colors.white,
             fontSize: 14,
           ),
         ),
         leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: SvgPicture.asset('assets/icons/arrow-left.svg'),
+          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          onPressed: () {
+            Navigator.of(context).pop(); // Aksi saat tombol diklik
+          },
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
@@ -68,7 +70,7 @@ class AddPostView extends GetView<AddPostController> {
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  primary: AppColor.primary,
+                  backgroundColor: Color(0xff132137),
                   padding: EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(

@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/modules/edit_post/controllers/edit_post_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
@@ -17,26 +18,28 @@ class DetailPostView extends GetView<DetailPostController> {
         title: Text(
           'Detail Data',
           style: TextStyle(
-            color: AppColor.secondary,
-            fontSize: 14,
+            color: Colors.white,
+            fontSize: 18,
           ),
         ),
         leading: IconButton(
-          onPressed: () => Get.back(),
-          icon: SvgPicture.asset('assets/icons/arrow-left.svg'),
+          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          onPressed: () {
+            Navigator.of(context).pop(); // Aksi saat tombol diklik
+          },
         ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Get.toNamed(Routes.EDIT_POST, arguments: controller.argsData);
-            },
-            child: Text('Edit'),
-            style: TextButton.styleFrom(
-              primary: AppColor.primary,
-            ),
-          ),
-        ],
-        backgroundColor: Colors.white,
+        // actions: [
+        //   TextButton(
+        //     onPressed: () {
+        //       Get.toNamed(Routes.EDIT_POST, arguments: controller.argsData);
+        //     },
+        //     child: Text('Edit'),
+        //     style: TextButton.styleFrom(
+        //       primary: AppColor.primary,
+        //     ),
+        //   ),
+        // ],
+        backgroundColor: Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
@@ -65,26 +68,56 @@ class DetailPostView extends GetView<DetailPostController> {
             hint: 'detail data',
             disabled: true,
           ),
-          ElevatedButton(
-            onPressed: () {
-              controller.deletePost();
-            },
-            child: Text(
-              'Delete post',
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'poppins',
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ElevatedButton(
+                onPressed: () {
+                  Get.offAllNamed(Routes.EDIT_POST);
+                },
+                child: Text(
+                  'Edit post',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
+                    color: Colors.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(120, 55),
+                  backgroundColor: Color(0xff132137),
+                  padding: EdgeInsets.symmetric(vertical: 18),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
-            ),
-            style: ElevatedButton.styleFrom(
-              primary: AppColor.warning,
-              padding: EdgeInsets.symmetric(vertical: 18),
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
+              SizedBox(width: 25,),
+              ElevatedButton(
+                onPressed: () {
+                  controller.deletePost();
+                },
+                child: Text(
+                  'Delete post',
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
+                    color: Colors.white,
+                  ),
+                ),
+                style: ElevatedButton.styleFrom(
+                  fixedSize: Size(120, 55),
+                  backgroundColor: Color(0xff132137),
+                  padding: EdgeInsets.symmetric(vertical: 18),
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
               ),
-            ),
-          ),
+            ],
+          )
         ],
       ),
     );

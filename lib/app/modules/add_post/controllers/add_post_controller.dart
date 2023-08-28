@@ -21,7 +21,7 @@ class AddPostController extends GetxController {
     petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
     if (petugasModel!.status == 200) {
       update();
-      Get.offAndToNamed(Routes.HOME);
+      Get.offAndToNamed(Routes.HOME);//ganti route sesuai data menu
     } else if (petugasModel!.status == 404) {
       update();
     }
