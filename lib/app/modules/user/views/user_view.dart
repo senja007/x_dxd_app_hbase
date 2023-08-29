@@ -27,14 +27,14 @@ class UserView extends StatelessWidget {
         ),
         body: Container(
           color: Color(0xffF7EBE1), // Background color for the body
-          child: Padding(
-            padding: const EdgeInsets.all(20),
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(50),
             child: Column(
               children: [
                 const SizedBox(height: 40),
                 CircleAvatar(
                   radius: 70,
-                  backgroundImage: NetworkImage(""),
+                  
                 ),
                 const SizedBox(height: 20),
                 itemProfile(
