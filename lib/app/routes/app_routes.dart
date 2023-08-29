@@ -26,6 +26,9 @@ abstract class Routes {
   static const MAIN = _Paths.MAIN;
   static const MYACCOUNT = _Paths.MYACCOUNT;
   static const PETUGAS = _Paths.PETUGAS;
+
+  // Create read update delete
+  static const ADDHEWAN = _Paths.ADDHEWAN;
 }
 
 abstract class _Paths {
@@ -53,4 +56,8 @@ abstract class _Paths {
   static const MAIN = '/main';
   static const MYACCOUNT = '/myaccount';
   static const PETUGAS = '/petugas';
+
+  // Create read update delete
+
+  static const ADDHEWAN = '/add-hewan';
 }

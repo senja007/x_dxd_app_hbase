@@ -104,26 +104,26 @@ class HewanView extends GetView<HewanController> {
             ),
           ),
           ElevatedButton(
-                onPressed: () {
-                  Get.toNamed(Routes.ADD_POST);
-                },
-                child: Text(
-                  'Tambah Data',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
-                style: ElevatedButton.styleFrom(
-                  fixedSize: Size(120, 55),
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  elevation: 0,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
+            onPressed: () {
+              Get.toNamed(Routes.ADDHEWAN);
+            },
+            child: Text(
+              'Tambah Data',
+              style: TextStyle(
+                fontSize: 16,
+                fontFamily: 'poppins',
               ),
+            ),
+            style: ElevatedButton.styleFrom(
+              fixedSize: Size(120, 55),
+              backgroundColor: Color(0xff132137),
+              padding: EdgeInsets.symmetric(vertical: 18),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(8),
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,9 +1,4 @@
-import 'package:crud_flutter_api/app/modules/all_post/views/all_post_view.dart';
 import 'package:crud_flutter_api/app/modules/home/views/home_view.dart';
-import 'package:crud_flutter_api/app/modules/menu/hewan/views/hewan_view.dart';
-import 'package:crud_flutter_api/app/modules/menu/pengobatan/views/pengobatan_view.dart';
-import 'package:crud_flutter_api/app/modules/menu/pemilik/views/pemilik_view.dart';
-import 'package:crud_flutter_api/app/modules/menu/petugas/views/petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/menu/menu_view/views/menu_view.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';

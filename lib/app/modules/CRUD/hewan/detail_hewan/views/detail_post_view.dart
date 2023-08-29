@@ -1,4 +1,3 @@
-import 'package:crud_flutter_api/app/modules/edit_post/controllers/edit_post_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
@@ -93,7 +92,9 @@ class DetailPostView extends GetView<DetailPostController> {
                   ),
                 ),
               ),
-              SizedBox(width: 25,),
+              SizedBox(
+                width: 25,
+              ),
               ElevatedButton(
                 onPressed: () {
                   controller.deletePost();

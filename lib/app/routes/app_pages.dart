@@ -1,3 +1,5 @@
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/bindings/add_hewan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/views/add_hewan.dart';
 import 'package:get/get.dart';
 
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/bindings/kelahiran_binding.dart';
@@ -6,8 +8,6 @@ import 'package:crud_flutter_api/app/modules/menu/hewan/bindings/hewan_binding.d
 import 'package:crud_flutter_api/app/modules/menu/hewan/views/hewan_view.dart';
 import 'package:crud_flutter_api/app/modules/menu/inseminasi/bindings/inseminasi_binding.dart';
 import 'package:crud_flutter_api/app/modules/menu/inseminasi/views/inseminasi_view.dart';
-import 'package:crud_flutter_api/app/modules/myaccount/bindings/myaccount_binding.dart';
-import 'package:crud_flutter_api/app/modules/myaccount/views/myaccount_view.dart';
 import 'package:crud_flutter_api/app/modules/navigation/bindings/navigation_binding.dart';
 import 'package:crud_flutter_api/app/modules/navigation/views/navigation_view.dart';
 import 'package:crud_flutter_api/app/modules/menu/pengobatan/bindings/pengobatan_binding.dart';
@@ -21,14 +21,14 @@ import 'package:crud_flutter_api/app/modules/menu/vaksin/views/vaksin_view.dart'
 import 'package:crud_flutter_api/app/modules/user/bindings/user_binding.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 
-import '../modules/add_post/bindings/add_post_binding.dart';
-import '../modules/add_post/views/add_post_view.dart';
-import '../modules/all_post/bindings/all_post_binding.dart';
-import '../modules/all_post/views/all_post_view.dart';
-import '../modules/detail_post/bindings/detail_post_binding.dart';
-import '../modules/detail_post/views/detail_post_view.dart';
-import '../modules/edit_post/bindings/edit_post_binding.dart';
-import '../modules/edit_post/views/edit_post_view.dart';
+import '../modules/CRUD/post/add_post/bindings/add_post_binding.dart';
+import '../modules/CRUD/post/add_post/views/add_post_view.dart';
+import '../modules/CRUD/post/all_post/bindings/all_post_binding.dart';
+import '../modules/CRUD/post/all_post/views/all_post_view.dart';
+import '../modules/CRUD/post/detail_post/bindings/detail_post_binding.dart';
+import '../modules/CRUD/post/detail_post/views/detail_post_view.dart';
+import '../modules/CRUD/post/edit_post/bindings/edit_post_binding.dart';
+import '../modules/CRUD/post/edit_post/views/edit_post_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -92,6 +92,7 @@ class AppPages {
       name: _Paths.PKB,
       page: () => PkbView(),
       binding: PkbBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.NAVIGATION,
@@ -107,48 +108,52 @@ class AppPages {
       name: _Paths.HEWAN,
       page: () => HewanView(),
       binding: HewanBinding(),
-      transition: Transition.leftToRight,
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.PENGOBATAN,
       page: () => PengobatanView(),
       binding: PengobatanBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.KELAHIRAN,
       page: () => KelahiranView(),
       binding: KelahiranBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.PEMILIK,
       page: () => PemilikView(),
       binding: PemilikBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.INSEMINASI,
       page: () => InseminasiView(),
       binding: InseminasiBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.VAKSIN,
       page: () => VaksinView(),
       binding: VaksinBinding(),
-    ),
-    // GetPage(
-    //   name: _Paths.MAIN,
-    //   page: () => MainView(),
-    //   binding: MainBinding(),
-    // ),
-    GetPage(
-      name: _Paths.MYACCOUNT,
-      page: () => MyaccountView(),
-      binding: MyaccountBinding(),
+      transition: Transition.rightToLeft,
     ),
     GetPage(
       name: _Paths.PETUGAS,
       page: () => PetugasView(),
       binding: PetugasBinding(),
-      transition: Transition.native,
+      transition: Transition.rightToLeft,
+    ),
+
+    // Create Read Update Delete
+
+    GetPage(
+      name: _Paths.ADDHEWAN,
+      page: () => AddHewanView(),
+      binding: AddHewanBinding(),
+      transition: Transition.rightToLeft,
     ),
   ];
 }
