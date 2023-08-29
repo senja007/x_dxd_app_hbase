@@ -21,13 +21,12 @@ class PetugasView extends GetView<PetugasController> {
         child: Scaffold(
           appBar: AppBar(
             title: Text(
-              'Semua Data Post',
+              'Semua Data',
               style: TextStyle(
-                color: AppColor.secondary,
-                fontSize: 14,
+                color: AppColor.secondaryExtraSoft,
               ),
             ),
-            backgroundColor: Colors.white,
+            backgroundColor: Color(0xff132137),
             elevation: 0,
             centerTitle: true,
             bottom: PreferredSize(
