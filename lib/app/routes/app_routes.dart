@@ -29,6 +29,8 @@ abstract class Routes {
 
   // Create read update delete
   static const ADDHEWAN = _Paths.ADDHEWAN;
+  static const ADDPETERNAK = _Paths.ADDPETERNAK;
+  static const ADDPETUGAS = _Paths.ADDPETUGAS;
 }
 
 abstract class _Paths {
@@ -60,4 +62,6 @@ abstract class _Paths {
   // Create read update delete
 
   static const ADDHEWAN = '/add-hewan';
+  static const ADDPETERNAK = '/add-peternak';
+  static const ADDPETUGAS = '/add-petugas';
 }

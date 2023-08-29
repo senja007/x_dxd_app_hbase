@@ -1,11 +1,9 @@
-import 'package:crud_flutter_api/app/modules/menu/menu_view/views/menu_view.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 
 import '../controllers/hewan_controller.dart';
+import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/utils/app_color.dart';
 
 class HewanView extends GetView<HewanController> {
   @override
@@ -28,14 +26,14 @@ class HewanView extends GetView<HewanController> {
       body: Column(
         children: [
           InkWell(
-            onTap: () => {
+            onTap: () {
               Get.toNamed(
                 Routes.DETAIL_POST,
                 arguments: {
                   "id": "1",
                   "content": "content",
                 },
-              ),
+              );
             },
             borderRadius: BorderRadius.circular(8),
             child: Container(
@@ -66,14 +64,14 @@ class HewanView extends GetView<HewanController> {
             ),
           ),
           InkWell(
-            onTap: () => {
+            onTap: () {
               Get.toNamed(
                 Routes.DETAIL_POST,
                 arguments: {
                   "id": "2",
                   "content": "content",
                 },
-              ),
+              );
             },
             borderRadius: BorderRadius.circular(8),
             child: Container(
@@ -103,29 +101,19 @@ class HewanView extends GetView<HewanController> {
               ),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Get.toNamed(Routes.ADDHEWAN);
-            },
-            child: Text(
-              'Tambah Data',
-              style: TextStyle(
-                fontSize: 16,
-                fontFamily: 'poppins',
-              ),
-            ),
-            style: ElevatedButton.styleFrom(
-              fixedSize: Size(120, 55),
-              backgroundColor: Color(0xff132137),
-              padding: EdgeInsets.symmetric(vertical: 18),
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-              ),
-            ),
-          ),
         ],
       ),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 16.0),
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.toNamed(Routes.ADDHEWAN);
+          },
+          child: Icon(Icons.add),
+          backgroundColor: Color(0xff132137),
+        ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 }

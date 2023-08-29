@@ -1,5 +1,9 @@
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/bindings/add_hewan_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/views/add_hewan.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/bindings/add_peternak_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/views/add_peternak.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/add_petugas_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
 import 'package:get/get.dart';
 
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/bindings/kelahiran_binding.dart';
@@ -153,6 +157,18 @@ class AppPages {
       name: _Paths.ADDHEWAN,
       page: () => AddHewanView(),
       binding: AddHewanBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.ADDPETERNAK,
+      page: () => AddPeternakView(),
+      binding: AddPeternakBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.ADDPETUGAS,
+      page: () => AddPetugasView(),
+      binding: AddPetugasBinding(),
       transition: Transition.rightToLeft,
     ),
   ];

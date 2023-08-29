@@ -88,27 +88,6 @@ class PetugasView extends GetView<PetugasController> {
                                       : "${postData.email}"),
                                 ],
                               ),
-                              ElevatedButton(
-                                onPressed: () {
-                                  Get.toNamed(Routes.ADD_POST);
-                                },
-                                child: Text(
-                                  'Tambah Data',
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontFamily: 'poppins',
-                                  ),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                  fixedSize: Size(120, 55),
-                                  backgroundColor: Color(0xff132137),
-                                  padding: EdgeInsets.symmetric(vertical: 18),
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                ),
-                              ),
                             ],
                           ),
                         ),
@@ -117,6 +96,18 @@ class PetugasView extends GetView<PetugasController> {
                   )
                 : NoData(),
           ),
+          floatingActionButton: Padding(
+            padding: const EdgeInsets.only(bottom: 16.0),
+            child: FloatingActionButton(
+              onPressed: () {
+                Get.toNamed(Routes.ADDPETUGAS);
+              },
+              child: Icon(Icons.add),
+              backgroundColor: Color(0xff132137),
+            ),
+          ),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
       ),
     );
