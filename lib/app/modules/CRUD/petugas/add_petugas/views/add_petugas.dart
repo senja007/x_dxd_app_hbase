@@ -1,6 +1,7 @@
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart'; // Import CupertinoAlertDialog
 
 import 'package:get/get.dart';
 
@@ -19,9 +20,9 @@ class AddPetugasView extends GetView<AddPetugasController> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.of(context).pop(); // Aksi saat tombol diklik
+            Navigator.of(context).pop();
           },
         ),
         backgroundColor: Color(0xff132137),
@@ -42,22 +43,22 @@ class AddPetugasView extends GetView<AddPetugasController> {
         padding: EdgeInsets.all(20),
         children: [
           CustomInput(
-            controller: controller.titleC,
+            controller: controller.nikC,
             label: 'NIK Petugas',
             hint: 'NIK Petugas',
           ),
           CustomInput(
-            controller: controller.contentC,
+            controller: controller.namaC,
             label: 'Nama petugas',
             hint: 'Nama petugas',
           ),
           CustomInput(
-            controller: controller.titleC,
+            controller: controller.notlpC,
             label: 'No Telepon',
             hint: 'No Telepon',
           ),
           CustomInput(
-            controller: controller.titleC,
+            controller: controller.emailC,
             label: 'Email',
             hint: 'Email',
           ),
@@ -68,7 +69,47 @@ class AddPetugasView extends GetView<AddPetugasController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    if (controller.nikC.text.isEmpty) {
+                      // Periksa NIK kosong
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) {
+                          return CupertinoAlertDialog(
+                            title: Text("Peringatan"),
+                            content: Text("NIK tidak boleh kosong."),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else if (controller.namaC.text.isEmpty) {
+                      // Periksa NIK kosong
+                      showCupertinoDialog(
+                        context: context,
+                        builder: (context) {
+                          return CupertinoAlertDialog(
+                            title: Text("Peringatan"),
+                            content: Text("Nama tidak boleh kosong."),
+                            actions: [
+                              CupertinoDialogAction(
+                                child: Text("OK"),
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      controller.addPost();
+                    }
                   }
                 },
                 child: Text(

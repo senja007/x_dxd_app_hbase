@@ -24,6 +24,8 @@ class CustomInput extends StatefulWidget {
     this.suffixIcon,
     this.isNumber = false,
     this.isClickEmpty = false,
+    String? errorText,
+    OutlineInputBorder? border,
   });
   @override
   State<CustomInput> createState() => _CustomInputState();

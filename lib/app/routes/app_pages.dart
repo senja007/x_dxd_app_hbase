@@ -4,6 +4,8 @@ import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/bindings
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/views/add_peternak.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/add_petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/bindings/add_vaksin_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/views/add_vaksin.dart';
 import 'package:get/get.dart';
 
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/bindings/kelahiran_binding.dart';
@@ -171,5 +173,11 @@ class AppPages {
       binding: AddPetugasBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.ADDVAKSIN,
+      page: () => AddVaksinView(),
+      binding: AddVaksinBinding(),
+      transition: Transition.rightToLeft,
+    )
   ];
 }
