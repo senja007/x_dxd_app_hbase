@@ -23,7 +23,7 @@ class RegisterController extends GetxController {
       await box.write("username", userModel!.username);
       await box.write("name", userModel!.name);
       await box.write("role", userModel!.role);
-      await box.write("description", userModel!.description);
+
       await box.write("avatar", userModel!.avatar);
 
       update();

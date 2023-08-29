@@ -5,7 +5,7 @@ class UserModel {
   final String? name;
   final String? email;
   final String? role;
-  final String? description;
+
   final String? avatar;
   final String? accessToken;
   final String? tokenType;
@@ -17,7 +17,6 @@ class UserModel {
     this.name,
     this.email,
     this.role,
-    this.description,
     this.avatar,
     this.accessToken,
     this.tokenType,
@@ -31,7 +30,6 @@ class UserModel {
       name: jsonData['userSummary']['name'],
       role: jsonData['userSummary']['role'],
       email: jsonData['userSummary']['email'],
-      description: jsonData['userSummary']['description'],
       avatar: jsonData['userSummary']['avatar'],
       accessToken: jsonData['accessToken'],
       tokenType: jsonData['tokenType'],
