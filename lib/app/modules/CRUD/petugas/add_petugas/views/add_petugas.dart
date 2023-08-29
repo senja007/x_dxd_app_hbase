@@ -13,10 +13,9 @@ class AddPetugasView extends GetView<AddPetugasController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Data Peternak',
+          'Tambah Data Petugas',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 14,
           ),
         ),
         leading: IconButton(

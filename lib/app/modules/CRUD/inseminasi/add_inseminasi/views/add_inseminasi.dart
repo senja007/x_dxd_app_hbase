@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/add_vaksin_controller.dart';
+import '../controllers/add_inseminasi_controller.dart';
 
-class AddVaksinView extends GetView<AddVaksinController> {
-  const AddVaksinView({Key? key}) : super(key: key);
+class AddInseminasiView extends GetView<AddInseminasiController> {
+  const AddInseminasiView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Data Vaksin',
+          'Tambah Data Inseminasi',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -42,8 +42,8 @@ class AddVaksinView extends GetView<AddVaksinController> {
         children: [
           CustomInput(
             controller: controller.titleC,
-            label: 'Id vaksin',
-            hint: 'Id vaksin',
+            label: 'Id Inseminasi',
+            hint: 'Id Inseminasi',
           ),
           CustomInput(
             controller: controller.contentC,

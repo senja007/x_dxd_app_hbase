@@ -1,29 +1,30 @@
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/add_peternak_controller.dart';
+import '../controllers/edit_post_controller.dart';
 
-class AddPeternakView extends GetView<AddPeternakController> {
-  const AddPeternakView({Key? key}) : super(key: key);
+class EditPostView extends GetView<EditPostController> {
+  const EditPostView({Key? key}) : super(key: key);
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Data Peternak',
+          'Edit Post',
           style: TextStyle(
-            color: Colors.white,
+            color: AppColor.secondary,
+            fontSize: 14,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
-          onPressed: () {
-            Navigator.of(context).pop(); // Aksi saat tombol diklik
-          },
+          onPressed: () => Get.back(),
+          icon: SvgPicture.asset('assets/icons/arrow-left.svg'),
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: Colors.white,
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
@@ -40,40 +41,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Peternak',
-            hint: 'Id Peternak',
-          ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Id ISHIKNAS',
-            hint: 'Id ISHIKNAS',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nik Peternak',
-            hint: 'Nik Peternak',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nama Peternak',
-            hint: 'Nama Peternak',
-          ),
+          // CustomInput(
+          //   controller: controller.titleC,
+          //   label: 'Nama Post',
+          //   hint: 'Berita Terkini',
+          // ),
           CustomInput(
             controller: controller.contentC,
-            label: 'Lokasi',
-            hint: 'Lokasi',
-          ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Petugas Pendaftar',
-            hint: 'Petugas Pendaftar',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Tanggal Pendaftaran',
-            hint: 'Tanggal Pendaftaran',
+            label: 'edit data',
+            hint: 'silakan masukkan data',
           ),
           SizedBox(height: 32),
           Container(
@@ -82,18 +58,18 @@ class AddPeternakView extends GetView<AddPeternakController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.editPost();
                   }
                 },
                 child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  (controller.isLoading.isFalse) ? 'Edit Post' : 'Loading...',
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'poppins',
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
+                  primary: AppColor.primary,
                   padding: EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(

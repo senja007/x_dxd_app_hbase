@@ -15,7 +15,6 @@ class AddHewanView extends GetView<AddHewanController> {
           'Tambah Data Hewan',
           style: TextStyle(
             color: Colors.white,
-            fontSize: 14,
           ),
         ),
         leading: IconButton(

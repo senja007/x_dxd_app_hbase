@@ -10,7 +10,7 @@ import '../../menu_view/views/menu_view.dart';
 import '../controllers/inseminasi_controller.dart';
 
 class InseminasiView extends GetView<InseminasiController> {
-  const InseminasiView ({Key? key}) : super(key: key);
+  const InseminasiView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<InseminasiController>(
@@ -24,7 +24,6 @@ class InseminasiView extends GetView<InseminasiController> {
               'Semua Data',
               style: TextStyle(
                 color: AppColor.secondaryExtraSoft,
-               
               ),
             ),
             backgroundColor: Color(0xff132137),
@@ -100,7 +99,7 @@ class InseminasiView extends GetView<InseminasiController> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.toNamed(Routes.ADDPETUGAS);
+                Get.toNamed(Routes.ADDINSEMINASI);
               },
               child: Icon(Icons.add),
               backgroundColor: Color(0xff132137),

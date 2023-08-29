@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/add_vaksin_controller.dart';
+import '../controllers/add_pkb_controller.dart';
 
-class AddVaksinView extends GetView<AddVaksinController> {
-  const AddVaksinView({Key? key}) : super(key: key);
+class AddPkbView extends GetView<AddPkbController> {
+  const AddPkbView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Data Vaksin',
+          'Tambah Data Pkb',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -42,58 +42,13 @@ class AddVaksinView extends GetView<AddVaksinController> {
         children: [
           CustomInput(
             controller: controller.titleC,
-            label: 'Id vaksin',
-            hint: 'Id vaksin',
+            label: 'Id Kejadian',
+            hint: 'Id Kejadian',
           ),
           CustomInput(
             controller: controller.contentC,
-            label: 'No Earteg Nasional',
-            hint: 'No Earteg Nasional',
-          ),
-          CustomInput(
-            controller: controller.titleC,
             label: 'Id Hewan',
             hint: 'Id Hewan',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Pembuatan',
-            hint: 'Id Pembuatan',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Penjantan',
-            hint: 'Id Penjantan',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Bangsa Pejantan',
-            hint: 'Bangsa Pejantan',
-          ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'IB 1',
-            hint: 'IB 1',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB 2',
-            hint: 'IB 2',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB 3',
-            hint: 'IB 3',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB lain',
-            hint: 'IB lain',
-          ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Produsen',
-            hint: 'Produsen',
           ),
           CustomInput(
             controller: controller.titleC,
@@ -102,23 +57,48 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           CustomInput(
             controller: controller.titleC,
+            label: 'NIK Peternak',
+            hint: 'NIK Peternak',
+          ),
+          CustomInput(
+            controller: controller.titleC,
             label: 'Nama Peternak',
             hint: 'Nama Peternak',
           ),
           CustomInput(
-            controller: controller.titleC,
+            controller: controller.contentC,
+            label: 'Jumlah',
+            hint: 'Jumlah',
+          ),
+          CustomInput(
+            controller: controller.contentC,
+            label: 'Kategori',
+            hint: 'Kategori',
+          ),
+          CustomInput(
+            controller: controller.contentC,
             label: 'Lokasi',
             hint: 'Lokasi',
           ),
           CustomInput(
             controller: controller.titleC,
-            label: 'Inseminator',
-            hint: 'Inseminator',
+            label: 'Spesies',
+            hint: 'Spesies',
           ),
           CustomInput(
             controller: controller.titleC,
-            label: 'Tanggal IB',
-            hint: 'Tanggal IB',
+            label: 'Umur Kebuntingan',
+            hint: 'Umur Kebuntingan',
+          ),
+          CustomInput(
+            controller: controller.titleC,
+            label: 'Pemeriksa Kebuntingan',
+            hint: 'Pemeriksa Kebuntingan',
+          ),
+          CustomInput(
+            controller: controller.titleC,
+            label: 'Tanggal Pkb',
+            hint: 'Tanggal Pkb',
           ),
           SizedBox(height: 32),
           Container(

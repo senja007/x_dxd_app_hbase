@@ -1,9 +1,15 @@
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/bindings/add_hewan_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/views/add_hewan.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/bindings/add_inseminasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/views/add_inseminasi.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/add_pengobatan/bindings/add_pengobatan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/add_pengobatan/views/add_pengobatan.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/bindings/add_peternak_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/views/add_peternak.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/add_petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/bindings/add_pkb_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/views/add_pkb.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/bindings/add_vaksin_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/views/add_vaksin.dart';
 import 'package:get/get.dart';
@@ -178,6 +184,24 @@ class AppPages {
       page: () => AddVaksinView(),
       binding: AddVaksinBinding(),
       transition: Transition.rightToLeft,
-    )
+    ),
+    GetPage(
+      name: _Paths.ADDINSEMINASI,
+      page: () => AddInseminasiView(),
+      binding: AddInseminasiBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.ADDPENGOBATAN,
+      page: () => AddPengobatanView(),
+      binding: AddPengobatanBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.ADDPKB,
+      page: () => AddPkbView(),
+      binding: AddPkbBinding(),
+      transition: Transition.rightToLeft,
+    ),
   ];
 }

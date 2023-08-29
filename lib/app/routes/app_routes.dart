@@ -32,6 +32,9 @@ abstract class Routes {
   static const ADDPETERNAK = _Paths.ADDPETERNAK;
   static const ADDPETUGAS = _Paths.ADDPETUGAS;
   static const ADDVAKSIN = _Paths.ADDVAKSIN;
+  static const ADDINSEMINASI = _Paths.ADDINSEMINASI;
+  static const ADDPENGOBATAN = _Paths.ADDPENGOBATAN;
+  static const ADDPKB = _Paths.ADDPKB;
 }
 
 abstract class _Paths {
@@ -66,4 +69,7 @@ abstract class _Paths {
   static const ADDPETERNAK = '/add-peternak';
   static const ADDPETUGAS = '/add-petugas';
   static const ADDVAKSIN = '/add-vaksin';
+  static const ADDINSEMINASI = '/add-inseminasi';
+  static const ADDPENGOBATAN = '/add-pengobatan';
+  static const ADDPKB = '/add-pkb';
 }

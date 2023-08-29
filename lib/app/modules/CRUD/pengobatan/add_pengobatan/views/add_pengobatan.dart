@@ -4,15 +4,15 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/add_vaksin_controller.dart';
+import '../controllers/add_pengobatan_controller.dart';
 
-class AddVaksinView extends GetView<AddVaksinController> {
-  const AddVaksinView({Key? key}) : super(key: key);
+class AddPengobatanView extends GetView<AddPengobatanController> {
+  const AddPengobatanView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Tambah Data Vaksin',
+          'Tambah Data Pengobatan',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -42,83 +42,48 @@ class AddVaksinView extends GetView<AddVaksinController> {
         children: [
           CustomInput(
             controller: controller.titleC,
-            label: 'Id vaksin',
-            hint: 'Id vaksin',
+            label: 'Id Kasus',
+            hint: 'Id Kasus',
           ),
           CustomInput(
             controller: controller.contentC,
-            label: 'No Earteg Nasional',
-            hint: 'No Earteg Nasional',
+            label: 'Nama Infrastuktur',
+            hint: 'Nama Infrastuktur',
           ),
           CustomInput(
             controller: controller.titleC,
-            label: 'Id Hewan',
-            hint: 'Id Hewan',
+            label: 'Dosis',
+            hint: 'Dosis',
           ),
           CustomInput(
             controller: controller.titleC,
-            label: 'Id Pembuatan',
-            hint: 'Id Pembuatan',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Penjantan',
-            hint: 'Id Penjantan',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Bangsa Pejantan',
-            hint: 'Bangsa Pejantan',
+            label: 'Sindrom',
+            hint: 'Sindrom',
           ),
           CustomInput(
             controller: controller.contentC,
-            label: 'IB 1',
-            hint: 'IB 1',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB 2',
-            hint: 'IB 2',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB 3',
-            hint: 'IB 3',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'IB lain',
-            hint: 'IB lain',
+            label: 'Diagnosa Banding',
+            hint: 'Diagnosa Banding',
           ),
           CustomInput(
             controller: controller.contentC,
-            label: 'Produsen',
-            hint: 'Produsen',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Peternak',
-            hint: 'Id Peternak',
-          ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Nama Peternak',
-            hint: 'Nama Peternak',
-          ),
-          CustomInput(
-            controller: controller.titleC,
             label: 'Lokasi',
             hint: 'Lokasi',
           ),
           CustomInput(
-            controller: controller.titleC,
-            label: 'Inseminator',
-            hint: 'Inseminator',
+            controller: controller.contentC,
+            label: 'Petugas Pendaftar',
+            hint: 'Petugas Pendaftar',
           ),
           CustomInput(
             controller: controller.titleC,
-            label: 'Tanggal IB',
-            hint: 'Tanggal IB',
+            label: 'Tanggal Kasus',
+            hint: 'Tanggal Kasus',
+          ),
+          CustomInput(
+            controller: controller.titleC,
+            label: 'Tanggal Pengobatan',
+            hint: 'Tanggal Pengobatan',
           ),
           SizedBox(height: 32),
           Container(
