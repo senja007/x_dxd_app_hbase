@@ -40,13 +40,19 @@ class PetugasApi extends SharedApi {
     try {
       var jsonData;
       showLoading();
+
+      var bodyData = {
+        'content': content,
+        'status': "1",
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/petugas'),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
+      print(jsonData);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
         return PetugasModel.fromJson(jsonData);
