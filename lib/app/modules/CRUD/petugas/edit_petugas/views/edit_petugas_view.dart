@@ -5,10 +5,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/edit_post_controller.dart';
+import '../controllers/edit_petugas_controller.dart';
 
-class EditPostView extends GetView<EditPostController> {
-  const EditPostView({Key? key}) : super(key: key);
+class EditPetugasView extends GetView<EditPetugasController> {
+  const EditPetugasView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

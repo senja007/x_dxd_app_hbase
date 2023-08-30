@@ -27,7 +27,7 @@ abstract class Routes {
   static const MYACCOUNT = _Paths.MYACCOUNT;
   static const PETUGAS = _Paths.PETUGAS;
 
-  // Create read update delete
+  // ADD DATA
   static const ADDHEWAN = _Paths.ADDHEWAN;
   static const ADDPETERNAK = _Paths.ADDPETERNAK;
   static const ADDPETUGAS = _Paths.ADDPETUGAS;
@@ -38,6 +38,9 @@ abstract class Routes {
 
   //Detail Post
   static const DETAILPETUGAS = _Paths.DETAILPETUGAS;
+
+  //EDIT POST
+  static const EDITPETUGAS = _Paths.EDITPETUGAS;
 }
 
 abstract class _Paths {
@@ -77,5 +80,8 @@ abstract class _Paths {
   static const ADDPKB = '/add-pkb';
 
   // Detail Post
-  static const DETAILPETUGAS = '/detail-etugas';
+  static const DETAILPETUGAS = '/detail-petugas';
+
+  //EDIT POST
+  static const EDITPETUGAS = '/edit-petugas';
 }

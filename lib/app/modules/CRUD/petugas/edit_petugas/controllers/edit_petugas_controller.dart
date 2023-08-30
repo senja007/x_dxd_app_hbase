@@ -4,7 +4,7 @@ import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class EditPostController extends GetxController {
+class EditPetugasController extends GetxController {
   //TODO: Implement EditPostController
   PetugasModel? petugasModel;
   final Map<String, dynamic> argsData = Get.arguments;
