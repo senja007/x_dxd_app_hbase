@@ -24,6 +24,7 @@ class HomeView extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
         title: Text(
           'TERNAK',
@@ -36,7 +37,6 @@ class HomeView extends GetView<HomeController> {
       body: SafeArea(
         child: SingleChildScrollView(
           child: Container(
-            color: Color(0xffF7EBE1),
             child: Column(
               children: <Widget>[
                 Padding(
@@ -50,19 +50,18 @@ class HomeView extends GetView<HomeController> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  
                 ),
                 Padding(
-                      padding: EdgeInsets.all(0),
-                      child: Text(
-                        "Selamat Datang Di Sistem Manajemen Aplikasi Ternak \n",
-                        textAlign: TextAlign.left,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15,
-                          fontWeight: FontWeight.normal,
-                        ),
-                      )),
+                    padding: EdgeInsets.all(0),
+                    child: Text(
+                      "Selamat Datang Di Sistem Manajemen Aplikasi Ternak \n",
+                      textAlign: TextAlign.left,
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontWeight: FontWeight.normal,
+                      ),
+                    )),
                 // Other widgets...
 
                 SizedBox(
@@ -85,40 +84,39 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
                 Padding(
-                      padding: EdgeInsets.all(5),
-                      child: Container(
-                        child: Center(
-                          child: Wrap(
-                            spacing: 80.0,
-                            runSpacing: 20.0,
-                            children: [
-                              SizedBox(
-                                width: 250,
-                                height: 30,
-                                child: Card(
-                                  color: Color(0xff132137),
-                                  elevation: 2.0,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(5.0)),
-                                  child: Text(
-                                    "Informasi Data Peternakan",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 18,
-                                      fontWeight: FontWeight.bold,
-                                    ),
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      child: Center(
+                        child: Wrap(
+                          spacing: 80.0,
+                          runSpacing: 20.0,
+                          children: [
+                            SizedBox(
+                              width: 250,
+                              height: 30,
+                              child: Card(
+                                color: Color(0xff132137),
+                                elevation: 2.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: Text(
+                                  "Informasi Data Peternakan",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              )
-                            ],
-                          ),
+                              ),
+                            )
+                          ],
                         ),
-                      )
-                ),
+                      ),
+                    )),
 
                 // Other widgets...
-                
+
                 // Organize card widgets using a Row and Spacer for spacing.
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -131,9 +129,11 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildCardWidget("assets/images/people.png", "20", "Petugas"),
+                    _buildCardWidget(
+                        "assets/images/people.png", "20", "Petugas"),
                     SizedBox(width: 12),
-                    _buildCardWidget("assets/images/house.png", "38", "Kandang"),
+                    _buildCardWidget(
+                        "assets/images/house.png", "38", "Kandang"),
                   ],
                 ),
 
@@ -148,8 +148,8 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildCardWidget(String imagePath, String count, String label) {
     return SizedBox(
-      width: 160.0,
-      height: 160.0,
+      width: 170.0,
+      height: 170.0,
       child: Card(
         color: Color(0xff132137),
         elevation: 2.0,
@@ -157,27 +157,31 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: InkWell(
-          onTap: () => Navigator.pushNamed(AddHewanController() as BuildContext, '/homePage'),
+          onTap: () => Navigator.pushNamed(
+              AddHewanController() as BuildContext, '/homePage'),
           child: Column(
             children: [
-              Image.asset(
-                imagePath,
-                width: 70.0,
+              Padding(
+                padding: EdgeInsets.all(13.0), // Add top padding here
+                child: Image.asset(
+                  imagePath,
+                  width: 70.0,
+                ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 2.0),
               Text(
                 count,
                 style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Color(0xffF7EBE1),
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                 ),
               ),
-              SizedBox(height: 10.0),
+              SizedBox(height: 2.0),
               Text(
                 label,
                 style: TextStyle(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: Color(0xffF7EBE1),
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                 ),
@@ -189,6 +193,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
 }
+
 
 
 
