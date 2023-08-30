@@ -10,6 +10,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
   const AddPengobatanView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
         title: Text(
           'Tambah Data Pengobatan',

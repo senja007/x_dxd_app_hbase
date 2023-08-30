@@ -11,6 +11,7 @@ class AddPetugasView extends GetView<AddPetugasController> {
   const AddPetugasView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
         title: Text(
           'Tambah Data Petugas',

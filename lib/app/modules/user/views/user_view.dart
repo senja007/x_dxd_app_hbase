@@ -15,6 +15,7 @@ class UserView extends StatelessWidget {
     UserController userController = Get.find<UserController>();
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
+        backgroundColor: Color(0xffF7EBE1),
         appBar: AppBar(
           title: Text(
             'My Profile',
@@ -26,7 +27,6 @@ class UserView extends StatelessWidget {
           elevation: 0.0,
         ),
         body: Container(
-          color: Color(0xffF7EBE1), // Background color for the body
           child: SingleChildScrollView(
             padding: const EdgeInsets.all(50),
             child: Column(
@@ -34,7 +34,6 @@ class UserView extends StatelessWidget {
                 const SizedBox(height: 40),
                 CircleAvatar(
                   radius: 70,
-                  
                 ),
                 const SizedBox(height: 20),
                 itemProfile(

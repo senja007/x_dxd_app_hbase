@@ -36,14 +36,14 @@ class _CustomInputState extends State<CustomInput> {
   Widget build(BuildContext context) {
     print("builded");
     return Material(
-      color: Colors.white,
+      color: Color(0xffF7EBE1),
       child: Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.only(left: 14, right: 14, top: 4),
         margin: widget.margin,
         decoration: BoxDecoration(
           color: (widget.disabled == false)
-              ? Colors.transparent
+              ? Colors.white
               : AppColor.primaryExtraSoft,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),

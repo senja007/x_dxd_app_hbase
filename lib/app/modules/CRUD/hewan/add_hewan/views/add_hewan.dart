@@ -10,6 +10,7 @@ class AddHewanView extends GetView<AddHewanController> {
   const AddHewanView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
         title: Text(
           'Tambah Data Hewan',
@@ -114,6 +115,7 @@ class AddHewanView extends GetView<AddHewanController> {
             controller: controller.contentC,
             label: 'Tanggal terdaftar',
             hint: 'Tanggal terdaftar',
+            isDate: true,
           ),
           SizedBox(height: 32),
           Container(
