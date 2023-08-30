@@ -8,6 +8,8 @@ import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/bindings
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/views/add_peternak.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/add_petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/petugas/detail_petugas/bindings/detail_petugas_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/petugas/detail_petugas/views/detail_petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/bindings/add_pkb_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/views/add_pkb.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/bindings/add_vaksin_binding.dart';
@@ -201,6 +203,15 @@ class AppPages {
       name: _Paths.ADDPKB,
       page: () => AddPkbView(),
       binding: AddPkbBinding(),
+      transition: Transition.rightToLeft,
+    ),
+
+    //DETAIL POST
+
+    GetPage(
+      name: _Paths.DETAILPETUGAS,
+      page: () => DetailPetugasView(),
+      binding: DetailPetugasBinding(),
       transition: Transition.rightToLeft,
     ),
   ];

@@ -6,10 +6,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/detail_post_controller.dart';
+import '../controllers/detail_petugas_controller.dart';
 
-class DetailPostView extends GetView<DetailPostController> {
-  const DetailPostView({Key? key}) : super(key: key);
+class DetailPetugasView extends GetView<DetailPetugasController> {
+  const DetailPetugasView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(

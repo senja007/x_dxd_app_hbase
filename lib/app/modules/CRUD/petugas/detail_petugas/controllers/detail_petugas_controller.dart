@@ -5,7 +5,7 @@ import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
-class DetailPostController extends GetxController {
+class DetailPetugasController extends GetxController {
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
   PetugasModel? petugasModel;

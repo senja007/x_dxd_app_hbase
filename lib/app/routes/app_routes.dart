@@ -35,6 +35,9 @@ abstract class Routes {
   static const ADDINSEMINASI = _Paths.ADDINSEMINASI;
   static const ADDPENGOBATAN = _Paths.ADDPENGOBATAN;
   static const ADDPKB = _Paths.ADDPKB;
+
+  //Detail Post
+  static const DETAILPETUGAS = _Paths.DETAILPETUGAS;
 }
 
 abstract class _Paths {
@@ -72,4 +75,7 @@ abstract class _Paths {
   static const ADDINSEMINASI = '/add-inseminasi';
   static const ADDPENGOBATAN = '/add-pengobatan';
   static const ADDPKB = '/add-pkb';
+
+  // Detail Post
+  static const DETAILPETUGAS = '/detail-etugas';
 }
