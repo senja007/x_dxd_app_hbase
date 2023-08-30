@@ -1,11 +1,31 @@
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/bindings/add_hewan_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/views/add_hewan.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/detail_hewan/bindings/detail_hewan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/detail_hewan/views/detail_hewan_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/edit_hewan/bindings/edit_hewan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/hewan/edit_hewan/views/edit_hewan_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/bindings/add_inseminasi_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/views/add_inseminasi.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/bindings/detail_inseminasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/views/detail_inseminasi_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/edit_inseminasi/bindings/edit_inseminasi_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/edit_inseminasi/views/edit_inseminasi_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/bindings/detail_kelahiran_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/views/detail_kelahiran_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/edit_kelahiran/bindings/edit_kelahiran_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/edit_kelahiran/views/edit_kelahiran_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/add_pengobatan/bindings/add_pengobatan_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/add_pengobatan/views/add_pengobatan.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/detail_pengobatan/bindings/detail_pengobatan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/detail_pengobatan/views/detail_pengobatan_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/edit_pengobatan/bindings/edit_pengobatan_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/edit_pengobatan/views/edit_pengobatan_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/bindings/add_peternak_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/peternak/add_peternak/views/add_peternak.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/detail_peternak/bindings/detail_peternak_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/detail_peternak/views/detail_peternak_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/edit_peternak/bindings/edit_peternak_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/peternak/edit_peternak/views/edit_peternak_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/add_petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/detail_petugas/bindings/detail_petugas_binding.dart';
@@ -14,8 +34,16 @@ import 'package:crud_flutter_api/app/modules/CRUD/petugas/edit_petugas/bindings/
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/edit_petugas/views/edit_petugas_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/bindings/add_pkb_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/views/add_pkb.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/detail_pkb/bindings/detail_pkb_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/detail_pkb/views/detail_pkb_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/edit_pkb/bindings/edit_pkb_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/pkb/edit_pkb/views/edit_pkb_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/bindings/add_vaksin_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/views/add_vaksin.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/detail_vaksin/bindings/detail_vaksin_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/detail_vaksin/views/detail_vaksin_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/edit_vaksin/bindings/edit_vaksin_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/vaksin/edit_vaksin/views/edit_vaksin_view.dart';
 import 'package:get/get.dart';
 
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/bindings/kelahiran_binding.dart';
@@ -216,6 +244,48 @@ class AppPages {
       binding: DetailPetugasBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.DETAILHEWAN,
+      page: () => DetailHewanView(),
+      binding: DetailHewanBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILPETERNAK,
+      page: () => DetailPeternakView(),
+      binding: DetailPeternakBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILINSEMINASI,
+      page: () => DetailInseminasiView(),
+      binding: DetailInseminasiBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILVAKSIN,
+      page: () => DetailVaksinView(),
+      binding: DetailVaksinBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILPKB,
+      page: () => DetailPkbView(),
+      binding: DetailPkbBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILKELAHIRAN,
+      page: () => DetailKelahiranView(),
+      binding: DetailKelahiranBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILPENGOBATAN,
+      page: () => DetailPengobatanView(),
+      binding: DetailPengobatanBinding(),
+      transition: Transition.rightToLeft,
+    ),
 
     //EDIT POST
 
@@ -225,5 +295,47 @@ class AppPages {
       binding: EditPetugasBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.EDITHEWAN,
+      page: () => EditHewanView(),
+      binding: EditHewanBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITPETERNAK,
+      page: () => EditPeternakView(),
+      binding: EditPeternakBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITINSEMINASI,
+      page: () => EditInseminasiView(),
+      binding: EditInseminasiBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITVAKSIN,
+      page: () => EditVaksinView(),
+      binding: EditVaksinBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITPKB,
+      page: () => EditPkbView(),
+      binding: EditPkbBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITKELAHIRAN,
+      page: () => EditKelahiranView(),
+      binding: EditKelahiranBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.EDITPENGOBATAN,
+      page: () => EditPengobatanView(),
+      binding: EditPengobatanBinding(),
+      transition: Transition.rightToLeft,
+    )
   ];
 }
