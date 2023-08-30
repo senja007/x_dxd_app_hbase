@@ -15,7 +15,7 @@ class DetailPostView extends GetView<DetailPostController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Petugas',
+          'Detail Data',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,
@@ -62,27 +62,9 @@ class DetailPostView extends GetView<DetailPostController> {
           //   disabled: true,
           // ),
           CustomInput(
-            controller: controller.nikC,
-            label: 'Nik Petugas',
-            hint: 'Nik Petugas',
-            disabled: true,
-          ),
-          CustomInput(
-            controller: controller.namaC,
-            label: 'Nama Petugas',
-            hint: 'Nama Petugas',
-            disabled: true,
-          ),
-          CustomInput(
-            controller: controller.tlpC,
-            label: 'No Telepon',
-            hint: 'No Telepon',
-            disabled: true,
-          ),
-          CustomInput(
-            controller: controller.emailC,
-            label: 'Email',
-            hint: 'Email',
+            controller: controller.contentC,
+            label: 'Data',
+            hint: 'detail data',
             disabled: true,
           ),
           Row(

@@ -12,20 +12,17 @@ class DetailPostController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
 
-  TextEditingController nikC = TextEditingController();
-  TextEditingController namaC = TextEditingController();
-  TextEditingController tlpC = TextEditingController();
-  TextEditingController emailC = TextEditingController();
+  TextEditingController contentC = TextEditingController();
   @override
   onClose() {
-    nikC.dispose();
+    contentC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    namaC.text = argsData["content"];
+    contentC.text = argsData["content"];
   }
 
   Future<void> deletePost() async {
