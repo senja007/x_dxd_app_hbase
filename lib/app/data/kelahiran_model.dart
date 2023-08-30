@@ -1,29 +1,83 @@
 class KelahiranModel {
   final int? id;
-  final String? namaPetugas;
-  final String? nikPetugas;
-  final String? noTelp;
-  final String? email;
   final int? status;
+  final String? idKejadian;
+  final String? tanggalLaporan;
+  final String? tanggalLahir;
+  final String? lokasi;
+  final String? namaPeternak;
+  final String? idPeternak;
+  final String? kartuTernakInduk;
+  final String? eartagInduk;
+  final String? idHewanInduk;
+  final String? spesiesInduk;
+  final String? idPejantanStraw;
+  final String? idBatchStraw;
+  final String? produsenStraw;
+  final String? spesiesPejantan;
+  final String? jumlah;
+  final String? kartuTernakAnak;
+  final String? eartagAnak;
+  final String? idHewanAnak;
+  final String? jenisKelaminAnak;
+  final String? kategori;
+  final String? petugasPelopor;
+  final String? urutanIb;
+ 
 
   KelahiranModel({
     this.status,
     this.id,
-    this.namaPetugas,
-    this.nikPetugas,
-    this.noTelp,
-    this.email,
+    this.idKejadian ,
+    this.tanggalLaporan ,
+    this.tanggalLahir ,
+    this.lokasi ,
+    this.namaPeternak ,
+    this.idPeternak ,
+    this.kartuTernakInduk ,
+    this.eartagInduk ,
+    this.idHewanInduk ,
+    this.spesiesInduk ,
+    this.idPejantanStraw ,
+    this.idBatchStraw ,
+    this.produsenStraw ,
+    this.spesiesPejantan ,
+    this.jumlah ,
+    this.kartuTernakAnak ,
+    this.eartagAnak ,
+    this.idHewanAnak ,
+    this.jenisKelaminAnak ,
+    this.kategori ,
+    this.petugasPelopor ,
+    this.urutanIb ,
   });
 
   factory KelahiranModel.fromJson(Map<String, dynamic> jsonData) {
     return KelahiranModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
-      namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
-      noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
-      email: jsonData['email'] != null ? jsonData['email'] : "",
+      idKejadian:
+          jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
+      tanggalLaporan: jsonData['tanggalLaporan'] != null ? jsonData['tanggalLaporan'] : "",
+      tanggalLahir: jsonData['tanggalLahir'] != null ? jsonData['tanggalLahir'] : "",
+      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
+      kartuTernakInduk: jsonData['kartuTernakInduk'] != null ? jsonData['kartuTernakInduk'] : "",
+      eartagInduk: jsonData['eartagInduk'] != null ? jsonData['eartagInduk'] : "",
+      idHewanInduk: jsonData['idHewanInduk'] != null ? jsonData['idHewanInduk'] : "",
+      spesiesInduk: jsonData['spesiesInduk'] != null ? jsonData['spesiesInduk'] : "",
+      idPejantanStraw: jsonData['idPejantanStraw'] != null ? jsonData['idPejantanStraw'] : "",
+      idBatchStraw: jsonData['idBatchStraw'] != null ? jsonData['idBatchStraw'] : "",
+      produsenStraw: jsonData['produsenStraw'] != null ? jsonData['produsenStraw'] : "",
+      spesiesPejantan: jsonData['spesiesPejantan'] != null ? jsonData['spesiesPejantan'] : "",
+      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
+      kartuTernakAnak: jsonData['kartuTernakAnak'] != null ? jsonData['kartuTernakAnak'] : "",
+      eartagAnak: jsonData['eartagAnak'] != null ? jsonData['eartagAnak'] : "",
+      jenisKelaminAnak: jsonData['jenisKelaminAnak'] != null ? jsonData['jenisKelaminAnak'] : "",
+      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
+      petugasPelopor: jsonData['petugasPelopor'] != null ? jsonData['petugasPelopor'] : "",
+      urutanIb: jsonData['urutanIb'] != null ? jsonData['urutanIb'] : "",
     );
   }
 }

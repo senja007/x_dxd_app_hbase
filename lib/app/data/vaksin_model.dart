@@ -1,30 +1,68 @@
 class VaksinModel {
-  final int? id;
-  final String? namaPetugas;
-  final String? nikPetugas;
-  final String? noTelp;
-  final String? email;
   final int? status;
+  final int? id;
+  final String? idVaksin;
+  final String? tanggalIB;
+  final String? lokasi;
+  final String? namaPeternak;
+  final String? idPeternak;
+  final String? idHewan;
+  final String? eartag;
+  final String? ib1;
+  final String? ib2;
+  final String? ib3;
+  final String? ibLain;
+  final String? idPejantan;
+  final String? idPembuatan;
+  final String? bangsaPejantan;
+  final String? produsen;
+  final String? inseminator;
+
 
   VaksinModel({
     this.status,
     this.id,
-    this.namaPetugas,
-    this.nikPetugas,
-    this.noTelp,
-    this.email,
+    this.idVaksin,
+    this.tanggalIB,
+    this.lokasi,
+    this.namaPeternak,
+    this.idPeternak,
+    this.idHewan,
+    this.eartag,
+    this.ib1,
+    this.ib2,
+    this.ib3,
+    this.ibLain,
+    this.idPejantan,
+    this.idPembuatan,
+    this.bangsaPejantan,
+    this.produsen,
+    this.inseminator,
+
   });
 
   factory VaksinModel.fromJson(Map<String, dynamic> jsonData) {
     return VaksinModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
-      namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
-      noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
-      email: jsonData['email'] != null ? jsonData['email'] : "",
-    );
+      idVaksin:
+          jsonData['idVaksin'] != null ? jsonData['idVaksin'] : "",
+      tanggalIB: jsonData['tanggalIB'] != null ? jsonData['tanggalIB'] : "",
+      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
+      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
+      eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
+      ib1: jsonData['ib1'] != null ? jsonData['ib1'] : "",
+      ib2: jsonData['ib2'] != null ? jsonData['ib2'] : "",
+      ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",
+      ibLain: jsonData['ibLain'] != null ? jsonData['ibLain'] : "",
+      idPejantan: jsonData['idPejantan'] != null ? jsonData['idPejantan'] : "",
+      idPembuatan: jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
+      bangsaPejantan: jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
+      produsen: jsonData['produsen'] != null ? jsonData['produsen'] : "",
+      inseminator: jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
+        );
   }
 }
 

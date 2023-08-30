@@ -1,29 +1,54 @@
 class PKBModel {
-  final int? id;
-  final String? namaPetugas;
-  final String? nikPetugas;
-  final String? noTelp;
-  final String? email;
   final int? status;
+  final int? id;
+  final String? idKejadian;
+  final String? tanggalPkb;
+  final String? lokasi;
+  final String? namaPeternak;
+  final String? idPeternak;
+  final String? nikPeternak;
+  final String? idHewan;
+  final String? spesies;
+  final String? kategori;
+  final String? jumlah;
+  final String? umurKebuntingan;
+  final String? pemeriksaKebuntingan;
 
   PKBModel({
     this.status,
     this.id,
-    this.namaPetugas,
-    this.nikPetugas,
-    this.noTelp,
-    this.email,
+    this.idKejadian,
+    this.tanggalPkb,
+    this.lokasi,
+    this.namaPeternak,
+    this.idPeternak,
+    this.nikPeternak,
+    this.idHewan,
+    this.spesies,
+    this.kategori,
+    this.jumlah,
+    this.umurKebuntingan,
+    this.pemeriksaKebuntingan,
+    
   });
 
   factory PKBModel.fromJson(Map<String, dynamic> jsonData) {
     return PKBModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
-      namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
-      noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
-      email: jsonData['email'] != null ? jsonData['email'] : "",
+      idKejadian:
+          jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
+      tanggalPkb: jsonData['tanggalPkb'] != null ? jsonData['tanggalPkb'] : "",
+      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
+      nikPeternak: jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
+      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
+      spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
+      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
+      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
+      umurKebuntingan: jsonData['umurKebuntingan'] != null ? jsonData['umurKebuntingan'] : "",
+      pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] != null ? jsonData['pemeriksaKebuntingan'] : "",
     );
   }
 }

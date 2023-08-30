@@ -1,4 +1,5 @@
 class PengobatanModel {
+  final int? status;
   final int? id;
   final String? idKasus;
   final String? tanggalPengobatan;
@@ -10,7 +11,6 @@ class PengobatanModel {
   final String? sindrom;
   final String? dignosaBanding;
 
-  final int? status;
 
   PengobatanModel({
     this.status,
