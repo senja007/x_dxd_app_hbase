@@ -8,12 +8,40 @@ class AddVaksinController extends GetxController {
   PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController titleC = TextEditingController();
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idVaksinC = TextEditingController();
+  TextEditingController eartagC = TextEditingController();
+  TextEditingController idHewanC = TextEditingController();
+  TextEditingController idPembuatanC = TextEditingController();
+  TextEditingController idPejantanC = TextEditingController();
+  TextEditingController bangsaPejantanC = TextEditingController();
+  TextEditingController ib1C = TextEditingController();
+  TextEditingController ib2C = TextEditingController();
+  TextEditingController ib3C = TextEditingController();
+  TextEditingController ibLainC = TextEditingController();
+  TextEditingController produsenC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController inseminatorC = TextEditingController();
+  TextEditingController tanggalIbC = TextEditingController();
   @override
   onClose() {
-    titleC.dispose();
-    contentC.dispose();
+    inseminatorC.dispose();
+    tanggalIbC.dispose();
+    namaPeternakC.dispose();
+    lokasiC.dispose();
+    produsenC.dispose();
+    idPeternakC.dispose();
+    ib3C.dispose();
+    ibLainC.dispose();
+    ib1C.dispose();
+    ib2C.dispose();
+    idPejantanC.dispose();
+    bangsaPejantanC.dispose();
+    idHewanC.dispose();
+    idPembuatanC.dispose();
+    idVaksinC.dispose();
+    eartagC.dispose();
   }
 
   Future addPost() async {

@@ -8,12 +8,32 @@ class AddPkbController extends GetxController {
   PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController titleC = TextEditingController();
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idKejadianC = TextEditingController();
+  TextEditingController idHewanC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController nikC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController jumlahC = TextEditingController();
+  TextEditingController kategoriC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController spesiesC = TextEditingController();
+  TextEditingController umurKebuntinganC = TextEditingController();
+  TextEditingController pemeriksaKebuntingaC = TextEditingController();
+  TextEditingController tanggalPkbC = TextEditingController();
   @override
   onClose() {
-    titleC.dispose();
-    contentC.dispose();
+    pemeriksaKebuntingaC.dispose();
+    tanggalPkbC.dispose();
+    spesiesC.dispose();
+    umurKebuntinganC.dispose();
+    kategoriC.dispose();
+    lokasiC.dispose();
+    namaPeternakC.dispose();
+    jumlahC.dispose();
+    idPeternakC.dispose();
+    nikC.dispose();
+    idKejadianC.dispose();
+    idHewanC.dispose();
   }
 
   Future addPost() async {

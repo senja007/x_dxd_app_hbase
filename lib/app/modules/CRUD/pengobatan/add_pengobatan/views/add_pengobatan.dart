@@ -41,50 +41,311 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Id Kasus',
-            hint: 'Id Kasus',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.idKasusC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Id Kasus",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Id Kasus",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Nama Infrastuktur',
-            hint: 'Nama Infrastuktur',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.namaInfratukturC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Nama infrastuktur",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Nama infrastuktur",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Dosis',
-            hint: 'Dosis',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.dosisC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Dosis",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Dosis",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Sindrom',
-            hint: 'Sindrom',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.sindromC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Sindrom",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Sindrom",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Diagnosa Banding',
-            hint: 'Diagnosa Banding',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.diagnosaBandingC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Diagnosa Banding",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Diagnosa Banding",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Lokasi',
-            hint: 'Lokasi',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.lokasiC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Lokasi",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Lokasi",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Petugas Pendaftar',
-            hint: 'Petugas Pendaftar',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.petugasPendaftarC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Petugas Pendaftar",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Petugas Pendaftar",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Tanggal Kasus',
-            hint: 'Tanggal Kasus',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.tanggalKasusC,
+              keyboardType: TextInputType.datetime,
+              decoration: InputDecoration(
+                label: Text(
+                  "Tanggal Kasus",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Tanggal Kasus",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
-          CustomInput(
-            controller: controller.titleC,
-            label: 'Tanggal Pengobatan',
-            hint: 'Tanggal Pengobatan',
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.tanggalPengobatanC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Tanggal Pengobatan",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Tanggal Pengobatan",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
           SizedBox(height: 32),
           Container(
@@ -93,7 +354,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addPengobatan();
                   }
                 },
                 child: Text(

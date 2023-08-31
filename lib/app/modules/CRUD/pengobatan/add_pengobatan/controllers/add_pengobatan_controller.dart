@@ -8,17 +8,31 @@ class AddPengobatanController extends GetxController {
   PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController titleC = TextEditingController();
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idKasusC = TextEditingController();
+  TextEditingController namaInfratukturC = TextEditingController();
+  TextEditingController dosisC = TextEditingController();
+  TextEditingController sindromC = TextEditingController();
+  TextEditingController diagnosaBandingC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController petugasPendaftarC = TextEditingController();
+  TextEditingController tanggalKasusC = TextEditingController();
+  TextEditingController tanggalPengobatanC = TextEditingController();
   @override
   onClose() {
-    titleC.dispose();
-    contentC.dispose();
+    petugasPendaftarC.dispose();
+    tanggalPengobatanC.dispose();
+    tanggalKasusC.dispose();
+    diagnosaBandingC.dispose();
+    lokasiC.dispose();
+    dosisC.dispose();
+    sindromC.dispose();
+    idKasusC.dispose();
+    namaInfratukturC.dispose();
   }
 
-  Future addPost() async {
+  Future addPengobatan() async {
     update();
-   // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
+    // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
     if (petugasModel!.status == 200) {
       update();
       Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu

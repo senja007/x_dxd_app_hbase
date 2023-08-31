@@ -8,17 +8,28 @@ class AddPeternakController extends GetxController {
   PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController titleC = TextEditingController();
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController idIshiknasC = TextEditingController();
+  TextEditingController nikC = TextEditingController();
+  TextEditingController namaC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController petugasPendaftarC = TextEditingController();
+  TextEditingController tanggalPendaftaranC = TextEditingController();
+
   @override
   onClose() {
-    titleC.dispose();
-    contentC.dispose();
+    lokasiC.dispose();
+    tanggalPendaftaranC.dispose();
+    petugasPendaftarC.dispose();
+    nikC.dispose();
+    namaC.dispose();
+    idPeternakC.dispose();
+    idIshiknasC.dispose();
   }
 
-  Future addPost() async {
+  Future addPeternak() async {
     update();
-  //  petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
+    //  petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
     if (petugasModel!.status == 200) {
       update();
       Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu

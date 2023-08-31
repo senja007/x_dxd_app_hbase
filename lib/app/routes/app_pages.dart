@@ -10,6 +10,8 @@ import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/b
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/views/detail_inseminasi_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/edit_inseminasi/bindings/edit_inseminasi_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/edit_inseminasi/views/edit_inseminasi_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/bindings/add_kelahiran_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/views/add_kelahiran.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/bindings/detail_kelahiran_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/views/detail_kelahiran_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/edit_kelahiran/bindings/edit_kelahiran_binding.dart';
@@ -233,6 +235,12 @@ class AppPages {
       name: _Paths.ADDPKB,
       page: () => AddPkbView(),
       binding: AddPkbBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.ADDKELAHIRAN,
+      page: () => AddKelahiranView(),
+      binding: AddkelahiranBinding(),
       transition: Transition.rightToLeft,
     ),
 
