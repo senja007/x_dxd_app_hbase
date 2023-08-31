@@ -7,10 +7,10 @@ class AppColor {
     end: Alignment.bottomCenter,
   );
 
-  static Color primary = Color(0xFF2167E6);
+  static Color primary = Color(0xffF7EBE1);
   static Color primarySoft = Color(0xFF184AA6);
   static Color primaryExtraSoft = Color(0xFFEFF3FC);
-  static Color secondary = Color(0xFF1B1F24);
+  static Color secondary = Color(0xff132137);
   static Color secondarySoft = Color(0xFF9D9D9D);
   static Color secondaryExtraSoft = Color(0xFFE9E9E9);
   static Color error = Color(0xFFD00E0E);

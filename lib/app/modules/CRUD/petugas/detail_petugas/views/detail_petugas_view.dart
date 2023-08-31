@@ -90,7 +90,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.EDIT_POST);
+                  Get.offAllNamed(Routes.EDITPETUGAS);
                 },
                 child: Text(
                   'Edit post',

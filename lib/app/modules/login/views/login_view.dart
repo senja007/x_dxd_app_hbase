@@ -49,9 +49,9 @@ class LoginView extends GetView<LoginController> {
             ),
           ),
           Container(
-            height: MediaQuery.of(context).size.height * 65 / 100,
-            width: MediaQuery.of(context).size.width,
-            color: Colors.white,
+            // height: MediaQuery.of(context).size.height * 100 / 100,
+            // width: MediaQuery.of(context).size.width,
+            color: AppColor.primary,
             padding: EdgeInsets.only(left: 20, right: 20, top: 36, bottom: 84),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -106,9 +106,13 @@ class LoginView extends GetView<LoginController> {
                 Material(
                   child: Container(
                     width: MediaQuery.of(context).size.width,
-                    padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                    margin: EdgeInsets.only(bottom: 24),
+                    padding: EdgeInsets.only(
+                      left: 14,
+                      right: 14,
+                      top: 4,
+                    ),
                     decoration: BoxDecoration(
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(8),
                       border: Border.all(
                           width: 1, color: AppColor.secondaryExtraSoft),
@@ -150,6 +154,10 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                 ),
+                Container(
+                  height: 16, // Adjust the height as needed
+                  color: AppColor.primary, // Change to your desired color
+                ),
                 Obx(
                   () => Container(
                     width: MediaQuery.of(context).size.width,
@@ -170,7 +178,7 @@ class LoginView extends GetView<LoginController> {
                       style: ElevatedButton.styleFrom(
                         padding: EdgeInsets.symmetric(vertical: 18),
                         elevation: 0,
-                        primary: AppColor.primary,
+                        primary: AppColor.secondary,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -178,40 +186,34 @@ class LoginView extends GetView<LoginController> {
                     ),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  // child: ElevatedButton(
-                  //   onPressed: () async {
-                  //     Get.toNamed(Routes.REGISTER);
-                  //   },
-                  //   child: Text(
-                  //     'Daftar',
-                  //     style: TextStyle(
-                  //       fontSize: 16,
-                  //       fontFamily: 'poppins',
-                  //       fontWeight: FontWeight.w500,
-                  //       color: AppColor.primary,
-                  //     ),
-                  //   ),
-                  //   style: ElevatedButton.styleFrom(
-                  //     padding: EdgeInsets.symmetric(vertical: 18),
-                  //     elevation: 0,
-                  //     primary: Colors.white,
-                  //     shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8),
-                  //       side: BorderSide(
-                  //         color: AppColor
-                  //             .primary, // Replace this with your desired border color
-                  //         width:
-                  //             1.0, // Replace this with your desired border width
-                  //       ),
-                  //     ),
-                  //   ),
-                  // ),
-                ),
+                // child: ElevatedButton(
+                //   onPressed: () async {
+                //     Get.toNamed(Routes.REGISTER);
+                //   },
+                //   child: Text(
+                //     'Daftar',
+                //     style: TextStyle(
+                //       fontSize: 16,
+                //       fontFamily: 'poppins',
+                //       fontWeight: FontWeight.w500,
+                //       color: AppColor.primary,
+                //     ),
+                //   ),
+                //   style: ElevatedButton.styleFrom(
+                //     padding: EdgeInsets.symmetric(vertical: 18),
+                //     elevation: 0,
+                //     primary: Colors.white,
+                //     shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(8),
+                //       side: BorderSide(
+                //         color: AppColor
+                //             .primary, // Replace this with your desired border color
+                //         width:
+                //             1.0, // Replace this with your desired border width
+                //       ),
+                //     ),
+                //   ),
+                // ),
               ],
             ),
           ),

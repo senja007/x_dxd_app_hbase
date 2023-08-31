@@ -1,4 +1,6 @@
+import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -16,6 +18,7 @@ class HomeView extends GetView<HomeController> {
     'assets/images/pet.jpg',
     'assets/images/pet2.jpg',
     'assets/images/pet3.jpg',
+    'assets/images/logo.png',
   ];
 
   int _currentIndex = 0;
@@ -23,6 +26,13 @@ class HomeView extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: AppColor.secondary, // Set your primary color here
+        statusBarIconBrightness: Brightness
+            .light, // Use Brightness.dark if your primary color is light
+      ),
+    );
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
@@ -31,7 +41,7 @@ class HomeView extends GetView<HomeController> {
           style: TextStyle(color: Colors.white),
         ),
         automaticallyImplyLeading: false,
-        backgroundColor: Color(0xff132137),
+        backgroundColor: AppColor.secondary,
         elevation: 0.0,
       ),
       body: SafeArea(
