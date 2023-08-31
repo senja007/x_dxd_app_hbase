@@ -53,7 +53,7 @@ class PetugasView extends GetView<PetugasController> {
                           Get.toNamed(
                             Routes.DETAIL_POST,
                             arguments: {
-                              "id": "${postData.id}",
+                              "id": "${postData.nikPetugas}",
                               "content": "${postData.namaPetugas}",
                             },
                           ),

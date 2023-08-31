@@ -59,7 +59,7 @@ class AddPostView extends GetView<AddPostController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    // controller.addPost();
                   }
                 },
                 child: Text(

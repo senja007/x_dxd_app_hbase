@@ -58,8 +58,8 @@ class AllPostView extends GetView<AllPostController> {
                           Get.toNamed(
                             Routes.DETAIL_POST,
                             arguments: {
-                              "id": "${postData.id}",
-                              "content": "${postData.id}",
+                              "id": "${postData.nikPetugas}",
+                              "content": "${postData.namaPetugas}",
                             },
                           ),
                         },

@@ -36,29 +36,60 @@ class PetugasApi extends SharedApi {
     }
   }
 
-  Future<PetugasModel?> addPetugasApi(String content, String text) async {
+//   Future<PetugasModel?> addPetugasApi(String nikPetugas, String namaPetugas, String noTelp, String email) async {
+//  try {
+//  var jsonData;
+//  showLoading();
+//  var data = await http.post(
+//  Uri.parse(baseUrl + '/petugas'),
+//  headers: {
+//   ...getToken(),
+//           'Content-Type': 'application/json',
+//         },
+//  body: {'nikPetugas': nikPetugas, 'namaPetugas': namaPetugas, 'noTelp': noTelp, 'email': email},
+//  );
+//  stopLoading();
+//  jsonData = json.decode(data.body);
+//  if (data.statusCode == 200) {
+//  jsonData['data']['status_code'] = 200;
+//  return PetugasModel.fromJson(jsonData['data']);
+//  } else {
+//  showErrorMessage(jsonData['message']);
+//  return PetugasModel.fromJson({"status": data.statusCode});
+//  }
+//  } on Exception catch (_) {
+//  stopLoading();
+//  showInternetMessage("Periksa koneksi internet anda");
+//  return PetugasModel.fromJson({"status": 404});
+//  }
+//  }
+
+  Future<PetugasModel?> addPetugasApi(String nikPetugas, String namaPetugas, String noTelp, String email) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-        'content': content,
-        'status': "1",
+      'nikPetugas': nikPetugas, 'namaPetugas': namaPetugas, 'noTelp': noTelp, 'email': email
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/petugas'),
-        headers: {...getToken(), 'Content-Type': 'application/json'},
+        Uri.parse(baseUrl + "/petugas" ),
+        headers: {...getToken() , 'Content-Type': 'application/json',},
         body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
-      print(jsonData);
+      print(data.body);
+      print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
+        print(PetugasModel);
+        print(jsonData);
+        print(bodyData);
         return PetugasModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PetugasModel.fromJson({"status": data.statusCode});
+        return null;//PetugasModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();

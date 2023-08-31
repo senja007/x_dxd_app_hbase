@@ -18,7 +18,7 @@ class AddPkbController extends GetxController {
 
   Future addPost() async {
     update();
-    petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
+    // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
     if (petugasModel!.status == 200) {
       update();
       Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
