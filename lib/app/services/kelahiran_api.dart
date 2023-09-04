@@ -32,23 +32,40 @@ class KelahiranApi extends SharedApi {
     }
   }
 
-  Future<KelahiranModel?> addKelahiranAPI(String content, String text) async {
+  Future<KelahiranModel?> addKelahiranAPI(String idKejadian, String eartagInduk, String eartagAnak, String idHewanInduk, 
+  String idHewanAnak, String idBatch, String idPejantan, String kelaminAnak, String jumlah, String kartuTernakAnak, 
+  String kartuTernakInduk, String kategori, String lokasi, String idPeternak, String namaPeternak, String petugasPelapor, String produsen,
+  String spesiesInduk, String spesiesPejantan, String tanggalLahir, String tanggalLaporan, String urutanIb) async {
     try {
       var jsonData;
       showLoading();
+
+      var bodyData = {
+      'idKejadian': idKejadian, 'eartagInduk': eartagInduk, 'eartagAnak': eartagAnak, 'idHewaninduk': idHewanInduk,
+      'idHewanAnak' : idHewanAnak, 'idBatch' : idBatch, 'idPejantan' : idPejantan, 'kelaminAnak' : kelaminAnak, 
+      'jumlah' : jumlah, 'kartuTernakAnak' : kartuTernakAnak, 'kartuTernakInduk' : kartuTernakInduk, 'kategori' : kategori, 
+      'lokasi' : lokasi, 'idPeternak' : idPeternak, 'namaPeternak' : namaPeternak, 'petugasPelapor' : petugasPelapor,
+      'produsen' : produsen, 'spesiesInduk' : spesiesInduk, 'spesiesPejantan' : spesiesPejantan, 'tanggalLahir' : tanggalLahir,
+      'tanggalLaporan' : tanggalLaporan, 'urutanIb' : urutanIb
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/kelahiran'),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        headers: {...getToken() , 'Content-Type': 'application/json',},
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
+      print(data.body);
+      print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
+        print(KelahiranModel);
+        print(jsonData);
+        print(bodyData);
         return KelahiranModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return KelahiranModel.fromJson({"status": data.statusCode});
+        return null; // KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();

@@ -592,7 +592,7 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addInseminasi();
                   }
                 },
                 child: Text(

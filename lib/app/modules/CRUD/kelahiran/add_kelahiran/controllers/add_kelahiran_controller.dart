@@ -1,11 +1,10 @@
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
+import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddkelahiranController extends GetxController {
-  PetugasModel? petugasModel;
+  KelahiranModel? kelahiranModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idKejadianC = TextEditingController();
@@ -54,14 +53,46 @@ class AddkelahiranController extends GetxController {
     eartagIndukC.dispose();
   }
 
-  Future addPost() async {
-    update();
-    //  petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
-    if (petugasModel!.status == 200) {
-      update();
-      Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
-    } else if (petugasModel!.status == 404) {
-      update();
+  Future addKelahiran() async {
+    try{
+      isLoading.value = true;
+      kelahiranModel = await KelahiranModel().addKelahiranAPI(
+        idKejadianC.text, 
+        eartagIndukC.text, 
+        eartagAnakC.text, 
+        idHewanIndukC.text,
+        idHewanAnakC.text,
+        idBatchC.text,
+        idPejantanC.text,
+        kelaminAnakC.text,
+        jumlahC.text,
+        kartuTernakAnakC.text,
+        kartuTernakIndukC.text,
+        kategoriC.text,
+        lokasiC.text,
+        idPeternakC.text,
+        namaPeternakC.text,
+        petugasPelaporC.text,
+        produsenC.text,
+        spesiesIndukC.text,
+        spesiesPejantanC.text,
+        tanggalLahirC.text,
+        tanggalLaporanC.text,
+        urutanIbC.text,
+      );
+
+      if (kelahiranModel != null) {
+        if (kelahiranModel!.status == 200) {
+          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+        } else if (kelahiranModel!.status == 404) {
+          // Handle status 404
+        }
+      }
+    } catch (e) {
+      // Handle exceptions here
+    } finally {
+      isLoading.value = false;
+    }
     }
   }
-}
+

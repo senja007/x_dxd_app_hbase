@@ -32,23 +32,37 @@ class InseminasiApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> addInseminasiAPI(String content, String text) async {
+  Future<InseminasiModel?> addInseminasiAPI(String idInseminasi, String tanggalIB, String lokasi, String namaPeternak, 
+  String idPeternak, String idHewan, String eartag, String ib1, String ib2, String ib3, String ibLain, String idPejantan, 
+  String IdPembuatan, String bangsaPejantan, String produsen, String inseminator) async {
     try {
       var jsonData;
       showLoading();
+
+      var bodyData = {
+      'idInseminasi': idInseminasi, 'tanggalIB': tanggalIB, 'lokasi': lokasi, 'namaPeternak': namaPeternak,
+      'idPeternak' : idPeternak, 'idHewan' : idHewan, 'eartag' : eartag, 'ib1' : ib1, 'ib2' : ib2, 'ib3' : ib3, 
+      'ibLain' : ibLain, 'idPejantan' : idPejantan, 'idPembuatan' : IdPembuatan, 'bangsaPejantan' : bangsaPejantan,
+      'produsen' : produsen, 'inseminator' : inseminator
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/inseminasi'),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        headers: {...getToken() , 'Content-Type': 'application/json',},
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
+      print(data.body);
+      print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
+        print(InseminasiModel);
+        print(jsonData);
+        print(bodyData);
         return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return InseminasiModel.fromJson({"status": data.statusCode});
+        return null; //InseminasiModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();

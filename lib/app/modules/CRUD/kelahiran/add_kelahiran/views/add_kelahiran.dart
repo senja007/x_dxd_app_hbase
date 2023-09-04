@@ -796,7 +796,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addKelahiran();
                   }
                 },
                 child: Text(
