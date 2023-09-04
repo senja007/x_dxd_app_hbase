@@ -1,11 +1,12 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
+import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddPkbController extends GetxController {
-  PetugasModel? petugasModel;
+  PKBModel? pkbModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idKejadianC = TextEditingController();
@@ -36,14 +37,35 @@ class AddPkbController extends GetxController {
     idHewanC.dispose();
   }
 
-  Future addPost() async {
-    update();
-    // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
-    if (petugasModel!.status == 200) {
-      update();
-      Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
-    } else if (petugasModel!.status == 404) {
-      update();
+  Future addPKB() async {
+    try{
+      isLoading.value = true;
+      pkbModel = await PKBModel().addPKBAPI(
+        idKejadianC.text,
+        idHewanC.text,
+        idPeternakC.text,
+        nikC.text,
+        namaPeternakC.text,
+        jumlahC.text,
+        kategoriC.text,
+        lokasiC.text,
+        spesiesC.text,
+        umurKebuntinganC.text,
+        pemeriksaKebuntingaC.text,
+        tanggalPkbC.text
+      );
+
+      if (pkbModel != null) {
+        if (pkbModel!.status == 200) {
+          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+        } else if (pkbModel!.status == 404) {
+          // Handle status 404
+        }
+      }
+    } catch (e) {
+      // Handle exceptions here
+    } finally {
+      isLoading.value = false;
     }
-  }
+    }
 }

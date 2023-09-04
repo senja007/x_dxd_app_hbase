@@ -32,20 +32,33 @@ class PKBApi extends SharedApi {
     }
   }
 
-  Future<PKBModel?> addPKBAPI(String content, String text) async {
+  Future<PKBModel?> addPKBAPI(String idKejadian, String idHewan, String nik, String namaPeternak, String jumlah,
+  String kategori, String lokasi, String spesies, String umurKebuntingan, String pemeriksaKebuntingan, 
+  String tanggalPkb) async {
     try {
       var jsonData;
       showLoading();
+
+      var bodyData = {
+      'idKejadian': idKejadian, 'idHewan': idHewan, 'nik': nik, 'namaPeternak': namaPeternak, 'jumlah' : jumlah, 
+      'kategori' : kategori, 'lokasi' : lokasi, 'spesies' : spesies, 'umurKebuntingan' : umurKebuntingan, 
+      'pemeriksaKebuntingan' : pemeriksaKebuntingan, 'tanggalPkb' : tanggalPkb
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/pkb'),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        headers: {...getToken() , 'Content-Type': 'application/json',},
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
+      print(data.body);
+      print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PKBModel.fromJson(jsonData);
+         print(PKBModel);
+        print(jsonData);
+        print(bodyData);
+        return null; //PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
         return PKBModel.fromJson({"status": data.statusCode});

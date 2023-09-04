@@ -44,6 +44,8 @@ class PengobatanModel {
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
     );
   }
+
+  addPengobatanAPI(String text, String text2, String text3, String text4, String text5, String text6, String text7, String text8, String text9) {}
 }
 
 class PengobatanListModel {

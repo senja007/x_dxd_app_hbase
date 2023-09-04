@@ -32,20 +32,32 @@ class PengobatanApi extends SharedApi {
     }
   }
 
-  Future<PengobatanModel?> addPengobatanAPI(String content, String text) async {
+  Future<PengobatanModel?> addPengobatanAPI(String idKasus, String namaInfratuktur, String dosis, String sindrom, String diagnosaBanding,
+  String lokasi, String petugasPendaftar, String tanggalKasus, String tanggalPengobatan) async {
     try {
       var jsonData;
       showLoading();
+
+      var bodyData = {
+      'idKasus': idKasus, 'namaInfrastruktur': namaInfratuktur, 'dosis': dosis, 'sindrom': sindrom,
+      'diagnosaBanding' : diagnosaBanding, 'lokasi' : lokasi, 'petugasPendaftar' : petugasPendaftar, 
+      'tanggalKasus' : tanggalKasus, 'tanggalPengobatan' : tanggalPengobatan
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/pengobatan'),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        headers: {...getToken() , 'Content-Type': 'application/json',},
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
+      print(data.body);
+      print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return PengobatanModel.fromJson(jsonData);
+         print(PengobatanModel);
+        print(jsonData);
+        print(bodyData);
+        return null; //PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
         return PengobatanModel.fromJson({"status": data.statusCode});

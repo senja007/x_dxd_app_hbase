@@ -28,13 +28,27 @@ class AddPeternakController extends GetxController {
   }
 
   Future addPeternak() async {
-    update();
-    //  petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
-    if (petugasModel!.status == 200) {
-      update();
-      Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
-    } else if (petugasModel!.status == 404) {
-      update();
-    }
-  }
-}
+    try{
+      isLoading.value = true;
+      // peternakModel = await PeternakModel().addPeternakAPI(
+      //   idPeternakC.text,
+      //   idIshiknasC.text,
+      //   nikC.text,
+      //   namaC.text,
+      //   lokasiC.text,
+      //   petugasPendaftarC.text,
+      //   tanggalPendaftaranC.text
+      // );
+
+      // if (peternakModel != null) {
+      //   if (peternakModel!.status == 200) {
+      //     Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+      //   } else if (peternakModel!.status == 404) {
+      //     // Handle status 404
+      //   }
+      // }
+    } catch (e) {
+      // Handle exceptions here
+    } finally {
+      isLoading.value = false;
+    }}}

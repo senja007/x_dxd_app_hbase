@@ -456,7 +456,7 @@ class AddPkbView extends GetView<AddPkbController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addPKB();
                   }
                 },
                 child: Text(
