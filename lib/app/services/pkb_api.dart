@@ -32,21 +32,43 @@ class PKBApi extends SharedApi {
     }
   }
 
-  Future<PKBModel?> addPKBAPI(String idKejadian, String idHewan, String nik, String namaPeternak, String jumlah,
-  String kategori, String lokasi, String spesies, String umurKebuntingan, String pemeriksaKebuntingan, 
-  String tanggalPkb) async {
+  Future<PKBModel?> addPKBAPI(
+      String idKejadian,
+      String idHewan,
+      String idPeternak,
+      String nik,
+      String namaPeternak,
+      String jumlah,
+      String kategori,
+      String lokasi,
+      String spesies,
+      String umurKebuntingan,
+      String pemeriksaKebuntingan,
+      String tanggalPkb) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-      'idKejadian': idKejadian, 'idHewan': idHewan, 'nik': nik, 'namaPeternak': namaPeternak, 'jumlah' : jumlah, 
-      'kategori' : kategori, 'lokasi' : lokasi, 'spesies' : spesies, 'umurKebuntingan' : umurKebuntingan, 
-      'pemeriksaKebuntingan' : pemeriksaKebuntingan, 'tanggalPkb' : tanggalPkb
+        'idKejadian': idKejadian,
+        'idHewan': idHewan,
+        'nik': nik,
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'jumlah': jumlah,
+        'kategori': kategori,
+        'lokasi': lokasi,
+        'spesies': spesies,
+        'umurKebuntingan': umurKebuntingan,
+        'pemeriksaKebuntingan': pemeriksaKebuntingan,
+        'tanggalPkb': tanggalPkb
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/pkb'),
-        headers: {...getToken() , 'Content-Type': 'application/json',},
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(bodyData),
       );
       stopLoading();
@@ -55,7 +77,7 @@ class PKBApi extends SharedApi {
       print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-         print(PKBModel);
+        print(PKBModel);
         print(jsonData);
         print(bodyData);
         return null; //PengobatanModel.fromJson(jsonData);

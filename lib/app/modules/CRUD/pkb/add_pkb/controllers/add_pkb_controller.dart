@@ -39,22 +39,21 @@ class AddPkbController extends GetxController {
   }
 
   Future addPKB() async {
-    try{
+    try {
       isLoading.value = true;
       pkbModel = await PKBApi().addPKBAPI(
-        idKejadianC.text,
-        idHewanC.text,
-        idPeternakC.text,
-        nikC.text,
-        namaPeternakC.text,
-        jumlahC.text,
-        kategoriC.text,
-        lokasiC.text,
-        spesiesC.text,
-        umurKebuntinganC.text,
-        pemeriksaKebuntingaC.text,
-        tanggalPkbC.text
-      );
+          idKejadianC.text,
+          idHewanC.text,
+          idPeternakC.text,
+          nikC.text,
+          namaPeternakC.text,
+          jumlahC.text,
+          kategoriC.text,
+          lokasiC.text,
+          spesiesC.text,
+          umurKebuntinganC.text,
+          pemeriksaKebuntingaC.text,
+          tanggalPkbC.text);
 
       if (pkbModel != null) {
         if (pkbModel!.status == 200) {
@@ -68,5 +67,5 @@ class AddPkbController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-    }
+  }
 }

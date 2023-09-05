@@ -1,8 +1,11 @@
+import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -64,34 +67,37 @@ class PetugasApi extends SharedApi {
 //  }
 //  }
 
-  Future<PetugasModel?> addPetugasApi(String nikPetugas, String namaPetugas, String noTelp, String email) async {
+  Future<PetugasModel?> addPetugasApi(String nikPetugas, String namaPetugas,
+      String noTelp, String email) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-      'nikPetugas': nikPetugas, 'namaPetugas': namaPetugas, 'noTelp': noTelp, 'email': email
+        'nikPetugas': nikPetugas,
+        'namaPetugas': namaPetugas,
+        'noTelp': noTelp,
+        'email': email
       };
       var data = await http.post(
-        Uri.parse(baseUrl + "/petugas" ),
-        headers: {...getToken() , 'Content-Type': 'application/json',},
+        Uri.parse(baseUrl + "/petugas"),
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
-      print(data.body);
-      print("apalah");
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
-        print(PetugasModel);
-        print(jsonData);
-        print(bodyData);
+      if (data.statusCode == 201) {
+        showSuccessMessage(jsonData["message"]);
+        Get.back();
         return PetugasModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return null;//PetugasModel.fromJson({"status": data.statusCode});
+        return null; //PetugasModel.fromJson({"status": data.statusCode});
       }
-    } on Exception catch (_) {
+    } catch (e) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
       return PetugasModel.fromJson({"status": 404});

@@ -14,8 +14,8 @@ class PetugasView extends GetView<PetugasController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PetugasController>(
-      builder: (controller) => AutoLoad(
-        onInit: () async {
+      builder: (controller) => RefreshIndicator(
+        onRefresh: () async {
           await controller.loadPetugas();
         },
         child: Scaffold(

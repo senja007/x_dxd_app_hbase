@@ -44,145 +44,141 @@ class AddPetugasView extends GetView<AddPetugasController> {
         padding: EdgeInsets.all(20),
         children: [
           Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                    maxLines: 1,
-                    controller: controller.nikC,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "NIK Petugas",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 14,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "NIK KTP",
-                      hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.nikC,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                label: Text(
+                  "NIK Petugas",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
                   ),
                 ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "NIK KTP",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
           Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                    maxLines: 1,
-                    controller: controller.namaC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Nama Petugas",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 14,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Nama Lengkap",
-                      hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.namaC,
+              keyboardType: TextInputType.name,
+              decoration: InputDecoration(
+                label: Text(
+                  "Nama Petugas",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
                   ),
                 ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Nama Lengkap",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
           Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                    maxLines: 1,
-                    controller: controller.notlpC,
-                    keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "No Telepon",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 14,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "No Telepon",
-                      hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.notlpC,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                label: Text(
+                  "No Telepon",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
                   ),
                 ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "No Telepon",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
           Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                    maxLines: 1,
-                    controller: controller.emailC,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Email",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 14,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Email",
-                      hintStyle: TextStyle(
-                        fontSize: 14,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.emailC,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                label: Text(
+                  "Email",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
                   ),
                 ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Email",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -190,49 +186,7 @@ class AddPetugasView extends GetView<AddPetugasController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    if (controller.nikC.text.isEmpty) {
-                      // Periksa NIK kosong
-                      showCupertinoDialog(
-                        context: context,
-                        builder: (context) {
-                          return CupertinoAlertDialog(
-                            title: Text("Peringatan"),
-                            content: Text("NIK tidak boleh kosong."),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } 
-                    else if (controller.namaC.text.isEmpty) {
-                      // Periksa NIK kosong
-                      showCupertinoDialog(
-                        context: context,
-                        builder: (context) {
-                          return CupertinoAlertDialog(
-                            title: Text("Peringatan"),
-                            content: Text("Nama tidak boleh kosong."),
-                            actions: [
-                              CupertinoDialogAction(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    } 
-                    else {
-                      controller.addPetugas();
-                    }
+                    controller.addPetugas(context);
                   }
                 },
                 child: Text(

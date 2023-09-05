@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../../data/pengobatan_model.dart';
@@ -32,7 +33,7 @@ class AddPengobatanController extends GetxController {
   Future addPengobatan() async {
     try{
       isLoading.value = true;
-      pengobatanModel = await PengobatanModel().addPengobatanAPI(
+      pengobatanModel = await PengobatanApi().addPengobatanAPI(
         idKasusC.text,
         namaInfratukturC.text,
         dosisC.text,
