@@ -1,5 +1,6 @@
 import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -56,7 +57,7 @@ class AddkelahiranController extends GetxController {
   Future addKelahiran() async {
     try{
       isLoading.value = true;
-      kelahiranModel = await KelahiranModel().addKelahiranAPI(
+      kelahiranModel = await KelahiranApi().addKelahiranAPI(
         idKejadianC.text, 
         eartagIndukC.text, 
         eartagAnakC.text, 

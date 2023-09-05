@@ -51,8 +51,6 @@ class PKBModel {
       pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] != null ? jsonData['pemeriksaKebuntingan'] : "",
     );
   }
-
-  addPKBAPI(String text, String text2, String text3, String text4, String text5, String text6, String text7, String text8, String text9, String text10, String text11, String text12) {}
 }
 
 class PKBListModel {

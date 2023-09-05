@@ -2,6 +2,7 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +41,7 @@ class AddPkbController extends GetxController {
   Future addPKB() async {
     try{
       isLoading.value = true;
-      pkbModel = await PKBModel().addPKBAPI(
+      pkbModel = await PKBApi().addPKBAPI(
         idKejadianC.text,
         idHewanC.text,
         idPeternakC.text,

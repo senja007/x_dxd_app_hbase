@@ -1,11 +1,13 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
+import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddVaksinController extends GetxController {
-  PetugasModel? petugasModel;
+  VaksinModel? vaksinModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idVaksinC = TextEditingController();
@@ -45,13 +47,38 @@ class AddVaksinController extends GetxController {
   }
 
   Future addPost() async {
-    update();
-    // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
-    if (petugasModel!.status == 200) {
-      update();
-      Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
-    } else if (petugasModel!.status == 404) {
-      update();
+    try{
+      isLoading.value = true;
+      vaksinModel = await VaksinApi().addVaksinAPI(
+        idVaksinC.text,
+        eartagC.text,
+        idHewanC.text,
+        idPembuatanC.text,
+        idPejantanC.text,
+        bangsaPejantanC.text,
+        ib1C.text,
+        ib2C.text,
+        ib3C.text,
+        ibLainC.text,
+        produsenC.text,
+        idPeternakC.text,
+        namaPeternakC.text,
+        lokasiC.text,
+        inseminatorC.text,
+        tanggalIbC.text
+      );
+
+      if (vaksinModel != null) {
+        if (vaksinModel!.status == 200) {
+          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+        } else if (vaksinModel!.status == 404) {
+          // Handle status 404
+        }
+      }
+    } catch (e) {
+      // Handle exceptions here
+    } finally {
+      isLoading.value = false;
+    }
     }
   }
-}
