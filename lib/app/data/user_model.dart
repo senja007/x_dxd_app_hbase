@@ -23,16 +23,21 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
-    return UserModel(
-      status: jsonData['status'],
-      id: jsonData['userSummary']['id'],
-      username: jsonData['userSummary']['username'],
-      name: jsonData['userSummary']['name'],
-      role: jsonData['userSummary']['role'],
-      email: jsonData['userSummary']['email'],
-      avatar: jsonData['userSummary']['avatar'],
-      accessToken: jsonData['accessToken'],
-      tokenType: jsonData['tokenType'],
-    );
+    if (jsonData != null && jsonData['userSummary'] != null) {
+      return UserModel(
+        status: jsonData['status'],
+        id: jsonData['userSummary']['id'],
+        username: jsonData['userSummary']['username'],
+        name: jsonData['userSummary']['name'],
+        role: jsonData['userSummary']['role'],
+        email: jsonData['userSummary']['email'],
+        avatar: jsonData['userSummary']['avatar'],
+        accessToken: jsonData['accessToken'],
+        tokenType: jsonData['tokenType'],
+      );
+    } else {
+      // Handle the case where 'userSummary' is null or missing in the JSON.
+      return UserModel(); // Return an empty UserModel or handle it differently.
+    }
   }
 }

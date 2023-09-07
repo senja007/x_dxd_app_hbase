@@ -99,7 +99,7 @@ class CenterNextButton extends StatelessWidget {
                           ? InkWell(
                               key: ValueKey('Sign Up button'),
                               onTap: () {
-                                Get.toNamed(Routes.LOGIN);
+                                Get.offAllNamed(Routes.LOGIN);
                               },
                               child: Padding(
                                 padding:

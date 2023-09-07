@@ -42,7 +42,7 @@ class LoginController extends GetxController {
       }
     } catch (e) {
       // Handle kesalahan lain yang mungkin terjadi selama login
-      print("Login error: $e");
+      // print("Login error: $e");
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/data/user_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
@@ -24,13 +26,13 @@ class AuthApi extends SharedApi {
 
       jsonData = json.decode(data.body);
 
-      //print(data.body);
       if (data.statusCode == 200) {
         jsonData['status'] = 200;
-
-        print(jsonData);
         showSuccessMessage("login sukses");
         return UserModel.fromJson(jsonData);
+      } else if (data.statusCode == 400) {
+        showErrorMessage('Username dan Password Harus DiIsi');
+        return UserModel.fromJson({"status": data.statusCode});
       } else if (data.statusCode == 401) {
         showErrorMessage(jsonData['message']);
         return UserModel.fromJson({"status": data.statusCode});
@@ -38,10 +40,14 @@ class AuthApi extends SharedApi {
         showErrorMessage("Ada yang salah");
         return UserModel.fromJson({"status": data.statusCode});
       }
-    } on Exception catch (_) {
+    } on SocketException catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
       return UserModel.fromJson({"status": 404});
+    } on Exception catch (e) {
+      print("Exception: $e");
+      showErrorMessage("Username / Password Salah");
+      return UserModel.fromJson({"status": 500});
     }
   }
 
