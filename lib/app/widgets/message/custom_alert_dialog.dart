@@ -139,11 +139,11 @@ class CustomAlertDialog {
                     onPressed: onCancel,
                     child: Text(
                       "Batal",
-                      style: TextStyle(color: AppColor.secondarySoft),
+                      style: TextStyle(color: AppColor.primaryExtraSoft),
                     ),
                     style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.symmetric(vertical: 12),
-                      primary: AppColor.primaryExtraSoft,
+                      primary: AppColor.tidak,
                       elevation: 0,
                       onPrimary: AppColor.primary,
                     ),
@@ -156,7 +156,7 @@ class CustomAlertDialog {
                     onPressed: onConfirm,
                     child: Text("Iya"),
                     style: ElevatedButton.styleFrom(
-                      primary: AppColor.primary,
+                      primary: AppColor.iya,
                       padding: EdgeInsets.symmetric(vertical: 12),
                       elevation: 0,
                     ),

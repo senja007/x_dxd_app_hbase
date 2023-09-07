@@ -11,24 +11,33 @@ class EditPetugasController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreatePost = false.obs;
 
-  TextEditingController contentC = TextEditingController();
+  TextEditingController nikC = TextEditingController();
+  TextEditingController namaC = TextEditingController();
+  TextEditingController tlpC = TextEditingController();
+  TextEditingController emailC = TextEditingController();
   @override
   onClose() {
-    contentC.dispose();
+    nikC.dispose();
+    namaC.dispose();
+    tlpC.dispose();
+    emailC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    contentC.text = argsData["content"];
+    nikC.text = argsData["nik_petugas_edit"];
+    namaC.text = argsData["nama_petugas_edit"];
+    tlpC.text = argsData["telepon_petugas_edit"];
+    emailC.text = argsData["email_petugas_edit"];
   }
 
-  Future<void> editPost() async {
+  Future<void> editPetugas() async {
     update();
     petugasModel =
-        await PetugasApi().editPetugasApi(contentC.text, argsData["id"]);
-    if (petugasModel!.status == 200) {
+        await PetugasApi().editPetugasApi(nikC.text, namaC.text, tlpC.text, emailC.text);
+    if (petugasModel!.status == 201) {
       update();
       Get.offAndToNamed(Routes.HOME);
     } else if (petugasModel!.status == 404) {

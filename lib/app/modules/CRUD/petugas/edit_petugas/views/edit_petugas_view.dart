@@ -47,7 +47,7 @@ class EditPetugasView extends GetView<EditPetugasController> {
           //   hint: 'Berita Terkini',
           // ),
           CustomInput(
-            controller: controller.contentC,
+            controller: controller.nikC,
             label: 'edit data',
             hint: 'silakan masukkan data',
           ),
@@ -58,7 +58,7 @@ class EditPetugasView extends GetView<EditPetugasController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.editPost();
+                    controller.editPetugas();
                   }
                 },
                 child: Text(

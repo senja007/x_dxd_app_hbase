@@ -16,4 +16,7 @@ class AppColor {
   static Color error = Color(0xFFD00E0E);
   static Color success = Color(0xFF16AE26);
   static Color warning = Color(0xFFEB8600);
+  static Color iya = Color.fromARGB(255, 77, 168, 107);
+  static Color tidak = Color.fromARGB(255, 173, 47, 47);
+  
 }

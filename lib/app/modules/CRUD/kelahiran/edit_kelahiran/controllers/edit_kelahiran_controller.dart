@@ -26,8 +26,7 @@ class EditKelahiranController extends GetxController {
 
   Future<void> editPost() async {
     update();
-    petugasModel =
-        await PetugasApi().editPetugasApi(contentC.text, argsData["id"]);
+  //  petugasModel =       await PetugasApi().editPetugasApi(contentC.text, argsData["id"]);
     if (petugasModel!.status == 200) {
       update();
       Get.offAndToNamed(Routes.HOME);

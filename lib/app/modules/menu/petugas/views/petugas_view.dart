@@ -20,6 +20,7 @@ class PetugasView extends GetView<PetugasController> {
           await controller.loadPetugas();
         },
         child: Scaffold(
+          backgroundColor: AppColor.primary,
           appBar: AppBar(
             title: Text(
               'Semua Data',
@@ -35,7 +36,7 @@ class PetugasView extends GetView<PetugasController> {
               child: Container(
                 width: MediaQuery.of(context).size.width,
                 height: 1,
-                color: AppColor.secondaryExtraSoft,
+                color: AppColor.primary,
               ),
             ),
           ),
@@ -49,16 +50,18 @@ class PetugasView extends GetView<PetugasController> {
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         separatorBuilder: (context, index) =>
-                            SizedBox(height: 16),
+                            SizedBox(height: 8),
                         itemBuilder: (context, index) {
                           var postData = controller.posts!.content![index];
                           return InkWell(
                             onTap: () => {
                               Get.toNamed(
-                                Routes.DETAIL_POST,
+                                Routes.DETAILPETUGAS,
                                 arguments: {
-                                  "id": "${postData.nikPetugas}",
-                                  "content": "${postData.namaPetugas}",
+                                  "nik_petugas_detail": "${postData.nikPetugas}",
+                                  "nama_petugas_detail": "${postData.namaPetugas}",
+                                  "telepon_petugas_detail": "${postData.noTelp}",
+                                  "email_petugas_detail": "${postData.email}",
                                 },
                               ),
                             },
@@ -66,14 +69,15 @@ class PetugasView extends GetView<PetugasController> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
+                                color: AppColor.primaryExtraSoft,
                                 borderRadius: BorderRadius.circular(8),
                                 border: Border.all(
                                   width: 1,
-                                  color: AppColor.primaryExtraSoft,
+                                  color: AppColor.primaryExtraSoft
                                 ),
                               ),
                               padding: EdgeInsets.only(
-                                  left: 24, top: 20, right: 29, bottom: 20),
+                                  left: 20, top: 20, right: 29, bottom: 20),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -90,7 +94,7 @@ class PetugasView extends GetView<PetugasController> {
                                       ),
                                       Text((postData.status == null)
                                           ? "-"
-                                          : "${postData.email}"),
+                                          : "Email Petugas" "${postData.email}"),
                                     ],
                                   ),
                                 ],

@@ -13,6 +13,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.primary,
       appBar: AppBar(
         title: Text(
           'Detail Petugas',
@@ -122,7 +123,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'poppins',
-                    color: Colors.white,
+                    color: AppColor.primaryExtraSoft,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(
