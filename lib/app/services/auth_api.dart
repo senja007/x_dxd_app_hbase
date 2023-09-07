@@ -3,6 +3,7 @@ import 'package:crud_flutter_api/app/data/user_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -28,12 +29,19 @@ class AuthApi extends SharedApi {
         jsonData['status'] = 200;
 
         print(jsonData);
+        showSuccessMessage("login sukses");
         return UserModel.fromJson(jsonData);
+      } else if (data.statusCode == 401) {
+        showErrorMessage(jsonData['message']);
+        return UserModel.fromJson({"status": data.statusCode});
       } else {
-        return null;
+        showErrorMessage("Ada yang salah");
+        return UserModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
-      return null;
+      stopLoading();
+      showInternetMessage("Periksa koneksi internet anda");
+      return UserModel.fromJson({"status": 404});
     }
   }
 

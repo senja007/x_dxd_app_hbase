@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:get/get.dart'; // Untuk menggunakan GetXController dan RxBool
 import 'package:get_storage/get_storage.dart'; // Untuk menggunakan GetStorage
 import 'package:flutter/material.dart'; // Untuk menggunakan TextEditingController
@@ -13,26 +14,60 @@ class LoginController extends GetxController {
   RxBool obsecureText = true.obs;
   TextEditingController emailC = TextEditingController();
   TextEditingController passC = TextEditingController();
+
   Future login() async {
     loginScreen = false;
     update();
-    userModel = await AuthApi().loginAPI(emailC.text, passC.text);
-    //print(userModel!.accessToken);
-    if (userModel!.status == 200) {
-      await box.write("token", userModel!.accessToken);
-      await box.write("id", userModel!.id);
-      await box.write("username", userModel!.username);
-      await box.write("name", userModel!.name);
-      await box.write("email", userModel!.email);
-      await box.write("role", userModel!.role);
+    try {
+      userModel = await AuthApi().loginAPI(emailC.text, passC.text);
 
-      await box.write("avatar", userModel!.avatar);
-
-      update();
-      Get.offAndToNamed(Routes.NAVIGATION);
-    } else if (userModel!.status == 404) {
-      loginScreen = true;
-      update();
+      if (userModel != null) {
+        if (userModel!.status == 200) {
+          await box.write("id", userModel!.id);
+          await box.write("username", userModel!.username);
+          await box.write("name", userModel!.name);
+          await box.write("role", userModel!.role);
+          await box.write("email", userModel!.email);
+          await box.write("avatar", userModel!.avatar);
+          await box.write("token", userModel!.accessToken);
+          update();
+          Get.offAndToNamed(Routes.NAVIGATION);
+        } else if (userModel!.status == 404) {
+          loginScreen = true;
+          update();
+        }
+      } else {
+        showErrorMessage("error");
+        print("Login failed: User data not available");
+      }
+    } catch (e) {
+      // Handle kesalahan lain yang mungkin terjadi selama login
+      print("Login error: $e");
     }
   }
 }
+
+
+
+//   Future login() async {
+//     loginScreen = false;
+//     update();
+//     userModel = await AuthApi().loginAPI(emailC.text, passC.text);
+//     //print(userModel!.accessToken);
+    
+//     if (userModel!.status == 200) {
+//       await box.write("id", userModel!.id);
+//       await box.write("username", userModel!.username);
+//       await box.write("name", userModel!.name);
+//       await box.write("role", userModel!.role);
+//       await box.write("email", userModel!.email);
+//       await box.write("avatar", userModel!.avatar);
+//       await box.write("token", userModel!.accessToken);
+//       update();
+//       Get.offAndToNamed(Routes.NAVIGATION);
+//     } else if (userModel!.status == 401) {
+//       loginScreen = true;
+//       update();
+//     }
+//   }
+// }
