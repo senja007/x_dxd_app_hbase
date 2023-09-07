@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Diperlukan jika menggunakan Google Fonts.
 
-class NoData extends StatelessWidget {
+class EmptyView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,7 +13,7 @@ class NoData extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Image.asset(
-            'assets/img/empty.png',
+            'assets/img/data_kosong.png',
             height: 180,
             width: 180,
           ),
@@ -21,7 +21,7 @@ class NoData extends StatelessWidget {
             height: 20,
           ),
           Text(
-            "Server Maintenance",
+            "Data Kosong",
             style: GoogleFonts.tajawal(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
@@ -33,8 +33,9 @@ class NoData extends StatelessWidget {
           Container(
             margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Text(
-              "Server masih dalam perbaikan",
+              "Klik Tombol plus (+) dibawah untuk tambah data",
               style: GoogleFonts.cairo(
+                fontSize: 16,
                 color: Color(0xff777777),
               ),
               textAlign: TextAlign.center,
