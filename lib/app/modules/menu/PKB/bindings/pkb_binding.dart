@@ -5,8 +5,8 @@ import '../controllers/pkb_controller.dart';
 class PkbBinding extends Bindings {
   @override
   void dependencies() {
-    Get.lazyPut<PkbController>(
-      () => PkbController(),
+    Get.lazyPut<PKBController>(
+      () => PKBController(),
     );
   }
 }

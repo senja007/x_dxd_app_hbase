@@ -1,12 +1,36 @@
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
-class PemilikController extends GetxController {
-  var items = <String>[].obs;
-  void addItem(String item) {
-    items.add(item);
+class PeternakController extends GetxController {
+  PeternakListModel? posts;
+  final box = GetStorage();
+  bool homeScreen = false;
+
+  @override
+  void onInit() {
+    super.onInit();
+    loadPeternak();
   }
 
-  void removeItem(int index) {
-    items.removeAt(index);
+  loadPeternak() async {
+    homeScreen = false;
+    update();
+    showLoading();
+    posts = await PeternakApi().loadPeternakAPI();
+    update();
+    stopLoading();
+    if (posts?.status == 200) {
+    } else if (posts!.status == 204) {
+      print("Empty");
+    } else if (posts!.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (posts!.status == 401) {
+    } else {
+      print("someting wrong 400");
+    }
   }
 }

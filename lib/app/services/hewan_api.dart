@@ -1,19 +1,19 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../data/vaksin_model.dart';
+import '../data/hewan_model.dart';
 
-class VaksinApi extends SharedApi {
+class HewanApi extends SharedApi {
   // Login API
-  Future<VaksinListModel> loadVaksinAPI() async {
+  Future<HewanListModel> loadHewanAPI() async {
     try {
-      var data =
-          await http.get(Uri.parse(baseUrl + '/vaksin'), headers: getToken());
+      var data = await http.get(Uri.parse(baseUrl + '/hewan'),
+          headers: getToken());
       print("hasil" + data.statusCode.toString());
       print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -21,30 +21,31 @@ class VaksinApi extends SharedApi {
 
         print(jsonData['content']);
 
-        return VaksinListModel.fromJson(
+        return HewanListModel.fromJson(
             {"status": 200, "content": jsonData['content']});
       } else {
-        return VaksinListModel.fromJson(
+        return HewanListModel.fromJson(
             {"status": data.statusCode, "content": []});
       }
     } on Exception catch (_) {
-      return VaksinListModel.fromJson({"status": 404, "content": []});
+      return HewanListModel.fromJson({"status": 404, "content": []});
     }
   }
-  
-  Future<VaksinModel?> addVaksinAPI(String idVaksin, String eartag, String idHewan, String idPembuatan, String idPejantan,
-  String bangsaPejantan, String ib1, String ib2, String ib3, String ibLain, String produsen, String idPeternak, 
-  String namaPeternak, String lokasi, String inseminator, String tanggalIb) async {
+
+  Future<HewanModel?> addHewanAPI(String eartag, String kartu, String nik, String idPeternak, String namaPeternak, 
+  String provinsi, String kabupaten, String kecamatan, String desa, String identifikasi, String kelamin, String spesies, 
+  String umur, String petugasPendaftar, String tanggalTerdaftar) async {
     try {
       var jsonData;
       showLoading();
 
-      var bodyData = {'idVaksin' : idVaksin, 'eartag' : eartag, 'idHewan' : idHewan, 'idPembuatan' : idPembuatan, 
-      'idPejantan' : idPejantan, 'bangsaPejantan' : bangsaPejantan, 'ib1' : ib1, 'ib2' : ib2, 'ib3' : ib3, 'ibLain' : ibLain,
-      'produsen' : produsen, 'idPeternak' : idPeternak, 'namaPeternak' : namaPeternak, 'lokasi' : lokasi, 
-      'inseminator' : inseminator, 'tanggalIb' : tanggalIb };
+      var bodyData = {
+      'eartag': eartag, 'kartu': kartu, 'nik': nik, 'idPeternak': idPeternak, 'namaPeternak' : namaPeternak, 
+      'provinsi' : provinsi, 'kabupaten' : kabupaten, 'kecamatan' : kecamatan, 'desa' : desa, 'identifikasi' : identifikasi, 
+      'kelamin' : kelamin, 'spesies' : spesies, 'umur' : umur, 'petugasPendaftar' : petugasPendaftar, 'tanggalTerdaftar' : tanggalTerdaftar
+      };
       var data = await http.post(
-        Uri.parse(baseUrl + '/vaksin'),
+        Uri.parse(baseUrl + '/hewan'),
         headers: {...getToken() , 'Content-Type': 'application/json',},
         body: jsonEncode(bodyData),
       );
@@ -54,28 +55,28 @@ class VaksinApi extends SharedApi {
       print("apalah");
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-         print(VaksinModel);
+        print(HewanModel);
         print(jsonData);
         print(bodyData);
-        return null; //PengobatanModel.fromJson(jsonData);
+        return HewanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return VaksinModel.fromJson({"status": data.statusCode});
+        return null; //InseminasiModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return VaksinModel.fromJson({"status": 404});
+      return HewanModel.fromJson({"status": 404});
     }
   }
 
-  Future<VaksinModel?> editVaksinAPI(
+  Future<HewanModel?> editHewanAPI(
       String title, String content, String id) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.put(
-        Uri.parse(baseUrl + '/vaksin/' + id.toString()),
+        Uri.parse(baseUrl + '/hewan/' + id.toString()),
         headers: getToken(),
         body: {'content': content, 'status': "1"},
       );
@@ -83,24 +84,24 @@ class VaksinApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         jsonData['statusCode'] = 200;
-        return VaksinModel.fromJson(jsonData);
+        return HewanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return VaksinModel.fromJson({"status": data.statusCode});
+        return HewanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return VaksinModel.fromJson({"status": 404});
+      return HewanModel.fromJson({"status": 404});
     }
   }
 
-  Future<VaksinModel?> deleteVaksinAPI(String id) async {
+  Future<HewanModel?> deleteInseminasiAPI(String id) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/vaksin/' + id.toString()),
+        Uri.parse(baseUrl + '/hewan/' + id.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -115,16 +116,16 @@ class VaksinApi extends SharedApi {
         postData['content'] = "";
 
         print(postData);
-        // Kirim variabel postData ke dalam fungsi VaksinModel.fromJson
-        return VaksinModel.fromJson(postData);
+        // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson
+        return HewanModel.fromJson(postData);
       } else {
         showErrorMessage(jsonData['message']);
-        return VaksinModel.fromJson({"status": data.statusCode});
+        return HewanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
       showInternetMessage("Periksa koneksi internet anda");
-      return VaksinModel.fromJson({"status": 404});
+      return HewanModel.fromJson({"status": 404});
     }
   }
 }

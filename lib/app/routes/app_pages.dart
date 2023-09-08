@@ -136,7 +136,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PKB,
-      page: () => PkbView(),
+      page: () => PKBView(),
       binding: PkbBinding(),
       transition: Transition.rightToLeft,
     ),
@@ -170,7 +170,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.PEMILIK,
-      page: () => PemilikView(),
+      page: () => PeternakView(),
       binding: PemilikBinding(),
       transition: Transition.rightToLeft,
     ),
