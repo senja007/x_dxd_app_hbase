@@ -3,6 +3,9 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -32,33 +35,58 @@ class InseminasiApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> addInseminasiAPI(String idInseminasi, String tanggalIB, String lokasi, String namaPeternak, 
-  String idPeternak, String idHewan, String eartag, String ib1, String ib2, String ib3, String ibLain, String idPejantan, 
-  String IdPembuatan, String bangsaPejantan, String produsen, String inseminator) async {
+  Future<InseminasiModel?> addInseminasiAPI(
+      String idInseminasi,
+      String tanggalIB,
+      String lokasi,
+      String namaPeternak,
+      String idPeternak,
+      String idHewan,
+      String eartag,
+      String ib1,
+      String ib2,
+      String ib3,
+      String ibLain,
+      String idPejantan,
+      String IdPembuatan,
+      String bangsaPejantan,
+      String produsen,
+      String inseminator) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-      'idInseminasi': idInseminasi, 'tanggalIB': tanggalIB, 'lokasi': lokasi, 'namaPeternak': namaPeternak,
-      'idPeternak' : idPeternak, 'idHewan' : idHewan, 'eartag' : eartag, 'ib1' : ib1, 'ib2' : ib2, 'ib3' : ib3, 
-      'ibLain' : ibLain, 'idPejantan' : idPejantan, 'idPembuatan' : IdPembuatan, 'bangsaPejantan' : bangsaPejantan,
-      'produsen' : produsen, 'inseminator' : inseminator
+        'idInseminasi': idInseminasi,
+        'tanggalIB': tanggalIB,
+        'lokasi': lokasi,
+        'namaPeternak': namaPeternak,
+        'idPeternak': idPeternak,
+        'idHewan': idHewan,
+        'eartag': eartag,
+        'ib1': ib1,
+        'ib2': ib2,
+        'ib3': ib3,
+        'ibLain': ibLain,
+        'idPejantan': idPejantan,
+        'idPembuatan': IdPembuatan,
+        'bangsaPejantan': bangsaPejantan,
+        'produsen': produsen,
+        'inseminator': inseminator
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/inseminasi'),
-        headers: {...getToken() , 'Content-Type': 'application/json',},
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
-      print(data.body);
-      print("apalah");
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
-        print(InseminasiModel);
-        print(jsonData);
-        print(bodyData);
+      if (data.statusCode == 201) {
+        showSuccessMessage(jsonData["message"]);
+        Get.back();
         return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);

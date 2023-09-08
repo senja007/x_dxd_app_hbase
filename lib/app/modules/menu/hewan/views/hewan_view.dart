@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
+import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -39,58 +40,63 @@ class HewanView extends GetView<HewanController> {
           //body: Container(),
           body: GetBuilder<HewanController>(
             builder: (controller) => controller.posts?.status == 200
-                ? ListView.separated(
-                    itemCount: controller.posts!.content!.length,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 16),
-                    itemBuilder: (context, index) {
-                      var postData = controller.posts!.content![index];
-                      return InkWell(
-                        onTap: () => {
-                          Get.toNamed(
-                            Routes.DETAIL_POST,
-                            arguments: {
-                              "id": "${postData.id}",
-                              "content": "${postData.eartag}",
+                ? controller.posts!.content!.isEmpty
+                    ? EmptyView()
+                    : ListView.separated(
+                        itemCount: controller.posts!.content!.length,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 16),
+                        itemBuilder: (context, index) {
+                          var postData = controller.posts!.content![index];
+                          return InkWell(
+                            onTap: () => {
+                              Get.toNamed(
+                                Routes.DETAILHEWAN,
+                                arguments: {
+                                  "id": "${postData.eartag}",
+                                  "content": "${postData.eartag}",
+                                },
+                              ),
                             },
-                          ),
-                        },
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              width: 1,
-                              color: AppColor.primaryExtraSoft,
-                            ),
-                          ),
-                          padding: EdgeInsets.only(
-                              left: 24, top: 20, right: 29, bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  width: 1,
+                                  color: AppColor.primaryExtraSoft,
+                                ),
+                              ),
+                              padding: EdgeInsets.only(
+                                  left: 24, top: 20, right: 29, bottom: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    (postData.status == null)
-                                        ? "-"
-                                        : "No Kartu Ternak : ${postData.eartag} ${postData.kartu}",
-                                    style: TextStyle(fontSize: 18),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "No Kartu Ternak : ${postData.eartag} ${postData.kartu}",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      Text((postData.status == null)
+                                          ? "-"
+                                          : "${postData.spesies}"),
+                                    ],
                                   ),
-                                  Text((postData.status == null)
-                                      ? "-"
-                                      : "${postData.spesies}"),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )
+                            ),
+                          );
+                        },
+                      )
                 : NoData(),
           ),
           floatingActionButton: Padding(

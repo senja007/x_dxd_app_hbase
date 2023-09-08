@@ -20,7 +20,6 @@ class AddPetugasController extends GetxController {
     namaC.dispose();
     notlpC.dispose();
     emailC.dispose();
-    print("walo");
   }
 
   Future addPetugas(BuildContext context) async {

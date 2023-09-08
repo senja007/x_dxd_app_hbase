@@ -5,14 +5,17 @@ import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 class PeternakApi extends SharedApi {
   // Login API
   Future<PeternakListModel> loadPeternakAPI() async {
     try {
-      var data = await http.get(Uri.parse(baseUrl + '/peternak'),
-          headers: getToken());
+      var data =
+          await http.get(Uri.parse(baseUrl + '/peternak'), headers: getToken());
       print("hasil" + data.statusCode.toString());
       print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -30,31 +33,41 @@ class PeternakApi extends SharedApi {
       return PeternakListModel.fromJson({"status": 404, "content": []});
     }
   }
-    
-  Future<PeternakModel?> addPeternakAPI(String idPeternak, String namaPeternak, String idIsikhnas, String nikPeternak,  
-  String lokasi, String petugasPendaftar, String tanggalPendaftaran) async {
+
+  Future<PeternakModel?> addPeternakAPI(
+      String idPeternak,
+      String namaPeternak,
+      String idIsikhnas,
+      String nikPeternak,
+      String lokasi,
+      String petugasPendaftar,
+      String tanggalPendaftaran) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-      'idPeternak': idPeternak, 'namaPeternak': namaPeternak, 'idIsikhnas': idIsikhnas, 'nikPeternak': nikPeternak, 
-      'lokasi' : lokasi, 'petugasPendaftar' : petugasPendaftar, 'tanggalPendaftaran' : tanggalPendaftaran
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'idIsikhnas': idIsikhnas,
+        'nikPeternak': nikPeternak,
+        'lokasi': lokasi,
+        'petugasPendaftar': petugasPendaftar,
+        'tanggalPendaftaran': tanggalPendaftaran
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/peternak'),
-        headers: {...getToken() , 'Content-Type': 'application/json',},
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
-      print(data.body);
-      print("apalah");
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
-        print(PeternakModel);
-        print(jsonData);
-        print(bodyData);
+      if (data.statusCode == 201) {
+        showSuccessMessage(jsonData["message"]);
+        Get.back();
         return PeternakModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);

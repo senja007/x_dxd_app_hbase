@@ -1,11 +1,14 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddHewanController extends GetxController {
-  PetugasModel? petugasModel;
+  HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController eartagC = TextEditingController();
@@ -43,14 +46,54 @@ class AddHewanController extends GetxController {
     tanggalTerdaftarC.dispose();
   }
 
-  Future addPost() async {
-    update();
-    // petugasModel = await PetugasApi().addPetugasApi(titleC.text, contentC.text);
-    if (petugasModel!.status == 200) {
-      update();
-      Get.offAndToNamed(Routes.HOME); //ganti route sesuai data menu
-    } else if (petugasModel!.status == 404) {
-      update();
+  Future addHewan(BuildContext context) async {
+    try {
+      isLoading.value = true;
+
+      if (eartagC.text.isEmpty) {
+        throw "NIK tidak boleh kosong.";
+      }
+
+      if (nikC.text.isEmpty) {
+        throw "Nama tidak boleh kosong.";
+      }
+
+      hewanModel = await HewanApi().addHewanAPI(
+          eartagC.text,
+          kartuC.text,
+          nikC.text,
+          idPeternakC.text,
+          namaPeternakC.text,
+          provinsiC.text,
+          kabupatenC.text,
+          kecamatanC.text,
+          desaC.text,
+          identifikasiC.text,
+          kelaminC.text,
+          spesiesC.text,
+          umurC.text,
+          petugasPendaftarC.text,
+          tanggalTerdaftarC.text);
+    } catch (e) {
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    } finally {
+      isLoading.value = false;
     }
   }
 }

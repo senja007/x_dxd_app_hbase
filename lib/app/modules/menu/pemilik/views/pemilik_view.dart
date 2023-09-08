@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
+import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
 
@@ -41,58 +42,63 @@ class PeternakView extends GetView<PeternakController> {
           //body: Container(),
           body: GetBuilder<PeternakController>(
             builder: (controller) => controller.posts?.status == 200
-                ? ListView.separated(
-                    itemCount: controller.posts!.content!.length,
-                    shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 16),
-                    itemBuilder: (context, index) {
-                      var postData = controller.posts!.content![index];
-                      return InkWell(
-                        onTap: () => {
-                          Get.toNamed(
-                            Routes.DETAIL_POST,
-                            arguments: {
-                              "id": "${postData.id}",
-                              "content": "${postData.idPeternak}",
+                ? controller.posts!.content!.isEmpty
+                    ? EmptyView()
+                    : ListView.separated(
+                        itemCount: controller.posts!.content!.length,
+                        shrinkWrap: true,
+                        physics: BouncingScrollPhysics(),
+                        separatorBuilder: (context, index) =>
+                            SizedBox(height: 16),
+                        itemBuilder: (context, index) {
+                          var postData = controller.posts!.content![index];
+                          return InkWell(
+                            onTap: () => {
+                              Get.toNamed(
+                                Routes.DETAIL_POST,
+                                arguments: {
+                                  "id": "${postData.id}",
+                                  "content": "${postData.idPeternak}",
+                                },
+                              ),
                             },
-                          ),
-                        },
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            border: Border.all(
-                              width: 1,
-                              color: AppColor.primaryExtraSoft,
-                            ),
-                          ),
-                          padding: EdgeInsets.only(
-                              left: 24, top: 20, right: 29, bottom: 20),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                            child: Container(
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(8),
+                                border: Border.all(
+                                  width: 1,
+                                  color: AppColor.primaryExtraSoft,
+                                ),
+                              ),
+                              padding: EdgeInsets.only(
+                                  left: 24, top: 20, right: 29, bottom: 20),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Text(
-                                    (postData.status == null)
-                                        ? "-"
-                                        : "Nama Peternak: ${postData.idPeternak} ${postData.namaPeternak}",
-                                    style: TextStyle(fontSize: 18),
+                                  Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "Nama Peternak: ${postData.idPeternak} ${postData.namaPeternak}",
+                                        style: TextStyle(fontSize: 18),
+                                      ),
+                                      Text((postData.status == null)
+                                          ? "-"
+                                          : "${postData.tanggalPendaftaran}"),
+                                    ],
                                   ),
-                                  Text((postData.status == null)
-                                      ? "-"
-                                      : "${postData.tanggalPendaftaran}"),
                                 ],
                               ),
-                            ],
-                          ),
-                        ),
-                      );
-                    },
-                  )
+                            ),
+                          );
+                        },
+                      )
                 : NoData(),
           ),
           floatingActionButton: Padding(

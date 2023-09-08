@@ -23,6 +23,10 @@ class VaksinController extends GetxController {
     update();
     stopLoading();
     if (posts?.status == 200) {
+      if (posts!.content!.isEmpty) {
+        homeScreen = true;
+        update();
+      }
     } else if (posts!.status == 204) {
       print("Empty");
     } else if (posts!.status == 404) {

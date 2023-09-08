@@ -557,7 +557,7 @@ class AddHewanView extends GetView<AddHewanController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addHewan(context);
                   }
                 },
                 child: Text(

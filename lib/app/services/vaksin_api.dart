@@ -3,6 +3,9 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -31,36 +34,65 @@ class VaksinApi extends SharedApi {
       return VaksinListModel.fromJson({"status": 404, "content": []});
     }
   }
-  
-  Future<VaksinModel?> addVaksinAPI(String idVaksin, String eartag, String idHewan, String idPembuatan, String idPejantan,
-  String bangsaPejantan, String ib1, String ib2, String ib3, String ibLain, String produsen, String idPeternak, 
-  String namaPeternak, String lokasi, String inseminator, String tanggalIb) async {
+
+  Future<VaksinModel?> addVaksinAPI(
+      String idVaksin,
+      String eartag,
+      String idHewan,
+      String idPembuatan,
+      String idPejantan,
+      String bangsaPejantan,
+      String ib1,
+      String ib2,
+      String ib3,
+      String ibLain,
+      String produsen,
+      String idPeternak,
+      String namaPeternak,
+      String lokasi,
+      String inseminator,
+      String tanggalIb) async {
     try {
       var jsonData;
       showLoading();
 
-      var bodyData = {'idVaksin' : idVaksin, 'eartag' : eartag, 'idHewan' : idHewan, 'idPembuatan' : idPembuatan, 
-      'idPejantan' : idPejantan, 'bangsaPejantan' : bangsaPejantan, 'ib1' : ib1, 'ib2' : ib2, 'ib3' : ib3, 'ibLain' : ibLain,
-      'produsen' : produsen, 'idPeternak' : idPeternak, 'namaPeternak' : namaPeternak, 'lokasi' : lokasi, 
-      'inseminator' : inseminator, 'tanggalIb' : tanggalIb };
+      var bodyData = {
+        'idVaksin': idVaksin,
+        'eartag': eartag,
+        'idHewan': idHewan,
+        'idPembuatan': idPembuatan,
+        'idPejantan': idPejantan,
+        'bangsaPejantan': bangsaPejantan,
+        'ib1': ib1,
+        'ib2': ib2,
+        'ib3': ib3,
+        'ibLain': ibLain,
+        'produsen': produsen,
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'lokasi': lokasi,
+        'inseminator': inseminator,
+        'tanggalIb': tanggalIb
+      };
       var data = await http.post(
         Uri.parse(baseUrl + '/vaksin'),
-        headers: {...getToken() , 'Content-Type': 'application/json',},
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
         body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);
       print(data.body);
       print("apalah");
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
-         print(VaksinModel);
-        print(jsonData);
-        print(bodyData);
-        return null; //PengobatanModel.fromJson(jsonData);
+      if (data.statusCode == 201) {
+        showSuccessMessage(jsonData["message"]);
+        Get.back();
+        return VaksinModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return VaksinModel.fromJson({"status": data.statusCode});
+        return null; // return VaksinModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();

@@ -3,6 +3,9 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -73,17 +76,13 @@ class PKBApi extends SharedApi {
       );
       stopLoading();
       jsonData = json.decode(data.body);
-      print(data.body);
-      print("apalah");
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
-        print(PKBModel);
-        print(jsonData);
-        print(bodyData);
-        return null; //PengobatanModel.fromJson(jsonData);
+      if (data.statusCode == 201) {
+        showSuccessMessage(jsonData["message"]);
+        Get.back();
+        return PKBModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return PKBModel.fromJson({"status": data.statusCode});
+        return null; // return PKBModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();

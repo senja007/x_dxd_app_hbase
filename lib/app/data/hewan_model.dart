@@ -1,7 +1,6 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 
 class HewanModel {
-  final int? id;
   final String? eartag;
   final String? kartu;
   final String? nik;
@@ -21,7 +20,6 @@ class HewanModel {
   final int? status;
 
   HewanModel({
-    this.id,
     this.status,
     this.eartag,
     this.kartu,
@@ -47,17 +45,23 @@ class HewanModel {
       kartu: jsonData['kartu'] != null ? jsonData['kartu'] : "",
       nik: jsonData['nik'] != null ? jsonData['nik'] : "",
       idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      namaPeternak:
+          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       provinsi: jsonData['provinsi'] != null ? jsonData['provinsi'] : "",
       kabupaten: jsonData['kabupaten'] != null ? jsonData['kabupaten'] : "",
       kecamatan: jsonData['kecamatan'] != null ? jsonData['kecamatan'] : "",
       desa: jsonData['desa'] != null ? jsonData['desa'] : "",
-      identifikasi: jsonData['identifikasi'] != null ? jsonData['identifikasi'] : "",
+      identifikasi:
+          jsonData['identifikasi'] != null ? jsonData['identifikasi'] : "",
       kelamin: jsonData['kelamin'] != null ? jsonData['kelamin'] : "",
       spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
       umur: jsonData['umur'] != null ? jsonData['umur'] : "",
-      petugasPendaftar: jsonData['petugasPendaftar'] != null ? jsonData['petugasPendaftar'] : "",
-      tanggalTerdaftar: jsonData['tanggalTerdaftar'] != null ? jsonData['tanggalTerdaftar'] : "",
+      petugasPendaftar: jsonData['petugasPendaftar'] != null
+          ? jsonData['petugasPendaftar']
+          : "",
+      tanggalTerdaftar: jsonData['tanggalTerdaftar'] != null
+          ? jsonData['tanggalTerdaftar']
+          : "",
     );
   }
 }
