@@ -11,37 +11,39 @@ class AddHewanController extends GetxController {
   HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  TextEditingController eartagC = TextEditingController();
-  TextEditingController kartuC = TextEditingController();
-  TextEditingController nikC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
+
+
+TextEditingController kodeEartagNasionalC = TextEditingController();
+  TextEditingController noKartuTernakC = TextEditingController();
   TextEditingController provinsiC = TextEditingController();
   TextEditingController kabupatenC = TextEditingController();
   TextEditingController kecamatanC = TextEditingController();
   TextEditingController desaC = TextEditingController();
-  TextEditingController identifikasiC = TextEditingController();
-  TextEditingController kelaminC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController nikPeternakC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
+  TextEditingController sexC = TextEditingController();
   TextEditingController umurC = TextEditingController();
+  TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
 
   @override
   onClose() {
-    eartagC.dispose();
-    kartuC.dispose();
-    nikC.dispose();
-    idPeternakC.dispose();
-    namaPeternakC.dispose();
+   kodeEartagNasionalC.dispose();
+    noKartuTernakC.dispose();
     provinsiC.dispose();
     kabupatenC.dispose();
     kecamatanC.dispose();
     desaC.dispose();
-    identifikasiC.dispose();
-    kelaminC.dispose();
+    namaPeternakC.dispose();
+    idPeternakC.dispose();
+    nikPeternakC.dispose();
     spesiesC.dispose();
+    sexC.dispose();
     umurC.dispose();
+    identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
   }
@@ -50,30 +52,32 @@ class AddHewanController extends GetxController {
     try {
       isLoading.value = true;
 
-      if (eartagC.text.isEmpty) {
+      if (kodeEartagNasionalC.text.isEmpty) {
         throw "NIK tidak boleh kosong.";
       }
 
-      if (nikC.text.isEmpty) {
+      if (nikPeternakC.text.isEmpty) {
         throw "Nama tidak boleh kosong.";
       }
 
       hewanModel = await HewanApi().addHewanAPI(
-          eartagC.text,
-          kartuC.text,
-          nikC.text,
-          idPeternakC.text,
-          namaPeternakC.text,
-          provinsiC.text,
-          kabupatenC.text,
-          kecamatanC.text,
-          desaC.text,
-          identifikasiC.text,
-          kelaminC.text,
-          spesiesC.text,
-          umurC.text,
-          petugasPendaftarC.text,
-          tanggalTerdaftarC.text);
+          kodeEartagNasionalC.text,
+    noKartuTernakC.text,
+    provinsiC.text,
+    kabupatenC.text,
+    kecamatanC.text,
+    desaC.text,
+    namaPeternakC.text,
+    idPeternakC.text,
+    nikPeternakC.text,
+    spesiesC.text,
+    sexC.text,
+    umurC.text,
+    identifikasiHewanC.text,
+    petugasPendaftarC.text,
+    tanggalTerdaftarC.text,
+          
+          );
     } catch (e) {
       showCupertinoDialog(
         context: context, // Gunakan context yang diberikan sebagai parameter.

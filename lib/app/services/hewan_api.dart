@@ -13,19 +13,25 @@ import '../data/hewan_model.dart';
 
 class HewanApi extends SharedApi {
   // Login API
-  Future<HewanListModel> loadHewanAPI() async {
+  Future<HewanListModel> loadHewanApi() async {
     try {
       var data =
           await http.get(Uri.parse(baseUrl + '/hewan'), headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        // print(jsonData['content']);
 
-        return HewanListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return HewanListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return HewanListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -36,41 +42,42 @@ class HewanApi extends SharedApi {
   }
 
   Future<HewanModel?> addHewanAPI(
-      String eartag,
-      String kartu,
-      String nik,
-      String idPeternak,
-      String namaPeternak,
-      String provinsi,
-      String kabupaten,
-      String kecamatan,
-      String desa,
-      String identifikasi,
-      String kelamin,
-      String spesies,
-      String umur,
-      String petugasPendaftar,
-      String tanggalTerdaftar) async {
+  String kodeEartagNasional,
+  String noKartuTernak,
+  String provinsi,
+  String kabupaten,
+  String kecamatan,
+  String desa,
+  String namaPeternak,
+  String idPeternak,
+  String nikPeternak,
+  String spesies,
+  String sex,
+  String umur,
+  String identifikasiHewan,
+  String petugasPendaftar,
+  String tanggalTerdaftar,
+  ) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-        'eartag': eartag,
-        'kartu': kartu,
-        'nik': nik,
-        'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
-        'provinsi': provinsi,
-        'kabupaten': kabupaten,
-        'kecamatan': kecamatan,
-        'desa': desa,
-        'identifikasi': identifikasi,
-        'kelamin': kelamin,
-        'spesies': spesies,
-        'umur': umur,
-        'petugasPendaftar': petugasPendaftar,
-        'tanggalTerdaftar': tanggalTerdaftar
+        "kodeEartagNasional" : kodeEartagNasional,
+  "noKartuTernak" : noKartuTernak,
+  "provinsi" : provinsi,
+  "kabupaten" : kabupaten,
+  "kecamatan" : kecamatan,
+  "desa" : desa,
+  "namaPeternak" : namaPeternak,
+  "idPeternak" : idPeternak,
+  "nikPeternak" : nikPeternak,
+  "spesies" : spesies,
+  "sex" : sex,
+  "umur" : umur,
+  "identifikasiHewan" : identifikasiHewan,
+  "petugasPendaftar" : petugasPendaftar,
+  "tanggalTerdaftar" : tanggalTerdaftar,
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/hewan'),
@@ -123,7 +130,7 @@ class HewanApi extends SharedApi {
     }
   }
 
-  Future<HewanModel?> deleteInseminasiAPI(String id) async {
+  Future<HewanModel?> deleteHewanApi(String id) async {
     try {
       var jsonData;
       showLoading();

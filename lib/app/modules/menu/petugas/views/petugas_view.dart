@@ -70,14 +70,14 @@ class PetugasView extends GetView<PetugasController> {
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 color: AppColor.primaryExtraSoft,
-                                borderRadius: BorderRadius.circular(8),
+                                borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
                                   width: 1,
                                   color: AppColor.primaryExtraSoft
                                 ),
                               ),
                               padding: EdgeInsets.only(
-                                  left: 20, top: 20, right: 29, bottom: 20),
+                                  left: 20, top: 10, right: 29, bottom: 10),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,

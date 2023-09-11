@@ -55,8 +55,22 @@ class HewanView extends GetView<HewanController> {
                               Get.toNamed(
                                 Routes.DETAILHEWAN,
                                 arguments: {
-                                  "id": "${postData.eartag}",
-                                  "content": "${postData.eartag}",
+                                  "eartag_hewan_detail": "${postData.kodeEartagNasional}",
+                                  "kartu_hewan_detail": "${postData.noKartuTernak}",
+                                  "provinsi_hewan_detail": "${postData.provinsi}",
+                                  "kabupaten_hewan_detail": "${postData.kabupaten}",
+                                  "kecamatan_hewan_detail": "${postData.kecamatan}",
+                                  "desa_hewan_detail": "${postData.desa}",
+                                  "nama_peternak_hewan_detail": "${postData.namaPeternak}",
+                                  "id_peternak_hewan_detail": "${postData.idPeternak}",
+                                  "nik_hewan_detail": "${postData.nikPeternak}",
+                                  "spesies_hewan_detail": "${postData.spesies}",
+                                  "kelamin_hewan_detail": "${postData.sex}",
+                                  "umur_hewan_detail": "${postData.umur}",
+                                  "identifikasi_hewan_detail": "${postData.identifikasiHewan}",
+                                  "petugas_terdaftar_hewan_detail": "${postData.petugasPendaftar}",
+                                  "tanggal_terdaftar_hewan_detail": "${postData.tanggalTerdaftar}",
+                                  
                                 },
                               ),
                             },
@@ -83,7 +97,7 @@ class HewanView extends GetView<HewanController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "No Kartu Ternak : ${postData.eartag} ${postData.kartu}",
+                                            : "No Kartu Ternak : ${postData.kodeEartagNasional} ${postData.noKartuTernak}",
                                         style: TextStyle(fontSize: 18),
                                       ),
                                       Text((postData.status == null)

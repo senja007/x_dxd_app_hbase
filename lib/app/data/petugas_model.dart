@@ -1,7 +1,7 @@
 class PetugasModel {
   //final int? id;
-  final String? namaPetugas;
   final String? nikPetugas;
+  final String? namaPetugas;
   final String? noTelp;
   final String? email;
   final int? status;
@@ -17,13 +17,12 @@ class PetugasModel {
 
   factory PetugasModel.fromJson(Map<String, dynamic> jsonData) {
     return PetugasModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      //id: jsonData['id'] != null ? jsonData['id'] : 0,
-      namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
       nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
+      namaPetugas: jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
       noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
       email: jsonData['email'] != null ? jsonData['email'] : "",
+      status: jsonData['status'] != null ? jsonData['status'] : 0,
+      //id: jsonData['id'] != null ? jsonData['id'] : 0,
     );
   }
 }

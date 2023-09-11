@@ -19,7 +19,7 @@ class HewanController extends GetxController {
     homeScreen = false;
     update();
     showLoading();
-    posts = await HewanApi().loadHewanAPI();
+    posts = await HewanApi().loadHewanApi();
     update();
     stopLoading();
     if (posts?.status == 200) {

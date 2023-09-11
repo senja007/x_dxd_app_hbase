@@ -1,5 +1,7 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -8,21 +10,68 @@ import 'package:get/get.dart';
 class DetailHewanController extends GetxController {
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
-  PetugasModel? petugasModel;
+  HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxBool isEditing = false.obs;
 
-  TextEditingController contentC = TextEditingController();
+  TextEditingController kodeEartagNasionalC = TextEditingController();
+  TextEditingController noKartuTernakC = TextEditingController();
+  TextEditingController provinsiC = TextEditingController();
+  TextEditingController kabupatenC = TextEditingController();
+  TextEditingController kecamatanC = TextEditingController();
+  TextEditingController desaC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController nikPeternakC = TextEditingController();
+  TextEditingController spesiesC = TextEditingController();
+  TextEditingController sexC = TextEditingController();
+  TextEditingController umurC = TextEditingController();
+  TextEditingController identifikasiHewanC = TextEditingController();
+  TextEditingController petugasPendaftarC = TextEditingController();
+  TextEditingController tanggalTerdaftarC = TextEditingController();
+
   @override
   onClose() {
-    contentC.dispose();
+    kodeEartagNasionalC.dispose();
+    noKartuTernakC.dispose();
+    provinsiC.dispose();
+    kabupatenC.dispose();
+    kecamatanC.dispose();
+    desaC.dispose();
+    namaPeternakC.dispose();
+    idPeternakC.dispose();
+    nikPeternakC.dispose();
+    spesiesC.dispose();
+    sexC.dispose();
+    umurC.dispose();
+    identifikasiHewanC.dispose();
+    petugasPendaftarC.dispose();
+    tanggalTerdaftarC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
+    isEditing.value = false;
 
-    contentC.text = argsData["content"];
+    kodeEartagNasionalC.text = argsData["eartag_hewan_detail"];
+    noKartuTernakC.text = argsData["kartu_hewan_detail"];
+    provinsiC.text = argsData["provinsi_hewan_detail"];
+    kabupatenC.text = argsData["kabupaten_hewan_detail"];
+    kecamatanC.text = argsData["kecamatan_hewan_detail"];
+    desaC.text = argsData["desa_hewan_detail"];
+    namaPeternakC.text = argsData["nama_peternak_hewan_detail"];
+    idPeternakC.text = argsData["id_peternak_hewan_detail"];
+    nikPeternakC.text = argsData["nik_hewan_detail"];
+    spesiesC.text = argsData["spesies_hewan_detail"];
+    sexC.text = argsData["kelamin_hewan_detail"];
+    umurC.text = argsData["umur_hewan_detail"];
+    identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
+    petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
+    tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
+    
+    
   }
 
   Future<void> deletePost() async {
@@ -33,11 +82,11 @@ class DetailHewanController extends GetxController {
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        petugasModel = await PetugasApi().deletePetugasApi(argsData["id"]);
-        if (petugasModel!.status == 200) {
-          update();
-          Get.offAndToNamed(Routes.HOME);
-        }
+        hewanModel = await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
+        // if (hewanModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        // }
       },
     );
   }
