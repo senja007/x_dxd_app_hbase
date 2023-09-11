@@ -13,7 +13,7 @@ class AddPkbController extends GetxController {
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController nikC = TextEditingController();
+  TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
@@ -33,7 +33,7 @@ class AddPkbController extends GetxController {
     namaPeternakC.dispose();
     jumlahC.dispose();
     idPeternakC.dispose();
-    nikC.dispose();
+    nikPeternakC.dispose();
     idKejadianC.dispose();
     idHewanC.dispose();
   }
@@ -45,7 +45,7 @@ class AddPkbController extends GetxController {
           idKejadianC.text,
           idHewanC.text,
           idPeternakC.text,
-          nikC.text,
+          nikPeternakC.text,
           namaPeternakC.text,
           jumlahC.text,
           kategoriC.text,

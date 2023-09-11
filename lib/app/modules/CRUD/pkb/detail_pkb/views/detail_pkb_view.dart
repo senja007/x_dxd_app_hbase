@@ -55,17 +55,425 @@ class DetailPkbView extends GetView<DetailPkbController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          // CustomInput(
-          //   controller: controller.titleC,
-          //   label: 'Nama Post',
-          //   hint: 'Berita Terkini',
-          //   disabled: true,
-          // ),
-          CustomInput(
-            controller: controller.contentC,
-            label: 'Data',
-            hint: 'detail data',
-            disabled: true,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.idKejadianC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Id Kejadian",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Id Kejadian",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.idHewanC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Id Hewan",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Id Hewan",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.idPeternakC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Id Peternak",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Id Peternak",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.nikC,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                label: Text(
+                  "NIK Peternak",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "NIK Peternak",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.namaPeternakC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Nama Peternak",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Nama Peternak",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.jumlahC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Jumlah",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Jumlah",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.kategoriC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Kategori",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Kategori",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.lokasiC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Lokasi",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Lokasi",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.spesiesC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Spesies",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Spesies",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.umurKebuntinganC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Umur Kebuntingan",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Umur Kebuntingan",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.pemeriksaKebuntingaC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Pemeriksa Kebuntingan",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Pemeriksa Kebuntingan",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              enabled: false,
+              controller: controller.tanggalPkbC,
+              keyboardType: TextInputType.datetime,
+              decoration: InputDecoration(
+                label: Text(
+                  "Tanggal PKB",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Tanggal PKB",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
