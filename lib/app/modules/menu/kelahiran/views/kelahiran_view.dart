@@ -102,7 +102,7 @@ class KelahiranView extends GetView<KelahiranController> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.toNamed(Routes.ADDHEWAN);
+                Get.toNamed(Routes.ADDKELAHIRAN);
               },
               child: Icon(Icons.add),
               backgroundColor: Color(0xff132137),
