@@ -55,10 +55,25 @@ class VaksinView extends GetView<VaksinController> {
                           return InkWell(
                             onTap: () => {
                               Get.toNamed(
-                                Routes.DETAIL_POST,
+                                Routes.DETAILVAKSIN,
                                 arguments: {
-                                  "id": "${postData.id}",
-                                  "content": "${postData.idVaksin}",
+                                  "id_vaksin": "${postData.idVaksin}",
+                                  "eartag": "${postData.eartag}",
+                                  "id_hewan": "${postData.idHewan}",
+                                  "id_pembuatan": "${postData.idPembuatan}",
+                                  "id_pejantan": "${postData.idPejantan}",
+                                  "bangsa_pejantan":
+                                      "${postData.bangsaPejantan}",
+                                  "ib1": "${postData.ib1}",
+                                  "ib2": "${postData.ib2}",
+                                  "ib3": "${postData.ib3}",
+                                  "ib_lain": "${postData.ibLain}",
+                                  "produsen": "${postData.produsen}",
+                                  "id_peternak": "${postData.idPeternak}",
+                                  "nama_peternak": "${postData.namaPeternak}",
+                                  "lokasi": "${postData.lokasi}",
+                                  "inseminator": "${postData.inseminator}",
+                                  "tanggal": "${postData.tanggalIB}",
                                 },
                               ),
                             },
