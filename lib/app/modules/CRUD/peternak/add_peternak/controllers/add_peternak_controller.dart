@@ -1,54 +1,59 @@
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 class AddPeternakController extends GetxController {
-  PetugasModel? petugasModel;
+  PeternakModel? peternakModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController idIshiknasC = TextEditingController();
-  TextEditingController nikC = TextEditingController();
-  TextEditingController namaC = TextEditingController();
+  TextEditingController idIsikhnasC = TextEditingController();
+  TextEditingController nikPeternakC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
 
   @override
   onClose() {
+    idPeternakC.dispose();
+    idIsikhnasC.dispose();
+    nikPeternakC.dispose();
+    namaPeternakC.dispose();
     lokasiC.dispose();
     tanggalPendaftaranC.dispose();
     petugasPendaftarC.dispose();
-    nikC.dispose();
-    namaC.dispose();
-    idPeternakC.dispose();
-    idIshiknasC.dispose();
   }
 
   Future addPeternak() async {
-    try{
+    try {
       isLoading.value = true;
-      // peternakModel = await PeternakModel().addPeternakAPI(
-      //   idPeternakC.text,
-      //   idIshiknasC.text,
-      //   nikC.text,
-      //   namaC.text,
-      //   lokasiC.text,
-      //   petugasPendaftarC.text,
-      //   tanggalPendaftaranC.text
-      // );
+      peternakModel = await PeternakApi().addPeternakAPI(
+          idPeternakC.text,
+          idIsikhnasC.text,
+          nikPeternakC.text,
+          namaPeternakC.text,
+          lokasiC.text,
+          petugasPendaftarC.text,
+          tanggalPendaftaranC.text
+          );
 
-      // if (peternakModel != null) {
-      //   if (peternakModel!.status == 200) {
-      //     Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
-      //   } else if (peternakModel!.status == 404) {
-      //     // Handle status 404
-      //   }
-      // }
+      if (peternakModel != null) {
+        if (peternakModel!.status == 200) {
+          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+        } else if (peternakModel!.status == 404) {
+          // Handle status 404
+        }
+      }
     } catch (e) {
       // Handle exceptions here
     } finally {
       isLoading.value = false;
-    }}}
+    }
+  }
+}

@@ -53,7 +53,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.lokasiC,
+              controller: controller.idPeternakC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -87,7 +87,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idIshiknasC,
+              controller: controller.idIsikhnasC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -121,7 +121,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.nikC,
+              controller: controller.nikPeternakC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -155,7 +155,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.namaC,
+              controller: controller.namaPeternakC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
