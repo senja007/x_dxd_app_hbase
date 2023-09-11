@@ -127,7 +127,7 @@ class VaksinApi extends SharedApi {
     }
   }
 
-  Future<VaksinModel?> deleteVaksinAPI(String id) async {
+  Future<VaksinModel?> deleteVaksinApi(String id) async {
     try {
       var jsonData;
       showLoading();
