@@ -15,6 +15,13 @@ class PeternakController extends GetxController {
     loadPeternak();
   }
 
+  
+  Future<void> refreshPeternak() async {
+    posts = await PeternakApi().loadPeternakAPI();
+    update();
+    print("refresh");
+  }
+
   loadPeternak() async {
     homeScreen = false;
     update();

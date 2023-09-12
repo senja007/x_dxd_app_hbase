@@ -12,17 +12,62 @@ class DetailInseminasiController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
 
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idInseminasiC = TextEditingController();
+  TextEditingController eartagC = TextEditingController();
+  TextEditingController idHewanC = TextEditingController();
+  TextEditingController idPembuatanC = TextEditingController();
+  TextEditingController idPejantanC = TextEditingController();
+  TextEditingController bangsaPejantanC = TextEditingController();
+  TextEditingController ib1C = TextEditingController();
+  TextEditingController ib2C = TextEditingController();
+  TextEditingController ib3C = TextEditingController();
+  TextEditingController ibLainC = TextEditingController();
+  TextEditingController produsenC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController inseminatorC = TextEditingController();
+  TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
-    contentC.dispose();
+    inseminatorC.dispose();
+    tanggalIBC.dispose();
+    namaPeternakC.dispose();
+    lokasiC.dispose();
+    produsenC.dispose();
+    idPeternakC.dispose();
+    ib3C.dispose();
+    ibLainC.dispose();
+    ib1C.dispose();
+    ib2C.dispose();
+    idPejantanC.dispose();
+    bangsaPejantanC.dispose();
+    idHewanC.dispose();
+    idPembuatanC.dispose();
+    idInseminasiC.dispose();
+    eartagC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    contentC.text = argsData["content"];
+    idInseminasiC.text = argsData["detail_id_inseminasi"];
+    eartagC.text = argsData["detail_eartag"];
+    idHewanC.text = argsData["detail_id_hewan"];
+    idPembuatanC.text = argsData["detail_id_pembuatan"];
+    idPejantanC.text = argsData["detail_id_pejantan"];
+    bangsaPejantanC.text = argsData["detail_bangsa_pejantan"];
+    ib1C.text = argsData["detail_ib1"];
+    ib2C.text = argsData["detail_ib2"];
+    ib3C.text = argsData["detail_ib3"];
+    ibLainC.text = argsData["detail_iblain"];
+    produsenC.text = argsData["detail_produsen"];
+    idPeternakC.text = argsData["detail_id_peternak"];
+    namaPeternakC.text = argsData["detail_nama_peternak"];
+    lokasiC.text = argsData["detail_lokasi"];
+    inseminatorC.text = argsData["detail_inseminator"];
+    tanggalIBC.text = argsData["detail_tanggal_ib"];
   }
 
   Future<void> deletePost() async {

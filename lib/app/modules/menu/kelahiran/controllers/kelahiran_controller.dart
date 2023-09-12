@@ -15,6 +15,12 @@ class KelahiranController extends GetxController {
     loadkelahiran();
   }
 
+  Future<void> refreshKelahiran() async {
+    posts = await KelahiranApi().loadKelahiranAPI();
+    update();
+    print("refresh");
+  }
+
   loadkelahiran() async {
     homeScreen = false;
     update();

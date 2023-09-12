@@ -21,7 +21,7 @@ class KelahiranModel {
   final String? idHewanAnak;
   final String? jenisKelaminAnak;
   final String? kategori;
-  final String? petugasPelopor;
+  final String? petugasPelapor;
   final String? urutanIb;
  
 
@@ -48,7 +48,7 @@ class KelahiranModel {
     this.idHewanAnak ,
     this.jenisKelaminAnak ,
     this.kategori ,
-    this.petugasPelopor ,
+    this.petugasPelapor ,
     this.urutanIb ,
   });
 
@@ -76,7 +76,7 @@ class KelahiranModel {
       eartagAnak: jsonData['eartagAnak'] != null ? jsonData['eartagAnak'] : "",
       jenisKelaminAnak: jsonData['jenisKelaminAnak'] != null ? jsonData['jenisKelaminAnak'] : "",
       kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
-      petugasPelopor: jsonData['petugasPelopor'] != null ? jsonData['petugasPelopor'] : "",
+      petugasPelapor: jsonData['petugasPelopor'] != null ? jsonData['petugasPelopor'] : "",
       urutanIb: jsonData['urutanIb'] != null ? jsonData['urutanIb'] : "",
     );
   }

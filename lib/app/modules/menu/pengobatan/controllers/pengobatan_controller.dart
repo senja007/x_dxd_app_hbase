@@ -15,6 +15,12 @@ class PengobatanController extends GetxController {
     loadPengobatan();
   }
 
+  Future<void> refreshPengobatan() async {
+    posts = await PengobatanApi().loadPengobatanAPI();
+    update();
+    print("refresh");
+  }
+
   loadPengobatan() async {
     homeScreen = false;
     update();

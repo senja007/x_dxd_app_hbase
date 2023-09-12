@@ -112,14 +112,62 @@ class KelahiranApi extends SharedApi {
   }
 
   Future<KelahiranModel?> editKelahiranAPI(
-      String title, String content, String id) async {
+      String idKejadian,
+      String eartagInduk,
+      String eartagAnak,
+      String idHewanInduk,
+      String idHewanAnak,
+      String idBatch,
+      String idPejantan,
+      String kelaminAnak,
+      String jumlah,
+      String kartuTernakAnak,
+      String kartuTernakInduk,
+      String kategori,
+      String lokasi,
+      String idPeternak,
+      String namaPeternak,
+      String petugasPelapor,
+      String produsen,
+      String spesiesInduk,
+      String spesiesPejantan,
+      String tanggalLahir,
+      String tanggalLaporan,
+      String urutanIb) async {
     try {
       var jsonData;
       showLoading();
-      var data = await http.put(
-        Uri.parse(baseUrl + '/kelahiran/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+      var bodyData = {
+        'idKejadian': idKejadian,
+        'eartagInduk': eartagInduk,
+        'eartagAnak': eartagAnak,
+        'idHewaninduk': idHewanInduk,
+        'idHewanAnak': idHewanAnak,
+        'idBatch': idBatch,
+        'idPejantan': idPejantan,
+        'kelaminAnak': kelaminAnak,
+        'jumlah': jumlah,
+        'kartuTernakAnak': kartuTernakAnak,
+        'kartuTernakInduk': kartuTernakInduk,
+        'kategori': kategori,
+        'lokasi': lokasi,
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'petugasPelapor': petugasPelapor,
+        'produsen': produsen,
+        'spesiesInduk': spesiesInduk,
+        'spesiesPejantan': spesiesPejantan,
+        'tanggalLahir': tanggalLahir,
+        'tanggalLaporan': tanggalLaporan,
+        'urutanIb': urutanIb
+      };
+      var data = await http.post(
+        Uri.parse(baseUrl + '/kelahiran'),
+        headers: {
+          ...getToken(),
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode(bodyData),
       );
       stopLoading();
       jsonData = json.decode(data.body);

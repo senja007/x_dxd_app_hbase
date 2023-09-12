@@ -11,18 +11,41 @@ class DetailPengobatanController extends GetxController {
   PetugasModel? petugasModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-
-  TextEditingController contentC = TextEditingController();
+  TextEditingController idKasusC = TextEditingController();
+  TextEditingController namaInfrastrukturC = TextEditingController();
+  TextEditingController dosisC = TextEditingController();
+  TextEditingController sindromC = TextEditingController();
+  TextEditingController dignosaBandingC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController namaPetugasC = TextEditingController();
+  TextEditingController tanggalKasusC = TextEditingController();
+  TextEditingController tanggalPengobatanC = TextEditingController();
   @override
   onClose() {
-    contentC.dispose();
+    namaPetugasC.dispose();
+    tanggalPengobatanC.dispose();
+    tanggalKasusC.dispose();
+    dignosaBandingC.dispose();
+    lokasiC.dispose();
+    dosisC.dispose();
+    sindromC.dispose();
+    idKasusC.dispose();
+    namaInfrastrukturC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    contentC.text = argsData["content"];
+    namaPetugasC.text = argsData["detail_petugas_pendaftar"];
+    tanggalPengobatanC.text = argsData["detail_tanggal_pengobatan"];
+    tanggalKasusC.text = argsData["detail_tanggal_kasus"];
+    dignosaBandingC.text = argsData["detail_diagnosa"];
+    lokasiC.text = argsData["detail_lokasi"];
+    dosisC.text = argsData["detail_dosis"];
+    sindromC.text = argsData["detail_sindrom"];
+    idKasusC.text = argsData["detail_id_kasus"];
+    namaInfrastrukturC.text = argsData["detail_infrastruktur"];
   }
 
   Future<void> deletePost() async {

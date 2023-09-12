@@ -239,7 +239,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idBatchC,
+              controller: controller.idBatchStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -273,7 +273,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idPejantanC,
+              controller: controller.idPejantanStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -307,7 +307,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.kelaminAnakC,
+              controller: controller.jenisKelaminAnakC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -613,7 +613,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.produsenC,
+              controller: controller.produsenStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -810,7 +810,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // controller.editPetugas();
+                  Get.offAllNamed(Routes.EDITKELAHIRAN);
                 },
                 child: Text(
                   'Edit post',
@@ -842,7 +842,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   style: TextStyle(
                     fontSize: 16,
                     fontFamily: 'poppins',
-                    color: AppColor.primaryExtraSoft,
+                    color: Colors.white,
                   ),
                 ),
                 style: ElevatedButton.styleFrom(

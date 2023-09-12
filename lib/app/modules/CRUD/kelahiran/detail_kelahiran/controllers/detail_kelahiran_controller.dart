@@ -13,15 +13,14 @@ class DetailKelahiranController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
-
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController eartagIndukC = TextEditingController();
   TextEditingController eartagAnakC = TextEditingController();
   TextEditingController idHewanIndukC = TextEditingController();
   TextEditingController idHewanAnakC = TextEditingController();
-  TextEditingController idBatchC = TextEditingController();
-  TextEditingController idPejantanC = TextEditingController();
-  TextEditingController kelaminAnakC = TextEditingController();
+  TextEditingController idBatchStrawC = TextEditingController();
+  TextEditingController idPejantanStrawC = TextEditingController();
+  TextEditingController jenisKelaminAnakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kartuTernakAnakC = TextEditingController();
   TextEditingController kartuTernakIndukC = TextEditingController();
@@ -30,20 +29,19 @@ class DetailKelahiranController extends GetxController {
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController petugasPelaporC = TextEditingController();
-  TextEditingController produsenC = TextEditingController();
+  TextEditingController produsenStrawC = TextEditingController();
   TextEditingController spesiesIndukC = TextEditingController();
   TextEditingController spesiesPejantanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
   TextEditingController urutanIbC = TextEditingController();
-  
   @override
   onClose() {
     tanggalLaporanC.dispose();
     urutanIbC.dispose();
     spesiesPejantanC.dispose();
     tanggalLahirC.dispose();
-    produsenC.dispose();
+    produsenStrawC.dispose();
     spesiesIndukC.dispose();
     namaPeternakC.dispose();
     petugasPelaporC.dispose();
@@ -54,27 +52,26 @@ class DetailKelahiranController extends GetxController {
     jumlahC.dispose();
     kartuTernakAnakC.dispose();
     idHewanAnakC.dispose();
-    idBatchC.dispose();
+    idBatchStrawC.dispose();
+    idPejantanStrawC.dispose();
     eartagAnakC.dispose();
     idHewanIndukC.dispose();
     idKejadianC.dispose();
     eartagIndukC.dispose();
-    kelaminAnakC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
-    isEditing.value = false;
 
-    idKejadianC.text = argsData["id"];
+    idKejadianC.text = argsData["id_kejadian_detail"];
     eartagIndukC.text = argsData["eartag_induk_detail"];
     eartagAnakC.text = argsData["eartag_anak_detail"];
     idHewanIndukC.text = argsData["id_hewan_induk_detail"];
     idHewanAnakC.text = argsData["id_hewan_anak_detail"];
-    idBatchC.text = argsData["id_batch_detail"];
-    idPejantanC.text = argsData["id_pejantan_detail"];
-    kelaminAnakC.text = argsData["kelamin_anak_detail"];
+    idBatchStrawC.text = argsData["id_batch_detail"];
+    idPejantanStrawC.text = argsData["id_pejantan_detail"];
+    jenisKelaminAnakC.text = argsData["kelamin_anak_detail"];
     jumlahC.text = argsData["jumlah_detail"];
     kartuTernakAnakC.text = argsData["kartu_ternak_anak_detail"];
     kartuTernakIndukC.text = argsData["kartu_ternak_induk_detail"];
@@ -83,8 +80,9 @@ class DetailKelahiranController extends GetxController {
     idPeternakC.text = argsData["id_peternak_detail"];
     namaPeternakC.text = argsData["nama_peternak_detail"];
     petugasPelaporC.text = argsData["petugas_pelapor_detail"];
-    produsenC.text = argsData["produsen_detail"];
+    produsenStrawC.text = argsData["produsen_detail"];
     spesiesIndukC.text = argsData["spesies_induk_detail"];
+    spesiesPejantanC.text = argsData["spesies_pejantan_detail"];
     tanggalLahirC.text = argsData["tanggal_lahir_detail"];
     tanggalLaporanC.text = argsData["tanggal_laporan_detail"];
     urutanIbC.text = argsData["urutan_ib_detail"];

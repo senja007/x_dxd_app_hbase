@@ -9,7 +9,7 @@ class EditKelahiranController extends GetxController {
   PetugasModel? petugasModel;
   final Map<String, dynamic> argsData = Get.arguments;
   RxBool isLoading = false.obs;
-  RxBool isLoadingCreatePost = false.obs;
+  RxBool isLoadingCreatePost = false.obs; 
 
   TextEditingController contentC = TextEditingController();
   @override

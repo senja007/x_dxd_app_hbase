@@ -418,7 +418,7 @@ class DetailPkbView extends GetView<DetailPkbController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               enabled: false,
-              controller: controller.pemeriksaKebuntingaC,
+              controller: controller.pemeriksaKebuntinganC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(

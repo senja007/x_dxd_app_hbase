@@ -1,7 +1,5 @@
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -23,12 +21,12 @@ class DetailPkbController extends GetxController {
   TextEditingController lokasiC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
   TextEditingController umurKebuntinganC = TextEditingController();
-  TextEditingController pemeriksaKebuntingaC = TextEditingController();
+  TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
 
   @override
   onClose() {
-    pemeriksaKebuntingaC.dispose();
+    pemeriksaKebuntinganC.dispose();
     tanggalPkbC.dispose();
     spesiesC.dispose();
     umurKebuntinganC.dispose();
@@ -56,7 +54,7 @@ class DetailPkbController extends GetxController {
     lokasiC.text = argsData["detail_lokasi"];
     spesiesC.text = argsData["detail_spesies"];
     umurKebuntinganC.text = argsData["detail_umur"];
-    pemeriksaKebuntingaC.text = argsData["detail_pemeriksa"];
+    pemeriksaKebuntinganC.text = argsData["detail_pemeriksa"];
     tanggalPkbC.text = argsData["detail_tanggal"];
   }
 
