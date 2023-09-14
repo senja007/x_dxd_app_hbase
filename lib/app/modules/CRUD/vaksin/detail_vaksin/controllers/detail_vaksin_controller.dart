@@ -26,11 +26,11 @@ class DetailVaksinController extends GetxController {
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
-  TextEditingController tanggalIbC = TextEditingController();
+  TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
     inseminatorC.dispose();
-    tanggalIbC.dispose();
+    tanggalIBC.dispose();
     namaPeternakC.dispose();
     lokasiC.dispose();
     produsenC.dispose();
@@ -66,7 +66,7 @@ class DetailVaksinController extends GetxController {
     namaPeternakC.text = argsData["nama_peternak"];
     lokasiC.text = argsData["lokasi"];
     inseminatorC.text = argsData["inseminator"];
-    tanggalIbC.text = argsData["tanggal"];
+    tanggalIBC.text = argsData["tanggal"];
   }
 
   Future<void> deletePost() async {

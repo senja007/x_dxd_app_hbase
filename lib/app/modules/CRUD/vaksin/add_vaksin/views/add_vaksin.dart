@@ -563,7 +563,7 @@ class AddVaksinView extends GetView<AddVaksinController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.tanggalIbC,
+              controller: controller.tanggalIBC,
               keyboardType: TextInputType.datetime,
               decoration: InputDecoration(
                 label: Text(

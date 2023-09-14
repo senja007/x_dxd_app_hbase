@@ -100,7 +100,7 @@ class VaksinView extends GetView<VaksinController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "Tanggal IB : ${postData.idVaksin} ${postData.tanggalIB}",
+                                            : "Tanggal IB : ${postData.idVaksin}",
                                         style: TextStyle(fontSize: 18),
                                       ),
                                       Text((postData.status == null)

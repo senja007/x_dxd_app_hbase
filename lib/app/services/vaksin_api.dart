@@ -51,7 +51,7 @@ class VaksinApi extends SharedApi {
       String namaPeternak,
       String lokasi,
       String inseminator,
-      String tanggalIb) async {
+      String tanggalIB) async {
     try {
       var jsonData;
       showLoading();
@@ -72,7 +72,7 @@ class VaksinApi extends SharedApi {
         'namaPeternak': namaPeternak,
         'lokasi': lokasi,
         'inseminator': inseminator,
-        'tanggalIb': tanggalIb
+        'tanggalIB': tanggalIB
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/vaksin'),

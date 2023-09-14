@@ -25,11 +25,11 @@ class AddVaksinController extends GetxController {
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
-  TextEditingController tanggalIbC = TextEditingController();
+  TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
     inseminatorC.dispose();
-    tanggalIbC.dispose();
+    tanggalIBC.dispose();
     namaPeternakC.dispose();
     lokasiC.dispose();
     produsenC.dispose();
@@ -65,7 +65,7 @@ class AddVaksinController extends GetxController {
         namaPeternakC.text,
         lokasiC.text,
         inseminatorC.text,
-        tanggalIbC.text
+        tanggalIBC.text
       );
 
       if (vaksinModel != null) {
