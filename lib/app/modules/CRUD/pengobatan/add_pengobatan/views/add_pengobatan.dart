@@ -87,7 +87,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.namaInfratukturC,
+              controller: controller.namaInfrastrukturC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -189,7 +189,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.diagnosaBandingC,
+              controller: controller.dignosaBandingC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -257,7 +257,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.petugasPendaftarC,
+              controller: controller.namaPetugasC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(

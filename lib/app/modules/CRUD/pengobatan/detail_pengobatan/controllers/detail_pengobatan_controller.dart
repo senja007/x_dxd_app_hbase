@@ -22,30 +22,30 @@ class DetailPengobatanController extends GetxController {
   TextEditingController tanggalPengobatanC = TextEditingController();
   @override
   onClose() {
-    namaPetugasC.dispose();
-    tanggalPengobatanC.dispose();
-    tanggalKasusC.dispose();
-    dignosaBandingC.dispose();
-    lokasiC.dispose();
-    dosisC.dispose();
-    sindromC.dispose();
     idKasusC.dispose();
     namaInfrastrukturC.dispose();
+    dosisC.dispose();
+    sindromC.dispose();
+    dignosaBandingC.dispose();
+    lokasiC.dispose();
+    namaPetugasC.dispose();
+    tanggalKasusC.dispose();
+    tanggalPengobatanC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    namaPetugasC.text = argsData["detail_petugas_pendaftar"];
-    tanggalPengobatanC.text = argsData["detail_tanggal_pengobatan"];
-    tanggalKasusC.text = argsData["detail_tanggal_kasus"];
-    dignosaBandingC.text = argsData["detail_diagnosa"];
-    lokasiC.text = argsData["detail_lokasi"];
-    dosisC.text = argsData["detail_dosis"];
-    sindromC.text = argsData["detail_sindrom"];
     idKasusC.text = argsData["detail_id_kasus"];
     namaInfrastrukturC.text = argsData["detail_infrastruktur"];
+    dosisC.text = argsData["detail_dosis"];
+    sindromC.text = argsData["detail_sindrom"];
+    dignosaBandingC.text = argsData["detail_diagnosa"];
+    lokasiC.text = argsData["detail_lokasi"];
+    namaPetugasC.text = argsData["detail_petugas_pendaftar"];
+    tanggalKasusC.text = argsData["detail_tanggal_kasus"];
+    tanggalPengobatanC.text = argsData["detail_tanggal_pengobatan"];
   }
 
   Future<void> deletePost() async {

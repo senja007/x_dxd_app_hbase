@@ -22,6 +22,7 @@ class DetailKelahiranController extends GetxController {
   TextEditingController idPejantanStrawC = TextEditingController();
   TextEditingController jenisKelaminAnakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
+  TextEditingController urutanIbC = TextEditingController();
   TextEditingController kartuTernakAnakC = TextEditingController();
   TextEditingController kartuTernakIndukC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
@@ -34,30 +35,30 @@ class DetailKelahiranController extends GetxController {
   TextEditingController spesiesPejantanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
-  TextEditingController urutanIbC = TextEditingController();
   @override
   onClose() {
-    tanggalLaporanC.dispose();
-    urutanIbC.dispose();
-    spesiesPejantanC.dispose();
-    tanggalLahirC.dispose();
-    produsenStrawC.dispose();
-    spesiesIndukC.dispose();
-    namaPeternakC.dispose();
-    petugasPelaporC.dispose();
-    lokasiC.dispose();
-    idPeternakC.dispose();
-    kartuTernakIndukC.dispose();
-    kategoriC.dispose();
-    jumlahC.dispose();
-    kartuTernakAnakC.dispose();
+    idKejadianC.dispose();
+    eartagIndukC.dispose();
+    eartagAnakC.dispose();
+    idHewanIndukC.dispose();
     idHewanAnakC.dispose();
     idBatchStrawC.dispose();
     idPejantanStrawC.dispose();
-    eartagAnakC.dispose();
-    idHewanIndukC.dispose();
-    idKejadianC.dispose();
-    eartagIndukC.dispose();
+    jenisKelaminAnakC.dispose();
+    jumlahC.dispose();
+    urutanIbC.dispose();
+    kartuTernakAnakC.dispose();
+    kartuTernakIndukC.dispose();
+    kategoriC.dispose();
+    lokasiC.dispose();
+    idPeternakC.dispose();
+    namaPeternakC.dispose();
+    petugasPelaporC.dispose();
+    produsenStrawC.dispose();
+    spesiesIndukC.dispose();
+    spesiesPejantanC.dispose();
+    tanggalLahirC.dispose();
+    tanggalLaporanC.dispose();
   }
 
   @override
@@ -73,6 +74,7 @@ class DetailKelahiranController extends GetxController {
     idPejantanStrawC.text = argsData["id_pejantan_detail"];
     jenisKelaminAnakC.text = argsData["kelamin_anak_detail"];
     jumlahC.text = argsData["jumlah_detail"];
+    urutanIbC.text = argsData["urutan_ib_detail"];
     kartuTernakAnakC.text = argsData["kartu_ternak_anak_detail"];
     kartuTernakIndukC.text = argsData["kartu_ternak_induk_detail"];
     kategoriC.text = argsData["kategori_detail"];
@@ -85,7 +87,6 @@ class DetailKelahiranController extends GetxController {
     spesiesPejantanC.text = argsData["spesies_pejantan_detail"];
     tanggalLahirC.text = argsData["tanggal_lahir_detail"];
     tanggalLaporanC.text = argsData["tanggal_laporan_detail"];
-    urutanIbC.text = argsData["urutan_ib_detail"];
   }
 
   Future<void> deletePost() async {

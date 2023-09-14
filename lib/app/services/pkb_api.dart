@@ -55,8 +55,8 @@ class PKBApi extends SharedApi {
       var bodyData = {
         'idKejadian': idKejadian,
         'idHewan': idHewan,
-        'nikPeternak': nikPeternak,
         'idPeternak': idPeternak,
+        'nikPeternak': nikPeternak,
         'namaPeternak': namaPeternak,
         'jumlah': jumlah,
         'kategori': kategori,

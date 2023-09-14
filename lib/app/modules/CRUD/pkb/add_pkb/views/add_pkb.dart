@@ -393,7 +393,7 @@ class AddPkbView extends GetView<AddPkbController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.pemeriksaKebuntingaC,
+              controller: controller.pemeriksaKebuntinganC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(

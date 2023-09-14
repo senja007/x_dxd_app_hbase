@@ -20,22 +20,22 @@ class AddPkbController extends GetxController {
   TextEditingController lokasiC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
   TextEditingController umurKebuntinganC = TextEditingController();
-  TextEditingController pemeriksaKebuntingaC = TextEditingController();
+  TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
   @override
   onClose() {
-    pemeriksaKebuntingaC.dispose();
-    tanggalPkbC.dispose();
-    spesiesC.dispose();
-    umurKebuntinganC.dispose();
-    kategoriC.dispose();
-    lokasiC.dispose();
-    namaPeternakC.dispose();
-    jumlahC.dispose();
-    idPeternakC.dispose();
-    nikPeternakC.dispose();
     idKejadianC.dispose();
     idHewanC.dispose();
+    idPeternakC.dispose();
+    nikPeternakC.dispose();
+    namaPeternakC.dispose();
+    jumlahC.dispose();
+    kategoriC.dispose();
+    lokasiC.dispose();
+    spesiesC.dispose();
+    umurKebuntinganC.dispose();
+    pemeriksaKebuntinganC.dispose();
+    tanggalPkbC.dispose();
   }
 
   Future addPKB() async {
@@ -52,7 +52,7 @@ class AddPkbController extends GetxController {
           lokasiC.text,
           spesiesC.text,
           umurKebuntinganC.text,
-          pemeriksaKebuntingaC.text,
+          pemeriksaKebuntinganC.text,
           tanggalPkbC.text);
 
       if (pkbModel != null) {

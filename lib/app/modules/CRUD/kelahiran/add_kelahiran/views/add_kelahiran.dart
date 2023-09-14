@@ -223,7 +223,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idBatchC,
+              controller: controller.idBatchStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -257,7 +257,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idPejantanC,
+              controller: controller.idPejantanStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -291,7 +291,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.kelaminAnakC,
+              controller: controller.jenisKelaminAnakC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -338,6 +338,40 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: InputBorder.none,
                 hintText: "Jumlah",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.urutanIbC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Urutan IB",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Urutan IB",
                 hintStyle: TextStyle(
                   fontSize: 14,
                   fontFamily: 'poppins',
@@ -597,7 +631,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.produsenC,
+              controller: controller.produsenStrawC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
@@ -746,40 +780,6 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: InputBorder.none,
                 hintText: "Tanggal Laporan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.urutanIbC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Urutan IB",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Urutan IB",
                 hintStyle: TextStyle(
                   fontSize: 14,
                   fontFamily: 'poppins',

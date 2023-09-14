@@ -41,10 +41,11 @@ class KelahiranApi extends SharedApi {
       String eartagAnak,
       String idHewanInduk,
       String idHewanAnak,
-      String idBatch,
-      String idPejantan,
-      String kelaminAnak,
+      String idBatchStraw,
+      String idPejantanStraw,
+      String jenisKelaminAnak,
       String jumlah,
+      String urutanIb,
       String kartuTernakAnak,
       String kartuTernakInduk,
       String kategori,
@@ -52,12 +53,11 @@ class KelahiranApi extends SharedApi {
       String idPeternak,
       String namaPeternak,
       String petugasPelapor,
-      String produsen,
+      String produsenStraw,
       String spesiesInduk,
       String spesiesPejantan,
       String tanggalLahir,
-      String tanggalLaporan,
-      String urutanIb) async {
+      String tanggalLaporan,) async {
     try {
       var jsonData;
       showLoading();
@@ -68,10 +68,11 @@ class KelahiranApi extends SharedApi {
         'eartagAnak': eartagAnak,
         'idHewaninduk': idHewanInduk,
         'idHewanAnak': idHewanAnak,
-        'idBatch': idBatch,
-        'idPejantan': idPejantan,
-        'kelaminAnak': kelaminAnak,
+        'idBatch': idBatchStraw,
+        'idPejantan': idPejantanStraw,
+        'kelaminAnak': jenisKelaminAnak,
         'jumlah': jumlah,
+        'urutanIb': urutanIb,
         'kartuTernakAnak': kartuTernakAnak,
         'kartuTernakInduk': kartuTernakInduk,
         'kategori': kategori,
@@ -79,12 +80,11 @@ class KelahiranApi extends SharedApi {
         'idPeternak': idPeternak,
         'namaPeternak': namaPeternak,
         'petugasPelapor': petugasPelapor,
-        'produsen': produsen,
+        'produsen': produsenStraw,
         'spesiesInduk': spesiesInduk,
         'spesiesPejantan': spesiesPejantan,
         'tanggalLahir': tanggalLahir,
         'tanggalLaporan': tanggalLaporan,
-        'urutanIb': urutanIb
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/kelahiran'),

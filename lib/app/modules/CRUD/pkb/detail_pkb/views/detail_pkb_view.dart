@@ -173,7 +173,7 @@ class DetailPkbView extends GetView<DetailPkbController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               enabled: false,
-              controller: controller.nikC,
+              controller: controller.nikPeternakC,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: Text(

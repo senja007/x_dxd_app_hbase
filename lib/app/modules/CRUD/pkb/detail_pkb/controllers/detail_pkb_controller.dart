@@ -14,7 +14,7 @@ class DetailPkbController extends GetxController {
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController nikC = TextEditingController();
+  TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
@@ -23,21 +23,20 @@ class DetailPkbController extends GetxController {
   TextEditingController umurKebuntinganC = TextEditingController();
   TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
-
   @override
   onClose() {
-    pemeriksaKebuntinganC.dispose();
-    tanggalPkbC.dispose();
-    spesiesC.dispose();
-    umurKebuntinganC.dispose();
-    kategoriC.dispose();
-    lokasiC.dispose();
-    namaPeternakC.dispose();
-    jumlahC.dispose();
-    idPeternakC.dispose();
-    nikC.dispose();
     idKejadianC.dispose();
     idHewanC.dispose();
+    idPeternakC.dispose();
+    nikPeternakC.dispose();
+    namaPeternakC.dispose();
+    jumlahC.dispose();
+    kategoriC.dispose();
+    lokasiC.dispose();
+    spesiesC.dispose();
+    umurKebuntinganC.dispose();
+    pemeriksaKebuntinganC.dispose();
+    tanggalPkbC.dispose();
   }
 
   @override
@@ -47,7 +46,7 @@ class DetailPkbController extends GetxController {
     idKejadianC.text = argsData["detail_id_kejadian"];
     idHewanC.text = argsData["detail_id_hewan"];
     idPeternakC.text = argsData["detail_id_peternak"];
-    nikC.text = argsData["detail_nik"];
+    nikPeternakC.text = argsData["detail_nik"];
     namaPeternakC.text = argsData["detail_nama"];
     jumlahC.text = argsData["detail_jumlah"];
     kategoriC.text = argsData["detail_kategori"];

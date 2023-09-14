@@ -37,12 +37,12 @@ class PengobatanApi extends SharedApi {
 
   Future<PengobatanModel?> addPengobatanAPI(
       String idKasus,
-      String namaInfratuktur,
+      String namaInfrastruktur,
       String dosis,
       String sindrom,
-      String diagnosaBanding,
+      String dignosaBanding,
       String lokasi,
-      String petugasPendaftar,
+      String namaPetugas,
       String tanggalKasus,
       String tanggalPengobatan) async {
     try {
@@ -51,12 +51,12 @@ class PengobatanApi extends SharedApi {
 
       var bodyData = {
         'idKasus': idKasus,
-        'namaInfrastruktur': namaInfratuktur,
+        'namaInfrastruktur': namaInfrastruktur,
         'dosis': dosis,
         'sindrom': sindrom,
-        'diagnosaBanding': diagnosaBanding,
+        'diagnosaBanding': dignosaBanding,
         'lokasi': lokasi,
-        'petugasPendaftar': petugasPendaftar,
+        'petugasPendaftar': namaPetugas,
         'tanggalKasus': tanggalKasus,
         'tanggalPengobatan': tanggalPengobatan
       };

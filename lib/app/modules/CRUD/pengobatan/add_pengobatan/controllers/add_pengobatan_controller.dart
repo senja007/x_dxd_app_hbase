@@ -9,25 +9,25 @@ class AddPengobatanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idKasusC = TextEditingController();
-  TextEditingController namaInfratukturC = TextEditingController();
+  TextEditingController namaInfrastrukturC = TextEditingController();
   TextEditingController dosisC = TextEditingController();
   TextEditingController sindromC = TextEditingController();
-  TextEditingController diagnosaBandingC = TextEditingController();
+  TextEditingController dignosaBandingC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController petugasPendaftarC = TextEditingController();
+  TextEditingController namaPetugasC = TextEditingController();
   TextEditingController tanggalKasusC = TextEditingController();
   TextEditingController tanggalPengobatanC = TextEditingController();
   @override
   onClose() {
-    petugasPendaftarC.dispose();
-    tanggalPengobatanC.dispose();
-    tanggalKasusC.dispose();
-    diagnosaBandingC.dispose();
-    lokasiC.dispose();
+    idKasusC.dispose();
+    namaInfrastrukturC.dispose();
     dosisC.dispose();
     sindromC.dispose();
-    idKasusC.dispose();
-    namaInfratukturC.dispose();
+    dignosaBandingC.dispose();
+    lokasiC.dispose();
+    namaPetugasC.dispose();
+    tanggalKasusC.dispose();
+    tanggalPengobatanC.dispose();
   }
 
   Future addPengobatan() async {
@@ -35,12 +35,12 @@ class AddPengobatanController extends GetxController {
       isLoading.value = true;
       pengobatanModel = await PengobatanApi().addPengobatanAPI(
         idKasusC.text,
-        namaInfratukturC.text,
+        namaInfrastrukturC.text,
         dosisC.text,
         sindromC.text,
-        diagnosaBandingC.text,
+        dignosaBandingC.text,
         lokasiC.text,
-        petugasPendaftarC.text,
+        namaPetugasC.text,
         tanggalKasusC.text,
         tanggalPengobatanC.text
       );

@@ -13,10 +13,11 @@ class AddkelahiranController extends GetxController {
   TextEditingController eartagAnakC = TextEditingController();
   TextEditingController idHewanIndukC = TextEditingController();
   TextEditingController idHewanAnakC = TextEditingController();
-  TextEditingController idBatchC = TextEditingController();
-  TextEditingController idPejantanC = TextEditingController();
-  TextEditingController kelaminAnakC = TextEditingController();
+  TextEditingController idBatchStrawC = TextEditingController();
+  TextEditingController idPejantanStrawC = TextEditingController();
+  TextEditingController jenisKelaminAnakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
+  TextEditingController urutanIbC = TextEditingController();
   TextEditingController kartuTernakAnakC = TextEditingController();
   TextEditingController kartuTernakIndukC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
@@ -24,34 +25,35 @@ class AddkelahiranController extends GetxController {
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController petugasPelaporC = TextEditingController();
-  TextEditingController produsenC = TextEditingController();
+  TextEditingController produsenStrawC = TextEditingController();
   TextEditingController spesiesIndukC = TextEditingController();
   TextEditingController spesiesPejantanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
-  TextEditingController urutanIbC = TextEditingController();
   @override
   onClose() {
-    tanggalLaporanC.dispose();
-    urutanIbC.dispose();
-    spesiesPejantanC.dispose();
-    tanggalLahirC.dispose();
-    produsenC.dispose();
-    spesiesIndukC.dispose();
-    namaPeternakC.dispose();
-    petugasPelaporC.dispose();
-    lokasiC.dispose();
-    idPeternakC.dispose();
-    kartuTernakIndukC.dispose();
-    kategoriC.dispose();
-    jumlahC.dispose();
-    kartuTernakAnakC.dispose();
-    idHewanAnakC.dispose();
-    idBatchC.dispose();
-    eartagAnakC.dispose();
-    idHewanIndukC.dispose();
     idKejadianC.dispose();
     eartagIndukC.dispose();
+    eartagAnakC.dispose();
+    idHewanIndukC.dispose();
+    idHewanAnakC.dispose();
+    idBatchStrawC.dispose();
+    idPejantanStrawC.dispose();
+    jenisKelaminAnakC.dispose();
+    jumlahC.dispose();
+    urutanIbC.dispose();
+    kartuTernakAnakC.dispose();
+    kartuTernakIndukC.dispose();
+    kategoriC.dispose();
+    lokasiC.dispose();
+    idPeternakC.dispose();
+    namaPeternakC.dispose();
+    petugasPelaporC.dispose();
+    produsenStrawC.dispose();
+    spesiesIndukC.dispose();
+    spesiesPejantanC.dispose();
+    tanggalLahirC.dispose();
+    tanggalLaporanC.dispose();
   }
 
   Future addKelahiran() async {
@@ -63,10 +65,11 @@ class AddkelahiranController extends GetxController {
         eartagAnakC.text, 
         idHewanIndukC.text,
         idHewanAnakC.text,
-        idBatchC.text,
-        idPejantanC.text,
-        kelaminAnakC.text,
+        idBatchStrawC.text,
+        idPejantanStrawC.text,
+        jenisKelaminAnakC.text,
         jumlahC.text,
+        urutanIbC.text,
         kartuTernakAnakC.text,
         kartuTernakIndukC.text,
         kategoriC.text,
@@ -74,12 +77,11 @@ class AddkelahiranController extends GetxController {
         idPeternakC.text,
         namaPeternakC.text,
         petugasPelaporC.text,
-        produsenC.text,
+        produsenStrawC.text,
         spesiesIndukC.text,
         spesiesPejantanC.text,
         tanggalLahirC.text,
         tanggalLaporanC.text,
-        urutanIbC.text,
       );
 
       if (kelahiranModel != null) {

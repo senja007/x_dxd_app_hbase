@@ -2,28 +2,28 @@ class PengobatanModel {
   final int? status;
   final int? id;
   final String? idKasus;
-  final String? tanggalPengobatan;
-  final String? tanggalKasus;
-  final String? namaPetugas;
   final String? namaInfrastruktur;
-  final String? lokasi;
   final String? dosis;
   final String? sindrom;
   final String? dignosaBanding;
+  final String? lokasi;
+  final String? namaPetugas;
+  final String? tanggalKasus;
+  final String? tanggalPengobatan;
 
 
   PengobatanModel({
     this.status,
     this.id,
     this.idKasus,
-    this.tanggalPengobatan,
-    this.tanggalKasus,
-    this.namaPetugas,
     this.namaInfrastruktur,
-    this.dignosaBanding,
     this.dosis,
-    this.lokasi,
     this.sindrom,
+    this.dignosaBanding,
+    this.lokasi,
+    this.namaPetugas,
+    this.tanggalKasus,
+    this.tanggalPengobatan,
   });
 
   factory PengobatanModel.fromJson(Map<String, dynamic> jsonData) {
@@ -31,17 +31,14 @@ class PengobatanModel {
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       id: jsonData['id'] != null ? jsonData['id'] : 0,
       idKasus: jsonData['idKasus'] != null ? jsonData['idKasus'] : "",
-      tanggalPengobatan: jsonData['tanggalPengobatan'] != null
-          ? jsonData['tanggalPengobatan']
-          : "",
-      tanggalKasus:
-          jsonData['tanggalKasus'] != null ? jsonData['tanggalKasus'] : "",
-      namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      namaInfrastruktur: jsonData['namaInfrastruktur'] != null
-          ? jsonData['namaInfrastruktur']
-          : "",
+      namaInfrastruktur: jsonData['namaInfrastruktur'] != null ? jsonData['namaInfrastruktur'] : "",
+      dosis: jsonData['dosis'] != null ? jsonData['dosis'] : "",
+      sindrom: jsonData['sindrom'] != null ? jsonData['sindrom'] : "",
+      dignosaBanding: jsonData['dignosaBanding'] != null ? jsonData['dignosaBanding'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      namaPetugas: jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
+      tanggalKasus: jsonData['tanggalKasus'] != null ? jsonData['tanggalKasus'] : "",
+      tanggalPengobatan: jsonData['tanggalPengobatan'] != null ? jsonData['tanggalPengobatan'] : "",
     );
   }
 }
