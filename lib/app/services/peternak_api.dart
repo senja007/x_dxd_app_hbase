@@ -16,12 +16,12 @@ class PeternakApi extends SharedApi {
     try {
       var data =
           await http.get(Uri.parse(baseUrl + '/peternak'), headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        //print(jsonData['content']);
 
         return PeternakListModel.fromJson(
             {"status": 200, "content": jsonData['content']});
@@ -36,10 +36,10 @@ class PeternakApi extends SharedApi {
 
   Future<PeternakModel?> addPeternakAPI(
       String idPeternak,
-      String idIsikhnas,
       String nikPeternak,
       String namaPeternak,
       String lokasi,
+      String idISIKHNAS,
       String petugasPendaftar,
       String tanggalPendaftaran) async {
     try {
@@ -48,10 +48,10 @@ class PeternakApi extends SharedApi {
 
       var bodyData = {
         'idPeternak': idPeternak,
-        'idIsikhnas': idIsikhnas,
         'nikPeternak': nikPeternak,
         'namaPeternak': namaPeternak,
         'lokasi': lokasi,
+        'idISIKHNAS': idISIKHNAS,
         'petugasPendaftar': petugasPendaftar,
         'tanggalPendaftaran': tanggalPendaftaran
       };

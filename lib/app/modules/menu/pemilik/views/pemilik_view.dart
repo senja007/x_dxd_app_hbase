@@ -82,7 +82,7 @@ Widget build(BuildContext context) {
                   Routes.DETAILPETERNAK,
                   arguments: {
                     "detail_id_peternak": "${postData.idPeternak}",
-                    "detail_id_isikhnas": "${postData.idIsikhnas}",
+                    "detail_id_isikhnas": "${postData.idISIKHNAS}",
                     "detail_nik": "${postData.nikPeternak}",
                     "detail_nama": "${postData.namaPeternak}",
                     "detail_lokasi": "${postData.lokasi}",
