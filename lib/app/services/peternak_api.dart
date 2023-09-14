@@ -36,9 +36,9 @@ class PeternakApi extends SharedApi {
 
   Future<PeternakModel?> addPeternakAPI(
       String idPeternak,
-      String namaPeternak,
       String idIsikhnas,
       String nikPeternak,
+      String namaPeternak,
       String lokasi,
       String petugasPendaftar,
       String tanggalPendaftaran) async {
@@ -48,9 +48,9 @@ class PeternakApi extends SharedApi {
 
       var bodyData = {
         'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
         'idIsikhnas': idIsikhnas,
         'nikPeternak': nikPeternak,
+        'namaPeternak': namaPeternak,
         'lokasi': lokasi,
         'petugasPendaftar': petugasPendaftar,
         'tanggalPendaftaran': tanggalPendaftaran

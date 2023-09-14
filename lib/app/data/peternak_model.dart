@@ -3,9 +3,9 @@ import 'package:crud_flutter_api/app/data/peternak_model.dart';
 class PeternakModel {
   final int? id;
   final String? idPeternak;
-  final String? namaPeternak;
   final String? idIsikhnas;
   final String? nikPeternak;
+  final String? namaPeternak;
   final String? lokasi;
   final String? petugasPendaftar;
   final String? tanggalPendaftaran;
@@ -16,9 +16,9 @@ class PeternakModel {
     this.id,
     this.status,
     this.idPeternak,
-    this.namaPeternak,
     this.idIsikhnas,
     this.nikPeternak,
+    this.namaPeternak,
     this.lokasi,
     this.petugasPendaftar,
     this.tanggalPendaftaran,
@@ -28,9 +28,9 @@ class PeternakModel {
     return PeternakModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       idIsikhnas: jsonData['idIsikhnas'] != null ? jsonData['idIsikhnas'] : "",
       nikPeternak: jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
+      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
       petugasPendaftar: jsonData['petugasPendaftar'] != null ? jsonData['petugasPendaftar'] : "",
       tanggalPendaftaran: jsonData['tanggalPendaftaran'] != null ? jsonData['tanggalPendaftaran'] : "",

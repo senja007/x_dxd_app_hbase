@@ -112,7 +112,7 @@ Widget build(BuildContext context) {
                         Text(
                           (postData.status == null)
                               ? "-"
-                              : "Id Kasus : ${postData.idPeternak}",
+                              : "Id Peternak : ${postData.idPeternak}",
                           style: TextStyle(fontSize: 18),
                         ),
                         Text((postData.status == null)

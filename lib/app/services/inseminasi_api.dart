@@ -36,43 +36,43 @@ class InseminasiApi extends SharedApi {
   }
 
   Future<InseminasiModel?> addInseminasiAPI(
-      String idInseminasi,
-      String tanggalIB,
-      String lokasi,
-      String namaPeternak,
-      String idPeternak,
-      String idHewan,
-      String eartag,
-      String ib1,
-      String ib2,
-      String ib3,
-      String ibLain,
-      String idPejantan,
-      String IdPembuatan,
-      String bangsaPejantan,
-      String produsen,
-      String inseminator) async {
+    String idInseminasi,
+    String eartag,
+    String idHewan,
+    String idPembuatan,
+    String idPejantan,
+    String bangsaPejantan,
+    String ib1,
+    String ib2,
+    String ib3,
+    String ibLain,
+    String produsen,
+    String idPeternak,
+    String namaPeternak,
+    String lokasi,
+    String inseminator,
+    String tanggalIB,) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
         'idInseminasi': idInseminasi,
-        'tanggalIB': tanggalIB,
-        'lokasi': lokasi,
-        'namaPeternak': namaPeternak,
-        'idPeternak': idPeternak,
-        'idHewan': idHewan,
         'eartag': eartag,
+        'idHewan': idHewan,
+        'idPembuatan': idPembuatan,
+        'idPejantan': idPejantan,
+        'bangsaPejantan': bangsaPejantan,
         'ib1': ib1,
         'ib2': ib2,
         'ib3': ib3,
         'ibLain': ibLain,
-        'idPejantan': idPejantan,
-        'idPembuatan': IdPembuatan,
-        'bangsaPejantan': bangsaPejantan,
         'produsen': produsen,
-        'inseminator': inseminator
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'lokasi': lokasi,
+        'inseminator': inseminator,
+        'tanggalIB': tanggalIB,
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/inseminasi'),

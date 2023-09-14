@@ -1,8 +1,6 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -26,8 +24,8 @@ class AddPeternakController extends GetxController {
     nikPeternakC.dispose();
     namaPeternakC.dispose();
     lokasiC.dispose();
-    tanggalPendaftaranC.dispose();
     petugasPendaftarC.dispose();
+    tanggalPendaftaranC.dispose();
   }
 
   Future addPeternak() async {

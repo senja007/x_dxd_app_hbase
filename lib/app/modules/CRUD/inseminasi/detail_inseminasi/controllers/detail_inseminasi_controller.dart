@@ -30,22 +30,22 @@ class DetailInseminasiController extends GetxController {
   TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
-    inseminatorC.dispose();
-    tanggalIBC.dispose();
-    namaPeternakC.dispose();
-    lokasiC.dispose();
-    produsenC.dispose();
-    idPeternakC.dispose();
-    ib3C.dispose();
-    ibLainC.dispose();
-    ib1C.dispose();
-    ib2C.dispose();
-    idPejantanC.dispose();
-    bangsaPejantanC.dispose();
-    idHewanC.dispose();
-    idPembuatanC.dispose();
     idInseminasiC.dispose();
     eartagC.dispose();
+    idHewanC.dispose();
+    idPembuatanC.dispose();
+    idPejantanC.dispose();
+    bangsaPejantanC.dispose();
+    ib1C.dispose();
+    ib2C.dispose();
+    ib3C.dispose();
+    ibLainC.dispose();
+    produsenC.dispose();
+    idPeternakC.dispose();
+    namaPeternakC.dispose();
+    lokasiC.dispose();
+    inseminatorC.dispose();
+    tanggalIBC.dispose();
   }
 
   @override

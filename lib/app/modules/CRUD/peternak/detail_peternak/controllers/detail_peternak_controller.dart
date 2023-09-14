@@ -14,7 +14,7 @@ class DetailPeternakController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
 
- TextEditingController idPeternakC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
   TextEditingController idIsikhnasC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
@@ -29,9 +29,9 @@ class DetailPeternakController extends GetxController {
     nikPeternakC.dispose();
     namaPeternakC.dispose();
     lokasiC.dispose();
-    tanggalPendaftaranC.dispose();
     petugasPendaftarC.dispose();
-  } 
+    tanggalPendaftaranC.dispose();
+  }
 
   @override
   void onInit() {
@@ -42,8 +42,8 @@ class DetailPeternakController extends GetxController {
     nikPeternakC.text = argsData["detail_nik"];
     namaPeternakC.text = argsData["detail_nama"];
     lokasiC.text = argsData["detail_lokasi"];
-    tanggalPendaftaranC.text = argsData["detail_tanggal_pendaftaran"];
     petugasPendaftarC.text = argsData["detail_petugas_pendaftar"];
+    tanggalPendaftaranC.text = argsData["detail_tanggal_pendaftaran"];
   }
 
   Future<void> deletePost() async {

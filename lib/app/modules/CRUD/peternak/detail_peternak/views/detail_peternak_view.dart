@@ -94,7 +94,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
-                  "Id ISHIKNAS",
+                  "Id ISIKHNAS",
                   style: TextStyle(
                     color: AppColor.secondarySoft,
                     fontSize: 14,
@@ -102,7 +102,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: InputBorder.none,
-                hintText: "Id ISHIKNAS",
+                hintText: "Id ISIKHNAS",
                 hintStyle: TextStyle(
                   fontSize: 14,
                   fontFamily: 'poppins',
