@@ -102,7 +102,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              enabled: false,
+              enabled: true,
               style: TextStyle(
                   fontSize: 14, fontFamily: 'poppins', color: Colors.black),
               maxLines: 1,
@@ -138,7 +138,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              enabled: false,
+              enabled: true,
               style: TextStyle(
                   fontSize: 14, fontFamily: 'poppins', color: Colors.black),
               maxLines: 1,
@@ -174,7 +174,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              enabled: false,
+              enabled: true,
               style: TextStyle(
                   fontSize: 14, fontFamily: 'poppins', color: Colors.black),
               maxLines: 1,
@@ -205,7 +205,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  // controller.editPetugas();
+                controller.editPetugas();
                 },
                 child: Text(
                   'Edit post',

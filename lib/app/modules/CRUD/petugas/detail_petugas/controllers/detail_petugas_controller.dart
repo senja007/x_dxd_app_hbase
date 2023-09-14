@@ -30,10 +30,10 @@ class DetailPetugasController extends GetxController {
     super.onInit();
     isEditing.value = false;
 
-    nikC.text = argsData["nik_petugas_detail"];
-    namaC.text = argsData["nama_petugas_detail"];
-    tlpC.text = argsData["telepon_petugas_detail"];
-    emailC.text = argsData["email_petugas_detail"];
+    nikC.text = argsData["nikPetugas"];
+    namaC.text = argsData["namaPetugas"];
+    tlpC.text = argsData["noTelp"];
+    emailC.text = argsData["email"];
   }
 
   Future<void> deletePost() async {
@@ -45,7 +45,26 @@ class DetailPetugasController extends GetxController {
         Get.back(); // close modal
         update();
         petugasModel =
-            await PetugasApi().deletePetugasApi(argsData["nik_petugas_detail"]);
+            await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
+        // if (petugasModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        // }
+      },
+    );
+  }
+
+  Future<void> editPetugas() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "edit data Petugas",
+      message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back(); // close modal
+        update();
+        petugasModel =
+            await PetugasApi().editPetugasApi(nikC.text, namaC.text, tlpC.text, emailC.text);
+            // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
         // if (petugasModel!.status == 200) {
         //   update();
         //   Get.offAndToNamed(Routes.HOME);

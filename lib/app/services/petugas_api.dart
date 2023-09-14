@@ -104,28 +104,32 @@ class PetugasApi extends SharedApi {
     }
   }
 
-  Future<PetugasModel?> editPetugasApi(
-      String nikpenik_petugas_edit,
-      String nama_petugas_edit,
-      String telepon_petugas_edit,
-      String email_petugas_edit) async {
+  Future<PetugasModel?> editPetugasApi(String nik_petugas, String nama_petugas, String no_telp, String email) async {
     try {
       var jsonData;
       showLoading();
+       var bodyDataedit = {
+        'nikPetugas': nik_petugas,
+        'namaPetugas': nama_petugas,
+        'noTelp': no_telp,
+        'email': email
+      };
+      
       var data = await http.put(
-        Uri.parse(baseUrl + '/petugas/' + nikpenik_petugas_edit.toString()),
-        headers: getToken(),
-        body: {
-          'nik_petugas': nikpenik_petugas_edit,
-          'nama_petugas': nama_petugas_edit,
-          'no_telp': telepon_petugas_edit,
-          'email': email_petugas_edit
+        Uri.parse(baseUrl + '/petugas/' + nik_petugas.toString()),
+        headers: {
+...getToken(), 'Content-Type': 'application/json'
         },
+        body: jsonEncode(bodyDataedit),
       );
+      print( data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        // jsonData['statusCode'] = 200;
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return PetugasModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
