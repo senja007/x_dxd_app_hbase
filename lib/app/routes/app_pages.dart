@@ -32,12 +32,6 @@ import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/bindings/a
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/add_petugas/views/add_petugas.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/detail_petugas/bindings/detail_petugas_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/petugas/detail_petugas/views/detail_petugas_view.dart';
-<<<<<<< Updated upstream
-
-=======
-// import 'package:crud_flutter_api/app/modules/CRUD/petugas/edit_petugas/bindings/edit_petugas_binding.dart';
-// import 'package:crud_flutter_api/app/modules/CRUD/petugas/edit_petugas/views/edit_petugas_view.dart';
->>>>>>> Stashed changes
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/bindings/add_pkb_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/add_pkb/views/add_pkb.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/pkb/detail_pkb/bindings/detail_pkb_binding.dart';
@@ -300,16 +294,6 @@ class AppPages {
     ),
 
     //EDIT POST
-
-<<<<<<< Updated upstream
-=======
-    // GetPage(
-    //   name: _Paths.EDITPETUGAS,
-    //   page: () => EditPetugasView(),
-    //   binding: EditPetugasBinding(),
-    //   transition: Transition.rightToLeft,
-    // ),
->>>>>>> Stashed changes
     GetPage(
       name: _Paths.EDITHEWAN,
       page: () => EditHewanView(),

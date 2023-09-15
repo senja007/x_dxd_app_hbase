@@ -48,7 +48,7 @@ abstract class Routes {
   static const DETAILPENGOBATAN = _Paths.DETAILPENGOBATAN;
 
   //EDIT POST
-  static const EDITPETUGAS = _Paths.EDITPETUGAS;
+  // static const EDITPETUGAS = _Paths.EDITPETUGAS;
   static const EDITHEWAN = _Paths.EDITHEWAN;
   static const EDITPETERNAK = _Paths.EDITPETERNAK;
   static const EDITPKB = _Paths.EDITPKB;
@@ -106,7 +106,7 @@ abstract class _Paths {
   static const DETAILPENGOBATAN = '/detail-pengobatan';
 
   //EDIT POST
-  static const EDITPETUGAS = '/edit-petugas';
+  // static const EDITPETUGAS = '/edit-petugas';
   static const EDITHEWAN = '/edit-hewan';
   static const EDITPETERNAK = '/edit-peternak';
   static const EDITPKB = '/edit-pkb';
