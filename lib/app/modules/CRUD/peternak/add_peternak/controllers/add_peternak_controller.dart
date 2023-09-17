@@ -10,9 +10,9 @@ class AddPeternakController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController idIsikhnasC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController idISIKHNASC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
@@ -20,9 +20,9 @@ class AddPeternakController extends GetxController {
   @override
   onClose() {
     idPeternakC.dispose();
-    idIsikhnasC.dispose();
     nikPeternakC.dispose();
     namaPeternakC.dispose();
+    idISIKHNASC.dispose();
     lokasiC.dispose();
     petugasPendaftarC.dispose();
     tanggalPendaftaranC.dispose();
@@ -33,13 +33,12 @@ class AddPeternakController extends GetxController {
       isLoading.value = true;
       peternakModel = await PeternakApi().addPeternakAPI(
           idPeternakC.text,
-          idIsikhnasC.text,
           nikPeternakC.text,
           namaPeternakC.text,
+          idISIKHNASC.text,
           lokasiC.text,
           petugasPendaftarC.text,
-          tanggalPendaftaranC.text
-          );
+          tanggalPendaftaranC.text);
 
       if (peternakModel != null) {
         if (peternakModel!.status == 200) {

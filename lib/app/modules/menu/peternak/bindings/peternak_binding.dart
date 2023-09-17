@@ -1,8 +1,8 @@
 import 'package:get/get.dart';
 
-import '../controllers/pemilik_controller.dart';
+import '../controllers/peternak_controller.dart';
 
-class PemilikBinding extends Bindings {
+class PeternakBinding extends Bindings {
   @override
   void dependencies() {
     Get.lazyPut<PeternakController>(

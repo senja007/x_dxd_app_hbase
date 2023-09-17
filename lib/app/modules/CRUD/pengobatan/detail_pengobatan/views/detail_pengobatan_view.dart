@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-
 class DetailPengobatanView extends GetView<DetailPengobatanController> {
   const DetailPengobatanView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
@@ -201,7 +200,7 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.dignosaBandingC,
+              controller: controller.diagnosaBandingC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(

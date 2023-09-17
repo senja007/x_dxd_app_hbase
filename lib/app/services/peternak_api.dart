@@ -50,8 +50,8 @@ class PeternakApi extends SharedApi {
         'idPeternak': idPeternak,
         'nikPeternak': nikPeternak,
         'namaPeternak': namaPeternak,
-        'lokasi': lokasi,
         'idISIKHNAS': idISIKHNAS,
+        'lokasi': lokasi,
         'petugasPendaftar': petugasPendaftar,
         'tanggalPendaftaran': tanggalPendaftaran
       };

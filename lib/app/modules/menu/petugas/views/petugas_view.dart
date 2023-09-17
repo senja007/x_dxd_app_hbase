@@ -35,7 +35,7 @@ class PetugasView extends GetView<PetugasController> {
               preferredSize: Size.fromHeight(1),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 1,
+                height: 5,
                 color: AppColor.primary,
               ),
             ),
@@ -69,15 +69,23 @@ class PetugasView extends GetView<PetugasController> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 5),
+                                    color: Color.fromARGB(255, 0, 47, 255)
+                                        .withOpacity(.2),
+                                    spreadRadius: 2,
+                                    blurRadius:
+                                        10, // changes position of shadow
+                                  ),
+                                ],
                                 color: AppColor.primaryExtraSoft,
                                 borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
-                                  width: 1,
-                                  color: AppColor.primaryExtraSoft
-                                ),
+                                    width: 1, color: AppColor.primaryExtraSoft),
                               ),
                               padding: EdgeInsets.only(
-                                  left: 20, top: 10, right: 29, bottom: 10),
+                                  left: 20, top: 15, right: 29, bottom: 15),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -89,12 +97,31 @@ class PetugasView extends GetView<PetugasController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "Nama Petugas: ${postData.namaPetugas} ${postData.nikPetugas}",
-                                        style: TextStyle(fontSize: 18),
+                                            : "Nik Petugas: ${postData.nikPetugas}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Text((postData.status == null)
-                                          ? "-"
-                                          : "Email Petugas" "${postData.email}"),
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "Nama Petugas: ${postData.namaPetugas}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "Email Petugas"
+                                                "${postData.email}",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal),
+                                      ),
                                     ],
                                   ),
                                 ],

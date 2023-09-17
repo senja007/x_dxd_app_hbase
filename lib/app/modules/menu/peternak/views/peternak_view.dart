@@ -1,28 +1,29 @@
-import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
 import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
+
 import 'package:get/get.dart';
 
+import '../../../../routes/app_pages.dart';
+import '../../../../utils/app_color.dart';
 import '../../menu_view/views/menu_view.dart';
+import '../controllers/peternak_controller.dart';
 
-class PengobatanView extends GetView<PengobatanController> {
-  const PengobatanView({Key? key}) : super(key: key);
+class PeternakView extends GetView<PeternakController> {
+  const PeternakView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<PengobatanController>(
+    return GetBuilder<PeternakController>(
       builder: (controller) => RefreshIndicator(
         onRefresh: () async {
-          await controller.loadPengobatan();
+          await controller.loadPeternak();
         },
         child: Scaffold(
           backgroundColor: AppColor.primary,
           appBar: AppBar(
             title: Text(
-              'Semua Data Pengobatan',
+              'Semua Data Peternak',
               style: TextStyle(
                 color: AppColor.secondaryExtraSoft,
               ),
@@ -40,7 +41,7 @@ class PengobatanView extends GetView<PengobatanController> {
             ),
           ),
           //body: Container(),
-          body: GetBuilder<PengobatanController>(
+          body: GetBuilder<PeternakController>(
             builder: (controller) => controller.posts?.status == 200
                 ? controller.posts!.content!.isEmpty
                     ? EmptyView()
@@ -55,20 +56,17 @@ class PengobatanView extends GetView<PengobatanController> {
                           return InkWell(
                             onTap: () => {
                               Get.toNamed(
-                                Routes.DETAILPENGOBATAN,
+                                Routes.DETAILPETERNAK,
                                 arguments: {
-                                  "idKasus": "${postData.idKasus}",
-                                  "tanggalPengobatan":
-                                      "${postData.tanggalPengobatan}",
-                                  "tanggalKasus": "${postData.tanggalKasus}",
-                                  "namaPetugas": "${postData.namaPetugas}",
-                                  "namaInfrastruktur":
-                                      "${postData.namaInfrastruktur}",
+                                  "idPeternak": "${postData.idPeternak}",
+                                  "idISIKHNAS": "${postData.idISIKHNAS}",
+                                  "nikPeternak": "${postData.nikPeternak}",
+                                  "namaPeternak": "${postData.namaPeternak}",
                                   "lokasi": "${postData.lokasi}",
-                                  "dosis": "${postData.dosis}",
-                                  "sindrom": "${postData.sindrom}",
-                                  "diagnosaBanding":
-                                      "${postData.diagnosaBanding}",
+                                  "petugasPendaftar":
+                                      "${postData.petugasPendaftar}",
+                                  "tanggalPendaftaran":
+                                      "${postData.tanggalPendaftaran}",
                                 },
                               ),
                             },
@@ -104,7 +102,7 @@ class PengobatanView extends GetView<PengobatanController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "ID Kasus: ${postData.idKasus}",
+                                            : "ID Peternak: ${postData.idPeternak}",
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.bold),
@@ -112,7 +110,7 @@ class PengobatanView extends GetView<PengobatanController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "Nama Petugas: ${postData.namaPetugas}",
+                                            : "Nik Peternak: ${postData.nikPeternak}",
                                         style: TextStyle(
                                             fontSize: 18,
                                             fontWeight: FontWeight.normal),
@@ -123,8 +121,8 @@ class PengobatanView extends GetView<PengobatanController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "Sindrom: "
-                                                "${postData.sindrom}",
+                                            : "Nama Peternak: "
+                                                "${postData.namaPeternak}",
                                         style: TextStyle(
                                             fontSize: 14,
                                             fontWeight: FontWeight.normal),
@@ -143,7 +141,7 @@ class PengobatanView extends GetView<PengobatanController> {
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FloatingActionButton(
               onPressed: () {
-                Get.toNamed(Routes.ADDPENGOBATAN);
+                Get.toNamed(Routes.ADDPETERNAK);
               },
               child: Icon(Icons.add),
               backgroundColor: Color(0xff132137),
@@ -157,16 +155,16 @@ class PengobatanView extends GetView<PengobatanController> {
   }
 }
 
-// class PengobatanView extends GetView<PengobatanController> {
-//   const PengobatanView({Key? key}) : super(key: key);
+// class PeternakView extends GetView<PeternakController> {
+//   const PeternakView({Key? key}) : super(key: key);
 //   @override
-//   Widget build(BuildContext context) {
-//     return GetBuilder<PengobatanController>(
+// Widget build(BuildContext context) {
+//     return GetBuilder<PeternakController>(
 //       builder: (controller) => RefreshIndicator(
-//         onRefresh: () => controller.refreshPengobatan(),
+//         onRefresh: () => controller.refreshPeternak(),
 //         child: AutoLoad(
 //           onInit: () async {
-//             await controller.loadPengobatan();
+//             await controller.loadPeternak();
 //           },
 //           child: Scaffold(
 //             appBar: AppBar(
@@ -188,12 +186,12 @@ class PengobatanView extends GetView<PengobatanController> {
 //                 ),
 //               ),
 //             ),
-//             body: _buildPengobatanListView(controller),
+//             body: _buildPeternakListView(controller),
 //             floatingActionButton: Padding(
 //               padding: const EdgeInsets.only(bottom: 16.0),
 //               child: FloatingActionButton(
 //                 onPressed: () {
-//                   Get.toNamed(Routes.ADDPENGOBATAN);
+//                   Get.toNamed(Routes.ADDPETERNAK);
 //                 },
 //                 child: Icon(Icons.add),
 //                 backgroundColor: Color(0xff132137),
@@ -207,7 +205,7 @@ class PengobatanView extends GetView<PengobatanController> {
 //     );
 //   }
 
-//   Widget _buildPengobatanListView(PengobatanController controller) {
+//   Widget _buildPeternakListView(PeternakController controller) {
 //     if (controller.posts == null) {
 //       return Center(
 //         child: CircularProgressIndicator(),
@@ -226,17 +224,15 @@ class PengobatanView extends GetView<PengobatanController> {
 //             return InkWell(
 //               onTap: () => {
 //                 Get.toNamed(
-//                   Routes.DETAILPENGOBATAN,
+//                   Routes.DETAILPETERNAK,
 //                   arguments: {
-//                     "idKasus": "${postData.idKasus}",
-//                     "tanggalPengobatan": "${postData.tanggalPengobatan}",
-//                     "tanggalKasus": "${postData.tanggalKasus}",
-//                     "namaPetugas": "${postData.namaPetugas}",
-//                     "namaInfrastruktur": "${postData.namaInfrastruktur}",
-//                     "lokasi": "${postData.lokasi}",
-//                     "dosis": "${postData.dosis}",
-//                     "sindrom": "${postData.sindrom}",
-//                     "diagnosaBanding": "${postData.diagnosaBanding}",
+//                     "detail_id_peternak": "${postData.idPeternak}",
+//                     "detail_id_isikhnas": "${postData.idISIKHNAS}",
+//                     "detail_nik": "${postData.nikPeternak}",
+//                     "detail_nama": "${postData.namaPeternak}",
+//                     "detail_lokasi": "${postData.lokasi}",
+//                     "detail_petugas_pendaftar": "${postData.petugasPendaftar}",
+//                     "detail_tanggal_pendaftaran": "${postData.tanggalPendaftaran}",
 //                   },
 //                 ),
 //               },
@@ -261,12 +257,12 @@ class PengobatanView extends GetView<PengobatanController> {
 //                         Text(
 //                           (postData.status == null)
 //                               ? "-"
-//                               : "Id Kasus : ${postData.idKasus} ${postData.tanggalKasus}",
+//                               : "Id Peternak : ${postData.idPeternak}",
 //                           style: TextStyle(fontSize: 18),
 //                         ),
 //                         Text((postData.status == null)
 //                             ? "-"
-//                             : "${postData.diagnosaBanding}"),
+//                             : "${postData.namaPeternak}"),
 //                       ],
 //                     ),
 //                   ],

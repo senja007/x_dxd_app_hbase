@@ -15,9 +15,9 @@ class DetailPeternakController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
 
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController idIsikhnasC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController idISIKHNASC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
@@ -25,9 +25,9 @@ class DetailPeternakController extends GetxController {
   @override
   onClose() {
     idPeternakC.dispose();
-    idIsikhnasC.dispose();
     nikPeternakC.dispose();
     namaPeternakC.dispose();
+    idISIKHNASC.dispose();
     lokasiC.dispose();
     petugasPendaftarC.dispose();
     tanggalPendaftaranC.dispose();
@@ -37,13 +37,13 @@ class DetailPeternakController extends GetxController {
   void onInit() {
     super.onInit();
 
-    idPeternakC.text = argsData["detail_id_peternak"];
-    idIsikhnasC.text = argsData["detail_id_isikhnas"];
-    nikPeternakC.text = argsData["detail_nik"];
-    namaPeternakC.text = argsData["detail_nama"];
-    lokasiC.text = argsData["detail_lokasi"];
-    petugasPendaftarC.text = argsData["detail_petugas_pendaftar"];
-    tanggalPendaftaranC.text = argsData["detail_tanggal_pendaftaran"];
+    idPeternakC.text = argsData["idPeternak"];
+    nikPeternakC.text = argsData["nikPeternak"];
+    namaPeternakC.text = argsData["namaPeternak"];
+    idISIKHNASC.text = argsData["idISIKHNAS"];
+    lokasiC.text = argsData["lokasi"];
+    petugasPendaftarC.text = argsData["petugasPendaftar"];
+    tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
   }
 
   Future<void> deletePost() async {

@@ -90,7 +90,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.idIsikhnasC,
+              controller: controller.idISIKHNASC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(

@@ -15,14 +15,15 @@ class VaksinView extends GetView<VaksinController> {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<VaksinController>(
-      builder: (controller) => AutoLoad(
-        onInit: () async {
+      builder: (controller) => RefreshIndicator(
+        onRefresh: () async {
           await controller.loadVaksin();
         },
         child: Scaffold(
+          backgroundColor: AppColor.primary,
           appBar: AppBar(
             title: Text(
-              'Semua Data',
+              'Semua Data Vaksin',
               style: TextStyle(
                 color: AppColor.secondaryExtraSoft,
               ),
@@ -34,8 +35,8 @@ class VaksinView extends GetView<VaksinController> {
               preferredSize: Size.fromHeight(1),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 1,
-                color: AppColor.secondaryExtraSoft,
+                height: 5,
+                color: AppColor.primary,
               ),
             ),
           ),
@@ -49,7 +50,7 @@ class VaksinView extends GetView<VaksinController> {
                         shrinkWrap: true,
                         physics: BouncingScrollPhysics(),
                         separatorBuilder: (context, index) =>
-                            SizedBox(height: 16),
+                            SizedBox(height: 8),
                         itemBuilder: (context, index) {
                           var postData = controller.posts!.content![index];
                           return InkWell(
@@ -81,14 +82,23 @@ class VaksinView extends GetView<VaksinController> {
                             child: Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(8),
+                                boxShadow: [
+                                  BoxShadow(
+                                    offset: Offset(0, 5),
+                                    color: Color.fromARGB(255, 0, 47, 255)
+                                        .withOpacity(.2),
+                                    spreadRadius: 2,
+                                    blurRadius:
+                                        10, // changes position of shadow
+                                  ),
+                                ],
+                                color: AppColor.primaryExtraSoft,
+                                borderRadius: BorderRadius.circular(15),
                                 border: Border.all(
-                                  width: 1,
-                                  color: AppColor.primaryExtraSoft,
-                                ),
+                                    width: 1, color: AppColor.primaryExtraSoft),
                               ),
                               padding: EdgeInsets.only(
-                                  left: 24, top: 20, right: 29, bottom: 20),
+                                  left: 20, top: 15, right: 29, bottom: 15),
                               child: Row(
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
@@ -100,12 +110,31 @@ class VaksinView extends GetView<VaksinController> {
                                       Text(
                                         (postData.status == null)
                                             ? "-"
-                                            : "Tanggal IB : ${postData.idVaksin}",
-                                        style: TextStyle(fontSize: 18),
+                                            : "No Eartag: ${postData.eartag}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.bold),
                                       ),
-                                      Text((postData.status == null)
-                                          ? "-"
-                                          : "${postData.lokasi}"),
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "ID Vaksin: ${postData.idVaksin}",
+                                        style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                      SizedBox(
+                                        height: 2,
+                                      ),
+                                      Text(
+                                        (postData.status == null)
+                                            ? "-"
+                                            : "Nama Peternak: "
+                                                "${postData.namaPeternak}",
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.normal),
+                                      ),
                                     ],
                                   ),
                                 ],
@@ -133,3 +162,127 @@ class VaksinView extends GetView<VaksinController> {
     );
   }
 }
+
+// class VaksinView extends GetView<VaksinController> {
+//   const VaksinView({Key? key}) : super(key: key);
+//   @override
+//   Widget build(BuildContext context) {
+//     return GetBuilder<VaksinController>(
+//       builder: (controller) => AutoLoad(
+//         onInit: () async {
+//           await controller.loadVaksin();
+//         },
+//         child: Scaffold(
+//           appBar: AppBar(
+//             title: Text(
+//               'Semua Data',
+//               style: TextStyle(
+//                 color: AppColor.secondaryExtraSoft,
+//               ),
+//             ),
+//             backgroundColor: Color(0xff132137),
+//             elevation: 0,
+//             centerTitle: true,
+//             bottom: PreferredSize(
+//               preferredSize: Size.fromHeight(1),
+//               child: Container(
+//                 width: MediaQuery.of(context).size.width,
+//                 height: 1,
+//                 color: AppColor.secondaryExtraSoft,
+//               ),
+//             ),
+//           ),
+//           //body: Container(),
+//           body: GetBuilder<VaksinController>(
+//             builder: (controller) => controller.posts?.status == 200
+//                 ? controller.posts!.content!.isEmpty
+//                     ? EmptyView()
+//                     : ListView.separated(
+//                         itemCount: controller.posts!.content!.length,
+//                         shrinkWrap: true,
+//                         physics: BouncingScrollPhysics(),
+//                         separatorBuilder: (context, index) =>
+//                             SizedBox(height: 16),
+//                         itemBuilder: (context, index) {
+//                           var postData = controller.posts!.content![index];
+//                           return InkWell(
+//                             onTap: () => {
+//                               Get.toNamed(
+//                                 Routes.DETAILVAKSIN,
+//                                 arguments: {
+//                                   "id_vaksin": "${postData.idVaksin}",
+//                                   "eartag": "${postData.eartag}",
+//                                   "id_hewan": "${postData.idHewan}",
+//                                   "id_pembuatan": "${postData.idPembuatan}",
+//                                   "id_pejantan": "${postData.idPejantan}",
+//                                   "bangsa_pejantan":
+//                                       "${postData.bangsaPejantan}",
+//                                   "ib1": "${postData.ib1}",
+//                                   "ib2": "${postData.ib2}",
+//                                   "ib3": "${postData.ib3}",
+//                                   "ib_lain": "${postData.ibLain}",
+//                                   "produsen": "${postData.produsen}",
+//                                   "id_peternak": "${postData.idPeternak}",
+//                                   "nama_peternak": "${postData.namaPeternak}",
+//                                   "lokasi": "${postData.lokasi}",
+//                                   "inseminator": "${postData.inseminator}",
+//                                   "tanggal": "${postData.tanggalIB}",
+//                                 },
+//                               ),
+//                             },
+//                             borderRadius: BorderRadius.circular(8),
+//                             child: Container(
+//                               width: MediaQuery.of(context).size.width,
+//                               decoration: BoxDecoration(
+//                                 borderRadius: BorderRadius.circular(8),
+//                                 border: Border.all(
+//                                   width: 1,
+//                                   color: AppColor.primaryExtraSoft,
+//                                 ),
+//                               ),
+//                               padding: EdgeInsets.only(
+//                                   left: 24, top: 20, right: 29, bottom: 20),
+//                               child: Row(
+//                                 mainAxisAlignment:
+//                                     MainAxisAlignment.spaceBetween,
+//                                 children: [
+//                                   Column(
+//                                     crossAxisAlignment:
+//                                         CrossAxisAlignment.start,
+//                                     children: [
+//                                       Text(
+//                                         (postData.status == null)
+//                                             ? "-"
+//                                             : "Tanggal IB : ${postData.idVaksin}",
+//                                         style: TextStyle(fontSize: 18),
+//                                       ),
+//                                       Text((postData.status == null)
+//                                           ? "-"
+//                                           : "${postData.lokasi}"),
+//                                     ],
+//                                   ),
+//                                 ],
+//                               ),
+//                             ),
+//                           );
+//                         },
+//                       )
+//                 : NoData(),
+//           ),
+//           floatingActionButton: Padding(
+//             padding: const EdgeInsets.only(bottom: 16.0),
+//             child: FloatingActionButton(
+//               onPressed: () {
+//                 Get.toNamed(Routes.ADDVAKSIN);
+//               },
+//               child: Icon(Icons.add),
+//               backgroundColor: Color(0xff132137),
+//             ),
+//           ),
+//           floatingActionButtonLocation:
+//               FloatingActionButtonLocation.centerFloat,
+//         ),
+//       ),
+//     );
+//   }
+// }
