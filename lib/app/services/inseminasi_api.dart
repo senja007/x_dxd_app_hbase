@@ -35,6 +35,7 @@ class InseminasiApi extends SharedApi {
     }
   }
 
+//ADD
   Future<InseminasiModel?> addInseminasiAPI(
     String idInseminasi,
     String eartag,
@@ -51,7 +52,8 @@ class InseminasiApi extends SharedApi {
     String namaPeternak,
     String lokasi,
     String inseminator,
-    String tanggalIB,) async {
+    String tanggalIB,
+  ) async {
     try {
       var jsonData;
       showLoading();
@@ -99,20 +101,60 @@ class InseminasiApi extends SharedApi {
     }
   }
 
-  Future<InseminasiModel?> editInseminasiAPI(
-      String title, String content, String id) async {
+//EDIT
+  Future<InseminasiModel?> editInseminasiApi(
+    String idInseminasi,
+    String eartag,
+    String idHewan,
+    String idPembuatan,
+    String idPejantan,
+    String bangsaPejantan,
+    String ib1,
+    String ib2,
+    String ib3,
+    String ibLain,
+    String produsen,
+    String idPeternak,
+    String namaPeternak,
+    String lokasi,
+    String inseminator,
+    String tanggalIB,
+  ) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        'idInseminasi': idInseminasi,
+        'eartag': eartag,
+        'idHewan': idHewan,
+        'idPembuatan': idPembuatan,
+        'idPejantan': idPejantan,
+        'bangsaPejantan': bangsaPejantan,
+        'ib1': ib1,
+        'ib2': ib2,
+        'ib3': ib3,
+        'ibLain': ibLain,
+        'produsen': produsen,
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'lokasi': lokasi,
+        'inseminator': inseminator,
+        'tanggalIB': tanggalIB,
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/inseminasi/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/inseminasi/' + idInseminasi.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -125,6 +167,7 @@ class InseminasiApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<InseminasiModel?> deleteInseminasiAPI(String id) async {
     try {
       var jsonData;

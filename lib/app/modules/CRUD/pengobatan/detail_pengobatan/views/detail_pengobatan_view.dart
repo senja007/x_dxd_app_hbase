@@ -363,7 +363,7 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.EDITPENGOBATAN);
+                  controller.editPengobatan();
                 },
                 child: Text(
                   'Edit post',
@@ -388,7 +388,7 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.deletePost();
+                  controller.deletePengobatan();
                 },
                 child: Text(
                   'Delete post',

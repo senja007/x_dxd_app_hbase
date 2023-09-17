@@ -34,6 +34,7 @@ class PeternakApi extends SharedApi {
     }
   }
 
+//ADD
   Future<PeternakModel?> addPeternakAPI(
       String idPeternak,
       String nikPeternak,
@@ -80,20 +81,41 @@ class PeternakApi extends SharedApi {
     }
   }
 
-  Future<PeternakModel?> editPeternakAPI(
-      String title, String content, String id) async {
+//EDIT
+  Future<PeternakModel?> editPeternakApi(
+      String idPeternak,
+      String nikPeternak,
+      String namaPeternak,
+      String lokasi,
+      String idISIKHNAS,
+      String petugasPendaftar,
+      String tanggalPendaftaran) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        'idPeternak': idPeternak,
+        'nikPeternak': nikPeternak,
+        'namaPeternak': namaPeternak,
+        'idISIKHNAS': idISIKHNAS,
+        'lokasi': lokasi,
+        'petugasPendaftar': petugasPendaftar,
+        'tanggalPendaftaran': tanggalPendaftaran
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/peternak/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/peternak/' + idPeternak.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return PeternakModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);

@@ -9,40 +9,40 @@ class AddPengobatanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   TextEditingController idKasusC = TextEditingController();
+  TextEditingController tanggalPengobatanC = TextEditingController();
+  TextEditingController tanggalKasusC = TextEditingController();
+  TextEditingController namaPetugasC = TextEditingController();
   TextEditingController namaInfrastrukturC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
   TextEditingController dosisC = TextEditingController();
   TextEditingController sindromC = TextEditingController();
   TextEditingController dignosaBandingC = TextEditingController();
-  TextEditingController lokasiC = TextEditingController();
-  TextEditingController namaPetugasC = TextEditingController();
-  TextEditingController tanggalKasusC = TextEditingController();
-  TextEditingController tanggalPengobatanC = TextEditingController();
   @override
   onClose() {
     idKasusC.dispose();
+    tanggalPengobatanC.dispose();
+    tanggalKasusC.dispose();
+    namaPetugasC.dispose();
     namaInfrastrukturC.dispose();
+    lokasiC.dispose();
     dosisC.dispose();
     sindromC.dispose();
     dignosaBandingC.dispose();
-    lokasiC.dispose();
-    namaPetugasC.dispose();
-    tanggalKasusC.dispose();
-    tanggalPengobatanC.dispose();
   }
 
   Future addPengobatan() async {
-    try{
+    try {
       isLoading.value = true;
       pengobatanModel = await PengobatanApi().addPengobatanAPI(
         idKasusC.text,
+        tanggalPengobatanC.text,
+        tanggalKasusC.text,
+        namaPetugasC.text,
         namaInfrastrukturC.text,
+        lokasiC.text,
         dosisC.text,
         sindromC.text,
         dignosaBandingC.text,
-        lokasiC.text,
-        namaPetugasC.text,
-        tanggalKasusC.text,
-        tanggalPengobatanC.text
       );
 
       if (pengobatanModel != null) {
@@ -57,5 +57,5 @@ class AddPengobatanController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-    }
   }
+}

@@ -11,65 +11,67 @@ class DetailVaksinController extends GetxController {
   VaksinModel? vaksinModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxBool isEditing = false.obs;
+
   TextEditingController idVaksinC = TextEditingController();
-  TextEditingController eartagC = TextEditingController();
+  TextEditingController tanggalIBC = TextEditingController();
+  TextEditingController lokasiC = TextEditingController();
+  TextEditingController namaPeternakC = TextEditingController();
+  TextEditingController idPeternakC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
-  TextEditingController idPembuatanC = TextEditingController();
-  TextEditingController idPejantanC = TextEditingController();
-  TextEditingController bangsaPejantanC = TextEditingController();
+  TextEditingController eartagC = TextEditingController();
   TextEditingController ib1C = TextEditingController();
   TextEditingController ib2C = TextEditingController();
   TextEditingController ib3C = TextEditingController();
   TextEditingController ibLainC = TextEditingController();
+  TextEditingController idPejantanC = TextEditingController();
+  TextEditingController idPembuatanC = TextEditingController();
+  TextEditingController bangsaPejantanC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
-  TextEditingController lokasiC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
-  TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
-    inseminatorC.dispose();
+    idVaksinC.dispose();
     tanggalIBC.dispose();
-    namaPeternakC.dispose();
     lokasiC.dispose();
-    produsenC.dispose();
+    namaPeternakC.dispose();
     idPeternakC.dispose();
-    ib3C.dispose();
-    ibLainC.dispose();
+    idHewanC.dispose();
+    eartagC.dispose();
     ib1C.dispose();
     ib2C.dispose();
+    ib3C.dispose();
+    ibLainC.dispose();
     idPejantanC.dispose();
-    bangsaPejantanC.dispose();
-    idHewanC.dispose();
     idPembuatanC.dispose();
-    idVaksinC.dispose();
-    eartagC.dispose();
+    bangsaPejantanC.dispose();
+    produsenC.dispose();
+    inseminatorC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
 
-    idVaksinC.text = argsData["id_vaksin"];
+    idVaksinC.text = argsData["idVaksin"];
+    tanggalIBC.text = argsData["tanggalIB"];
+    lokasiC.text = argsData["lokasi"];
+    namaPeternakC.text = argsData["namaPeternak"];
+    idPeternakC.text = argsData["idPeternak"];
+    idHewanC.text = argsData["idHewan"];
     eartagC.text = argsData["eartag"];
-    idHewanC.text = argsData["id_hewan"];
-    idPembuatanC.text = argsData["id_pembuatan"];
-    idPejantanC.text = argsData["id_pejantan"];
-    bangsaPejantanC.text = argsData["bangsa_pejantan"];
     ib1C.text = argsData["ib1"];
     ib2C.text = argsData["ib2"];
     ib3C.text = argsData["ib3"];
-    ibLainC.text = argsData["ib_lain"];
+    ibLainC.text = argsData["ibLain"];
+    idPejantanC.text = argsData["idPejantan"];
+    idPembuatanC.text = argsData["idPembuatan"];
+    bangsaPejantanC.text = argsData["bangsaPejantan"];
     produsenC.text = argsData["produsen"];
-    idPeternakC.text = argsData["id_peternak"];
-    namaPeternakC.text = argsData["nama_peternak"];
-    lokasiC.text = argsData["lokasi"];
     inseminatorC.text = argsData["inseminator"];
-    tanggalIBC.text = argsData["tanggal"];
   }
 
-  Future<void> deletePost() async {
+  Future<void> deleteVaksin() async {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data todo",
       message: "Apakah anda ingin menghapus data todo ini ?",
@@ -78,6 +80,42 @@ class DetailVaksinController extends GetxController {
         Get.back(); // close modal
         update();
         vaksinModel = await VaksinApi().deleteVaksinApi(argsData["id_vaksin"]);
+        // if (petugasModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        // }
+      },
+    );
+  }
+
+  Future<void> editVaksin() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "edit data Vaksin",
+      message: "Apakah anda ingin mengedit data Vaksin ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back(); // close modal
+        update();
+        vaksinModel = await VaksinApi().editVaksinApi(
+          idVaksinC.text,
+          tanggalIBC.text,
+          lokasiC.text,
+          namaPeternakC.text,
+          idPeternakC.text,
+          idHewanC.text,
+          eartagC.text,
+          ib1C.text,
+          ib2C.text,
+          ib3C.text,
+          ibLainC.text,
+          idPejantanC.text,
+          idPembuatanC.text,
+          bangsaPejantanC.text,
+          produsenC.text,
+          inseminatorC.text,
+        );
+        isEditing.value = false;
+        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
         // if (petugasModel!.status == 200) {
         //   update();
         //   Get.offAndToNamed(Routes.HOME);

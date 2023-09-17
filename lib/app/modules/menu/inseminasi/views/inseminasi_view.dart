@@ -58,29 +58,23 @@ class InseminasiView extends GetView<InseminasiController> {
                               Get.toNamed(
                                 Routes.DETAILINSEMINASI,
                                 arguments: {
-                                  "detail_id_inseminasi":
-                                      "${postData.idInseminasi}",
-                                  "detail_eartag": "${postData.eartag}",
-                                  "detail_id_hewan": "${postData.idHewan}",
-                                  "detail_id_pembuatan":
-                                      "${postData.idPembuatan}",
-                                  "detail_id_pejantan":
-                                      "${postData.idPejantan}",
-                                  "detail_bangsa_pejantan":
+                                  "idInseminasi": "${postData.idInseminasi}",
+                                  "tanggalIB": "${postData.tanggalIB}",
+                                  "lokasi": "${postData.lokasi}",
+                                  "namaPeternak": "${postData.namaPeternak}",
+                                  "idPeternak": "${postData.idPeternak}",
+                                  "idHewan": "${postData.idHewan}",
+                                  "eartag": "${postData.eartag}",
+                                  "ib1": "${postData.ib1}",
+                                  "ib2": "${postData.ib2}",
+                                  "ib3": "${postData.ib3}",
+                                  "ibLain": "${postData.ibLain}",
+                                  "idPejantan": "${postData.idPejantan}",
+                                  "idPembuatan": "${postData.idPembuatan}",
+                                  "bangsaPejantan":
                                       "${postData.bangsaPejantan}",
-                                  "detail_ib1": "${postData.ib1}",
-                                  "detail_ib2": "${postData.ib2}",
-                                  "detail_ib3": "${postData.ib3}",
-                                  "detail_iblain": "${postData.ibLain}",
-                                  "detail_produsen": "${postData.produsen}",
-                                  "detail_id_peternak":
-                                      "${postData.idPeternak}",
-                                  "detail_nama_peternak":
-                                      "${postData.namaPeternak}",
-                                  "detail_lokasi": "${postData.lokasi}",
-                                  "detail_inseminator":
-                                      "${postData.inseminator}",
-                                  "detail_tanggal_ib": "${postData.tanggalIB}",
+                                  "produsen": "${postData.produsen}",
+                                  "inseminator": "${postData.inseminator}",
                                 },
                               ),
                             },

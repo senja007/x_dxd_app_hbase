@@ -35,29 +35,31 @@ class KelahiranApi extends SharedApi {
     }
   }
 
+//ADD
   Future<KelahiranModel?> addKelahiranAPI(
-      String idKejadian,
-      String eartagInduk,
-      String eartagAnak,
-      String idHewanInduk,
-      String idHewanAnak,
-      String idBatchStraw,
-      String idPejantanStraw,
-      String jenisKelaminAnak,
-      String jumlah,
-      String urutanIb,
-      String kartuTernakAnak,
-      String kartuTernakInduk,
-      String kategori,
-      String lokasi,
-      String idPeternak,
-      String namaPeternak,
-      String petugasPelapor,
-      String produsenStraw,
-      String spesiesInduk,
-      String spesiesPejantan,
-      String tanggalLahir,
-      String tanggalLaporan,) async {
+    String idKejadian,
+    String eartagInduk,
+    String eartagAnak,
+    String idHewanInduk,
+    String idHewanAnak,
+    String idBatchStraw,
+    String idPejantanStraw,
+    String jenisKelaminAnak,
+    String jumlah,
+    String urutanIb,
+    String kartuTernakAnak,
+    String kartuTernakInduk,
+    String kategori,
+    String lokasi,
+    String idPeternak,
+    String namaPeternak,
+    String petugasPelapor,
+    String produsenStraw,
+    String spesiesInduk,
+    String spesiesPejantan,
+    String tanggalLahir,
+    String tanggalLaporan,
+  ) async {
     try {
       var jsonData;
       showLoading();
@@ -111,7 +113,8 @@ class KelahiranApi extends SharedApi {
     }
   }
 
-  Future<KelahiranModel?> editKelahiranAPI(
+//EDIT
+  Future<KelahiranModel?> editKelahiranApi(
       String idKejadian,
       String eartagInduk,
       String eartagAnak,
@@ -137,7 +140,7 @@ class KelahiranApi extends SharedApi {
     try {
       var jsonData;
       showLoading();
-      var bodyData = {
+      var bodyDataedit = {
         'idKejadian': idKejadian,
         'eartagInduk': eartagInduk,
         'eartagAnak': eartagAnak,
@@ -161,18 +164,19 @@ class KelahiranApi extends SharedApi {
         'tanggalLaporan': tanggalLaporan,
         'urutanIb': urutanIb
       };
-      var data = await http.post(
-        Uri.parse(baseUrl + '/kelahiran'),
-        headers: {
-          ...getToken(),
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(bodyData),
+      var data = await http.put(
+        Uri.parse(baseUrl + '/kelahiran/' + idKejadian.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return KelahiranModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -185,6 +189,7 @@ class KelahiranApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<KelahiranModel?> deleteKelahiranAPI(String id) async {
     try {
       var jsonData;

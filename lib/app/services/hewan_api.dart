@@ -41,43 +41,44 @@ class HewanApi extends SharedApi {
     }
   }
 
+//ADD
   Future<HewanModel?> addHewanAPI(
-  String kodeEartagNasional,
-  String noKartuTernak,
-  String provinsi,
-  String kabupaten,
-  String kecamatan,
-  String desa,
-  String namaPeternak,
-  String idPeternak,
-  String nikPeternak,
-  String spesies,
-  String sex,
-  String umur,
-  String identifikasiHewan,
-  String petugasPendaftar,
-  String tanggalTerdaftar,
+    String kodeEartagNasional,
+    String noKartuTernak,
+    String provinsi,
+    String kabupaten,
+    String kecamatan,
+    String desa,
+    String namaPeternak,
+    String idPeternak,
+    String nikPeternak,
+    String spesies,
+    String sex,
+    String umur,
+    String identifikasiHewan,
+    String petugasPendaftar,
+    String tanggalTerdaftar,
   ) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
-        "kodeEartagNasional" : kodeEartagNasional,
-  "noKartuTernak" : noKartuTernak,
-  "provinsi" : provinsi,
-  "kabupaten" : kabupaten,
-  "kecamatan" : kecamatan,
-  "desa" : desa,
-  "namaPeternak" : namaPeternak,
-  "idPeternak" : idPeternak,
-  "nikPeternak" : nikPeternak,
-  "spesies" : spesies,
-  "sex" : sex,
-  "umur" : umur,
-  "identifikasiHewan" : identifikasiHewan,
-  "petugasPendaftar" : petugasPendaftar,
-  "tanggalTerdaftar" : tanggalTerdaftar,
+        "kodeEartagNasional": kodeEartagNasional,
+        "noKartuTernak": noKartuTernak,
+        "provinsi": provinsi,
+        "kabupaten": kabupaten,
+        "kecamatan": kecamatan,
+        "desa": desa,
+        "namaPeternak": namaPeternak,
+        "idPeternak": idPeternak,
+        "nikPeternak": nikPeternak,
+        "spesies": spesies,
+        "sex": sex,
+        "umur": umur,
+        "identifikasiHewan": identifikasiHewan,
+        "petugasPendaftar": petugasPendaftar,
+        "tanggalTerdaftar": tanggalTerdaftar,
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/hewan'),
@@ -104,20 +105,58 @@ class HewanApi extends SharedApi {
     }
   }
 
-  Future<HewanModel?> editHewanAPI(
-      String title, String content, String id) async {
+//EDIT
+  Future<HewanModel?> editHewanApi(
+    String kodeEartagNasional,
+    String noKartuTernak,
+    String provinsi,
+    String kabupaten,
+    String kecamatan,
+    String desa,
+    String namaPeternak,
+    String idPeternak,
+    String nikPeternak,
+    String spesies,
+    String sex,
+    String umur,
+    String identifikasiHewan,
+    String petugasPendaftar,
+    String tanggalTerdaftar,
+  ) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        "kodeEartagNasional": kodeEartagNasional,
+        "noKartuTernak": noKartuTernak,
+        "provinsi": provinsi,
+        "kabupaten": kabupaten,
+        "kecamatan": kecamatan,
+        "desa": desa,
+        "namaPeternak": namaPeternak,
+        "idPeternak": idPeternak,
+        "nikPeternak": nikPeternak,
+        "spesies": spesies,
+        "sex": sex,
+        "umur": umur,
+        "identifikasiHewan": identifikasiHewan,
+        "petugasPendaftar": petugasPendaftar,
+        "tanggalTerdaftar": tanggalTerdaftar,
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/hewan/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/hewan/' + kodeEartagNasional.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return HewanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -130,6 +169,7 @@ class HewanApi extends SharedApi {
     }
   }
 
+  //DELETE
   Future<HewanModel?> deleteHewanApi(String id) async {
     try {
       var jsonData;

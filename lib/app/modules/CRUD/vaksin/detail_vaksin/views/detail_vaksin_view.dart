@@ -604,7 +604,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.EDIT_POST);
+                  controller.editVaksin();
                 },
                 child: Text(
                   'Edit post',
@@ -629,7 +629,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.deletePost();
+                  controller.deleteVaksin();
                 },
                 child: Text(
                   'Delete post',

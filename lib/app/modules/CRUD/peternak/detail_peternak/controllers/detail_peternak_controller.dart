@@ -13,6 +13,7 @@ class DetailPeternakController extends GetxController {
   PeternakModel? peternakModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxBool isEditing = false.obs;
 
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
@@ -46,10 +47,10 @@ class DetailPeternakController extends GetxController {
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
   }
 
-  Future<void> deletePost() async {
+  Future<void> deletePeternak() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data todo",
-      message: "Apakah anda ingin menghapus data todo ini ?",
+      title: "Hapus data Peternak",
+      message: "Apakah anda ingin menghapus data Peternak ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         // Get.back(); // close modal
@@ -59,6 +60,33 @@ class DetailPeternakController extends GetxController {
           update();
           Get.offAndToNamed(Routes.HOME);
         }
+      },
+    );
+  }
+
+  Future<void> editPeternak() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "edit data Peternak",
+      message: "Apakah anda ingin mengedit data Peternak ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back(); // close modal
+        update();
+        peternakModel = await PeternakApi().editPeternakApi(
+          idPeternakC.text,
+          nikPeternakC.text,
+          namaPeternakC.text,
+          idISIKHNASC.text,
+          lokasiC.text,
+          petugasPendaftarC.text,
+          tanggalPendaftaranC.text,
+        );
+        isEditing.value = false;
+        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
+        // if (petugasModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        // }
       },
     );
   }

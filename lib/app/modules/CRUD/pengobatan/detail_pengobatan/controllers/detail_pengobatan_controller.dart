@@ -13,6 +13,8 @@ class DetailPengobatanController extends GetxController {
   PengobatanModel? pengobatanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxBool isEditing = false.obs;
+
   TextEditingController idKasusC = TextEditingController();
   TextEditingController tanggalPengobatanC = TextEditingController();
   TextEditingController tanggalKasusC = TextEditingController();
@@ -50,10 +52,10 @@ class DetailPengobatanController extends GetxController {
     diagnosaBandingC.text = argsData["diagnosaBanding"];
   }
 
-  Future<void> deletePost() async {
+  Future<void> deletePengobatan() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data todo",
-      message: "Apakah anda ingin menghapus data todo ini ?",
+      title: "Hapus data Pengobatan",
+      message: "Apakah anda ingin menghapus data ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         Get.back(); // close modal
@@ -64,6 +66,35 @@ class DetailPengobatanController extends GetxController {
           update();
           Get.offAndToNamed(Routes.HOME);
         }
+      },
+    );
+  }
+
+  Future<void> editPengobatan() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "edit data Pengobatan",
+      message: "Apakah anda ingin mengedit data Pengobatan ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back(); // close modal
+        update();
+        pengobatanModel = await PengobatanApi().editPengobatanApi(
+          idKasusC.text,
+          tanggalPengobatanC.text,
+          tanggalKasusC.text,
+          namaPetugasC.text,
+          namaInfrastrukturC.text,
+          lokasiC.text,
+          dosisC.text,
+          sindromC.text,
+          diagnosaBandingC.text,
+        );
+        isEditing.value = false;
+        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
+        // if (petugasModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        // }
       },
     );
   }

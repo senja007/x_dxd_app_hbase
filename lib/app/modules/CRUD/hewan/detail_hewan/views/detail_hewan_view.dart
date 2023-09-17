@@ -54,7 +54,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
         shrinkWrap: true,
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
-        children: [ Container(
+        children: [
+          Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: EdgeInsets.only(bottom: 16),
@@ -569,7 +570,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.EDIT_POST);
+                  controller.editHewan();
                 },
                 child: Text(
                   'Edit post',
@@ -594,7 +595,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.deletePost();
+                  controller.deleteHewan();
                 },
                 child: Text(
                   'Delete post',

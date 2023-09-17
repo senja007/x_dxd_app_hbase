@@ -1,6 +1,5 @@
 class VaksinModel {
   final int? status;
-  final int? id;
   final String? idVaksin;
   final String? tanggalIB;
   final String? lokasi;
@@ -18,10 +17,8 @@ class VaksinModel {
   final String? produsen;
   final String? inseminator;
 
-
   VaksinModel({
     this.status,
-    this.id,
     this.idVaksin,
     this.tanggalIB,
     this.lokasi,
@@ -38,18 +35,16 @@ class VaksinModel {
     this.bangsaPejantan,
     this.produsen,
     this.inseminator,
-
   });
 
   factory VaksinModel.fromJson(Map<String, dynamic> jsonData) {
     return VaksinModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
-      id: jsonData['id'] != null ? jsonData['id'] : 0,
-      idVaksin:
-          jsonData['idVaksin'] != null ? jsonData['idVaksin'] : "",
+      idVaksin: jsonData['idVaksin'] != null ? jsonData['idVaksin'] : "",
       tanggalIB: jsonData['tanggalIB'] != null ? jsonData['tanggalIB'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      namaPeternak:
+          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
       idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
       eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
@@ -58,11 +53,14 @@ class VaksinModel {
       ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",
       ibLain: jsonData['ibLain'] != null ? jsonData['ibLain'] : "",
       idPejantan: jsonData['idPejantan'] != null ? jsonData['idPejantan'] : "",
-      idPembuatan: jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
-      bangsaPejantan: jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
+      idPembuatan:
+          jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
+      bangsaPejantan:
+          jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
       produsen: jsonData['produsen'] != null ? jsonData['produsen'] : "",
-      inseminator: jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
-        );
+      inseminator:
+          jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
+    );
   }
 }
 

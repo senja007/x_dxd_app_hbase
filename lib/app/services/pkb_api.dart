@@ -35,6 +35,7 @@ class PKBApi extends SharedApi {
     }
   }
 
+//ADD
   Future<PKBModel?> addPKBAPI(
       String idKejadian,
       String idHewan,
@@ -91,19 +92,51 @@ class PKBApi extends SharedApi {
     }
   }
 
-  Future<PKBModel?> editPKBAPI(String title, String content, String id) async {
+//EDIT
+  Future<PKBModel?> editPKBApi(
+      String idKejadian,
+      String idHewan,
+      String idPeternak,
+      String nikPeternak,
+      String namaPeternak,
+      String jumlah,
+      String kategori,
+      String lokasi,
+      String spesies,
+      String umurKebuntingan,
+      String pemeriksaKebuntingan,
+      String tanggalPkb) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        'idKejadian': idKejadian,
+        'idHewan': idHewan,
+        'idPeternak': idPeternak,
+        'nikPeternak': nikPeternak,
+        'namaPeternak': namaPeternak,
+        'jumlah': jumlah,
+        'kategori': kategori,
+        'lokasi': lokasi,
+        'spesies': spesies,
+        'umurKebuntingan': umurKebuntingan,
+        'pemeriksaKebuntingan': pemeriksaKebuntingan,
+        'tanggalPkb': tanggalPkb
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/pkb/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/pkb/' + idKejadian.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return PKBModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -116,6 +149,7 @@ class PKBApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<PKBModel?> deletePKBAPI(String id) async {
     try {
       var jsonData;

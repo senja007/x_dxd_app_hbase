@@ -67,6 +67,7 @@ class PetugasApi extends SharedApi {
 //  }
 //  }
 
+//ADD
   Future<PetugasModel?> addPetugasApi(String nikPetugas, String namaPetugas,
       String noTelp, String email) async {
     try {
@@ -104,25 +105,25 @@ class PetugasApi extends SharedApi {
     }
   }
 
-  Future<PetugasModel?> editPetugasApi(String nik_petugas, String nama_petugas, String no_telp, String email) async {
+//EDIT
+  Future<PetugasModel?> editPetugasApi(String nik_petugas, String nama_petugas,
+      String no_telp, String email) async {
     try {
       var jsonData;
       showLoading();
-       var bodyDataedit = {
+      var bodyDataedit = {
         'nikPetugas': nik_petugas,
         'namaPetugas': nama_petugas,
         'noTelp': no_telp,
         'email': email
       };
-      
+
       var data = await http.put(
         Uri.parse(baseUrl + '/petugas/' + nik_petugas.toString()),
-        headers: {
-...getToken(), 'Content-Type': 'application/json'
-        },
+        headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print( data.body);
+      print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);
@@ -142,6 +143,7 @@ class PetugasApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<PetugasModel?> deletePetugasApi(String id) async {
     try {
       var jsonData;

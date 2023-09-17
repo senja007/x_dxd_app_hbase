@@ -287,7 +287,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
             children: [
               ElevatedButton(
                 onPressed: () {
-                  Get.offAllNamed(Routes.EDITPETERNAK);
+                  controller.editPeternak();
                 },
                 child: Text(
                   'Edit post',
@@ -312,7 +312,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               ),
               ElevatedButton(
                 onPressed: () {
-                  controller.deletePost();
+                  controller.deletePeternak();
                 },
                 child: Text(
                   'Delete post',

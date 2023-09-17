@@ -35,30 +35,32 @@ class PengobatanApi extends SharedApi {
     }
   }
 
+//ADD
   Future<PengobatanModel?> addPengobatanAPI(
-      String idKasus,
-      String namaInfrastruktur,
-      String dosis,
-      String sindrom,
-      String dignosaBanding,
-      String lokasi,
-      String namaPetugas,
-      String tanggalKasus,
-      String tanggalPengobatan) async {
+    String idKasus,
+    String tanggalPengobatan,
+    String tanggalKasus,
+    String namaPetugas,
+    String namaInfrastruktur,
+    String lokasi,
+    String dosis,
+    String sindrom,
+    String dignosaBanding,
+  ) async {
     try {
       var jsonData;
       showLoading();
 
       var bodyData = {
         'idKasus': idKasus,
+        'tanggalPengobatan': tanggalPengobatan,
+        'tanggalKasus': tanggalKasus,
+        'namaPetugas': namaPetugas,
         'namaInfrastruktur': namaInfrastruktur,
+        'lokasi': lokasi,
         'dosis': dosis,
         'sindrom': sindrom,
         'diagnosaBanding': dignosaBanding,
-        'lokasi': lokasi,
-        'petugasPendaftar': namaPetugas,
-        'tanggalKasus': tanggalKasus,
-        'tanggalPengobatan': tanggalPengobatan
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/pengobatan'),
@@ -85,20 +87,46 @@ class PengobatanApi extends SharedApi {
     }
   }
 
-  Future<PengobatanModel?> editPengobatanAPI(
-      String title, String content, String id) async {
+//EDIT
+  Future<PengobatanModel?> editPengobatanApi(
+    String idKasus,
+    String tanggalPengobatan,
+    String tanggalKasus,
+    String namaPetugas,
+    String namaInfrastruktur,
+    String lokasi,
+    String dosis,
+    String sindrom,
+    String dignosaBanding,
+  ) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        'idKasus': idKasus,
+        'tanggalPengobatan': tanggalPengobatan,
+        'tanggalKasus': tanggalKasus,
+        'namaPetugas': namaPetugas,
+        'namaInfrastruktur': namaInfrastruktur,
+        'lokasi': lokasi,
+        'dosis': dosis,
+        'sindrom': sindrom,
+        'diagnosaBanding': dignosaBanding,
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/pengobatan/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/pengobatan/' + idKasus.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -111,6 +139,7 @@ class PengobatanApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<PengobatanModel?> deletePengobatanAPI(String id) async {
     try {
       var jsonData;

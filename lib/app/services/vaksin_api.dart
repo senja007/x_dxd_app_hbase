@@ -35,6 +35,7 @@ class VaksinApi extends SharedApi {
     }
   }
 
+//ADD
   Future<VaksinModel?> addVaksinAPI(
       String idVaksin,
       String eartag,
@@ -101,20 +102,59 @@ class VaksinApi extends SharedApi {
     }
   }
 
-  Future<VaksinModel?> editVaksinAPI(
-      String title, String content, String id) async {
+//EDIT
+  Future<VaksinModel?> editVaksinApi(
+      String idVaksin,
+      String eartag,
+      String idHewan,
+      String idPembuatan,
+      String idPejantan,
+      String bangsaPejantan,
+      String ib1,
+      String ib2,
+      String ib3,
+      String ibLain,
+      String produsen,
+      String idPeternak,
+      String namaPeternak,
+      String lokasi,
+      String inseminator,
+      String tanggalIB) async {
     try {
       var jsonData;
       showLoading();
+      var bodyDataedit = {
+        'idVaksin': idVaksin,
+        'eartag': eartag,
+        'idHewan': idHewan,
+        'idPembuatan': idPembuatan,
+        'idPejantan': idPejantan,
+        'bangsaPejantan': bangsaPejantan,
+        'ib1': ib1,
+        'ib2': ib2,
+        'ib3': ib3,
+        'ibLain': ibLain,
+        'produsen': produsen,
+        'idPeternak': idPeternak,
+        'namaPeternak': namaPeternak,
+        'lokasi': lokasi,
+        'inseminator': inseminator,
+        'tanggalIB': tanggalIB
+      };
+
       var data = await http.put(
-        Uri.parse(baseUrl + '/vaksin/' + id.toString()),
-        headers: getToken(),
-        body: {'content': content, 'status': "1"},
+        Uri.parse(baseUrl + '/vaksin/' + idVaksin.toString()),
+        headers: {...getToken(), 'Content-Type': 'application/json'},
+        body: jsonEncode(bodyDataedit),
       );
+      print(data.body);
       stopLoading();
+
       jsonData = json.decode(data.body);
-      if (data.statusCode == 200) {
-        jsonData['statusCode'] = 200;
+      if (data.statusCode == 201) {
+        jsonData['statusCode'] = 201;
+        print(data.body);
+        print(jsonData);
         return VaksinModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -127,6 +167,7 @@ class VaksinApi extends SharedApi {
     }
   }
 
+//DELETE
   Future<VaksinModel?> deleteVaksinApi(String id) async {
     try {
       var jsonData;
