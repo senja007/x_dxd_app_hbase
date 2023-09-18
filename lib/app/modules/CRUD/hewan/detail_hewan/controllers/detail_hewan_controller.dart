@@ -70,6 +70,8 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
+    
+    
   }
 
   Future<void> deleteHewan() async {
@@ -80,8 +82,7 @@ class DetailHewanController extends GetxController {
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        hewanModel =
-            await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
+        hewanModel = await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
         // if (hewanModel!.status == 200) {
         //   update();
         //   Get.offAndToNamed(Routes.HOME);
@@ -93,34 +94,20 @@ class DetailHewanController extends GetxController {
   Future<void> editHewan() async {
     CustomAlertDialog.showPresenceAlert(
       title: "edit data Hewan",
-      message: "Apakah anda ingin mengedit data ini data Hewan ini ?",
+      message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        hewanModel = await HewanApi().editHewanApi(
-          kodeEartagNasionalC.text,
-          noKartuTernakC.text,
-          provinsiC.text,
-          kabupatenC.text,
-          kecamatanC.text,
-          desaC.text,
-          namaPeternakC.text,
-          idPeternakC.text,
-          nikPeternakC.text,
-          spesiesC.text,
-          sexC.text,
-          umurC.text,
-          identifikasiHewanC.text,
-          petugasPendaftarC.text,
-          tanggalTerdaftarC.text,
-        );
-        isEditing.value = false;
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+        hewanModel =
+            await HewanApi().editHewanApi(kodeEartagNasionalC.text, noKartuTernakC.text, provinsiC.text, 
+            kabupatenC.text, kecamatanC.text, desaC.text, namaPeternakC.text, idPeternakC.text, nikPeternakC.text,
+            spesiesC.text, sexC.text, umurC.text, identifikasiHewanC.text, petugasPendaftarC.text, tanggalTerdaftarC.text);
+            await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
+        if (hewanModel!.status == 200) {
+          update();
+          Get.offAndToNamed(Routes.HOME);
+        }
       },
     );
   }

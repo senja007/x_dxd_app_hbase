@@ -29,6 +29,8 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
 
+  set text(String text) {}
+
   @override
   onClose() {
    kodeEartagNasionalC.dispose();
@@ -99,5 +101,11 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
     } finally {
       isLoading.value = false;
     }
+  }
+
+  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+
+  void updateFormattedDate(String newDate) {
+    formattedDate.value = newDate;
   }
 }

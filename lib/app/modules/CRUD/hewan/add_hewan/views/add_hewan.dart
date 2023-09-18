@@ -2,11 +2,34 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
-  const AddHewanView({Key? key}) : super(key: key);
+  
+TextEditingController _dateController = TextEditingController();
+late DateTime selectedDate = DateTime.now();
+
+Future<void> _selectDate(BuildContext context) async {
+  final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+ if (picked != null && picked != selectedDate) {
+    selectedDate = picked;
+    _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+  }
+}
+
+  // @override
+  // void initState() {
+  //   dateinput.text = ""; //set the initial value of text field
+  // }
+
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
@@ -525,30 +548,59 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalTerdaftarC,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal Terdaftar",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: _dateController, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal Terdaftar" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal Terdaftar",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => _selectDate(context),
+                // async {
+                //   DateTime? pickedDate = await showDatePicker(
+                //       context: context, initialDate: DateTime.now(),
+                //       firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+                //       lastDate: DateTime(2101)
+                //   );
+                  
+                //   if(pickedDate != null ){
+                //       print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+                //       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); 
+                //       print(formattedDate); //formatted date output using intl package =>  2021-03-16
+                //         //you can implement different kind of Date Format here according to your requirement
+
+                //       Obx(() => Text('Formatted Date: ${controller.formattedDate.value}'));
+                //   }else{
+                //       print("Date is not selected");
+                //   }
+
+                // },
+             ),
+            // child: TextField(
+            //   focusNode: AlwaysDisabledFocusNode(),
+            //   controller: controller.tanggalTerdaftarC,
+            //   onTap: () {
+            //     _selectDate(context);
+            //   }, 
+            //   decoration: InputDecoration(
+            //     label: Text(
+            //       "Tanggal Terdaftar",
+            //       style: TextStyle(
+            //         color: AppColor.secondarySoft,
+            //         fontSize: 14,
+            //       ),
+            //     ),
+            //     floatingLabelBehavior: FloatingLabelBehavior.always,
+            //     border: InputBorder.none,
+            //     hintText: "Tanggal Terdaftar",
+            //     hintStyle: TextStyle(
+            //       fontSize: 14,
+            //       fontFamily: 'poppins',
+            //       fontWeight: FontWeight.w500,
+            //       color: AppColor.secondarySoft,
+            //     ),
+            //   ),
+            // ),
           ),
           
           SizedBox(height: 32),
