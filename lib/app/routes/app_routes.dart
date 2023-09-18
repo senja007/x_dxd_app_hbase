@@ -106,7 +106,7 @@ abstract class _Paths {
   static const DETAILPENGOBATAN = '/detail-pengobatan';
 
   //EDIT POST
-  // static const EDITPETUGAS = '/edit-petugas';
+  // static const PETUGAS = '/edit-petugas';
   static const EDITHEWAN = '/edit-hewan';
   static const EDITPETERNAK = '/edit-peternak';
   static const EDITPKB = '/edit-pkb';

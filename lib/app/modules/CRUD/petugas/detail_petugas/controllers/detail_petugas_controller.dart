@@ -43,6 +43,10 @@ class DetailPetugasController extends GetxController {
     update();
   }
 
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
   Future<void> deletePost() async {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data Petugas",

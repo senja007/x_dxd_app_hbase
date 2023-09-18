@@ -32,9 +32,17 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
         actions: [
           IconButton(
             onPressed: () {
-              controller.tombolEdit();
+              if (controller.isEditing.value) {
+                controller.tutupEdit();
+              } else {
+                controller.tombolEdit();
+              }
             },
-            icon: Icon(Icons.edit),
+            icon: Obx(() {
+              return Icon(
+                controller.isEditing.value ? Icons.close : Icons.edit,
+              );
+            }),
           ),
         ],
         backgroundColor: Color(0xff132137),
