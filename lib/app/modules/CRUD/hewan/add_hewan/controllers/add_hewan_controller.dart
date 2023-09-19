@@ -4,13 +4,16 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AddHewanController extends GetxController {
   HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
 
 
 TextEditingController kodeEartagNasionalC = TextEditingController();
@@ -27,9 +30,9 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
-  TextEditingController tanggalTerdaftarC = TextEditingController();
+  //TextEditingController tanggalTerdaftarC = TextEditingController();
 
-  set text(String text) {}
+ 
 
   @override
   onClose() {
@@ -103,9 +106,26 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
     }
   }
 
-  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+  
 
   void updateFormattedDate(String newDate) {
     formattedDate.value = newDate;
   }
+
+  TextEditingController tanggalTerdaftarC = TextEditingController();
+late DateTime selectedDate = DateTime.now();
+
+Future<void> tanggalTerdaftar (BuildContext context) async {
+  final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+ if (picked != null && picked != selectedDate) {
+    selectedDate = picked;
+    tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
+  }
+}
 }

@@ -10,7 +10,6 @@ class DetailPetugasController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
-  late FocusNode namaFocusNode;
 
   String originalNik = "";
   String originalNama = "";
@@ -24,7 +23,6 @@ class DetailPetugasController extends GetxController {
 
   @override
   onClose() {
-    namaFocusNode.dispose();
     nikC.dispose();
     namaC.dispose();
     tlpC.dispose();
@@ -33,7 +31,6 @@ class DetailPetugasController extends GetxController {
 
   @override
   void onInit() {
-    namaFocusNode = FocusNode();
     super.onInit();
 
     // Buat Detail Data
@@ -82,10 +79,6 @@ class DetailPetugasController extends GetxController {
         update();
         petugasModel =
             await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
       },
     );
   }
@@ -101,11 +94,6 @@ class DetailPetugasController extends GetxController {
         petugasModel = await PetugasApi()
             .editPetugasApi(nikC.text, namaC.text, tlpC.text, emailC.text);
         isEditing.value = false;
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
       },
     );
   }

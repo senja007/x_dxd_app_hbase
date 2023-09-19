@@ -65,7 +65,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
           Obx(() {
             return Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              padding: EdgeInsets.only(left: 15, right: 15, top: 4),
               margin: EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
                 color: controller.isEditing.value
@@ -78,7 +78,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
               child: TextFormField(
                 enabled: false,
                 style: TextStyle(
-                  fontSize: 14,
+                  fontSize: 18,
                   fontFamily: 'poppins',
                   color: Colors.black,
                 ),
@@ -88,13 +88,13 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                   labelText: "NIK Petugas",
                   labelStyle: TextStyle(
                     color: AppColor.secondarySoft,
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                   floatingLabelBehavior: FloatingLabelBehavior.always,
                   border: InputBorder.none,
                   hintText: "NIK KTP",
                   hintStyle: TextStyle(
-                    fontSize: 14,
+                    fontSize: 15,
                     fontFamily: 'poppins',
                     fontWeight: FontWeight.w500,
                     color: AppColor.secondarySoft,
@@ -118,25 +118,24 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   autofocus: true,
                   controller: controller.namaC,
-                  focusNode: controller.namaFocusNode,
                   keyboardType: TextInputType.name,
                   decoration: InputDecoration(
                     label: Text(
                       "Nama Petugas",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Nama Lengkap",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -159,7 +158,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tlpC,
                   keyboardType: TextInputType.phone,
@@ -168,14 +167,14 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                       "No Telepon",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "No Telepon",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -198,7 +197,7 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.emailC,
                   keyboardType: TextInputType.emailAddress,
@@ -207,14 +206,14 @@ class DetailPetugasView extends GetView<DetailPetugasController> {
                       "Email",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Email",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,

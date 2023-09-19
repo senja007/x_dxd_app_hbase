@@ -4,6 +4,7 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -74,10 +75,21 @@ class DetailHewanController extends GetxController {
     
   }
 
+  
+  Future<void> tombolEdit() async {
+    isEditing.value = true;
+    update();
+  }
+
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
+
   Future<void> deleteHewan() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data todo",
-      message: "Apakah anda ingin menghapus data todo ini ?",
+      title: "Hapus data Hewan",
+      message: "Apakah anda ingin menghapus data Hewan ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         Get.back(); // close modal
@@ -103,11 +115,10 @@ class DetailHewanController extends GetxController {
             await HewanApi().editHewanApi(kodeEartagNasionalC.text, noKartuTernakC.text, provinsiC.text, 
             kabupatenC.text, kecamatanC.text, desaC.text, namaPeternakC.text, idPeternakC.text, nikPeternakC.text,
             spesiesC.text, sexC.text, umurC.text, identifikasiHewanC.text, petugasPendaftarC.text, tanggalTerdaftarC.text);
-            await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        if (hewanModel!.status == 200) {
-          update();
-          Get.offAndToNamed(Routes.HOME);
-        }
+        // if (hewanModel!.status == 200) {
+        //   update();
+        //   Get.offAndToNamed(Routes.HOME);
+        //}
       },
     );
   }

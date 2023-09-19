@@ -71,6 +71,17 @@ class DetailInseminasiController extends GetxController {
     inseminatorC.text = argsData["inseminator"];
   }
 
+  
+  Future<void> tombolEdit() async {
+    isEditing.value = true;
+    update();
+  }
+
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
+
   Future<void> deletePost() async {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data todo",

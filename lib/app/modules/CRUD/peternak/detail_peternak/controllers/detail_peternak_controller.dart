@@ -47,6 +47,18 @@ class DetailPeternakController extends GetxController {
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
   }
 
+
+  
+  Future<void> tombolEdit() async {
+    isEditing.value = true;
+    update();
+  }
+
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
+
   Future<void> deletePeternak() async {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data Peternak",

@@ -1,53 +1,50 @@
 class PKBModel {
   final int? status;
-  final int? id;
+
   final String? idKejadian;
-  final String? idHewan;
+  final String? tanggalPkb;
+  final String? lokasi;
+  final String? namaPeternak;
   final String? idPeternak;
   final String? nikPeternak;
-  final String? namaPeternak;
-  final String? jumlah;
-  final String? kategori;
-  final String? lokasi;
+  final String? idHewan;
   final String? spesies;
+  final String? kategori;
+  final String? jumlah;
   final String? umurKebuntingan;
   final String? pemeriksaKebuntingan;
-  final String? tanggalPkb;
 
   PKBModel({
     this.status,
-    this.id,
     this.idKejadian,
-    this.idHewan,
+    this.tanggalPkb,
+    this.lokasi,
+    this.namaPeternak,
     this.idPeternak,
     this.nikPeternak,
-    this.namaPeternak,
-    this.jumlah,
-    this.kategori,
-    this.lokasi,
+    this.idHewan,
     this.spesies,
+    this.kategori,
+    this.jumlah,
     this.umurKebuntingan,
     this.pemeriksaKebuntingan,
-    this.tanggalPkb,
-    
   });
 
   factory PKBModel.fromJson(Map<String, dynamic> jsonData) {
     return PKBModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
-      id: jsonData['id'] != null ? jsonData['id'] : 0,
       idKejadian: jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
-      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
-      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
-      nikPeternak: jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
-      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
-      umurKebuntingan: jsonData['umurKebuntingan'] != null ? jsonData['umurKebuntingan'] : "",
-      pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] != null ? jsonData['pemeriksaKebuntingan'] : "",
       tanggalPkb: jsonData['tanggalPkb'] != null ? jsonData['tanggalPkb'] : "",
+      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      namaPeternak:jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
+      nikPeternak:jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
+      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
+      spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
+      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
+      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
+      umurKebuntingan: jsonData['umurKebuntingan'] != null? jsonData['umurKebuntingan']: "",
+      pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] != null? jsonData['pemeriksaKebuntingan']: "",
     );
   }
 }

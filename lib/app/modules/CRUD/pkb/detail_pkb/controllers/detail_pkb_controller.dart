@@ -10,6 +10,8 @@ class DetailPkbController extends GetxController {
   PKBModel? pkbModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxBool isEditing = false.obs;
+  
 
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -56,6 +58,17 @@ class DetailPkbController extends GetxController {
     pemeriksaKebuntinganC.text = argsData["detail_pemeriksa"];
     tanggalPkbC.text = argsData["detail_tanggal"];
   }
+
+  
+  Future<void> tombolEdit() async {
+    isEditing.value = true;
+    update();
+  }
+
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
 
   Future<void> deletePost() async {
     CustomAlertDialog.showPresenceAlert(

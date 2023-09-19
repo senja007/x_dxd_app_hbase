@@ -52,6 +52,17 @@ class DetailPengobatanController extends GetxController {
     diagnosaBandingC.text = argsData["diagnosaBanding"];
   }
 
+  
+  Future<void> tombolEdit() async {
+    isEditing.value = true;
+    update();
+  }
+
+  Future<void> tutupEdit() async {
+    isEditing.value = false;
+  }
+
+
   Future<void> deletePengobatan() async {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data Pengobatan",

@@ -2,28 +2,13 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
+
 
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
   
-TextEditingController _dateController = TextEditingController();
-late DateTime selectedDate = DateTime.now();
 
-Future<void> _selectDate(BuildContext context) async {
-  final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2101),
-    );
-
- if (picked != null && picked != selectedDate) {
-    selectedDate = picked;
-    _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
-  }
-}
 
   // @override
   // void initState() {
@@ -549,13 +534,13 @@ Future<void> _selectDate(BuildContext context) async {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
-                controller: _dateController, //editing controller of this TextField
+                controller: controller.tanggalTerdaftarC, //editing controller of this TextField
                 decoration: InputDecoration( 
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Terdaftar" //label text of field
                 ),
                 readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => _selectDate(context),
+                onTap: () => controller.tanggalTerdaftar(context),
                 // async {
                 //   DateTime? pickedDate = await showDatePicker(
                 //       context: context, initialDate: DateTime.now(),
