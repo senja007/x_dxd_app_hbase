@@ -21,7 +21,7 @@ Future<void> _selectDate(BuildContext context) async {
 
  if (picked != null && picked != selectedDate) {
     selectedDate = picked;
-    _dateController.text = DateFormat('yyyy-MM-dd').format(picked);
+    _dateController.text = DateFormat('dd/MM/yyyy').format(picked);
   }
 }
 
