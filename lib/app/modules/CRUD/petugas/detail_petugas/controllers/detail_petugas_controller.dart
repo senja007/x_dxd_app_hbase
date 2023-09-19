@@ -3,7 +3,6 @@ import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 class DetailPetugasController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
@@ -12,6 +11,11 @@ class DetailPetugasController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
   late FocusNode namaFocusNode;
+
+  String originalNik = "";
+  String originalNama = "";
+  String originalTlp = "";
+  String originalEmail = "";
 
   TextEditingController nikC = TextEditingController();
   TextEditingController namaC = TextEditingController();
@@ -32,10 +36,17 @@ class DetailPetugasController extends GetxController {
     namaFocusNode = FocusNode();
     super.onInit();
 
+    // Buat Detail Data
     nikC.text = argsData["nikPetugas"];
     namaC.text = argsData["namaPetugas"];
     tlpC.text = argsData["noTelp"];
     emailC.text = argsData["email"];
+
+    // Buat batal edit
+    originalNik = argsData["nikPetugas"];
+    originalNama = argsData["namaPetugas"];
+    originalTlp = argsData["noTelp"];
+    originalEmail = argsData["email"];
   }
 
   Future<void> tombolEdit() async {
@@ -44,7 +55,21 @@ class DetailPetugasController extends GetxController {
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        nikC.text = originalNik;
+        namaC.text = originalNama;
+        tlpC.text = originalTlp;
+        emailC.text = originalEmail;
+        isEditing.value = false;
+      },
+    );
   }
 
   Future<void> deletePost() async {
