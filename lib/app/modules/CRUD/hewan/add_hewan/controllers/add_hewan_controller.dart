@@ -30,7 +30,7 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
-  //TextEditingController tanggalTerdaftarC = TextEditingController();
+  TextEditingController tanggalTerdaftarC = TextEditingController();
 
  
 
@@ -58,11 +58,11 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
       isLoading.value = true;
 
       if (kodeEartagNasionalC.text.isEmpty) {
-        throw "NIK tidak boleh kosong.";
+        throw "Kode Eartag tidak boleh kosong.";
       }
 
       if (nikPeternakC.text.isEmpty) {
-        throw "Nama tidak boleh kosong.";
+        throw "Nik tidak boleh kosong.";
       }
 
       hewanModel = await HewanApi().addHewanAPI(
@@ -112,7 +112,7 @@ TextEditingController kodeEartagNasionalC = TextEditingController();
     formattedDate.value = newDate;
   }
 
-  TextEditingController tanggalTerdaftarC = TextEditingController();
+  
 late DateTime selectedDate = DateTime.now();
 
 Future<void> tanggalTerdaftar (BuildContext context) async {

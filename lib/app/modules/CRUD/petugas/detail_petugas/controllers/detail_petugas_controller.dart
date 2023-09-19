@@ -1,9 +1,12 @@
+import 'dart:math';
+
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
-import 'package:flutter/widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
+import 'package:get_storage/get_storage.dart';
+ 
 class DetailPetugasController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
   PetugasModel? petugasModel;
@@ -22,79 +25,75 @@ class DetailPetugasController extends GetxController {
   TextEditingController emailC = TextEditingController();
 
   @override
-  onClose() {
+  void onClose() {
     nikC.dispose();
     namaC.dispose();
     tlpC.dispose();
     emailC.dispose();
+    super.onClose();
   }
 
   @override
   void onInit() {
-    super.onInit();
-
-    // Buat Detail Data
     nikC.text = argsData["nikPetugas"];
     namaC.text = argsData["namaPetugas"];
-    tlpC.text = argsData["noTelp"];
+    tlpC.text = argsData["noTlp"];
     emailC.text = argsData["email"];
 
-    // Buat batal edit
     originalNik = argsData["nikPetugas"];
     originalNama = argsData["namaPetugas"];
-    originalTlp = argsData["noTelp"];
-    originalEmail = argsData["email"];
+    originalTlp = argsData["noTlp"];
+   originalEmail = argsData["email"];
+
+    super.onInit();
   }
 
-  Future<void> tombolEdit() async {
+  Future<void> tombolEdit()async{
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Batal Edit",
-      message: "Apakah anda ingin keluar dari edit ?",
-      onCancel: () => Get.back(),
+      title: "Batal Edit", 
+      message: "Apakah anda ingin keluar dari edit?", 
       onConfirm: () async {
         Get.back();
         update();
-        // Reset data ke yang sebelumnya
         nikC.text = originalNik;
         namaC.text = originalNama;
         tlpC.text = originalTlp;
         emailC.text = originalEmail;
-        isEditing.value = false;
-      },
+        isEditing.value= true;
+      }, 
+      onCancel: () => Get.back(),
     );
   }
 
   Future<void> deletePost() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data Petugas",
-      message: "Apakah anda ingin menghapus data Petugas ini ?",
-      onCancel: () => Get.back(),
+      title: "Delete Data", 
+      message: "Apakah anda ingin menghapus data petugas ini?", 
       onConfirm: () async {
-        Get.back(); // close modal
+        Get.back();
         update();
-        petugasModel =
-            await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
-      },
+       petugasModel = await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
+      }, 
+      onCancel: () => Get.back(),
     );
   }
 
   Future<void> editPetugas() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "edit data Petugas",
-      message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
-      onCancel: () => Get.back(),
+      title: "Edit Data Peetugas", 
+      message: "Apakah anda ingin mengedit data petugas ini?", 
       onConfirm: () async {
-        Get.back(); // close modal
+        Get.back();
         update();
-        petugasModel = await PetugasApi()
-            .editPetugasApi(nikC.text, namaC.text, tlpC.text, emailC.text);
-        isEditing.value = false;
-      },
+        petugasModel = await PetugasApi().editPetugasApi(nikC.text,
+         namaC.text, tlpC.text, emailC.text);
+      }, 
+      onCancel: () => Get.back(),
     );
-  }
+  } 
 }
