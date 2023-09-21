@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,6 +34,9 @@ class HomeView extends GetView<HomeController> {
             .light, // Use Brightness.dark if your primary color is light
       ),
     );
+
+  
+  
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
@@ -48,6 +52,7 @@ class HomeView extends GetView<HomeController> {
         child: SingleChildScrollView(
           child: Container(
             child: Column(
+              
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(10),
@@ -131,16 +136,16 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildCardWidget("assets/images/cow.png", "118", "Ternak"),
+                    _buildCardWidget("assets/images/cow.png", "${controller.posts1?.totalElements ?? 0}", "Ternak"),
                     SizedBox(width: 12),
-                    _buildCardWidget("assets/images/man.png", "56", "Peternak"),
+                    _buildCardWidget("assets/images/man.png", "${controller.posts2?.totalElements}", "Peternak"),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     _buildCardWidget(
-                        "assets/images/people.png", "20", "Petugas"),
+                        "assets/images/people.png", "${controller.posts?.totalElements ?? 0}", "Petugas"),
                     SizedBox(width: 12),
                     _buildCardWidget(
                         "assets/images/house.png", "38", "Kandang"),
@@ -167,8 +172,8 @@ class HomeView extends GetView<HomeController> {
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: InkWell(
-          onTap: () => Navigator.pushNamed(
-              AddHewanController() as BuildContext, '/homePage'),
+          // onTap: () => Navigator.pushNamed(
+          //     AddHewanController() as BuildContext, '/homePage'),
           child: Column(
             children: [
               Padding(

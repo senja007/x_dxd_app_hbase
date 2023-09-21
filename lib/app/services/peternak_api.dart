@@ -12,19 +12,25 @@ import 'package:http/http.dart' as http;
 
 class PeternakApi extends SharedApi {
   // Login API
-  Future<PeternakListModel> loadPeternakAPI() async {
+  Future<PeternakListModel> loadPeternakApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/peternak'), headers: getToken());
+          await http.get(Uri.parse(baseUrl + '/hewan'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        //print(jsonData['content']);
+        // print(jsonData['content']);
 
-        return PeternakListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return PeternakListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return PeternakListModel.fromJson(
             {"status": data.statusCode, "content": []});
