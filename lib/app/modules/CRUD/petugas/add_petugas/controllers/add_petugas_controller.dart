@@ -1,9 +1,12 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/petugas/bindings/petugas_binding.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+
+import '../../../../menu/petugas/controllers/petugas_controller.dart';
 
 class AddPetugasController extends GetxController {
   PetugasModel? petugasModel;
@@ -37,15 +40,22 @@ class AddPetugasController extends GetxController {
       petugasModel = await PetugasApi()
           .addPetugasApi(nikC.text, namaC.text, notlpC.text, emailC.text);
 
-      // if (petugasModel != null) {
-      //   if (petugasModel?.status == 200) {
-      //     // Petugas berhasil ditambahkan, tambahkan logika tambahan di sini jika diperlukan.
-      //   } else if (petugasModel?.status == 404) {
-      //     throw "Gagal menambahkan petugas: Data tidak ditemukan.";
-      //   } else {
-      //     throw "Gagal menambahkan petugas dengan status ${petugasModel?.status}";
-      //   }
-      // }
+      if (petugasModel != null) {
+        if (petugasModel?.status == 201) {
+          final PetugasController petugasController =
+              Get.put(PetugasController());
+
+          petugasController.reInitialize();
+
+          Get.back();
+
+          // Petugas berhasil ditambahkan, tambahkan logika tambahan di sini jika diperlukan.
+        } else if (petugasModel?.status == 404) {
+          throw "Gagal menambahkan petugas: Data tidak ditemukan.";
+        } else {
+          throw "Gagal menambahkan petugas dengan status ${petugasModel?.status}";
+        }
+      }
     } catch (e) {
       // Tangani error di sini
       showCupertinoDialog(

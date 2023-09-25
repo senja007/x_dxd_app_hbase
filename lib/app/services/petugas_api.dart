@@ -92,8 +92,14 @@ class PetugasApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
-        Get.back();
-        return PetugasModel.fromJson(jsonData);
+
+        return PetugasModel.fromJson({
+          "status": 201,
+          "nikPetugas": jsonData['nikPetugas'],
+          "namaPetugas": jsonData['namaPetugas'],
+          "noTelp": jsonData['noTelp'],
+          "email": jsonData['email'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; //PetugasModel.fromJson({"status": data.statusCode});
@@ -129,8 +135,8 @@ class PetugasApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return PetugasModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);

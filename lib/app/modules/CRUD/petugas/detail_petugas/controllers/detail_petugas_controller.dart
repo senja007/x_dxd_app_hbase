@@ -4,6 +4,8 @@ import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
+import '../../../../menu/petugas/controllers/petugas_controller.dart';
+
 class DetailPetugasController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
   PetugasModel? petugasModel;
@@ -75,10 +77,15 @@ class DetailPetugasController extends GetxController {
       message: "Apakah anda ingin menghapus data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         petugasModel =
             await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
+        final PetugasController petugasController =
+            Get.put(PetugasController());
+
+        petugasController.reInitialize();
+        Get.back();
+        Get.back(); // close modal
+        update();
       },
     );
   }

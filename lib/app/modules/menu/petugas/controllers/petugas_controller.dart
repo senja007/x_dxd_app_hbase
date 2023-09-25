@@ -17,6 +17,10 @@ class PetugasController extends GetxController {
     loadPetugas();
   }
 
+  void reInitialize() {
+    onInit();
+  }
+
   loadPetugas() async {
     homeScreen = false;
     update();
