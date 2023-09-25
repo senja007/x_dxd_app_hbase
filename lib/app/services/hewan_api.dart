@@ -9,8 +9,6 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import '../data/hewan_model.dart';
-
 class HewanApi extends SharedApi {
   // Login API
   Future<HewanListModel> loadHewanApi() async {

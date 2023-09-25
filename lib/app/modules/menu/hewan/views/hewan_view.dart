@@ -9,7 +9,9 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 
 class HewanView extends GetView<HewanController> {
-  const HewanView({Key? key}) : super(key: key);
+  final HewanController hewanController = Get.find();
+
+  // const HewanView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return GetBuilder<HewanController>(
@@ -17,6 +19,7 @@ class HewanView extends GetView<HewanController> {
         onRefresh: () async {
           await controller.loadHewan();
         },
+        
         child: Scaffold(
           backgroundColor: AppColor.primary,
           appBar: AppBar(
@@ -26,6 +29,31 @@ class HewanView extends GetView<HewanController> {
                 color: AppColor.secondaryExtraSoft,
               ),
             ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.search),
+                onPressed: () {
+                  // Get.defaultDialog(
+                  //   title: 'Cari Data Hewan',
+                  //   content: TextField(
+                  //     // Konfigurasi TextField untuk pencarian
+                  //     decoration: InputDecoration(
+                  //       hintText: 'Masukkan kode Eartag Nasional',
+                  //     ),
+                  //   ),
+                  //   actions: [
+                  //     ElevatedButton(
+                  //       onPressed: () {
+                  //         // Tambahkan logika pencarian di sini
+                  //         Get.back(); // Tutup dialog
+                  //       },
+                  //       child: Text('Cari'),
+                  //     ),
+                  //   ],
+                  // );
+                },
+              ),
+            ],
             backgroundColor: Color(0xff132137),
             elevation: 0,
             centerTitle: true,
@@ -38,6 +66,35 @@ class HewanView extends GetView<HewanController> {
               ),
             ),
           ),
+          // floatingActionButton: FloatingActionButton(
+          //   tooltip: 'Search people',
+          //   onPressed: () => showSearch(
+          //     context: context,
+          //     delegate: SearchPage(
+          //       onQueryUpdate: print,
+          //       items: people,
+          //       searchLabel: 'Search people',
+          //       suggestion: const Center(
+          //         child: Text('Filter people by name, surname or age'),
+          //       ),
+          //       failure: const Center(
+          //         child: Text('No person found :('),
+          //       ),
+          //       filter: (person) => [
+          //         person.name,
+          //         person.surname,
+          //         person.age.toString(),
+          //       ],
+          //       sort: (a, b) => a.compareTo(b),
+          //       builder: (person) => ListTile(
+          //         title: Text(person.name),
+          //         subtitle: Text(person.surname),
+          //         trailing: Text('${person.age} yo'),
+          //       ),
+          //     ),
+          //   ),
+          //   child: const Icon(Icons.search),
+          // ),
           //body: Container(),
           body: GetBuilder<HewanController>(
             builder: (controller) => controller.posts?.status == 200
@@ -51,6 +108,38 @@ class HewanView extends GetView<HewanController> {
                             SizedBox(height: 8),
                         itemBuilder: (context, index) {
                           var postData = controller.posts!.content![index];
+                          child : Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: TextField(
+                                  onChanged: (query) {
+                                    hewanController.searchQuery.value = query;
+                                    hewanController.filterHewan();
+                                  },
+                                  decoration: InputDecoration(
+                                    labelText: 'Cari Item',
+                                    border: OutlineInputBorder(),
+                                  ),
+                                ),
+                              ),
+                              Expanded(
+                                child: GetBuilder<HewanController>(
+                                  builder: (controller) {
+                                    return ListView.builder(
+                                      itemCount: controller.filteredHewan.length,
+                                      itemBuilder: (context, index) {
+                                        final hewan = controller.filteredHewan[index];
+                                        return ListTile(
+                                          title: Text(hewan.noKartuTernak!),
+                                        );
+                                      },
+                                    );
+                                  },
+                                ),
+                              ),
+                            ],
+                          );
                           return InkWell(
                             onTap: () => {
                               Get.toNamed(
