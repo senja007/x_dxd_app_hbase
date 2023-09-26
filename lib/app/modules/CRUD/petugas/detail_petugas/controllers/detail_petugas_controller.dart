@@ -79,12 +79,12 @@ class DetailPetugasController extends GetxController {
       onConfirm: () async {
         petugasModel =
             await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
+
         final PetugasController petugasController =
             Get.put(PetugasController());
-
         petugasController.reInitialize();
         Get.back();
-        Get.back(); // close modal
+        Get.back();
         update();
       },
     );

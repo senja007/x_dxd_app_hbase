@@ -1,10 +1,8 @@
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
-import 'package:http/http.dart';
 
 class PetugasController extends GetxController {
   PetugasListModel? posts;

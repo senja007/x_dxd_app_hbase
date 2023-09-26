@@ -1,8 +1,9 @@
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
@@ -47,32 +48,35 @@ class AddVaksinController extends GetxController {
   }
 
   Future addPost() async {
-    try{
+    try {
       isLoading.value = true;
       vaksinModel = await VaksinApi().addVaksinAPI(
-        idVaksinC.text,
-        eartagC.text,
-        idHewanC.text,
-        idPembuatanC.text,
-        idPejantanC.text,
-        bangsaPejantanC.text,
-        ib1C.text,
-        ib2C.text,
-        ib3C.text,
-        ibLainC.text,
-        produsenC.text,
-        idPeternakC.text,
-        namaPeternakC.text,
-        lokasiC.text,
-        inseminatorC.text,
-        tanggalIBC.text
-      );
+          idVaksinC.text,
+          eartagC.text,
+          idHewanC.text,
+          idPembuatanC.text,
+          idPejantanC.text,
+          bangsaPejantanC.text,
+          ib1C.text,
+          ib2C.text,
+          ib3C.text,
+          ibLainC.text,
+          produsenC.text,
+          idPeternakC.text,
+          namaPeternakC.text,
+          lokasiC.text,
+          inseminatorC.text,
+          tanggalIBC.text);
 
       if (vaksinModel != null) {
-        if (vaksinModel!.status == 200) {
-          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
-        } else if (vaksinModel!.status == 404) {
-          // Handle status 404
+        if (vaksinModel!.status == 201) {
+          final VaksinController vaksinController = Get.put(VaksinController());
+          vaksinController.reInitialize();
+          Get.back();
+          showSuccessMessage("Data Vaksin Baru Berhasil ditambahkan");
+        } else {
+          showErrorMessage(
+              "Gagal menambahkan Data Vaksin dengan status ${vaksinModel?.status}");
         }
       }
     } catch (e) {
@@ -80,5 +84,5 @@ class AddVaksinController extends GetxController {
     } finally {
       isLoading.value = false;
     }
-    }
   }
+}

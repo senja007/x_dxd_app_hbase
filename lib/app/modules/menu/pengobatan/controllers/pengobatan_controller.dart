@@ -15,6 +15,10 @@ class PengobatanController extends GetxController {
     loadPengobatan();
   }
 
+  void reInitialize() {
+    onInit();
+  }
+
   Future<void> refreshPengobatan() async {
     posts = await PengobatanApi().loadPengobatanAPI();
     update();

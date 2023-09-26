@@ -16,6 +16,10 @@ class InseminasiController extends GetxController {
     loadInseminasi();
   }
 
+  void reInitialize() {
+    onInit();
+  }
+
   Future<void> refreshInseminasi() async {
     posts = await InseminasiApi().loadInseminasiAPI();
     update();

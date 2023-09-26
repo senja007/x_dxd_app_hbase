@@ -57,21 +57,19 @@ class PKBView extends GetView<PKBController> {
                               Get.toNamed(
                                 Routes.DETAILPKB,
                                 arguments: {
-                                  "detail_id_kejadian":
-                                      "${postData.idKejadian}",
-                                  "detail_id_hewan": "${postData.idHewan}",
-                                  "detail_id_peternak":
-                                      "${postData.idPeternak}",
-                                  "detail_nik": "${postData.nikPeternak}",
-                                  "detail_nama": "${postData.namaPeternak}",
-                                  "detail_jumlah": "${postData.jumlah}",
-                                  "detail_kategori": "${postData.kategori}",
-                                  "detail_lokasi": "${postData.lokasi}",
-                                  "detail_spesies": "${postData.spesies}",
-                                  "detail_umur": "${postData.umurKebuntingan}",
-                                  "detail_pemeriksa":
+                                  "id_kejadian": "${postData.idKejadian}",
+                                  "id_hewan": "${postData.idHewan}",
+                                  "id_peternak": "${postData.idPeternak}",
+                                  "nik": "${postData.nikPeternak}",
+                                  "nama": "${postData.namaPeternak}",
+                                  "jumlah": "${postData.jumlah}",
+                                  "kategori": "${postData.kategori}",
+                                  "lokasi": "${postData.lokasi}",
+                                  "spesies": "${postData.spesies}",
+                                  "umur": "${postData.umurKebuntingan}",
+                                  "pemeriksa":
                                       "${postData.pemeriksaKebuntingan}",
-                                  "detail_tanggal": "${postData.tanggalPkb}"
+                                  "tanggal": "${postData.tanggalPkb}"
                                 },
                               ),
                             },

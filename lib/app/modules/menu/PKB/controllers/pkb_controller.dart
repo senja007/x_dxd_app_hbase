@@ -15,6 +15,10 @@ class PKBController extends GetxController {
     loadPKB();
   }
 
+  void reInitialize() {
+    onInit();
+  }
+
   Future<void> refreshPKB() async {
     posts = await PKBApi().loadPKBAPI();
     update();

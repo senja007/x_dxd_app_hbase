@@ -11,7 +11,7 @@ class HewanController extends GetxController {
   final box = GetStorage();
   bool homeScreen = false;
 
-  var hewan= <HewanModel>[].obs; // Daftar item dari API
+  var hewan = <HewanModel>[].obs; // Daftar item dari API
   var filteredHewan = <HewanModel>[].obs; // Daftar item yang telah difilter
   var searchQuery = ''.obs; // Query pencarian
 
@@ -20,6 +20,10 @@ class HewanController extends GetxController {
     fetchHewan(); // Panggil fungsi untuk mengambil data dari API saat inisialisasi
     loadHewan();
     super.onInit();
+  }
+
+  void reInitialize() {
+    onInit();
   }
 
   loadHewan() async {

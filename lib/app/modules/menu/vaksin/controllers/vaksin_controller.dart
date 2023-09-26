@@ -15,6 +15,10 @@ class VaksinController extends GetxController {
     loadVaksin();
   }
 
+  void reInitialize() {
+    onInit();
+  }
+
   loadVaksin() async {
     homeScreen = false;
     update();

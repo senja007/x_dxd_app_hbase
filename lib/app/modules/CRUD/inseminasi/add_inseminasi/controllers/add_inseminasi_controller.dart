@@ -1,5 +1,8 @@
 import 'package:crud_flutter_api/app/data/inseminasi_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/inseminasi_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import '../../../../../services/inseminasi_api.dart';
@@ -48,28 +51,33 @@ class AddInseminasiController extends GetxController {
     try {
       isLoading.value = true;
       inseminasiModel = await InseminasiApi().addInseminasiAPI(
-        idInseminasiC.text, 
-        eartagC.text, 
-        idHewanC.text, 
-        idPembuatanC.text,
-        idPejantanC.text,
-        bangsaPejantanC.text,
-        ib1C.text,
-        ib2C.text,
-        ib3C.text,
-        ibLainC.text,
-        produsenC.text,
-        idPeternakC.text,
-        namaPeternakC.text,
-        lokasiC.text,
-        inseminatorC.text,
-        tanggalIBC.text);
+          idInseminasiC.text,
+          eartagC.text,
+          idHewanC.text,
+          idPembuatanC.text,
+          idPejantanC.text,
+          bangsaPejantanC.text,
+          ib1C.text,
+          ib2C.text,
+          ib3C.text,
+          ibLainC.text,
+          produsenC.text,
+          idPeternakC.text,
+          namaPeternakC.text,
+          lokasiC.text,
+          inseminatorC.text,
+          tanggalIBC.text);
 
       if (inseminasiModel != null) {
-        if (inseminasiModel!.status == 200) {
-          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
+        if (inseminasiModel!.status == 201) {
+          final InseminasiController inseminasiController =
+              Get.put(InseminasiController());
+          inseminasiController.reInitialize();
+          Get.back();
+          showSuccessMessage("Data Inseminasi Baru Berhasil ditambahkan");
         } else if (inseminasiModel!.status == 404) {
-          // Handle status 404
+          showErrorMessage(
+              "Gagal menambahkan Data Inseminasi dengan status ${inseminasiModel?.status}");
         }
       }
     } catch (e) {

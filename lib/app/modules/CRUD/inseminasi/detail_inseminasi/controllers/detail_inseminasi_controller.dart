@@ -1,5 +1,5 @@
 import 'package:crud_flutter_api/app/data/inseminasi_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/inseminasi_controller.dart';
 import 'package:crud_flutter_api/app/services/inseminasi_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -29,6 +29,24 @@ class DetailInseminasiController extends GetxController {
   TextEditingController bangsaPejantanC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
+
+  String originalIdInseminasi = "";
+  String originalTanggalIB = "";
+  String originalLokasi = "";
+  String originalNamaPeternak = "";
+  String originalIdPeternak = "";
+  String originalIdHewan = "";
+  String originalEartag = "";
+  String originalIb1 = "";
+  String originalIb2 = "";
+  String originalIb3 = "";
+  String originalIbLain = "";
+  String originalIdPejantan = "";
+  String originalIdPembuatan = "";
+  String originalBangsaPejantan = "";
+  String originalProdusen = "";
+  String originalInseminator = "";
+
   @override
   onClose() {
     idInseminasiC.dispose();
@@ -69,33 +87,106 @@ class DetailInseminasiController extends GetxController {
     bangsaPejantanC.text = argsData["bangsaPejantan"];
     produsenC.text = argsData["produsen"];
     inseminatorC.text = argsData["inseminator"];
+
+    originalIdInseminasi = argsData["idInseminasi"];
+    originalTanggalIB = argsData["tanggalIB"];
+    originalLokasi = argsData["lokasi"];
+    originalNamaPeternak = argsData["namaPeternak"];
+    originalIdPeternak = argsData["idPeternak"];
+    originalIdHewan = argsData["idHewan"];
+    originalEartag = argsData["eartag"];
+    originalIb1 = argsData["ib1"];
+    originalIb2 = argsData["ib2"];
+    originalIb3 = argsData["ib3"];
+    originalIbLain = argsData["ibLain"];
+    originalIdPejantan = argsData["idPejantan"];
+    originalIdPembuatan = argsData["idPembuatan"];
+    originalBangsaPejantan = argsData["bangsaPejantan"];
+    originalProdusen = argsData["produsen"];
+    originalInseminator = argsData["inseminator"];
   }
 
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idInseminasiC.text = originalIdInseminasi;
+        tanggalIBC.text = originalTanggalIB;
+        lokasiC.text = originalLokasi;
+        namaPeternakC.text = originalNamaPeternak;
+        idPeternakC.text = originalIdPeternak;
+        idHewanC.text = originalIdHewan;
+        eartagC.text = originalEartag;
+        ib1C.text = originalIb1;
+        ib2C.text = originalIb2;
+        ib3C.text = originalIb3;
+        ibLainC.text = originalIbLain;
+        idPejantanC.text = originalIdPejantan;
+        idPembuatanC.text = originalIdPembuatan;
+        bangsaPejantanC.text = originalBangsaPejantan;
+        produsenC.text = originalProdusen;
+        inseminatorC.text = originalInseminator;
+
+        isEditing.value = false;
+      },
+    );
   }
 
-
-  Future<void> deletePost() async {
+  Future<void> deleteInseminasi() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data todo",
-      message: "Apakah anda ingin menghapus data todo ini ?",
+      title: "Hapus data Insemiansi",
+      message: "Apakah anda ingin menghapus data Inseminasi ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        inseminasiModel =
+            await InseminasiApi().deleteInseminasiAPI(argsData["idInseminasi"]);
+        final InseminasiController inseminasiController =
+            Get.put(InseminasiController());
+        inseminasiController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
+      },
+    );
+  }
+
+  Future<void> editInseminasi() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "edit data Inseminasi",
+      message: "Apakah anda ingin mengedit data Inseminasi ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        inseminasiModel =
-            await InseminasiApi().deleteInseminasiAPI(argsData["id"]);
-        if (inseminasiModel!.status == 200) {
-          update();
-          Get.offAndToNamed(Routes.HOME);
-        }
+        inseminasiModel = await InseminasiApi().editInseminasiApi(
+          idInseminasiC.text,
+          tanggalIBC.text,
+          lokasiC.text,
+          namaPeternakC.text,
+          idPeternakC.text,
+          idHewanC.text,
+          eartagC.text,
+          ib1C.text,
+          ib2C.text,
+          ib3C.text,
+          ibLainC.text,
+          idPejantanC.text,
+          idPembuatanC.text,
+          bangsaPejantanC.text,
+          produsenC.text,
+          inseminatorC.text,
+        );
+        isEditing.value = false;
       },
     );
   }

@@ -1,7 +1,7 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
-import 'package:crud_flutter_api/app/modules/menu/petugas/bindings/petugas_binding.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -44,16 +44,12 @@ class AddPetugasController extends GetxController {
         if (petugasModel?.status == 201) {
           final PetugasController petugasController =
               Get.put(PetugasController());
-
           petugasController.reInitialize();
-
           Get.back();
-
-          // Petugas berhasil ditambahkan, tambahkan logika tambahan di sini jika diperlukan.
-        } else if (petugasModel?.status == 404) {
-          throw "Gagal menambahkan petugas: Data tidak ditemukan.";
+          showSuccessMessage("Petugas Baru Berhasil ditambahkan");
         } else {
-          throw "Gagal menambahkan petugas dengan status ${petugasModel?.status}";
+          showErrorMessage(
+              "Gagal menambahkan petugas dengan status ${petugasModel?.status}");
         }
       }
     } catch (e) {

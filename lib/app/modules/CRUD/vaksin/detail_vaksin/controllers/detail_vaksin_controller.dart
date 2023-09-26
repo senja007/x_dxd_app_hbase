@@ -1,6 +1,5 @@
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
+import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -29,6 +28,24 @@ class DetailVaksinController extends GetxController {
   TextEditingController bangsaPejantanC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
+
+  String originalIdVaksin = "";
+  String originalTanggalIB = "";
+  String originalLokasi = "";
+  String originalNamaPeternak = "";
+  String originalIdPeternak = "";
+  String originalIdHewan = "";
+  String originalEartag = "";
+  String originalIb1 = "";
+  String originalIb2 = "";
+  String originalIb3 = "";
+  String originalIbLain = "";
+  String originalIdPejantan = "";
+  String originalIdPembuatan = "";
+  String originalBangsaPejantan = "";
+  String originalProdusen = "";
+  String originalInseminator = "";
+
   @override
   onClose() {
     idVaksinC.dispose();
@@ -69,19 +86,60 @@ class DetailVaksinController extends GetxController {
     bangsaPejantanC.text = argsData["bangsaPejantan"];
     produsenC.text = argsData["produsen"];
     inseminatorC.text = argsData["inseminator"];
+
+    originalIdVaksin = argsData["idVaksin"];
+    originalTanggalIB = argsData["tanggalIB"];
+    originalLokasi = argsData["lokasi"];
+    originalNamaPeternak = argsData["namaPeternak"];
+    originalIdPeternak = argsData["idPeternak"];
+    originalIdHewan = argsData["idHewan"];
+    originalEartag = argsData["eartag"];
+    originalIb1 = argsData["ib1"];
+    originalIb2 = argsData["ib2"];
+    originalIb3 = argsData["ib3"];
+    originalIbLain = argsData["ibLain"];
+    originalIdPejantan = argsData["idPejantan"];
+    originalIdPembuatan = argsData["idPembuatan"];
+    originalBangsaPejantan = argsData["bangsaPejantan"];
+    originalProdusen = argsData["produsen"];
+    originalInseminator = argsData["inseminator"];
   }
 
-
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
-  }
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idVaksinC.text = originalIdVaksin;
+        tanggalIBC.text = originalTanggalIB;
+        lokasiC.text = originalLokasi;
+        namaPeternakC.text = originalNamaPeternak;
+        idPeternakC.text = originalIdPeternak;
+        idHewanC.text = originalIdHewan;
+        eartagC.text = originalEartag;
+        ib1C.text = originalIb1;
+        ib2C.text = originalIb2;
+        ib3C.text = originalIb3;
+        ibLainC.text = originalIbLain;
+        idPejantanC.text = originalIdPejantan;
+        idPembuatanC.text = originalIdPembuatan;
+        bangsaPejantanC.text = originalBangsaPejantan;
+        produsenC.text = originalProdusen;
+        inseminatorC.text = originalInseminator;
 
+        isEditing.value = false;
+      },
+    );
+  }
 
   Future<void> deleteVaksin() async {
     CustomAlertDialog.showPresenceAlert(
@@ -89,13 +147,12 @@ class DetailVaksinController extends GetxController {
       message: "Apakah anda ingin menghapus data todo ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
+        vaksinModel = await VaksinApi().deleteVaksinApi(argsData["idVaksin"]);
+        final VaksinController vaksinController = Get.put(VaksinController());
+        vaksinController.reInitialize();
+        Get.back();
+        Get.back();
         update();
-        vaksinModel = await VaksinApi().deleteVaksinApi(argsData["id_vaksin"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
       },
     );
   }

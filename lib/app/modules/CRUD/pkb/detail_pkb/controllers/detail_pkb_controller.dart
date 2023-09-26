@@ -1,5 +1,5 @@
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
@@ -11,7 +11,6 @@ class DetailPkbController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
-  
 
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -25,6 +24,20 @@ class DetailPkbController extends GetxController {
   TextEditingController umurKebuntinganC = TextEditingController();
   TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
+
+  String originalIdKejadian = "";
+  String originalIdHewan = "";
+  String originalIdPeternak = "";
+  String originalNikPeternak = "";
+  String originalNamapeternak = "";
+  String originalJumlah = "";
+  String originalKategori = "";
+  String originalLokasi = "";
+  String originalSpesies = "";
+  String originalUmurKebuntingan = "";
+  String originalPemeriksaKebuntingan = "";
+  String originalTanggalPkb = "";
+
   @override
   onClose() {
     idKejadianC.dispose();
@@ -45,40 +58,103 @@ class DetailPkbController extends GetxController {
   void onInit() {
     super.onInit();
 
-    idKejadianC.text = argsData["detail_id_kejadian"];
-    idHewanC.text = argsData["detail_id_hewan"];
-    idPeternakC.text = argsData["detail_id_peternak"];
-    nikPeternakC.text = argsData["detail_nik"];
-    namaPeternakC.text = argsData["detail_nama"];
-    jumlahC.text = argsData["detail_jumlah"];
-    kategoriC.text = argsData["detail_kategori"];
-    lokasiC.text = argsData["detail_lokasi"];
-    spesiesC.text = argsData["detail_spesies"];
-    umurKebuntinganC.text = argsData["detail_umur"];
-    pemeriksaKebuntinganC.text = argsData["detail_pemeriksa"];
-    tanggalPkbC.text = argsData["detail_tanggal"];
+    idKejadianC.text = argsData["id_kejadian"];
+    idHewanC.text = argsData["id_hewan"];
+    idPeternakC.text = argsData["id_peternak"];
+    nikPeternakC.text = argsData["nik"];
+    namaPeternakC.text = argsData["nama"];
+    jumlahC.text = argsData["jumlah"];
+    kategoriC.text = argsData["kategori"];
+    lokasiC.text = argsData["lokasi"];
+    spesiesC.text = argsData["spesies"];
+    umurKebuntinganC.text = argsData["umur"];
+    pemeriksaKebuntinganC.text = argsData["pemeriksa"];
+    tanggalPkbC.text = argsData["tanggal"];
+
+    originalIdKejadian = argsData["id_kejadian"];
+    originalIdHewan = argsData["id_hewan"];
+    originalIdPeternak = argsData["id_peternak"];
+    originalNikPeternak = argsData["nik"];
+    originalNamapeternak = argsData["nama"];
+    originalJumlah = argsData["jumlah"];
+    originalKategori = argsData["kategori"];
+    originalLokasi = argsData["lokasi"];
+    originalLokasi = argsData["spesies"];
+    originalUmurKebuntingan = argsData["umur"];
+    originalPemeriksaKebuntingan = argsData["pemeriksa"];
+    originalTanggalPkb = argsData["tanggal"];
   }
 
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idKejadianC.text = originalIdKejadian;
+        idHewanC.text = originalIdHewan;
+        idPeternakC.text = originalIdPeternak;
+        nikPeternakC.text = originalNikPeternak;
+        namaPeternakC.text = originalNamapeternak;
+        jumlahC.text = originalJumlah;
+        kategoriC.text = originalKategori;
+        lokasiC.text = originalLokasi;
+        spesiesC.text = originalSpesies;
+        umurKebuntinganC.text = originalUmurKebuntingan;
+        pemeriksaKebuntinganC.text = originalPemeriksaKebuntingan;
+        tanggalPkbC.text = originalTanggalPkb;
+
+        isEditing.value = false;
+      },
+    );
   }
 
-
-  Future<void> deletePost() async {
+  Future<void> deletePkb() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data Petugas",
-      message: "Apakah anda ingin menghapus data Petugas ini ?",
+      title: "Hapus data PKB",
+      message: "Apakah anda ingin menghapus data PKB ini ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        pkbModel = await PKBApi().deletePKBAPI(argsData["id_kejadian"]);
+        final PKBController pkbController = Get.put(PKBController());
+        pkbController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
+      },
+    );
+  }
+
+  Future<void> EditPkb() async {
+    CustomAlertDialog.showPresenceAlert(
+      title: "Edit data PKB",
+      message: "Apakah anda ingin mengedit data PKB ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        pkbModel = await PKBApi().deletePKBAPI(argsData["id_kejadian"]);
+        pkbModel = await PKBApi().editPKBApi(
+            idKejadianC.text,
+            idHewanC.text,
+            idPeternakC.text,
+            nikPeternakC.text,
+            namaPeternakC.text,
+            jumlahC.text,
+            kategoriC.text,
+            lokasiC.text,
+            spesiesC.text,
+            umurKebuntinganC.text,
+            pemeriksaKebuntinganC.text,
+            tanggalPkbC.text);
+        isEditing.value = false;
       },
     );
   }
