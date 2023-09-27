@@ -91,8 +91,6 @@ class PetugasApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-
         return PetugasModel.fromJson({
           "status": 201,
           "nikPetugas": jsonData['nikPetugas'],

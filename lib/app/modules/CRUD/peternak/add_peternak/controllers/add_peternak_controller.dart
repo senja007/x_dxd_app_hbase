@@ -1,6 +1,8 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/modules/menu/peternak/controllers/peternak_controller.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -41,10 +43,15 @@ class AddPeternakController extends GetxController {
           tanggalPendaftaranC.text);
 
       if (peternakModel != null) {
-        if (peternakModel!.status == 200) {
-          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
-        } else if (peternakModel!.status == 404) {
-          // Handle status 404
+        if (peternakModel!.status == 201) {
+          final PeternakController peternakController =
+              Get.put(PeternakController());
+          peternakController.reInitialize();
+          Get.back();
+          showSuccessMessage("Peternak Baru berhasil ditambahkan");
+        } else {
+          showErrorMessage(
+              "Gagal menambahkan Peternak dengan status ${peternakModel?.status}");
         }
       }
     } catch (e) {

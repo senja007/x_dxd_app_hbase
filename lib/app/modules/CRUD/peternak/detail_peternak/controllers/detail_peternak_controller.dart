@@ -1,8 +1,6 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/modules/menu/peternak/controllers/peternak_controller.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -22,6 +20,14 @@ class DetailPeternakController extends GetxController {
   TextEditingController lokasiC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
+
+  String originalIdPeternak = "";
+  String originalNikPeternak = "";
+  String originalNamaPeternak = "";
+  String originalIdIskhnas = "";
+  String originalLokasi = "";
+  String originalPetugasPendaftar = "";
+  String originalTanggalPendaftaran = "";
 
   @override
   onClose() {
@@ -45,19 +51,42 @@ class DetailPeternakController extends GetxController {
     lokasiC.text = argsData["lokasi"];
     petugasPendaftarC.text = argsData["petugasPendaftar"];
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
+
+    originalIdPeternak = argsData["idPeternak"];
+    originalNikPeternak = argsData["nikPeternak"];
+    originalNamaPeternak = argsData["namaPeternak"];
+    originalIdIskhnas = argsData["idISIKHNAS"];
+    originalLokasi = argsData["lokasi"];
+    originalPetugasPendaftar = argsData["petugasPendaftar"];
+    originalTanggalPendaftaran = argsData["tanggalPendaftaran"];
   }
 
-
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
-  }
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idPeternakC.text = originalIdPeternak;
+        nikPeternakC.text = originalNikPeternak;
+        namaPeternakC.text = originalNamaPeternak;
+        idISIKHNASC.text = originalIdIskhnas;
+        lokasiC.text = originalLokasi;
+        petugasPendaftarC.text = originalIdIskhnas;
+        tanggalPendaftaranC.text = originalTanggalPendaftaran;
 
+        isEditing.value = false;
+      },
+    );
+  }
 
   Future<void> deletePeternak() async {
     CustomAlertDialog.showPresenceAlert(
@@ -65,13 +94,16 @@ class DetailPeternakController extends GetxController {
       message: "Apakah anda ingin menghapus data Peternak ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        // Get.back(); // close modal
-        // update();
-        // peternakModel = await PeternakApi().deletePeternakApi(argsData["id"]);
-        if (peternakModel!.status == 200) {
-          update();
-          Get.offAndToNamed(Routes.HOME);
-        }
+        Get.back(); // close modal
+        update();
+        peternakModel =
+            await PeternakApi().deletePeternakAPI(argsData["idPeternak"]);
+        final PeternakController peternakController =
+            Get.put(PeternakController());
+        peternakController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
   }

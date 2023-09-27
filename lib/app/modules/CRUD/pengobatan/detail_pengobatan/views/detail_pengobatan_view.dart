@@ -1,7 +1,5 @@
 import 'package:crud_flutter_api/app/modules/CRUD/pengobatan/detail_pengobatan/controllers/detail_pengobatan_controller.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -12,7 +10,7 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Detail Data',
+          'Detail Pengobatan',
           style: TextStyle(
             color: Colors.white,
             fontSize: 18,

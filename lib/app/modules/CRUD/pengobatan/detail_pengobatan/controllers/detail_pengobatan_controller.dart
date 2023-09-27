@@ -1,8 +1,6 @@
 import 'package:crud_flutter_api/app/data/pengobatan_model.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -24,6 +22,17 @@ class DetailPengobatanController extends GetxController {
   TextEditingController dosisC = TextEditingController();
   TextEditingController sindromC = TextEditingController();
   TextEditingController diagnosaBandingC = TextEditingController();
+
+  String originalIdKasus = "";
+  String originalTanggalPengobatan = "";
+  String originalTanggalKasus = "";
+  String originalNamaPetugas = "";
+  String originalNamaInfrastuktur = "";
+  String originalLokasi = "";
+  String originalDosis = "";
+  String originalSindrom = "";
+  String originalDiagnosa = "";
+
   @override
   onClose() {
     idKasusC.dispose();
@@ -50,18 +59,46 @@ class DetailPengobatanController extends GetxController {
     dosisC.text = argsData["dosis"];
     sindromC.text = argsData["sindrom"];
     diagnosaBandingC.text = argsData["diagnosaBanding"];
+
+    originalIdKasus = argsData["idKasus"];
+    originalTanggalPengobatan = argsData["tanggalPengobatan"];
+    originalTanggalKasus = argsData["tanggalKasus"];
+    originalNamaPetugas = argsData["namaPetugas"];
+    originalNamaInfrastuktur = argsData["namaInfrastruktur"];
+    originalLokasi = argsData["lokasi"];
+    originalDosis = argsData["dosis"];
+    originalSindrom = argsData["sindrom"];
+    originalDiagnosa = argsData["diagnosaBanding"];
   }
 
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
-  }
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idKasusC.text = originalIdKasus;
+        tanggalPengobatanC.text = originalTanggalPengobatan;
+        tanggalKasusC.text = originalTanggalKasus;
+        namaPetugasC.text = originalNamaPetugas;
+        namaInfrastrukturC.text = originalNamaInfrastuktur;
+        lokasiC.text = originalLokasi;
+        dosisC.text = originalDosis;
+        sindromC.text = originalSindrom;
+        diagnosaBandingC.text = originalDiagnosa;
 
+        isEditing.value = false;
+      },
+    );
+  }
 
   Future<void> deletePengobatan() async {
     CustomAlertDialog.showPresenceAlert(
@@ -69,14 +106,14 @@ class DetailPengobatanController extends GetxController {
       message: "Apakah anda ingin menghapus data ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         pengobatanModel =
             await PengobatanApi().deletePengobatanAPI(argsData["idKasus"]);
-        if (pengobatanModel!.status == 200) {
-          update();
-          Get.offAndToNamed(Routes.HOME);
-        }
+        final PengobatanController pengobatanController =
+            Get.put(PengobatanController());
+        pengobatanController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
   }
