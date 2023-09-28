@@ -17,15 +17,21 @@ class VaksinApi extends SharedApi {
     try {
       var data =
           await http.get(Uri.parse(baseUrl + '/vaksin'), headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      //print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        //print(jsonData['content']);
 
-        return VaksinListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return VaksinListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return VaksinListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -90,7 +96,25 @@ class VaksinApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return VaksinModel.fromJson(jsonData);
+        return VaksinModel.fromJson({
+          "status": 201,
+          "idVaksin": jsonData['idVaksin'],
+          "eartag": jsonData['eartag'],
+          "idHewan": jsonData['idHewan'],
+          "idPembuatan": jsonData['idPembuatan'],
+          "idPejantan": jsonData['idPejantan'],
+          "bangsaPejantan": jsonData['bangsaPejantan'],
+          "ib1": jsonData['ib1'],
+          "ib2": jsonData['ib2'],
+          "ib3": jsonData['ib3'],
+          "ibLain": jsonData['ibLain'],
+          "produsen": jsonData['produsen'],
+          "idPeternak": jsonData['idPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "lokasi": jsonData['lokasi'],
+          "inseminator": jsonData['inseminator'],
+          "tanggalIB": jsonData['tanggalIB'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; // return VaksinModel.fromJson({"status": data.statusCode});
@@ -147,14 +171,14 @@ class VaksinApi extends SharedApi {
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print(data.body);
+      // print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return VaksinModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -182,9 +206,6 @@ class VaksinApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);

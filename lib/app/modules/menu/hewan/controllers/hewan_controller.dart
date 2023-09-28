@@ -17,7 +17,7 @@ class HewanController extends GetxController {
 
   @override
   void onInit() {
-    fetchHewan(); // Panggil fungsi untuk mengambil data dari API saat inisialisasi
+    //fetchHewan(); // Panggil fungsi untuk mengambil data dari API saat inisialisasi
     loadHewan();
     super.onInit();
   }
@@ -49,20 +49,20 @@ class HewanController extends GetxController {
     }
   }
 
-  void fetchHewan() async {
-    final response = await http.get(Uri.parse('URL_API_ANDA'));
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
-      hewan.assignAll(data.map((e) => HewanModel.fromJson(e)));
-      filterHewan();
-    }
-  }
+  // void fetchHewan() async {
+  //   final response = await http.get(Uri.parse('URL_API_ANDA'));
+  //   if (response.statusCode == 200) {
+  //     final data = json.decode(response.body) as List;
+  //     hewan.assignAll(data.map((e) => HewanModel.fromJson(e)));
+  //     filterHewan();
+  //   }
+  // }
 
-  void filterHewan() {
-    filteredHewan.assignAll(hewan.where((hewan) {
-      final nokartu = hewan.noKartuTernak?.toLowerCase();
-      final query = searchQuery.value.toLowerCase();
-      return nokartu!.contains(query);
-    }));
-  }
+  // void filterHewan() {
+  //   filteredHewan.assignAll(hewan.where((hewan) {
+  //     final nokartu = hewan.noKartuTernak?.toLowerCase();
+  //     final query = searchQuery.value.toLowerCase();
+  //     return nokartu!.contains(query);
+  //   }));
+  // }
 }

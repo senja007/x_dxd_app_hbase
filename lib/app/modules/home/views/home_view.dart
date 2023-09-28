@@ -35,8 +35,6 @@ class HomeView extends GetView<HomeController> {
       ),
     );
 
-  
-  
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
@@ -52,7 +50,6 @@ class HomeView extends GetView<HomeController> {
         child: SingleChildScrollView(
           child: Container(
             child: Column(
-              
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.all(10),
@@ -136,16 +133,18 @@ class HomeView extends GetView<HomeController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildCardWidget("assets/images/cow.png", "${controller.posts1?.totalElements ?? 0}", "Ternak"),
+                    _buildCardWidget("assets/images/cow.png",
+                        "${controller.posts1?.totalElements ?? 0}", "Ternak"),
                     SizedBox(width: 12),
-                    _buildCardWidget("assets/images/man.png", "${controller.posts2?.totalElements}", "Peternak"),
+                    _buildCardWidget("assets/images/man.png",
+                        "${controller.posts2?.totalElements ?? 0}", "Peternak"),
                   ],
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    _buildCardWidget(
-                        "assets/images/people.png", "${controller.posts?.totalElements ?? 0}", "Petugas"),
+                    _buildCardWidget("assets/images/people.png",
+                        "${controller.posts?.totalElements ?? 0}", "Petugas"),
                     SizedBox(width: 12),
                     _buildCardWidget(
                         "assets/images/house.png", "38", "Kandang"),

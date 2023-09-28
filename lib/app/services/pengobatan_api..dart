@@ -17,15 +17,21 @@ class PengobatanApi extends SharedApi {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/pengobatan'),
           headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      //print("hasil" + data.statusCode.toString());
+      //print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        //print(jsonData['content']);
 
-        return PengobatanListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return PengobatanListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return PengobatanListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -75,7 +81,18 @@ class PengobatanApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        PengobatanModel.fromJson(jsonData);
+        return PengobatanModel.fromJson({
+          "status": 201,
+          "idKasus": jsonData['idKasus'],
+          "tanggalPengobatan": jsonData['tanggalPengobatan'],
+          "tanggalKasus": jsonData['tanggalKasus'],
+          "namaPetugas": jsonData['namaPetugas'],
+          "namaInfrastruktur": jsonData['namaInfrastruktur'],
+          "lokasi": jsonData['lokasi'],
+          "dosis": jsonData['dosis'],
+          "sindrom": jsonData['sindrom'],
+          "diagnosaBanding": jsonData['dignosaBanding'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; // return PengobatanModel.fromJson({"status": data.statusCode});
@@ -119,14 +136,14 @@ class PengobatanApi extends SharedApi {
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print(data.body);
+      // print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return PengobatanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -154,9 +171,6 @@ class PengobatanApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);

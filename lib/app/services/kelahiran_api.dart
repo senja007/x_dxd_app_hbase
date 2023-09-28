@@ -17,15 +17,21 @@ class KelahiranApi extends SharedApi {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/kelahiran'),
           headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        // print(jsonData['content']);
 
-        return KelahiranListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return KelahiranListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return KelahiranListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -101,7 +107,31 @@ class KelahiranApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return KelahiranModel.fromJson(jsonData);
+        return KelahiranModel.fromJson({
+          "status": 201,
+          "idKejadian": jsonData['idKejadian'],
+          "eartagInduk": jsonData['eartagInduk'],
+          "eartagAnak": jsonData['eartagAnak'],
+          "idHewaninduk": jsonData['idHewanInduk'],
+          "idHewanAnak": jsonData['idHewanAnak'],
+          "idBatch": jsonData['idBatchStraw'],
+          "idPejantan": jsonData['idPejantanStraw'],
+          "kelaminAnak": jsonData['jenisKelaminAnak'],
+          "jumlah": jsonData['jumlah'],
+          "urutanIb": jsonData['urutanIb'],
+          "kartuTernakAnak": jsonData['kartuTernakAnak'],
+          "kartuTernakInduk": jsonData['kartuTernakInduk'],
+          "kategori": jsonData['kategori'],
+          "lokasi": jsonData['lokasi'],
+          "idPeternak": jsonData['idPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "petugasPelapor": jsonData['petugasPelapor'],
+          "produsen": jsonData['produsenStraw'],
+          "spesiesInduk": jsonData['spesiesInduk'],
+          "spesiesPejantan": jsonData['spesiesPejantan'],
+          "tanggalLahir": jsonData['tanggalLahir'],
+          "tanggalLaporan": jsonData['tanggalLaporan'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; // KelahiranModel.fromJson({"status": data.statusCode});
@@ -175,8 +205,8 @@ class KelahiranApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return KelahiranModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -204,9 +234,6 @@ class KelahiranApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);

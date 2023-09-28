@@ -15,7 +15,7 @@ class PeternakApi extends SharedApi {
   Future<PeternakListModel> loadPeternakApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/hewan'), headers: getToken());
+          await http.get(Uri.parse(baseUrl + '/peternak'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -75,7 +75,16 @@ class PeternakApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return PeternakModel.fromJson(jsonData);
+        return PeternakModel.fromJson({
+          "status": 201,
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idISIKHNAS": jsonData['idISIKHNAS'],
+          "lokasi": jsonData['lokasi'],
+          "petugasPendaftar": jsonData['petugasPendaftar'],
+          "tanggalPendaftaran": jsonData['tanggalPendaftaran'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; //InseminasiModel.fromJson({"status": data.statusCode});
@@ -114,14 +123,14 @@ class PeternakApi extends SharedApi {
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print(data.body);
+      // print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return PeternakModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);

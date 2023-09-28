@@ -17,15 +17,22 @@ class PKBApi extends SharedApi {
     try {
       var data =
           await http.get(Uri.parse(baseUrl + '/pkb'), headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+
+      ///print("hasil" + data.statusCode.toString());
+      //print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        //print(jsonData['content']);
 
-        return PKBListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return PKBListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return PKBListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -65,7 +72,7 @@ class PKBApi extends SharedApi {
         'spesies': spesies,
         'umurKebuntingan': umurKebuntingan,
         'pemeriksaKebuntingan': pemeriksaKebuntingan,
-        'tanggalPkb': tanggalPkb
+        'tanggalPkb': tanggalPkb,
       };
       var data = await http.post(
         Uri.parse(baseUrl + '/pkb'),
@@ -80,7 +87,21 @@ class PKBApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return PKBModel.fromJson(jsonData);
+        return PKBModel.fromJson({
+          "status": 201,
+          "idKejadian": jsonData['idKejadian'],
+          "idHewan": jsonData['idHewan'],
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "jumlah": jsonData['jumlah'],
+          "kategori": jsonData['kategori'],
+          "lokasi": jsonData['lokasi'],
+          "spesies": jsonData['spesies'],
+          "umurKebuntingan": jsonData['umurKebuntingan'],
+          "pemeriksaKebuntingan": jsonData['pemeriksaKebuntingan'],
+          "tanggalPkb": jsonData['tanggalPkb'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; // return PKBModel.fromJson({"status": data.statusCode});
@@ -129,14 +150,14 @@ class PKBApi extends SharedApi {
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print(data.body);
+      // print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return PKBModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -164,9 +185,6 @@ class PKBApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);

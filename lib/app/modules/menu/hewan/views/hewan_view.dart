@@ -19,7 +19,6 @@ class HewanView extends GetView<HewanController> {
         onRefresh: () async {
           await controller.loadHewan();
         },
-        
         child: Scaffold(
           backgroundColor: AppColor.primary,
           appBar: AppBar(
@@ -108,14 +107,15 @@ class HewanView extends GetView<HewanController> {
                             SizedBox(height: 8),
                         itemBuilder: (context, index) {
                           var postData = controller.posts!.content![index];
-                          child : Column(
+                          child:
+                          Column(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: TextField(
                                   onChanged: (query) {
                                     hewanController.searchQuery.value = query;
-                                    hewanController.filterHewan();
+                                    //hewanController.filterHewan();
                                   },
                                   decoration: InputDecoration(
                                     labelText: 'Cari Item',
@@ -127,9 +127,11 @@ class HewanView extends GetView<HewanController> {
                                 child: GetBuilder<HewanController>(
                                   builder: (controller) {
                                     return ListView.builder(
-                                      itemCount: controller.filteredHewan.length,
+                                      itemCount:
+                                          controller.filteredHewan.length,
                                       itemBuilder: (context, index) {
-                                        final hewan = controller.filteredHewan[index];
+                                        final hewan =
+                                            controller.filteredHewan[index];
                                         return ListTile(
                                           title: Text(hewan.noKartuTernak!),
                                         );

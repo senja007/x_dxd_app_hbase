@@ -100,7 +100,7 @@ class PetugasApi extends SharedApi {
         });
       } else {
         showErrorMessage(jsonData['message']);
-        return null; //PetugasModel.fromJson({"status": data.statusCode});
+        return PetugasModel.fromJson({"status": data.statusCode});
       }
     } catch (e) {
       stopLoading();

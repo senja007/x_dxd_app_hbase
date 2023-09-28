@@ -1,5 +1,4 @@
 class InseminasiModel {
-  final int? id;
   final String? idInseminasi;
   final String? tanggalIB;
   final String? lokasi;
@@ -21,7 +20,6 @@ class InseminasiModel {
 
   InseminasiModel({
     this.status,
-    this.id,
     this.idInseminasi,
     this.eartag,
     this.idHewan,
@@ -43,23 +41,26 @@ class InseminasiModel {
   factory InseminasiModel.fromJson(Map<String, dynamic> jsonData) {
     return InseminasiModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
-      id: jsonData['id'] != null ? jsonData['id'] : 0,
       idInseminasi:
           jsonData['idInseminasi'] != null ? jsonData['idInseminasi'] : "",
       eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
       idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
-      idPembuatan: jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
+      idPembuatan:
+          jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
       idPejantan: jsonData['idPejantan'] != null ? jsonData['idPejantan'] : "",
-      bangsaPejantan: jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
+      bangsaPejantan:
+          jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
       ib1: jsonData['ib1'] != null ? jsonData['ib1'] : "",
       ib2: jsonData['ib2'] != null ? jsonData['ib2'] : "",
       ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",
       ibLain: jsonData['ibLain'] != null ? jsonData['ibLain'] : "",
       produsen: jsonData['produsen'] != null ? jsonData['produsen'] : "",
       idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      namaPeternak:
+          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      inseminator: jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
+      inseminator:
+          jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
       tanggalIB: jsonData['tanggalIB'] != null ? jsonData['tanggalIB'] : "",
     );
   }

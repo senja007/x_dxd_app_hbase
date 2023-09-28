@@ -17,15 +17,21 @@ class InseminasiApi extends SharedApi {
     try {
       var data = await http.get(Uri.parse(baseUrl + '/inseminasi'),
           headers: getToken());
-      print("hasil" + data.statusCode.toString());
-      print(json.decode(data.body));
+      // print("hasil" + data.statusCode.toString());
+      // print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        print(jsonData['content']);
+        // print(jsonData['content']);
 
-        return InseminasiListModel.fromJson(
-            {"status": 200, "content": jsonData['content']});
+        return InseminasiListModel.fromJson({
+          "status": 200,
+          "content": jsonData['content'],
+          "page": jsonData['page'],
+          "size": jsonData['size'],
+          "totalElements": jsonData['totalElements'],
+          "totalPages": jsonData['totalPages']
+        });
       } else {
         return InseminasiListModel.fromJson(
             {"status": data.statusCode, "content": []});
@@ -89,7 +95,25 @@ class InseminasiApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return InseminasiModel.fromJson(jsonData);
+        return InseminasiModel.fromJson({
+          "status": 201,
+          "idInseminasi": jsonData['idInseminasi'],
+          "eartag": jsonData['eartag'],
+          "idHewan": jsonData['idHewan'],
+          "idPembuatan": jsonData['idPembuatan'],
+          "idPejantan": jsonData['idPejantan'],
+          "bangsaPejantan": jsonData['bangsaPejantan'],
+          "ib1": jsonData['ib1'],
+          "ib2": jsonData['ib2'],
+          "ib3": jsonData['ib3'],
+          "ibLain": jsonData['ibLain'],
+          "produsen": jsonData['produsen'],
+          "idPeternak": jsonData['idPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "lokasi": jsonData['lokasi'],
+          "inseminator": jsonData['inseminator'],
+          "tanggalIB": jsonData['tanggalIB'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; //InseminasiModel.fromJson({"status": data.statusCode});
@@ -153,8 +177,8 @@ class InseminasiApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return InseminasiModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -182,9 +206,6 @@ class InseminasiApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);

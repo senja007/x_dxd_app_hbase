@@ -91,7 +91,24 @@ class HewanApi extends SharedApi {
       if (data.statusCode == 201) {
         showSuccessMessage(jsonData["message"]);
         Get.back();
-        return HewanModel.fromJson(jsonData);
+        return HewanModel.fromJson({
+          "status": 201,
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
+          "noKartuTernak": jsonData['noKartuTernak'],
+          "provinsi": jsonData['provinsi'],
+          "kabupaten": jsonData['kabupaten'],
+          "kecamatan": jsonData['kecamatan'],
+          "desa": jsonData['desa'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "spesies": jsonData['spesies'],
+          "sex": jsonData['sex'],
+          "umur": jsonData['umur'],
+          "identifikasiHewan": jsonData['identifikasiHewan'],
+          "petugasPendaftar": jsonData['petugasPendaftar'],
+          "tanggalTerdaftar": jsonData['tanggalTerdaftar'],
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return null; //InseminasiModel.fromJson({"status": data.statusCode});
@@ -153,8 +170,8 @@ class HewanApi extends SharedApi {
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        print(data.body);
-        print(jsonData);
+        // print(data.body);
+        // print(jsonData);
         return HewanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
@@ -182,9 +199,6 @@ class HewanApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
-
         postData['content'] = "";
 
         print(postData);
