@@ -254,30 +254,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalPendaftaranC,
-              keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal Pendaftaran",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: controller.tanggalPendaftaranC, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal Pendaftaran" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal Pendaftaran",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => controller.tanggalPendaftaran(context),
+             ),
           ),
           SizedBox(height: 32),
           Container(

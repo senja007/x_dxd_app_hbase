@@ -4,13 +4,16 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class AddVaksinController extends GetxController {
   VaksinModel? vaksinModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   TextEditingController idVaksinC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -83,6 +86,26 @@ class AddVaksinController extends GetxController {
       // Handle exceptions here
     } finally {
       isLoading.value = false;
+    }
+  }
+
+  void updateFormattedDate(String newDate) {
+    formattedDate.value = newDate;
+  }
+
+  late DateTime selectedDate = DateTime.now();
+
+  Future<void> tanggalIB (BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2000),
+        lastDate: DateTime(2101),
+      );
+
+  if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
 }

@@ -560,30 +560,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalIBC,
-              keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal IB",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: controller.tanggalIBC, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal IB" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal IB",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => controller.tanggalIB(context),
+             ),
           ),
           SizedBox(height: 32),
           Container(

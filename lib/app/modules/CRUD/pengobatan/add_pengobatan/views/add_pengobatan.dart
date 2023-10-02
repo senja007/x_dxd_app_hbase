@@ -288,30 +288,15 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalKasusC,
-              keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal Kasus",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: controller.tanggalKasusC, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal Kasus" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal Kasus",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => controller.tanggalKasus(context),
+             ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -322,30 +307,15 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalPengobatanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal Pengobatan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: controller.tanggalPengobatanC, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal Pengobatan" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal Pengobatan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => controller.tanggalPengobatan(context),
+             ),
           ),
           SizedBox(height: 32),
           Container(

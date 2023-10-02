@@ -424,30 +424,15 @@ class AddPkbView extends GetView<AddPkbController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.tanggalPkbC,
-              keyboardType: TextInputType.datetime,
-              decoration: InputDecoration(
-                label: Text(
-                  "Tanggal PKB",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
+            child:TextField(
+                controller: controller.tanggalPkbC, //editing controller of this TextField
+                decoration: InputDecoration( 
+                   icon: Icon(Icons.calendar_today), //icon of text field
+                   labelText: "Tanggal Pkb" //label text of field
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Tanggal PKB",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+                readOnly: true,  //set it true, so that user will not able to edit text
+                onTap: () => controller.tanggalPkb(context),
+             ),
           ),
           SizedBox(height: 32),
           Container(

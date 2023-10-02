@@ -3,14 +3,17 @@ import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/insemin
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import '../../../../../services/inseminasi_api.dart';
 
 class AddInseminasiController extends GetxController {
   InseminasiModel? inseminasiModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   TextEditingController idInseminasiC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -86,4 +89,25 @@ class AddInseminasiController extends GetxController {
       isLoading.value = false;
     }
   }
+
+  void updateFormattedDate(String newDate) {
+    formattedDate.value = newDate;
+  }
+
+  
+late DateTime selectedDate = DateTime.now();
+
+Future<void> tanggalIB (BuildContext context) async {
+  final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+ if (picked != null && picked != selectedDate) {
+    selectedDate = picked;
+    tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
+  }
+}
 }
