@@ -82,8 +82,6 @@ class DetailPengobatanController extends GetxController {
       message: "Apakah anda ingin keluar dari edit ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back();
-        update();
         // Reset data ke yang sebelumnya
         idKasusC.text = originalIdKasus;
         tanggalPengobatanC.text = originalTanggalPengobatan;
@@ -95,7 +93,14 @@ class DetailPengobatanController extends GetxController {
         sindromC.text = originalSindrom;
         diagnosaBandingC.text = originalDiagnosa;
 
+        final PengobatanController pengobatanController =
+            Get.put(PengobatanController());
+        pengobatanController.reInitialize();
+
         isEditing.value = false;
+
+        Get.back();
+        update();
       },
     );
   }

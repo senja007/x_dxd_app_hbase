@@ -10,6 +10,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColor.primary,
       appBar: AppBar(
         title: Text(
           'Detail Data',
