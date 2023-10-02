@@ -1,5 +1,9 @@
+import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -33,7 +37,7 @@ class AddPengobatanController extends GetxController {
     dignosaBandingC.dispose();
   }
 
-  Future addPengobatan() async {
+  Future addPengobatan(BuildContext context) async {
     try {
       isLoading.value = true;
       pengobatanModel = await PengobatanApi().addPengobatanAPI(
@@ -49,14 +53,35 @@ class AddPengobatanController extends GetxController {
       );
 
       if (pengobatanModel != null) {
-        if (pengobatanModel!.status == 200) {
-          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
-        } else if (pengobatanModel!.status == 404) {
-          // Handle status 404
+        if (pengobatanModel!.status == 201) {
+          final PengobatanController peternakController =
+              Get.put(PengobatanController());
+          peternakController.reInitialize();
+          Get.back();
+          showSuccessMessage("Peternak Baru berhasil ditambahkan");
+        } else {
+          showErrorMessage(
+              "Gagal menambahkan Peternak dengan status ${pengobatanModel?.status}");
         }
       }
     } catch (e) {
-      // Handle exceptions here
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       isLoading.value = false;
     }
@@ -67,32 +92,33 @@ class AddPengobatanController extends GetxController {
   }
 
   late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate1 = DateTime.now();
 
-  Future<void> tanggalPengobatan (BuildContext context) async {
+  Future<void> tanggalPengobatan(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
 
-  if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       tanggalPengobatanC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
 
-  Future<void> tanggalKasus (BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
+  Future<void> tanggalKasus(BuildContext context) async {
+    final DateTime? picked1 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
 
-  if (picked != null && picked != selectedDate) {
-      selectedDate = picked;
-      tanggalKasusC.text = DateFormat('dd/MM/yyyy').format(picked);
+    if (picked1 != null && picked1 != selectedDate1) {
+      selectedDate1 = picked1;
+      tanggalKasusC.text = DateFormat('dd/MM/yyyy').format(picked1);
     }
   }
 }

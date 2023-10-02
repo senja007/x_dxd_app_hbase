@@ -94,20 +94,19 @@ class AddInseminasiController extends GetxController {
     formattedDate.value = newDate;
   }
 
-  
-late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate = DateTime.now();
 
-Future<void> tanggalIB (BuildContext context) async {
-  final DateTime? picked = await showDatePicker(
+  Future<void> tanggalIB(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2101),
     );
 
- if (picked != null && picked != selectedDate) {
-    selectedDate = picked;
-    tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
   }
-}
 }

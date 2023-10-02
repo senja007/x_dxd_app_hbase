@@ -560,15 +560,20 @@ class AddVaksinView extends GetView<AddVaksinController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
-                controller: controller.tanggalIBC, //editing controller of this TextField
-                decoration: InputDecoration( 
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal IB" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalIB(context),
-             ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller:
+                  controller.tanggalIBC, //editing controller of this TextField
+              decoration: InputDecoration(
+                  border: InputBorder.none,
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal IB" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalIB(context),
+            ),
           ),
           SizedBox(height: 32),
           Container(
@@ -577,7 +582,7 @@ class AddVaksinView extends GetView<AddVaksinController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPost();
+                    controller.addPost(context);
                   }
                 },
                 child: Text(

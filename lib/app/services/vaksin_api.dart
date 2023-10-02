@@ -94,8 +94,6 @@ class VaksinApi extends SharedApi {
       print(data.body);
       print("apalah");
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
         return VaksinModel.fromJson({
           "status": 201,
           "idVaksin": jsonData['idVaksin'],

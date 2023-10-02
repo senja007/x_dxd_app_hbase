@@ -4,6 +4,7 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class AddVaksinController extends GetxController {
     eartagC.dispose();
   }
 
-  Future addPost() async {
+  Future addPost(BuildContext context) async {
     try {
       isLoading.value = true;
       vaksinModel = await VaksinApi().addVaksinAPI(
@@ -83,7 +84,23 @@ class AddVaksinController extends GetxController {
         }
       }
     } catch (e) {
-      // Handle exceptions here
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       isLoading.value = false;
     }
@@ -95,15 +112,15 @@ class AddVaksinController extends GetxController {
 
   late DateTime selectedDate = DateTime.now();
 
-  Future<void> tanggalIB (BuildContext context) async {
+  Future<void> tanggalIB(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
 
-  if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
     }

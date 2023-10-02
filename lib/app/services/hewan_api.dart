@@ -89,8 +89,6 @@ class HewanApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
         return HewanModel.fromJson({
           "status": 201,
           "kodeEartagNasional": jsonData['kodeEartagNasional'],
@@ -111,7 +109,7 @@ class HewanApi extends SharedApi {
         });
       } else {
         showErrorMessage(jsonData['message']);
-        return null; //InseminasiModel.fromJson({"status": data.statusCode});
+        return HewanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
@@ -164,7 +162,7 @@ class HewanApi extends SharedApi {
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
-      print(data.body);
+      //print(data.body);
       stopLoading();
 
       jsonData = json.decode(data.body);

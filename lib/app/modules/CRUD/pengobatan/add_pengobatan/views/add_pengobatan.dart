@@ -288,15 +288,17 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
-                controller: controller.tanggalKasusC, //editing controller of this TextField
-                decoration: InputDecoration( 
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Kasus" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalKasus(context),
-             ),
+            child: TextField(
+              controller: controller
+                  .tanggalKasusC, //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Kasus" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalKasus(context),
+            ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -307,15 +309,17 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
-                controller: controller.tanggalPengobatanC, //editing controller of this TextField
-                decoration: InputDecoration( 
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Pengobatan" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalPengobatan(context),
-             ),
+            child: TextField(
+              controller: controller
+                  .tanggalPengobatanC, //editing controller of this TextField
+              decoration: InputDecoration(
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Pengobatan" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalPengobatan(context),
+            ),
           ),
           SizedBox(height: 32),
           Container(
@@ -324,7 +328,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPengobatan();
+                    controller.addPengobatan(context);
                   }
                 },
                 child: Text(

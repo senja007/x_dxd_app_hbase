@@ -93,8 +93,6 @@ class InseminasiApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
         return InseminasiModel.fromJson({
           "status": 201,
           "idInseminasi": jsonData['idInseminasi'],

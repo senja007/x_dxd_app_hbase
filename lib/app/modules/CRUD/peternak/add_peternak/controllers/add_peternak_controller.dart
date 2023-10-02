@@ -33,7 +33,7 @@ class AddPeternakController extends GetxController {
     tanggalPendaftaranC.dispose();
   }
 
-  Future addPeternak() async {
+  Future addPeternak(BuildContext context) async {
     try {
       isLoading.value = true;
       peternakModel = await PeternakApi().addPeternakAPI(
@@ -58,26 +58,43 @@ class AddPeternakController extends GetxController {
         }
       }
     } catch (e) {
-      // Handle exceptions here
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       isLoading.value = false;
     }
   }
-void updateFormattedDate(String newDate) {
+
+  void updateFormattedDate(String newDate) {
     formattedDate.value = newDate;
   }
 
   late DateTime selectedDate = DateTime.now();
 
-  Future<void> tanggalPendaftaran (BuildContext context) async {
+  Future<void> tanggalPendaftaran(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
 
-  if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       tanggalPendaftaranC.text = DateFormat('dd/MM/yyyy').format(picked);
     }

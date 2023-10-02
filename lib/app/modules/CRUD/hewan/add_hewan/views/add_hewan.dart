@@ -3,18 +3,10 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
-  
-
-
-  // @override
-  // void initState() {
-  //   dateinput.text = ""; //set the initial value of text field
-  // }
-
+  const AddHewanView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
@@ -533,43 +525,45 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
+            child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-                controller: controller.tanggalTerdaftarC, //editing controller of this TextField
-                decoration: InputDecoration( 
+              controller: controller
+                  .tanggalTerdaftarC, //editing controller of this TextField
+              decoration: InputDecoration(
                   border: InputBorder.none,
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Terdaftar" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalTerdaftar(context),
-                // async {
-                //   DateTime? pickedDate = await showDatePicker(
-                //       context: context, initialDate: DateTime.now(),
-                //       firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-                //       lastDate: DateTime(2101)
-                //   );
-                  
-                //   if(pickedDate != null ){
-                //       print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-                //       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate); 
-                //       print(formattedDate); //formatted date output using intl package =>  2021-03-16
-                //         //you can implement different kind of Date Format here according to your requirement
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Terdaftar" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalTerdaftar(context),
+              // async {
+              //   DateTime? pickedDate = await showDatePicker(
+              //       context: context, initialDate: DateTime.now(),
+              //       firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
+              //       lastDate: DateTime(2101)
+              //   );
 
-                //       Obx(() => Text('Formatted Date: ${controller.formattedDate.value}'));
-                //   }else{
-                //       print("Date is not selected");
-                //   }
+              //   if(pickedDate != null ){
+              //       print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
+              //       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
+              //       print(formattedDate); //formatted date output using intl package =>  2021-03-16
+              //         //you can implement different kind of Date Format here according to your requirement
 
-                // },
-             ),
+              //       Obx(() => Text('Formatted Date: ${controller.formattedDate.value}'));
+              //   }else{
+              //       print("Date is not selected");
+              //   }
+
+              // },
+            ),
             // child: TextField(
             //   focusNode: AlwaysDisabledFocusNode(),
             //   controller: controller.tanggalTerdaftarC,
             //   onTap: () {
             //     _selectDate(context);
-            //   }, 
+            //   },
             //   decoration: InputDecoration(
             //     label: Text(
             //       "Tanggal Terdaftar",
@@ -590,7 +584,6 @@ class AddHewanView extends GetView<AddHewanController> {
             //   ),
             // ),
           ),
-          
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,

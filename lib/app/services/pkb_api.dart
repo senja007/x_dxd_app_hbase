@@ -85,8 +85,6 @@ class PKBApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
         return PKBModel.fromJson({
           "status": 201,
           "idKejadian": jsonData['idKejadian'],

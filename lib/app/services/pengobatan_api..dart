@@ -79,8 +79,6 @@ class PengobatanApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
         return PengobatanModel.fromJson({
           "status": 201,
           "idKasus": jsonData['idKasus'],
