@@ -731,8 +731,10 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
+               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
                 controller: controller.tanggalLahirC, //editing controller of this TextField
                 decoration: InputDecoration( 
+                  border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Lahir" //label text of field
                 ),
@@ -749,9 +751,12 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
-                controller: controller.tanggalLaporanC, //editing controller of this TextField
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.tanggalLaporanC, //editing controller of this TextField
                 decoration: InputDecoration( 
+                  border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Laporan" //label text of field
                 ),
@@ -766,7 +771,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addKelahiran();
+                    controller.addKelahiran(context);
                   }
                 },
                 child: Text(

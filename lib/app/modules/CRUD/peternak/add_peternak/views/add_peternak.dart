@@ -255,8 +255,11 @@ class AddPeternakView extends GetView<AddPeternakController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
                 controller: controller.tanggalPendaftaranC, //editing controller of this TextField
                 decoration: InputDecoration( 
+                  border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Pendaftaran" //label text of field
                 ),

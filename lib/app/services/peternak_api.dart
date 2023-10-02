@@ -45,8 +45,8 @@ class PeternakApi extends SharedApi {
       String idPeternak,
       String nikPeternak,
       String namaPeternak,
-      String lokasi,
       String idISIKHNAS,
+      String lokasi,
       String petugasPendaftar,
       String tanggalPendaftaran) async {
     try {
@@ -73,8 +73,7 @@ class PeternakApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        showSuccessMessage(jsonData["message"]);
-        Get.back();
+        
         return PeternakModel.fromJson({
           "status": 201,
           "idPeternak": jsonData['idPeternak'],
@@ -101,8 +100,8 @@ class PeternakApi extends SharedApi {
       String idPeternak,
       String nikPeternak,
       String namaPeternak,
-      String lokasi,
       String idISIKHNAS,
+      String lokasi,
       String petugasPendaftar,
       String tanggalPendaftaran) async {
     try {

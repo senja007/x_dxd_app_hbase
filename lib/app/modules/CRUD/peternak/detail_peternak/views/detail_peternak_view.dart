@@ -63,7 +63,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
-                      ? Colors.white
+                      ? Colors.grey[200]
                       : Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
                   border:

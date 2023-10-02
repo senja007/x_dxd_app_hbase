@@ -10,10 +10,10 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: AppColor.primary,
       appBar: AppBar(
         title: Text(
-          'Tambah Data Inseminasi',
+          'Detail Inseminasi',
           style: TextStyle(
             color: Colors.white,
           ),
@@ -59,11 +59,11 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
         children: [
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
-                      ? Colors.white
+                      ? Colors.grey[200]
                       : Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
                   border:
@@ -72,7 +72,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: false,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -84,14 +84,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Id Inseminasi",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Id Inseminas",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -102,7 +102,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // No Eartag Nasional
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -115,7 +115,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -127,14 +127,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "No Eartag Nasional",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "No Eartag Nasional",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -145,7 +145,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Hewan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -158,7 +158,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -170,14 +170,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Id Hewan",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Id Hewan",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -188,7 +188,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Pembuatan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -201,7 +201,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -213,14 +213,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Id Pembuatan",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Id Pembuatan",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -231,7 +231,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -244,7 +244,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -256,14 +256,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Id Pejantan",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Id Pejantan",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -274,7 +274,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Bangsa Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -287,7 +287,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -299,14 +299,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Bangsa Pejantan",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Bangsa Pejantan",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -317,7 +317,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // IB 1
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -330,7 +330,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -342,14 +342,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "IB 1",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "IB 1",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -360,7 +360,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // IB 2
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -373,7 +373,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -385,14 +385,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "IB 2",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "IB 2",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -402,7 +402,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -415,7 +415,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -427,14 +427,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "IB 3",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "IB 3",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -444,7 +444,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -457,7 +457,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -469,14 +469,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "IB Lain",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "IB Lain",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -486,7 +486,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -499,7 +499,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -511,14 +511,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Produsen",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Produsen",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -528,7 +528,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -541,7 +541,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -553,14 +553,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Id Peternak",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Id Peternak",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -570,7 +570,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -583,7 +583,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -595,14 +595,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Nama Peternak",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Nama Peternak",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -612,7 +612,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -625,7 +625,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -637,14 +637,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Lokasi",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Lokasi",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -654,7 +654,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -667,7 +667,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -679,14 +679,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Inseminator",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Inseminator",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
@@ -696,7 +696,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -709,7 +709,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 child: TextFormField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
+                    fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
                   ),
@@ -721,14 +721,14 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                       "Tanggal IB",
                       style: TextStyle(
                         color: AppColor.secondarySoft,
-                        fontSize: 14,
+                        fontSize: 15,
                       ),
                     ),
                     floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
                     hintText: "Tanggal IB",
                     hintStyle: TextStyle(
-                      fontSize: 14,
+                      fontSize: 15,
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
