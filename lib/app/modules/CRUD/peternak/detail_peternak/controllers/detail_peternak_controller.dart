@@ -94,8 +94,6 @@ class DetailPeternakController extends GetxController {
       message: "Apakah anda ingin menghapus data Peternak ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         peternakModel =
             await PeternakApi().deletePeternakAPI(argsData["idPeternak"]);
         final PeternakController peternakController =
