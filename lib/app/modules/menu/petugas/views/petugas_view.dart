@@ -39,7 +39,34 @@ class PetugasView extends GetView<PetugasController> {
                 color: AppColor.primary,
               ),
             ),
+            actions: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: SizedBox(
+                  width: 200, // Sesuaikan lebar TextField sesuai kebutuhan
+                  child: TextField(
+                    style: TextStyle(
+                      color: Colors.amberAccent,
+                    ),
+                    controller: SearchController(),
+                    onChanged: (value) {
+                      //belum ada value yang saya masukkan , besok lagi aja , lagi mentok , malem pula hihihi
+                    },
+                    decoration: InputDecoration(
+                        hintText: 'Cari NIK atau Nama',
+                        hintStyle: TextStyle(
+                            color: const Color.fromARGB(255, 255, 209, 224)),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          color: const Color.fromARGB(255, 255, 255, 255),
+                        ),
+                        iconColor: Colors.amber),
+                  ),
+                ),
+              ),
+            ],
           ),
+
           //body: Container(),
           body: GetBuilder<PetugasController>(
             builder: (controller) => controller.posts?.status == 200
@@ -132,6 +159,7 @@ class PetugasView extends GetView<PetugasController> {
                       )
                 : NoData(),
           ),
+
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FloatingActionButton(

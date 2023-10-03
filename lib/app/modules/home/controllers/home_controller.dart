@@ -2,7 +2,6 @@ import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:flutter_map/flutter_map.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -17,16 +16,14 @@ class HomeController extends GetxController {
   // HewanListModel? posts1;
   // PeternakListModel? posts2;
 
-
   var posts = PetugasListModel().obs;
   var posts1 = HewanListModel().obs;
   var posts2 = PeternakListModel().obs;
 
- 
   final box = GetStorage();
   bool homeScreen = false;
 
-   HomeController() {
+  HomeController() {
     // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
     loadHewanData();
@@ -34,7 +31,6 @@ class HomeController extends GetxController {
   }
 
   // default constructor
-
 
   loadPetugasData() async {
     homeScreen = false;

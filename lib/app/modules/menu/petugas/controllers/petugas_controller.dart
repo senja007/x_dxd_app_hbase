@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:get_storage/get_storage.dart';
@@ -9,10 +10,17 @@ class PetugasController extends GetxController {
   final box = GetStorage();
   bool homeScreen = false;
 
+  TextEditingController searchControllerC = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
     loadPetugas();
+  }
+
+  @override
+  void onClose() {
+    searchControllerC.dispose();
   }
 
   void reInitialize() {
