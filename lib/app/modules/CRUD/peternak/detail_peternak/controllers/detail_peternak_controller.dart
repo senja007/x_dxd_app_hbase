@@ -2,8 +2,12 @@ import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/peternak/controllers/peternak_controller.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailPeternakController extends GetxController {
   //TODO: Implement DetailPostController
@@ -12,6 +16,7 @@ class DetailPeternakController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
+  final formattedDate = ''.obs;
 
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
@@ -112,8 +117,6 @@ class DetailPeternakController extends GetxController {
       message: "Apakah anda ingin mengedit data Peternak ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         peternakModel = await PeternakApi().editPeternakApi(
           idPeternakC.text,
           nikPeternakC.text,
@@ -124,12 +127,39 @@ class DetailPeternakController extends GetxController {
           tanggalPendaftaranC.text,
         );
         isEditing.value = false;
+
         // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+        if (peternakModel != null) {
+          if (peternakModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil mengedit Peternak dengan ID: ${idPeternakC.text}");
+          } else {
+            showErrorMessage("Gagal mengedit Data Peternak ");
+          }
+        }
+        final PeternakController peternakController =
+            Get.put(PeternakController());
+        peternakController.reInitialize();
+        Get.back();
+        Get.back(); // close modal
+        update();
       },
     );
+  }
+
+  late DateTime selectedDate = DateTime.now();
+
+  Future<void> tanggalPendaftaran(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalPendaftaranC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
   }
 }

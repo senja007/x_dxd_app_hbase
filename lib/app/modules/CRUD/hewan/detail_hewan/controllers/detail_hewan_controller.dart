@@ -1,8 +1,5 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -31,6 +28,22 @@ class DetailHewanController extends GetxController {
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
+
+  String originalEartag = "";
+  String originalKartuTernak = "";
+  String originalProvinsi = "";
+  String originalKabupaten = "";
+  String originalKecamatan = "";
+  String originalDesa = "";
+  String originalNamaPeternak = "";
+  String originalIdPeternak = "";
+  String originalNikPeternak = "";
+  String originalSpesies = "";
+  String originalSex = "";
+  String originalUmur = "";
+  String originalIdentifikasi = "";
+  String originalPetugas = "";
+  String originalTanggal = "";
 
   @override
   onClose() {
@@ -71,20 +84,58 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
-    
-    
+
+    originalEartag = argsData["eartag_hewan_detail"];
+    originalKartuTernak = argsData["kartu_hewan_detail"];
+    originalProvinsi = argsData["provinsi_hewan_detail"];
+    originalKabupaten = argsData["kabupaten_hewan_detail"];
+    originalKecamatan = argsData["kecamatan_hewan_detail"];
+    originalDesa = argsData["desa_hewan_detail"];
+    originalNamaPeternak = argsData["nama_peternak_hewan_detail"];
+    originalIdPeternak = argsData["id_peternak_hewan_detail"];
+    originalNikPeternak = argsData["nik_hewan_detail"];
+    originalSpesies = argsData["spesies_hewan_detail"];
+    originalSex = argsData["kelamin_hewan_detail"];
+    originalUmur = argsData["umur_hewan_detail"];
+    originalIdentifikasi = argsData["identifikasi_hewan_detail"];
+    originalPetugas = argsData["petugas_terdaftar_hewan_detail"];
+    originalTanggal = argsData["tanggal_terdaftar_hewan_detail"];
   }
 
-  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
-  }
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        kodeEartagNasionalC.text = originalEartag;
+        noKartuTernakC.text = originalKartuTernak;
+        provinsiC.text = originalProvinsi;
+        kabupatenC.text = originalKabupaten;
+        kecamatanC.text = originalKecamatan;
+        desaC.text = originalDesa;
+        namaPeternakC.text = originalNamaPeternak;
+        idPeternakC.text = originalIdPeternak;
+        nikPeternakC.text = originalNikPeternak;
+        spesiesC.text = originalSpesies;
+        sexC.text = originalSex;
+        umurC.text = originalUmur;
+        identifikasiHewanC.text = originalIdentifikasi;
+        petugasPendaftarC.text = originalPetugas;
+        tanggalTerdaftarC.text = originalTanggal;
 
+        isEditing.value = false;
+      },
+    );
+  }
 
   Future<void> deleteHewan() async {
     CustomAlertDialog.showPresenceAlert(
@@ -94,7 +145,8 @@ class DetailHewanController extends GetxController {
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        hewanModel = await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
+        hewanModel =
+            await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
         // if (hewanModel!.status == 200) {
         //   update();
         //   Get.offAndToNamed(Routes.HOME);
@@ -111,14 +163,23 @@ class DetailHewanController extends GetxController {
       onConfirm: () async {
         Get.back(); // close modal
         update();
-        hewanModel =
-            await HewanApi().editHewanApi(kodeEartagNasionalC.text, noKartuTernakC.text, provinsiC.text, 
-            kabupatenC.text, kecamatanC.text, desaC.text, namaPeternakC.text, idPeternakC.text, nikPeternakC.text,
-            spesiesC.text, sexC.text, umurC.text, identifikasiHewanC.text, petugasPendaftarC.text, tanggalTerdaftarC.text);
-        // if (hewanModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        //}
+        hewanModel = await HewanApi().editHewanApi(
+            kodeEartagNasionalC.text,
+            noKartuTernakC.text,
+            provinsiC.text,
+            kabupatenC.text,
+            kecamatanC.text,
+            desaC.text,
+            namaPeternakC.text,
+            idPeternakC.text,
+            nikPeternakC.text,
+            spesiesC.text,
+            sexC.text,
+            umurC.text,
+            identifikasiHewanC.text,
+            petugasPendaftarC.text,
+            tanggalTerdaftarC.text);
+        isEditing.value = false;
       },
     );
   }

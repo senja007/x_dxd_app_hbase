@@ -73,7 +73,6 @@ class PeternakApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        
         return PeternakModel.fromJson({
           "status": 201,
           "idPeternak": jsonData['idPeternak'],
@@ -127,12 +126,18 @@ class PeternakApi extends SharedApi {
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        jsonData['statusCode'] = 201;
-        // print(data.body);
-        // print(jsonData);
-        return PeternakModel.fromJson(jsonData);
+        return PeternakModel.fromJson({
+          "status": 201,
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idISIKHNAS": jsonData['idISIKHNAS'],
+          "lokasi": jsonData['lokasi'],
+          "petugasPendaftar": jsonData['petugasPendaftar'],
+          "tanggalPendaftaran": jsonData['tanggalPendaftaran'],
+        });
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return PeternakModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {

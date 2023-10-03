@@ -2,6 +2,7 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../controllers/detail_peternak_controller.dart';
 
@@ -303,31 +304,19 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
+                child: TextField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalPendaftaranC,
-                  keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal Pendafataran",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal Pendafataran",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal Pendaftaran",
                   ),
+                  readOnly: true,
+                  onTap: () => controller.tanggalPendaftaran(context),
                 ),
               )),
           Obx(() {
