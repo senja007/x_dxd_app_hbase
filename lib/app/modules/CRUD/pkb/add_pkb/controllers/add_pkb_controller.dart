@@ -1,8 +1,13 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
+import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -41,7 +46,7 @@ class AddPkbController extends GetxController {
     tanggalPkbC.dispose();
   }
 
-  Future addPKB() async {
+  Future addPKB(BuildContext context) async {
     try {
       isLoading.value = true;
       pkbModel = await PKBApi().addPKBAPI(
@@ -59,14 +64,35 @@ class AddPkbController extends GetxController {
           tanggalPkbC.text);
 
       if (pkbModel != null) {
-        if (pkbModel!.status == 200) {
-          Get.offNamed(Routes.HOME); // Menggunakan Get.offNamed
-        } else if (pkbModel!.status == 404) {
-          // Handle status 404
+        if (pkbModel?.status == 201) {
+          final PKBController pkbController =
+              Get.put(PKBController());
+          pkbController.reInitialize();
+          Get.back();
+          showSuccessMessage("Kelahiran Baru Berhasil ditambahkan");
+        } else {
+          showErrorMessage(
+              "Gagal menambahkan Kelahiran dengan status ${pkbModel?.status}");
         }
       }
     } catch (e) {
-      // Handle exceptions here
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       isLoading.value = false;
     }

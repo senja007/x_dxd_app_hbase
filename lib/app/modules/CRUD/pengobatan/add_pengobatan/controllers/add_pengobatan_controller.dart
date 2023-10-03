@@ -24,6 +24,7 @@ class AddPengobatanController extends GetxController {
   TextEditingController dosisC = TextEditingController();
   TextEditingController sindromC = TextEditingController();
   TextEditingController dignosaBandingC = TextEditingController();
+  
   @override
   onClose() {
     idKasusC.dispose();

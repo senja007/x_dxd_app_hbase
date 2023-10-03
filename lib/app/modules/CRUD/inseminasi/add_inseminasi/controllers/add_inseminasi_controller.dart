@@ -3,6 +3,7 @@ import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/insemin
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -50,7 +51,7 @@ class AddInseminasiController extends GetxController {
     tanggalIBC.dispose();
   }
 
-  Future addInseminasi() async {
+  Future addInseminasi(BuildContext context) async {
     try {
       isLoading.value = true;
       inseminasiModel = await InseminasiApi().addInseminasiAPI(
@@ -84,7 +85,23 @@ class AddInseminasiController extends GetxController {
         }
       }
     } catch (e) {
-      // Handle exceptions here
+      showCupertinoDialog(
+        context: context, // Gunakan context yang diberikan sebagai parameter.
+        builder: (context) {
+          return CupertinoAlertDialog(
+            title: Text("Kesalahan"),
+            content: Text(e.toString()),
+            actions: [
+              CupertinoDialogAction(
+                child: Text("OK"),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          );
+        },
+      );
     } finally {
       isLoading.value = false;
     }

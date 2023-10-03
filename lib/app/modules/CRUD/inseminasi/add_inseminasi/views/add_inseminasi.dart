@@ -561,8 +561,11 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
                 controller: controller.tanggalIBC, //editing controller of this TextField
                 decoration: InputDecoration( 
+                  border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal IB" //label text of field
                 ),
@@ -577,7 +580,7 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addInseminasi();
+                    controller.addInseminasi(context);
                   }
                 },
                 child: Text(

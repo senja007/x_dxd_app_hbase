@@ -425,8 +425,11 @@ class AddPkbView extends GetView<AddPkbController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
                 controller: controller.tanggalPkbC, //editing controller of this TextField
                 decoration: InputDecoration( 
+                  border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Pkb" //label text of field
                 ),
@@ -441,7 +444,7 @@ class AddPkbView extends GetView<AddPkbController> {
               () => ElevatedButton(
                 onPressed: () {
                   if (controller.isLoading.isFalse) {
-                    controller.addPKB();
+                    controller.addPKB(context);
                   }
                 },
                 child: Text(
