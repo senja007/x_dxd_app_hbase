@@ -2,8 +2,12 @@ import 'package:crud_flutter_api/app/data/pengobatan_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailPengobatanController extends GetxController {
   //TODO: Implement DetailPostController
@@ -113,6 +117,16 @@ class DetailPengobatanController extends GetxController {
       onConfirm: () async {
         pengobatanModel =
             await PengobatanApi().deletePengobatanAPI(argsData["idKasus"]);
+
+        if (pengobatanModel != null) {
+          if (pengobatanModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Hapus Data Pengobatan dengan ID: ${idKasusC.text}");
+          } else {
+            showErrorMessage("Gagal Hapus Data Pengobatan ");
+          }
+        }
+
         final PengobatanController pengobatanController =
             Get.put(PengobatanController());
         pengobatanController.reInitialize();
@@ -129,8 +143,6 @@ class DetailPengobatanController extends GetxController {
       message: "Apakah anda ingin mengedit data Pengobatan ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         pengobatanModel = await PengobatanApi().editPengobatanApi(
           idKasusC.text,
           tanggalPengobatanC.text,
@@ -143,12 +155,53 @@ class DetailPengobatanController extends GetxController {
           diagnosaBandingC.text,
         );
         isEditing.value = false;
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+        if (pengobatanModel != null) {
+          if (pengobatanModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil mengedit Data Pengobatan dengan ID: ${idKasusC.text}");
+          } else {
+            showErrorMessage("Gagal mengedit Data Pengobatan ");
+          }
+        }
+
+        final PengobatanController pengobatanController =
+            Get.put(PengobatanController());
+        pengobatanController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
+  }
+
+  late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate1 = DateTime.now();
+
+  Future<void> tanggalPengobatan(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalPengobatanC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
+  }
+
+  Future<void> tanggalKasus(BuildContext context) async {
+    final DateTime? picked1 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked1 != null && picked1 != selectedDate1) {
+      selectedDate1 = picked1;
+      tanggalKasusC.text = DateFormat('dd/MM/yyyy').format(picked1);
+    }
   }
 }

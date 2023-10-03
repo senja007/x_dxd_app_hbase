@@ -101,6 +101,14 @@ class DetailPeternakController extends GetxController {
       onConfirm: () async {
         peternakModel =
             await PeternakApi().deletePeternakAPI(argsData["idPeternak"]);
+        if (peternakModel != null) {
+          if (peternakModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Hapus Peternak dengan ID: ${idPeternakC.text}");
+          } else {
+            showErrorMessage("Gagal Hapus Data Peternak ");
+          }
+        }
         final PeternakController peternakController =
             Get.put(PeternakController());
         peternakController.reInitialize();
@@ -145,6 +153,10 @@ class DetailPeternakController extends GetxController {
         update();
       },
     );
+  }
+
+  void updateFormattedDate(String newDate) {
+    formattedDate.value = newDate;
   }
 
   late DateTime selectedDate = DateTime.now();

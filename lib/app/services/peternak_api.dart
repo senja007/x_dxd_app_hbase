@@ -5,9 +5,6 @@ import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 
 class PeternakApi extends SharedApi {
@@ -168,7 +165,9 @@ class PeternakApi extends SharedApi {
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson
-        return PeternakModel.fromJson(postData);
+        return PeternakModel.fromJson({
+          "status": 200,
+        });
       } else {
         showErrorMessage(jsonData['message']);
         return PeternakModel.fromJson({"status": data.statusCode});

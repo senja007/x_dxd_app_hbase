@@ -348,32 +348,19 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
+                child: TextField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
-                  autofocus: true,
                   controller: controller.tanggalKasusC,
-                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal Pendaftaran",
                   ),
+                  readOnly: true,
+                  onTap: () => controller.tanggalKasus(context),
                 ),
               )),
           Obx(() => Container(
@@ -388,32 +375,19 @@ class DetailPengobatanView extends GetView<DetailPengobatanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
+                child: TextField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
-                  autofocus: true,
                   controller: controller.tanggalPengobatanC,
-                  keyboardType: TextInputType.name,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal Pengobatan",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal Pengobatan",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal Pendaftaran",
                   ),
+                  readOnly: true,
+                  onTap: () => controller.tanggalPengobatan(context),
                 ),
               )),
           Obx(() {

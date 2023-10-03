@@ -1,8 +1,5 @@
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
@@ -62,7 +59,6 @@ class DetailHewanView extends GetView<DetailHewanController> {
         physics: BouncingScrollPhysics(),
         padding: EdgeInsets.all(20),
         children: [
-          
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -103,7 +99,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
               )),
 
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -142,7 +138,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -181,7 +177,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -220,7 +216,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -259,7 +255,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -298,7 +294,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -337,7 +333,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -376,7 +372,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -415,7 +411,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -454,7 +450,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -493,7 +489,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -532,7 +528,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -571,7 +567,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -610,7 +606,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -650,7 +646,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
               )),
 
-              //BUTON EDIT AND DELETE
+          //BUTON EDIT AND DELETE
           Obx(() {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -710,6 +706,3 @@ class DetailHewanView extends GetView<DetailHewanController> {
     );
   }
 }
-
-
-

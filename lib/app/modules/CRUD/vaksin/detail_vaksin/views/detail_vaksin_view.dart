@@ -65,14 +65,14 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
-                      ? Colors.white
+                      ? Colors.grey[200]
                       : Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextFormField(
-                  enabled: controller.isEditing.value,
+                  enabled: false,
                   style: TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
@@ -700,7 +700,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
@@ -710,34 +710,19 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
+                child: TextField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                  ),
+                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalIBC,
-                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal IB",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal IB",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal IB",
                   ),
+                  readOnly: true,
+                  onTap: () => controller.tanggalIB(context),
                 ),
               )),
           Obx(() {

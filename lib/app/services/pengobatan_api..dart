@@ -1,11 +1,6 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
-import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -92,7 +87,6 @@ class PengobatanApi extends SharedApi {
           "diagnosaBanding": jsonData['dignosaBanding'],
         });
       } else {
-        showErrorMessage(jsonData['message']);
         return null; // return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -139,12 +133,19 @@ class PengobatanApi extends SharedApi {
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        jsonData['statusCode'] = 201;
-        // print(data.body);
-        // print(jsonData);
-        return PengobatanModel.fromJson(jsonData);
+        return PengobatanModel.fromJson({
+          "status": 201,
+          "idKasus": jsonData['idKasus'],
+          "tanggalPengobatan": jsonData['tanggalPengobatan'],
+          "tanggalKasus": jsonData['tanggalKasus'],
+          "namaPetugas": jsonData['namaPetugas'],
+          "namaInfrastruktur": jsonData['namaInfrastruktur'],
+          "lokasi": jsonData['lokasi'],
+          "dosis": jsonData['dosis'],
+          "sindrom": jsonData['sindrom'],
+          "diagnosaBanding": jsonData['dignosaBanding'],
+        });
       } else {
-        showErrorMessage(jsonData['message']);
         return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -173,9 +174,8 @@ class PengobatanApi extends SharedApi {
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi PengobatanModel.fromJson
-        return PengobatanModel.fromJson(postData);
+        return PengobatanModel.fromJson({"status": 200});
       } else {
-        showErrorMessage(jsonData['message']);
         return PengobatanModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {

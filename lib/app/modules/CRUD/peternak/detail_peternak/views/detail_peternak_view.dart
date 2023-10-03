@@ -2,7 +2,6 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../controllers/detail_peternak_controller.dart';
 

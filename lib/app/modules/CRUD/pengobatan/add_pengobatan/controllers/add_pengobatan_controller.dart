@@ -1,5 +1,4 @@
 import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -24,7 +23,7 @@ class AddPengobatanController extends GetxController {
   TextEditingController dosisC = TextEditingController();
   TextEditingController sindromC = TextEditingController();
   TextEditingController dignosaBandingC = TextEditingController();
-  
+
   @override
   onClose() {
     idKasusC.dispose();

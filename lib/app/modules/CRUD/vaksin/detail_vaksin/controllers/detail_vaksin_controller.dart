@@ -2,8 +2,12 @@ import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailVaksinController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
@@ -148,6 +152,14 @@ class DetailVaksinController extends GetxController {
       onCancel: () => Get.back(),
       onConfirm: () async {
         vaksinModel = await VaksinApi().deleteVaksinApi(argsData["idVaksin"]);
+        if (vaksinModel != null) {
+          if (vaksinModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Hapus Data Vaksin dengan ID: ${idVaksinC.text}");
+          } else {
+            showErrorMessage("Gagal Hapus Data Vaksin ");
+          }
+        }
         final VaksinController vaksinController = Get.put(VaksinController());
         vaksinController.reInitialize();
         Get.back();
@@ -163,33 +175,55 @@ class DetailVaksinController extends GetxController {
       message: "Apakah anda ingin mengedit data Vaksin ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         vaksinModel = await VaksinApi().editVaksinApi(
           idVaksinC.text,
-          tanggalIBC.text,
-          lokasiC.text,
-          namaPeternakC.text,
-          idPeternakC.text,
-          idHewanC.text,
           eartagC.text,
+          idHewanC.text,
+          idPembuatanC.text,
+          idPejantanC.text,
+          bangsaPejantanC.text,
           ib1C.text,
           ib2C.text,
           ib3C.text,
           ibLainC.text,
-          idPejantanC.text,
-          idPembuatanC.text,
-          bangsaPejantanC.text,
           produsenC.text,
+          idPeternakC.text,
+          namaPeternakC.text,
+          lokasiC.text,
           inseminatorC.text,
+          tanggalIBC.text,
         );
         isEditing.value = false;
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+        if (vaksinModel != null) {
+          if (vaksinModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil mengedit Data Vaksin dengan ID: ${idVaksinC.text}");
+          } else {
+            showErrorMessage("Gagal mengedit Data Vaksin ");
+          }
+        }
+        final VaksinController vaksinController = Get.put(VaksinController());
+        vaksinController.reInitialize();
+        Get.back(); // close modal
+        Get.back();
+        update();
       },
     );
+  }
+
+  late DateTime selectedDate = DateTime.now();
+
+  Future<void> tanggalIB(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalIBC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
   }
 }
