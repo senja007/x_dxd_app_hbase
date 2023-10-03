@@ -1,6 +1,7 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -9,6 +10,9 @@ import 'package:crud_flutter_api/app/modules/home/controllers/home_controller.da
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/controllers/add_hewan_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:flutter_map/flutter_map.dart';
+import 'package:latlong2/latlong.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
@@ -112,6 +116,56 @@ class HomeView extends GetView<HomeController> {
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(5.0)),
                                 child: Text(
+                                  "Peta Lokasi",
+                                  textAlign: TextAlign.center,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    )),
+                SizedBox(
+                  width: double.maxFinite,
+                  height: 250,
+                  child: FlutterMap(
+                    options: MapOptions(
+                      center: LatLng(-8.1351667,113.2218143), // Koordinat LatLng sebagai titik tengah peta
+                      zoom: 13, // Tingkat zoom awal
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        subdomains: ['a', 'b', 'c'],
+                        userAgentPackageName: 'com.duar.app',
+                      ),
+                      //Tambahkan layer peta tambahan di sini jika diperlukan
+                    ],
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      child: Center(
+                        child: Wrap(
+                          spacing: 80.0,
+                          runSpacing: 20.0,
+                          children: [
+                            SizedBox(
+                              width: 250,
+                              height: 30,
+                              child: Card(
+                                color: Color(0xff132137),
+                                elevation: 2.0,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(5.0)),
+                                child: Text(
                                   "Informasi Data Peternakan",
                                   textAlign: TextAlign.center,
                                   style: TextStyle(
@@ -130,26 +184,32 @@ class HomeView extends GetView<HomeController> {
                 // Other widgets...
 
                 // Organize card widgets using a Row and Spacer for spacing.
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildCardWidget("assets/images/cow.png",
-                        "${controller.posts1?.totalElements ?? 0}", "Ternak"),
-                    SizedBox(width: 12),
-                    _buildCardWidget("assets/images/man.png",
-                        "${controller.posts2?.totalElements ?? 0}", "Peternak"),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    _buildCardWidget("assets/images/people.png",
-                        "${controller.posts?.totalElements ?? 0}", "Petugas"),
-                    SizedBox(width: 12),
-                    _buildCardWidget(
-                        "assets/images/house.png", "38", "Kandang"),
-                  ],
-                ),
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildCardWidget(
+                            "assets/images/cow.png",
+                            "${controller.posts1?.value.totalElements ?? 0}",
+                            "Ternak"),
+                        SizedBox(width: 12),
+                        _buildCardWidget(
+                            "assets/images/man.png",
+                            "${controller.posts2?.value.totalElements ?? 0}",
+                            "Peternak"),
+                      ],
+                    )),
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildCardWidget(
+                            "assets/images/people.png",
+                            "${controller.posts?.value.totalElements ?? 0}",
+                            "Petugas"),
+                        SizedBox(width: 12),
+                        _buildCardWidget(
+                            "assets/images/house.png", "38", "Kandang"),
+                      ],
+                    )),
 
                 // Other widgets...
               ],
