@@ -532,34 +532,19 @@ class DetailPkbView extends GetView<DetailPkbController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
+                child: TextField(
                   enabled: controller.isEditing.value,
                   style: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                  ),
+                      fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalPkbC,
-                  keyboardType: TextInputType.text,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal PKB",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 14,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal PKB",
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal PKB",
                   ),
+                  readOnly: true,
+                  onTap: () => controller.tanggalPkb(context),
                 ),
               )),
           Obx(() {

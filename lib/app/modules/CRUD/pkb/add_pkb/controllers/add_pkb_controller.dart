@@ -1,9 +1,5 @@
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
-import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -65,8 +61,7 @@ class AddPkbController extends GetxController {
 
       if (pkbModel != null) {
         if (pkbModel?.status == 201) {
-          final PKBController pkbController =
-              Get.put(PKBController());
+          final PKBController pkbController = Get.put(PKBController());
           pkbController.reInitialize();
           Get.back();
           showSuccessMessage("Kelahiran Baru Berhasil ditambahkan");
@@ -104,15 +99,15 @@ class AddPkbController extends GetxController {
 
   late DateTime selectedDate = DateTime.now();
 
-  Future<void> tanggalPkb (BuildContext context) async {
+  Future<void> tanggalPkb(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        firstDate: DateTime(2000),
-        lastDate: DateTime(2101),
-      );
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
 
-  if (picked != null && picked != selectedDate) {
+    if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       tanggalPkbC.text = DateFormat('dd/MM/yyyy').format(picked);
     }

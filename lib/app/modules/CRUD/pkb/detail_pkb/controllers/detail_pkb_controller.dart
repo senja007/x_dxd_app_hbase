@@ -2,8 +2,12 @@ import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailPkbController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
@@ -124,6 +128,14 @@ class DetailPkbController extends GetxController {
       onCancel: () => Get.back(),
       onConfirm: () async {
         pkbModel = await PKBApi().deletePKBAPI(argsData["id_kejadian"]);
+        if (pkbModel != null) {
+          if (pkbModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Hapus Data PKB dengan ID: ${idKejadianC.text}");
+          } else {
+            showErrorMessage("Gagal Hapus Data PKB ");
+          }
+        }
         final PKBController pkbController = Get.put(PKBController());
         pkbController.reInitialize();
         Get.back();
@@ -139,8 +151,6 @@ class DetailPkbController extends GetxController {
       message: "Apakah anda ingin mengedit data PKB ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         pkbModel = await PKBApi().editPKBApi(
             idKejadianC.text,
             idHewanC.text,
@@ -155,8 +165,37 @@ class DetailPkbController extends GetxController {
             pemeriksaKebuntinganC.text,
             tanggalPkbC.text);
         isEditing.value = false;
+        if (pkbModel != null) {
+          if (pkbModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil Edit Data PKB dengan ID: ${idKejadianC.text}");
+          } else {
+            showErrorMessage("Gagal Edit Data PKB ");
+          }
+        }
+        final PKBController pkbController = Get.put(PKBController());
+        pkbController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
+  }
+
+  late DateTime selectedDate = DateTime.now();
+
+  Future<void> tanggalPkb(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalPkbC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
   }
 }
 

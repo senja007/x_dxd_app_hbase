@@ -1,5 +1,4 @@
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -560,18 +559,20 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
+            child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-                controller: controller.tanggalIBC, //editing controller of this TextField
-                decoration: InputDecoration( 
+              controller:
+                  controller.tanggalIBC, //editing controller of this TextField
+              decoration: InputDecoration(
                   border: InputBorder.none,
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal IB" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalIB(context),
-             ),
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal IB" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalIB(context),
+            ),
           ),
           SizedBox(height: 32),
           Container(

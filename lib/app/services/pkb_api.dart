@@ -1,11 +1,6 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
-import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -101,7 +96,7 @@ class PKBApi extends SharedApi {
           "tanggalPkb": jsonData['tanggalPkb'],
         });
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return null; // return PKBModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -153,12 +148,23 @@ class PKBApi extends SharedApi {
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        jsonData['statusCode'] = 201;
-        // print(data.body);
-        // print(jsonData);
-        return PKBModel.fromJson(jsonData);
+        return PKBModel.fromJson({
+          "status": 201,
+          "idKejadian": jsonData['idKejadian'],
+          "idHewan": jsonData['idHewan'],
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "jumlah": jsonData['jumlah'],
+          "kategori": jsonData['kategori'],
+          "lokasi": jsonData['lokasi'],
+          "spesies": jsonData['spesies'],
+          "umurKebuntingan": jsonData['umurKebuntingan'],
+          "pemeriksaKebuntingan": jsonData['pemeriksaKebuntingan'],
+          "tanggalPkb": jsonData['tanggalPkb'],
+        });
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return PKBModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -187,9 +193,9 @@ class PKBApi extends SharedApi {
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi PKBModel.fromJson
-        return PKBModel.fromJson(postData);
+        return PKBModel.fromJson({"status": 200});
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return PKBModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
