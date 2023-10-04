@@ -1,11 +1,7 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -105,34 +101,33 @@ class KelahiranApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        
         return KelahiranModel.fromJson({
           "status": 201,
-        "idKejadian": jsonData['idKejadian'],
-        "tanggalLaporan": jsonData['tanggalLaporan'],
-        "tanggalLahir": jsonData['tanggalLahir'],
-        "lokasi": jsonData['lokasi'],
-        "namaPeternak": jsonData['namaPeternak'],
-        "idPeternak": jsonData['idPeternak'],
-        "kartuTernakInduk": jsonData['kartuTernakInduk'],
-        "eartagInduk": jsonData['eartagInduk'],
-        "idHewanInduk": jsonData['idHewanInduk'],
-        "spesiesInduk": jsonData['spesiesInduk'],
-        "idPejantanStraw": jsonData['idPejantanStraw'],
-        "idBatchStraw": jsonData['idBatchStraw'],
-        "produsenStraw": jsonData['produsenStraw'],
-        "spesiesPejantan": jsonData['spesiesPejantan'],
-        "jumlah": jsonData['jumlah'],
-        "kartuTernakAnak": jsonData['kartuTernakAnak'],
-        "eartagAnak": jsonData['eartagAnak'],
-        "idHewanAnak": jsonData['idHewanAnak'],
-        "jenisKelaminAnak": jsonData['jenisKelaminAnak'],
-        "kategori": jsonData['kategori'],
-        "petugasPelapor": jsonData['petugasPelapor'],
-        "urutanIb": jsonData['urutanIb'],
+          "idKejadian": jsonData['idKejadian'],
+          "tanggalLaporan": jsonData['tanggalLaporan'],
+          "tanggalLahir": jsonData['tanggalLahir'],
+          "lokasi": jsonData['lokasi'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idPeternak": jsonData['idPeternak'],
+          "kartuTernakInduk": jsonData['kartuTernakInduk'],
+          "eartagInduk": jsonData['eartagInduk'],
+          "idHewanInduk": jsonData['idHewanInduk'],
+          "spesiesInduk": jsonData['spesiesInduk'],
+          "idPejantanStraw": jsonData['idPejantanStraw'],
+          "idBatchStraw": jsonData['idBatchStraw'],
+          "produsenStraw": jsonData['produsenStraw'],
+          "spesiesPejantan": jsonData['spesiesPejantan'],
+          "jumlah": jsonData['jumlah'],
+          "kartuTernakAnak": jsonData['kartuTernakAnak'],
+          "eartagAnak": jsonData['eartagAnak'],
+          "idHewanAnak": jsonData['idHewanAnak'],
+          "jenisKelaminAnak": jsonData['jenisKelaminAnak'],
+          "kategori": jsonData['kategori'],
+          "petugasPelapor": jsonData['petugasPelapor'],
+          "urutanIb": jsonData['urutanIb'],
         });
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return null; // KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -144,7 +139,7 @@ class KelahiranApi extends SharedApi {
 
 //EDIT
   Future<KelahiranModel?> editKelahiranApi(
-      String idKejadian,
+    String idKejadian,
     String tanggalLaporan,
     String tanggalLahir,
     String lokasi,
@@ -166,7 +161,7 @@ class KelahiranApi extends SharedApi {
     String kategori,
     String petugasPelapor,
     String urutanIb,
-      ) async {
+  ) async {
     try {
       var jsonData;
       showLoading();
@@ -204,12 +199,33 @@ class KelahiranApi extends SharedApi {
 
       jsonData = json.decode(data.body);
       if (data.statusCode == 201) {
-        jsonData['statusCode'] = 201;
-        // print(data.body);
-        // print(jsonData);
-        return KelahiranModel.fromJson(jsonData);
+        return KelahiranModel.fromJson({
+          "status": 201,
+          "idKejadian": jsonData['idKejadian'],
+          "tanggalLaporan": jsonData['tanggalLaporan'],
+          "tanggalLahir": jsonData['tanggalLahir'],
+          "lokasi": jsonData['lokasi'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idPeternak": jsonData['idPeternak'],
+          "kartuTernakInduk": jsonData['kartuTernakInduk'],
+          "eartagInduk": jsonData['eartagInduk'],
+          "idHewanInduk": jsonData['idHewanInduk'],
+          "spesiesInduk": jsonData['spesiesInduk'],
+          "idPejantanStraw": jsonData['idPejantanStraw'],
+          "idBatchStraw": jsonData['idBatchStraw'],
+          "produsenStraw": jsonData['produsenStraw'],
+          "spesiesPejantan": jsonData['spesiesPejantan'],
+          "jumlah": jsonData['jumlah'],
+          "kartuTernakAnak": jsonData['kartuTernakAnak'],
+          "eartagAnak": jsonData['eartagAnak'],
+          "idHewanAnak": jsonData['idHewanAnak'],
+          "jenisKelaminAnak": jsonData['jenisKelaminAnak'],
+          "kategori": jsonData['kategori'],
+          "petugasPelapor": jsonData['petugasPelapor'],
+          "urutanIb": jsonData['urutanIb'],
+        });
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {
@@ -238,9 +254,9 @@ class KelahiranApi extends SharedApi {
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi KelahiranModel.fromJson
-        return KelahiranModel.fromJson(postData);
+        return KelahiranModel.fromJson({"status": 200});
       } else {
-        showErrorMessage(jsonData['message']);
+        // showErrorMessage(jsonData['message']);
         return KelahiranModel.fromJson({"status": data.statusCode});
       }
     } on Exception catch (_) {

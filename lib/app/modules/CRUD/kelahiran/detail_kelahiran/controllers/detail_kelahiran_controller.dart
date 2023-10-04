@@ -5,8 +5,12 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class DetailKelahiranController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
@@ -60,7 +64,6 @@ class DetailKelahiranController extends GetxController {
   String originalpetugasPelapor = "";
   String originalurutanIb = "";
 
-  
   @override
   onClose() {
     idKejadianC.dispose();
@@ -143,7 +146,40 @@ class DetailKelahiranController extends GetxController {
   }
 
   Future<void> tutupEdit() async {
-    isEditing.value = false;
+    CustomAlertDialog.showPresenceAlert(
+      title: "Batal Edit",
+      message: "Apakah anda ingin keluar dari edit ?",
+      onCancel: () => Get.back(),
+      onConfirm: () async {
+        Get.back();
+        update();
+        // Reset data ke yang sebelumnya
+        idKejadianC.text = originalidKejadian;
+        tanggalLaporanC.text = originaltanggalLaporan;
+        tanggalLahirC.text = originaltanggalLahir;
+        lokasiC.text = originallokasi;
+        namaPeternakC.text = originalnamaPeternak;
+        idPeternakC.text = originalidPeternak;
+        kartuTernakIndukC.text = originalkartuTernakInduk;
+        eartagIndukC.text = originaleartagInduk;
+        idHewanIndukC.text = originalidHewanInduk;
+        spesiesIndukC.text = originalspesiesInduk;
+        idPejantanStrawC.text = originalidPejantanStraw;
+        idBatchStrawC.text = originalidBatchStraw;
+        produsenStrawC.text = originalprodusenStraw;
+        spesiesPejantanC.text = originalspesiesPejantan;
+        jumlahC.text = originaljumlah;
+        kartuTernakAnakC.text = originalkartuTernakAnak;
+        eartagAnakC.text = originaleartagAnak;
+        idHewanAnakC.text = originalidHewanAnak;
+        jenisKelaminAnakC.text = originaljenisKelaminAnak;
+        kategoriC.text = originalkategori;
+        petugasPelaporC.text = originalpetugasPelapor;
+        urutanIbC.text = originalurutanIb;
+
+        isEditing.value = false;
+      },
+    );
   }
 
   Future<void> deleteKelahiran() async {
@@ -154,6 +190,14 @@ class DetailKelahiranController extends GetxController {
       onConfirm: () async {
         kelahiranModel = await KelahiranApi()
             .deleteKelahiranAPI(argsData["id_kejadian_detail"]);
+        if (kelahiranModel != null) {
+          if (kelahiranModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Hapus Data Kelahiran dengan ID: ${idKejadianC.text}");
+          } else {
+            showErrorMessage("Gagal Hapus Data Kelahiran ");
+          }
+        }
         final KelahiranController kelahiranController =
             Get.put(KelahiranController());
         kelahiranController.reInitialize();
@@ -170,8 +214,6 @@ class DetailKelahiranController extends GetxController {
       message: "Apakah anda ingin mengedit data Kelahiran ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         kelahiranModel = await KelahiranApi().editKelahiranApi(
           idKejadianC.text,
           tanggalLaporanC.text,
@@ -197,12 +239,52 @@ class DetailKelahiranController extends GetxController {
           urutanIbC.text,
         );
         isEditing.value = false;
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
-        // if (petugasModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+        if (kelahiranModel != null) {
+          if (kelahiranModel!.status == 200) {
+            showSuccessMessage(
+                "Berhasil Edit Data Kelahiran dengan ID: ${idKejadianC.text}");
+          } else {
+            showErrorMessage("Gagal Edit Data Kelahiran ");
+          }
+        }
+        final KelahiranController kelahiranController =
+            Get.put(KelahiranController());
+        kelahiranController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
+  }
+
+  late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate1 = DateTime.now();
+
+  Future<void> tanggalLaporan(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalLaporanC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
+  }
+
+  Future<void> tanggalLahir(BuildContext context) async {
+    final DateTime? picked1 = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked1 != null && picked1 != selectedDate1) {
+      selectedDate1 = picked1;
+      tanggalLahirC.text = DateFormat('dd/MM/yyyy').format(picked1);
+    }
   }
 }

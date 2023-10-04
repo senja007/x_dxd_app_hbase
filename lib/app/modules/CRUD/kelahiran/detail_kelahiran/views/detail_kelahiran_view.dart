@@ -123,254 +123,6 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                         color: Colors.black),
                     maxLines: 1,
                     autofocus: true,
-                    controller: controller.tanggalLaporanC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Tanggal Laporan",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Tanggal Laporan",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
-                Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.tanggalLahirC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Tanggal Lahir",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Tanggal Lahir",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
-                Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.lokasiC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Lokasi",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Lokasi",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.namaPeternakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Nama Peternak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Nama Peternak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idPeternakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Peternak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Peternak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.kartuTernakIndukC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Kartu Ternak Induk",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Kartu Ternak Induk",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
                     controller: controller.eartagIndukC,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
@@ -392,338 +144,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idHewanIndukC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Hewan Induk",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Hewan Induk",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.spesiesIndukC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Spesies Induk",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Spesies Induk",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                  )),
-                Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idPejantanStrawC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Pejantan Straw",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Pejantan Straw",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
                 )),
-                Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idBatchStrawC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Batch Straw",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Batch Straw",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
-                Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.produsenStrawC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Produsen Straw",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Produsen Straw",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.spesiesPejantanC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Spesies Pejantan",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Spesies Pejantan",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.jumlahC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Jumlah",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Jumlah",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.kartuTernakAnakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Kartu Ternak Anak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Kartu Ternak Anak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),Obx(() => Container(
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -764,7 +186,50 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.idHewanIndukC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "ID Hewan Induk",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "ID Hewan Induk",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -805,7 +270,92 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.idBatchStrawC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "ID Batch ",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "ID Batch ",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.idPejantanStrawC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "ID Pejantan ",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "ID Pejantan ",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -846,7 +396,176 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.jumlahC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Jumlah",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Jumlah",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.urutanIbC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Urutan IB",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Urutan IB",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.kartuTernakAnakC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Kartu Ternak Anak",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Kartu Ternak Anak",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.kartuTernakIndukC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Kartu Ternak Induk",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Kartu Ternak Induk",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -887,7 +606,134 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.lokasiC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Lokasi",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Lokasi",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.idPeternakC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "ID Peternak",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "ID Peternak",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.namaPeternakC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Nama Peternak",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Nama Peternak",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -928,7 +774,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                     ),
                   ),
-                )),Obx(() => Container(
+                )),
+            Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: EdgeInsets.only(bottom: 16),
@@ -948,11 +795,11 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                         color: Colors.black),
                     maxLines: 1,
                     autofocus: true,
-                    controller: controller.urutanIbC,
+                    controller: controller.produsenStrawC,
                     keyboardType: TextInputType.name,
                     decoration: InputDecoration(
                       label: Text(
-                        "Urutan IB",
+                        "Produsen ",
                         style: TextStyle(
                           color: AppColor.secondarySoft,
                           fontSize: 15,
@@ -960,7 +807,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                       ),
                       floatingLabelBehavior: FloatingLabelBehavior.always,
                       border: InputBorder.none,
-                      hintText: "Urutan IB",
+                      hintText: "Produsen ",
                       hintStyle: TextStyle(
                         fontSize: 15,
                         fontFamily: 'poppins',
@@ -968,6 +815,148 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                         color: AppColor.secondarySoft,
                       ),
                     ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.spesiesIndukC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Spesies Induk",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Spesies Induk",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextFormField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 18,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    autofocus: true,
+                    controller: controller.spesiesPejantanC,
+                    keyboardType: TextInputType.name,
+                    decoration: InputDecoration(
+                      label: Text(
+                        "Spesies Pejantan",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
+                      ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Spesies Pejantan",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                    ),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    controller: controller.tanggalLahirC,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      icon: Icon(Icons.calendar_today),
+                      labelText: "Tanggal Lahir",
+                    ),
+                    readOnly: true,
+                    onTap: () => controller.tanggalLahir(context),
+                  ),
+                )),
+            Obx(() => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: TextField(
+                    enabled: controller.isEditing.value,
+                    style: TextStyle(
+                        fontSize: 14,
+                        fontFamily: 'poppins',
+                        color: Colors.black),
+                    maxLines: 1,
+                    controller: controller.tanggalLaporanC,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      icon: Icon(Icons.calendar_today),
+                      labelText: "Tanggal Laporan",
+                    ),
+                    readOnly: true,
+                    onTap: () => controller.tanggalLaporan(context),
                   ),
                 )),
             Obx(
