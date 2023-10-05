@@ -135,7 +135,8 @@ class HomeView extends GetView<HomeController> {
                   height: 250,
                   child: FlutterMap(
                     options: MapOptions(
-                      center: LatLng(-8.1351667,113.2218143), // Koordinat LatLng sebagai titik tengah peta
+                      center: LatLng(-8.1351667,
+                          113.2218143), // Koordinat LatLng sebagai titik tengah peta
                       zoom: 13, // Tingkat zoom awal
                     ),
                     children: [
@@ -144,6 +145,17 @@ class HomeView extends GetView<HomeController> {
                             'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
                         subdomains: ['a', 'b', 'c'],
                         userAgentPackageName: 'com.duar.app',
+                      ),
+                      MarkerLayer(
+                        markers: [
+                          Marker(
+                            point: LatLng(-8.1351667,
+                          113.2218143),
+                            width: 30,
+                            height: 30,
+                            builder: (context) => Icon(Icons.place, color: Colors.blue, size: 40,),
+                          ),
+                        ],
                       ),
                       //Tambahkan layer peta tambahan di sini jika diperlukan
                     ],

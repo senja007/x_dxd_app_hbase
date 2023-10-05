@@ -52,4 +52,6 @@ class PetugasListModel {
         totalElements: jsonData['totalElements'],
         totalPages: jsonData['totalPages']);
   }
+
+  void assignAll(List<PetugasModel> filteredList) {}
 }

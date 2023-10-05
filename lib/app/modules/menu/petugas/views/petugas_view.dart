@@ -6,6 +6,7 @@ import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:http/http.dart';
 import '../../menu_view/views/menu_view.dart';
 import '../controllers/petugas_controller.dart';
@@ -50,7 +51,7 @@ class PetugasView extends GetView<PetugasController> {
                     ),
                     controller: SearchController(),
                     onChanged: (value) {
-                      //belum ada value yang saya masukkan , besok lagi aja , lagi mentok , malem pula hihihi
+                      controller.searchPetugas(value);
                     },
                     decoration: InputDecoration(
                         hintText: 'Cari NIK atau Nama',
@@ -67,97 +68,193 @@ class PetugasView extends GetView<PetugasController> {
             ],
           ),
 
-          //body: Container(),
-          body: GetBuilder<PetugasController>(
-            builder: (controller) => controller.posts?.status == 200
-                ? controller.posts!.content!.isEmpty
-                    ? EmptyView()
-                    : ListView.separated(
-                        itemCount: controller.posts!.content!.length,
-                        shrinkWrap: true,
-                        physics: BouncingScrollPhysics(),
-                        separatorBuilder: (context, index) =>
-                            SizedBox(height: 8),
-                        itemBuilder: (context, index) {
-                          var postData = controller.posts!.content![index];
-                          return InkWell(
-                            onTap: () => {
-                              Get.toNamed(
-                                Routes.DETAILPETUGAS,
-                                arguments: {
-                                  "nikPetugas": "${postData.nikPetugas}",
-                                  "namaPetugas": "${postData.namaPetugas}",
-                                  "noTelp": "${postData.noTelp}",
-                                  "email": "${postData.email}",
-                                },
-                              ),
+          // //body: Container(),
+          // body: GetBuilder<PetugasController>(
+          //   builder: (controller) => controller.posts?.value.status == 200
+          //       ? controller.posts!.value.content!.isEmpty
+          //           ? EmptyView()
+          //           : ListView.separated(
+          //               //itemCount: controller.posts!.value.content!.length,
+          //               itemCount: controller.filteredPosts.length,
+
+          //               shrinkWrap: true,
+          //               physics: BouncingScrollPhysics(),
+          //               separatorBuilder: (context, index) =>
+          //                   SizedBox(height: 8),
+          //               itemBuilder: (context, index) {
+          //                 var postData = controller.posts!.value.content![index];
+          //                 return InkWell(
+          //                   onTap: () => {
+          //                     Get.toNamed(
+          //                       Routes.DETAILPETUGAS,
+          //                       arguments: {
+          //                         "nikPetugas": "${postData.nikPetugas}",
+          //                         "namaPetugas": "${postData.namaPetugas}",
+          //                         "noTelp": "${postData.noTelp}",
+          //                         "email": "${postData.email}",
+          //                       },
+          //                     ),
+          //                   },
+          //                   borderRadius: BorderRadius.circular(8),
+          //                   child: Container(
+          //                     width: MediaQuery.of(context).size.width,
+          //                     decoration: BoxDecoration(
+          //                       boxShadow: [
+          //                         BoxShadow(
+          //                           offset: Offset(0, 5),
+          //                           color: Color.fromARGB(255, 0, 47, 255)
+          //                               .withOpacity(.2),
+          //                           spreadRadius: 2,
+          //                           blurRadius:
+          //                               10, // changes position of shadow
+          //                         ),
+          //                       ],
+          //                       color: AppColor.primaryExtraSoft,
+          //                       borderRadius: BorderRadius.circular(15),
+          //                       border: Border.all(
+          //                           width: 1, color: AppColor.primaryExtraSoft),
+          //                     ),
+          //                     padding: EdgeInsets.only(
+          //                         left: 20, top: 15, right: 29, bottom: 15),
+          //                     child: Row(
+          //                       mainAxisAlignment:
+          //                           MainAxisAlignment.spaceBetween,
+          //                       children: [
+          //                         Column(
+          //                           crossAxisAlignment:
+          //                               CrossAxisAlignment.start,
+          //                           children: [
+          //                             Text(
+          //                               (postData.status == null)
+          //                                   ? "-"
+          //                                   : "Nik Petugas: ${postData.nikPetugas}",
+          //                               style: TextStyle(
+          //                                   fontSize: 18,
+          //                                   fontWeight: FontWeight.bold),
+          //                             ),
+          //                             Text(
+          //                               (postData.status == null)
+          //                                   ? "-"
+          //                                   : "Nama Petugas: ${postData.namaPetugas}",
+          //                               style: TextStyle(
+          //                                   fontSize: 18,
+          //                                   fontWeight: FontWeight.normal),
+          //                             ),
+          //                             SizedBox(
+          //                               height: 2,
+          //                             ),
+          //                             Text(
+          //                               (postData.status == null)
+          //                                   ? "-"
+          //                                   : "Email Petugas"
+          //                                       "${postData.email}",
+          //                               style: TextStyle(
+          //                                   fontSize: 14,
+          //                                   fontWeight: FontWeight.normal),
+          //                             ),
+          //                           ],
+          //                         ),
+          //                       ],
+          //                     ),
+          //                   ),
+          //                 );
+          //               },
+          //             )
+          //       : NoData(),
+          // ),
+
+          body: Obx(
+            () {
+              if (controller.posts?.value.status == 200) {
+                if (controller.posts!.value.content!.isEmpty) {
+                  return EmptyView();
+                } else {
+                  return ListView.separated(
+                    itemCount: controller.filteredPosts.length,
+                    shrinkWrap: true,
+                    physics: BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    itemBuilder: (context, index) {
+                      var postData = controller.filteredPosts[index];
+                      return InkWell(
+                        onTap: () => {
+                          Get.toNamed(
+                            Routes.DETAILPETUGAS,
+                            arguments: {
+                              "nikPetugas": "${postData.nikPetugas}",
+                              "namaPetugas": "${postData.namaPetugas}",
+                              "noTelp": "${postData.noTelp}",
+                              "email": "${postData.email}",
                             },
-                            borderRadius: BorderRadius.circular(8),
-                            child: Container(
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                boxShadow: [
-                                  BoxShadow(
-                                    offset: Offset(0, 5),
-                                    color: Color.fromARGB(255, 0, 47, 255)
-                                        .withOpacity(.2),
-                                    spreadRadius: 2,
-                                    blurRadius:
-                                        10, // changes position of shadow
-                                  ),
-                                ],
-                                color: AppColor.primaryExtraSoft,
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    width: 1, color: AppColor.primaryExtraSoft),
-                              ),
-                              padding: EdgeInsets.only(
-                                  left: 20, top: 15, right: 29, bottom: 15),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        (postData.status == null)
-                                            ? "-"
-                                            : "Nik Petugas: ${postData.nikPetugas}",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        (postData.status == null)
-                                            ? "-"
-                                            : "Nama Petugas: ${postData.namaPetugas}",
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                      SizedBox(
-                                        height: 2,
-                                      ),
-                                      Text(
-                                        (postData.status == null)
-                                            ? "-"
-                                            : "Email Petugas"
-                                                "${postData.email}",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.normal),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          );
+                          ),
                         },
-                      )
-                : NoData(),
+                        borderRadius: BorderRadius.circular(8),
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 5),
+                                color: Color.fromARGB(255, 0, 47, 255)
+                                    .withOpacity(.2),
+                                spreadRadius: 2,
+                                blurRadius: 10, // changes position of shadow
+                              ),
+                            ],
+                            color: AppColor.primaryExtraSoft,
+                            borderRadius: BorderRadius.circular(15),
+                            border: Border.all(
+                                width: 1, color: AppColor.primaryExtraSoft),
+                          ),
+                          padding: EdgeInsets.only(
+                              left: 20, top: 15, right: 29, bottom: 15),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    (postData.status == null)
+                                        ? "-"
+                                        : "Nik Petugas: ${postData.nikPetugas}",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    (postData.status == null)
+                                        ? "-"
+                                        : "Nama Petugas: ${postData.namaPetugas}",
+                                    style: TextStyle(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                  SizedBox(
+                                    height: 2,
+                                  ),
+                                  Text(
+                                    (postData.status == null)
+                                        ? "-"
+                                        : "Email Petugas"
+                                            "${postData.email}",
+                                    style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.normal),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    },
+                  );
+                }
+              } else {
+                return NoData();
+              }
+            },
           ),
 
           floatingActionButton: Padding(
