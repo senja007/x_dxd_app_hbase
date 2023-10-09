@@ -6,7 +6,18 @@ import 'package:get/get.dart';
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
-  const AddHewanView({Key? key}) : super(key: key);
+  // const AddHewanView({Key? key}) : super(key: key);
+  Gender? selectedValue;
+  List<Gender?> genders = [
+    Gender(
+      id: 1,
+      sex: "jantan"
+    ),
+    Gender(
+      id: 2,
+      sex: "betina"
+    ),
+  ];
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
@@ -389,30 +400,45 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.sexC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Sex",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Sex",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+            child : DropdownButton<Gender?>(
+              value : selectedValue,
+              onChanged: (value){
+                  selectedValue = value;
+              },
+              underline: SizedBox(),
+              isExpanded: true,
+              items: genders
+                .map<DropdownMenuItem<Gender?>>((e) => DropdownMenuItem(
+                  child: Text((e?.sex ?? '').toString()),
+                  value: e,
+                  ))  
+                .toList()
+            )
+
+            // child: TextField(
+            //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+            //   maxLines: 1,
+            //   controller: controller.sexC,
+            //   keyboardType: TextInputType.text,
+            //   decoration: InputDecoration(
+            //     label: Text(
+            //       "Sex",
+            //       style: TextStyle(
+            //         color: AppColor.secondarySoft,
+            //         fontSize: 14,
+            //       ),
+            //     ),
+            //     floatingLabelBehavior: FloatingLabelBehavior.always,
+            //     border: InputBorder.none,
+            //     hintText: "Sex",
+            //     hintStyle: TextStyle(
+            //       fontSize: 14,
+            //       fontFamily: 'poppins',
+            //       fontWeight: FontWeight.w500,
+            //       color: AppColor.secondarySoft,
+            //     ),
+            //   ),
+            // ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -616,4 +642,11 @@ class AddHewanView extends GetView<AddHewanController> {
       ),
     );
   }
+}
+
+class Gender{
+  int? id;
+  String? sex;
+
+  Gender({this.id, this.sex});
 }
