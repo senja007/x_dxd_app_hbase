@@ -1,24 +1,16 @@
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
-
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
 
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
   // const AddHewanView({Key? key}) : super(key: key);
-  Gender? selectedValue;
-  List<Gender?> genders = [
-    Gender(
-      id: 1,
-      sex: "jantan"
-    ),
-    Gender(
-      id: 2,
-      sex: "betina"
-    ),
-  ];
+  // String selected;
+  List<String> genders = ["Jantan", "Betina"];
   Widget build(BuildContext context) {
+    var selectedGender;
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
@@ -400,20 +392,37 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child : DropdownButton<Gender?>(
-              value : selectedValue,
-              onChanged: (value){
-                  selectedValue = value;
+            child: DropdownButton<String>(
+              value : controller.selectedGender.value,
+              onChanged: (sex) {
+                controller.selectedGender(sex);
               },
-              underline: SizedBox(),
-              isExpanded: true,
-              items: genders
-                .map<DropdownMenuItem<Gender?>>((e) => DropdownMenuItem(
-                  child: Text((e?.sex ?? '').toString()),
-                  value: e,
-                  ))  
-                .toList()
+              items: genders.map((String gender){
+                return DropdownMenuItem<String>(
+                  value : gender, 
+                  child: Text(gender));
+              }).toList(),
+              hint:Text("pilih jenis kelamin"),
             )
+            // child : DropdownButton(
+            //   value : selected,
+            //   onChanged: (value){
+            //     print(value);
+            //     setState((){
+            //       selected = value;
+            //     });
+            //   },
+            //   underline: SizedBox(),
+            //   isExpanded: true,
+            //   items: genders.map((String gender){
+            //     return DropdownMenuItem<String>(
+            //       value : gender,
+            //       child: Text(gender),
+            //       );
+            //   }).toList(),
+            //   hint: Text("Gender"),
+            // ),
+          ),
 
             // child: TextField(
             //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
@@ -439,7 +448,6 @@ class AddHewanView extends GetView<AddHewanController> {
             //     ),
             //   ),
             // ),
-          ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
