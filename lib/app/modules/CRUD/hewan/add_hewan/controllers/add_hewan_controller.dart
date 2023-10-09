@@ -138,6 +138,6 @@ class AddHewanController extends GetxController {
   }
 
   void updateSelectedGender(String sex){
-    selectedGender.value = sex;
+    sexC.text = sex;
   }
 }

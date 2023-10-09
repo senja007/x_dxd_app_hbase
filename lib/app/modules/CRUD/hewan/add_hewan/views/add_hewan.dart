@@ -1,6 +1,8 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
-import 'package:dropdown_search/dropdown_search.dart';
+//import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
 
 import '../controllers/add_hewan_controller.dart';
@@ -392,8 +394,9 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
+
             child: DropdownButton<String>(
-              value : controller.selectedGender.value,
+              value : selectedGender,
               onChanged: (sex) {
                 controller.selectedGender(sex);
               },
