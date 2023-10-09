@@ -10,7 +10,7 @@ import '../controllers/add_hewan_controller.dart';
 class AddHewanView extends GetView<AddHewanController> {
   // const AddHewanView({Key? key}) : super(key: key);
   // String selected;
-  List<String> genders = ["Jantan", "Betina"];
+
   Widget build(BuildContext context) {
     var selectedGender;
     return Scaffold(
@@ -386,71 +386,70 @@ class AddHewanView extends GetView<AddHewanController> {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: DropdownButton<String>(
+                value: selectedGender,
+                onChanged: (sex) {
+                  controller.updateSelectedGender(sex!);
+                },
+                items: controller.genders.map((String gender) {
+                  return DropdownMenuItem<String>(
+                      value: gender, child: Text(gender));
+                }).toList(),
+                hint: Text("pilih jenis kelamin"),
+              )
+              // child : DropdownButton(
+              //   value : selected,
+              //   onChanged: (value){
+              //     print(value);
+              //     setState((){
+              //       selected = value;
+              //     });
+              //   },
+              //   underline: SizedBox(),
+              //   isExpanded: true,
+              //   items: genders.map((String gender){
+              //     return DropdownMenuItem<String>(
+              //       value : gender,
+              //       child: Text(gender),
+              //       );
+              //   }).toList(),
+              //   hint: Text("Gender"),
+              // ),
+              ),
 
-            child: DropdownButton<String>(
-              value : selectedGender,
-              onChanged: (sex) {
-                controller.selectedGender(sex);
-              },
-              items: genders.map((String gender){
-                return DropdownMenuItem<String>(
-                  value : gender, 
-                  child: Text(gender));
-              }).toList(),
-              hint:Text("pilih jenis kelamin"),
-            )
-            // child : DropdownButton(
-            //   value : selected,
-            //   onChanged: (value){
-            //     print(value);
-            //     setState((){
-            //       selected = value;
-            //     });
-            //   },
-            //   underline: SizedBox(),
-            //   isExpanded: true,
-            //   items: genders.map((String gender){
-            //     return DropdownMenuItem<String>(
-            //       value : gender,
-            //       child: Text(gender),
-            //       );
-            //   }).toList(),
-            //   hint: Text("Gender"),
-            // ),
-          ),
-
-            // child: TextField(
-            //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-            //   maxLines: 1,
-            //   controller: controller.sexC,
-            //   keyboardType: TextInputType.text,
-            //   decoration: InputDecoration(
-            //     label: Text(
-            //       "Sex",
-            //       style: TextStyle(
-            //         color: AppColor.secondarySoft,
-            //         fontSize: 14,
-            //       ),
-            //     ),
-            //     floatingLabelBehavior: FloatingLabelBehavior.always,
-            //     border: InputBorder.none,
-            //     hintText: "Sex",
-            //     hintStyle: TextStyle(
-            //       fontSize: 14,
-            //       fontFamily: 'poppins',
-            //       fontWeight: FontWeight.w500,
-            //       color: AppColor.secondarySoft,
-            //     ),
-            //   ),
-            // ),
+          // child: TextField(
+          //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          //   maxLines: 1,
+          //   controller: controller.sexC,
+          //   keyboardType: TextInputType.text,
+          //   decoration: InputDecoration(
+          //     label: Text(
+          //       "Sex",
+          //       style: TextStyle(
+          //         color: AppColor.secondarySoft,
+          //         fontSize: 14,
+          //       ),
+          //     ),
+          //     floatingLabelBehavior: FloatingLabelBehavior.always,
+          //     border: InputBorder.none,
+          //     hintText: "Sex",
+          //     hintStyle: TextStyle(
+          //       fontSize: 14,
+          //       fontFamily: 'poppins',
+          //       fontWeight: FontWeight.w500,
+          //       color: AppColor.secondarySoft,
+          //     ),
+          //   ),
+          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -655,7 +654,7 @@ class AddHewanView extends GetView<AddHewanController> {
   }
 }
 
-class Gender{
+class Gender {
   int? id;
   String? sex;
 

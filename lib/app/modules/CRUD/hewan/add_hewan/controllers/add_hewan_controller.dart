@@ -17,7 +17,8 @@ class AddHewanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
-  var selectedGender = "".obs;
+  var selectedGender = ''.obs;
+  List<String> genders = ["Jantan", "Betina"];
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -137,7 +138,7 @@ class AddHewanController extends GetxController {
     }
   }
 
-  void updateSelectedGender(String sex){
+  void updateSelectedGender(String sex) {
     sexC.text = sex;
   }
 }
