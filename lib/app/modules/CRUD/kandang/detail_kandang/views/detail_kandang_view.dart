@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/detail_peternak_controller.dart';
+import '../controllers/detail_kandang_controller.dart';
 
 class DetailKandangView extends GetView<DetailKandangController> {
   const DetailKandangView({Key? key}) : super(key: key);

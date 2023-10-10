@@ -1,35 +1,35 @@
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
+import 'package:crud_flutter_api/app/services/kandang_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
-class PeternakController extends GetxController {
-  PeternakListModel? posts;
+class KandangController extends GetxController {
+  KandangListModel? posts;
   final box = GetStorage();
   bool homeScreen = false;
 
   @override
   void onInit() {
     super.onInit();
-    loadPeternak();
+    loadKandang();
   }
 
   void reInitialize() {
     onInit();
   }
 
-  Future<void> refreshPeternak() async {
-    posts = await PeternakApi().loadPeternakApi();
+  Future<void> refreshKandang() async {
+    posts = await KandangApi().loadKandangApi();
     update();
     print("refresh");
   }
 
-  loadPeternak() async {
+  loadKandang() async {
     homeScreen = false;
     update();
     showLoading();
-    posts = await PeternakApi().loadPeternakApi();
+    posts = await KandangApi().loadKandangApi();
     update();
     stopLoading();
     if (posts?.status == 200) {

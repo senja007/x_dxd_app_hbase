@@ -8,8 +8,8 @@ import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/b
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/views/detail_inseminasi_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kandang/add_kandang/bindings/add_kandang_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kandang/add_kandang/views/add_kandang.dart';
-import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/bindings/detail_peternak_binding.dart';
-import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/views/detail_peternak_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/bindings/detail_kandang_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/views/detail_kandang_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/bindings/add_kelahiran_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/views/add_kelahiran.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/bindings/detail_kelahiran_binding.dart';

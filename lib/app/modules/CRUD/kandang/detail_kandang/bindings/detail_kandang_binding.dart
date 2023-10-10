@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 
-import '../controllers/detail_peternak_controller.dart';
+import '../controllers/detail_kandang_controller.dart';
 
 class DetailKandangBinding extends Bindings {
   @override
