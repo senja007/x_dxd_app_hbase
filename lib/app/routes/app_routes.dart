@@ -26,6 +26,7 @@ abstract class Routes {
   static const MAIN = _Paths.MAIN;
   static const MYACCOUNT = _Paths.MYACCOUNT;
   static const PETUGAS = _Paths.PETUGAS;
+  static const KANDANG = _Paths.KANDANG;
 
   // ADD DATA
   static const ADDHEWAN = _Paths.ADDHEWAN;
@@ -36,6 +37,7 @@ abstract class Routes {
   static const ADDPENGOBATAN = _Paths.ADDPENGOBATAN;
   static const ADDPKB = _Paths.ADDPKB;
   static const ADDKELAHIRAN = _Paths.ADDKELAHIRAN;
+  static const ADDKANDANG = _Paths.ADDKANDANG;
 
   //Detail Post
   static const DETAILPETUGAS = _Paths.DETAILPETUGAS;
@@ -46,16 +48,7 @@ abstract class Routes {
   static const DETAILINSEMINASI = _Paths.DETAILINSEMINASI;
   static const DETAILKELAHIRAN = _Paths.DETAILKELAHIRAN;
   static const DETAILPENGOBATAN = _Paths.DETAILPENGOBATAN;
-
-  //EDIT POST
-  // static const EDITPETUGAS = _Paths.EDITPETUGAS;
-  static const EDITHEWAN = _Paths.EDITHEWAN;
-  static const EDITPETERNAK = _Paths.EDITPETERNAK;
-  static const EDITPKB = _Paths.EDITPKB;
-  static const EDITVAKSIN = _Paths.EDITVAKSIN;
-  static const EDITINSEMINASI = _Paths.EDITINSEMINASI;
-  static const EDITKELAHIRAN = _Paths.EDITKELAHIRAN;
-  static const EDITPENGOBATAN = _Paths.EDITPENGOBATAN;
+  static const DETAILKANDANG = _Paths.DETAILKANDANG;
 }
 
 abstract class _Paths {
@@ -83,6 +76,7 @@ abstract class _Paths {
   static const MAIN = '/main';
   static const MYACCOUNT = '/myaccount';
   static const PETUGAS = '/petugas';
+  static const KANDANG = '/kandang';
 
   // Create read update delete
 
@@ -94,6 +88,7 @@ abstract class _Paths {
   static const ADDPENGOBATAN = '/add-pengobatan';
   static const ADDPKB = '/add-pkb';
   static const ADDKELAHIRAN = '/add-kelahiran';
+  static const ADDKANDANG = '/add-kandang';
 
   // Detail Post
   static const DETAILPETUGAS = '/detail-petugas';
@@ -104,14 +99,5 @@ abstract class _Paths {
   static const DETAILINSEMINASI = '/detail-inseminasi';
   static const DETAILKELAHIRAN = '/detail-kelahiran';
   static const DETAILPENGOBATAN = '/detail-pengobatan';
-
-  //EDIT POST
-  // static const PETUGAS = '/edit-petugas';
-  static const EDITHEWAN = '/edit-hewan';
-  static const EDITPETERNAK = '/edit-peternak';
-  static const EDITPKB = '/edit-pkb';
-  static const EDITVAKSIN = '/edit-vaksin';
-  static const EDITINSEMINASI = '/edit-inseminasi';
-  static const EDITKELAHIRAN = '/edit-kelahiran';
-  static const EDITPENGOBATAN = '/edit-pengobatan';
+  static const DETAILKANDANG = '/detail-kandang';
 }

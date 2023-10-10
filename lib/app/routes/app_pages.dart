@@ -6,6 +6,10 @@ import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/bind
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/add_inseminasi/views/add_inseminasi.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/bindings/detail_inseminasi_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/inseminasi/detail_inseminasi/views/detail_inseminasi_view.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/add_kandang/bindings/add_kandang_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/add_kandang/views/add_kandang.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/bindings/detail_peternak_binding.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/detail_kandang/views/detail_peternak_view.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/bindings/add_kelahiran_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/add_kelahiran/views/add_kelahiran.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/kelahiran/detail_kelahiran/bindings/detail_kelahiran_binding.dart';
@@ -31,6 +35,8 @@ import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/bindings/add
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/add_vaksin/views/add_vaksin.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/detail_vaksin/bindings/detail_vaksin_binding.dart';
 import 'package:crud_flutter_api/app/modules/CRUD/vaksin/detail_vaksin/views/detail_vaksin_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/kandang/bindings/kandang_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/kandang/views/kandang_view.dart';
 
 import 'package:get/get.dart';
 
@@ -151,6 +157,12 @@ class AppPages {
       binding: PetugasBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.KANDANG,
+      page: () => KandangView(),
+      binding: KandangBinding(),
+      transition: Transition.rightToLeft,
+    ),
 
     // DDD Data
 
@@ -202,6 +214,12 @@ class AppPages {
       binding: AddkelahiranBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.ADDKANDANG,
+      page: () => AddKandangView(),
+      binding: AddKandangBinding(),
+      transition: Transition.rightToLeft,
+    ),
 
     //DETAIL POST
 
@@ -251,6 +269,12 @@ class AppPages {
       name: _Paths.DETAILPENGOBATAN,
       page: () => DetailPengobatanView(),
       binding: DetailPengobatanBinding(),
+      transition: Transition.rightToLeft,
+    ),
+    GetPage(
+      name: _Paths.DETAILKANDANG,
+      page: () => DetailKandangView(),
+      binding: DetailKandangBinding(),
       transition: Transition.rightToLeft,
     ),
   ];

@@ -74,6 +74,14 @@ class MainMenuView extends GetView<MainMenuController> {
                       buildButton(Routes.PKB, 'PKB', Icons.work),
                     ],
                   ),
+                  SizedBox(height: 30),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      buildButton(
+                          Routes.KELAHIRAN, 'Kandang', Icons.child_care),
+                    ],
+                  ),
                 ],
               ),
             ),
