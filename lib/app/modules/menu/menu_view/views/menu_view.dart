@@ -78,8 +78,7 @@ class MainMenuView extends GetView<MainMenuController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      buildButton(
-                          Routes.KELAHIRAN, 'Kandang', Icons.child_care),
+                      buildButton(Routes.KANDANG, 'Kandang', Icons.child_care),
                     ],
                   ),
                 ],

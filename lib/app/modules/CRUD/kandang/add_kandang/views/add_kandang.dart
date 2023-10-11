@@ -290,11 +290,11 @@ class AddKandangView extends GetView<AddKandangController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.desaC,
+              controller: controller.provinsiC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
-                  "Desa",
+                  "Provinsi",
                   style: TextStyle(
                     color: AppColor.secondarySoft,
                     fontSize: 14,
@@ -302,41 +302,7 @@ class AddKandangView extends GetView<AddKandangController> {
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: InputBorder.none,
-                hintText: "Desa",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.kecamatanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Kecamatan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Kecamatan",
+                hintText: "Provinsi",
                 hintStyle: TextStyle(
                   fontSize: 14,
                   fontFamily: 'poppins',
@@ -392,11 +358,11 @@ class AddKandangView extends GetView<AddKandangController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.provinsiC,
+              controller: controller.kecamatanC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
-                  "Provinsi",
+                  "Kecamatan",
                   style: TextStyle(
                     color: AppColor.secondarySoft,
                     fontSize: 14,
@@ -404,7 +370,41 @@ class AddKandangView extends GetView<AddKandangController> {
                 ),
                 floatingLabelBehavior: FloatingLabelBehavior.always,
                 border: InputBorder.none,
-                hintText: "Provinsi",
+                hintText: "Kecamatan",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
+                ),
+              ),
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.desaC,
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                label: Text(
+                  "Desa",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 14,
+                  ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Desa",
                 hintStyle: TextStyle(
                   fontSize: 14,
                   fontFamily: 'poppins',
