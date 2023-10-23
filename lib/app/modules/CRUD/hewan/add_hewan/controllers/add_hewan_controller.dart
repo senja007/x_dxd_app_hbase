@@ -17,7 +17,7 @@ class AddHewanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
-  var selectedGender = ''.obs;
+  RxString selectedGender = 'Jantan'.obs;
   List<String> genders = ["Jantan", "Betina"];
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
@@ -30,7 +30,7 @@ class AddHewanController extends GetxController {
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
-  TextEditingController sexC = TextEditingController();
+  //TextEditingController sexC = TextEditingController();
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
@@ -48,7 +48,7 @@ class AddHewanController extends GetxController {
     idPeternakC.dispose();
     nikPeternakC.dispose();
     spesiesC.dispose();
-    sexC.dispose();
+    // sexC.dispose();
     umurC.dispose();
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
@@ -78,7 +78,7 @@ class AddHewanController extends GetxController {
         idPeternakC.text,
         nikPeternakC.text,
         spesiesC.text,
-        sexC.text,
+        selectedGender.value,
         umurC.text,
         identifikasiHewanC.text,
         petugasPendaftarC.text,
@@ -136,9 +136,5 @@ class AddHewanController extends GetxController {
       selectedDate = picked;
       tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
-  }
-
-  void updateSelectedGender(String sex) {
-    sexC.text = sex;
   }
 }

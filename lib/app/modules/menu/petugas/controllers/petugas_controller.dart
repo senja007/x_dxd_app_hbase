@@ -8,7 +8,7 @@ import 'package:crud_flutter_api/app/services/petugas_api.dart';
 class PetugasController extends GetxController {
 //PetugasListModel? posts;
 
- var posts = PetugasListModel().obs;
+  var posts = PetugasListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
 
@@ -17,9 +17,8 @@ class PetugasController extends GetxController {
 
   @override
   void onInit() {
-    super.onInit();
     loadPetugas();
-   
+    super.onInit();
   }
 
   @override
@@ -31,7 +30,6 @@ class PetugasController extends GetxController {
     onInit();
   }
 
-
   loadPetugas() async {
     homeScreen = false;
     update();
@@ -39,11 +37,14 @@ class PetugasController extends GetxController {
     posts.value = await PetugasApi().loadPetugasApi();
     update();
     stopLoading();
-    if (posts?.value.status == 200) {
-      if (posts!.value.content!.isEmpty) {
-        homeScreen = true;
-        update();
-      }
+    if (posts.value.status == 200) {
+      //if (posts!.value.content!.isEmpty) {
+      final List<PetugasModel> filteredList = posts.value.content!.toList();
+
+      filteredPosts.assignAll(filteredList);
+      homeScreen = true;
+      update();
+      // }
     } else if (posts!.value.status == 204) {
       print("Empty");
     } else if (posts!.value.status == 404) {
@@ -54,12 +55,13 @@ class PetugasController extends GetxController {
       print("someting wrong 400");
     }
   }
-  void searchPetugas(String keyword) {
-  
-  final List<PetugasModel> filteredList = posts!.value.content!.where((petugas) {
-    return petugas.nikPetugas!.toLowerCase().contains(keyword.toLowerCase());
-  }).toList();
 
-  filteredPosts.assignAll(filteredList);
-}
+  void searchPetugas(String keyword) {
+    final List<PetugasModel> filteredList =
+        posts.value.content!.where((petugas) {
+      return petugas.nikPetugas!.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
+
+    filteredPosts.assignAll(filteredList);
+  }
 }

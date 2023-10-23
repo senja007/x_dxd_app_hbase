@@ -166,16 +166,16 @@ class PetugasView extends GetView<PetugasController> {
           body: Obx(
             () {
               if (controller.posts?.value.status == 200) {
-                if (controller.posts!.value.content!.isEmpty) {
+                if (controller.posts.value.content!.isEmpty) {
                   return EmptyView();
                 } else {
                   return ListView.separated(
-                    itemCount: controller.filteredPosts.length,
+                    itemCount: controller.filteredPosts!.value.length,
                     shrinkWrap: true,
                     physics: BouncingScrollPhysics(),
                     separatorBuilder: (context, index) => SizedBox(height: 8),
                     itemBuilder: (context, index) {
-                      var postData = controller.filteredPosts[index];
+                      var postData = controller.filteredPosts.value[index];
                       return InkWell(
                         onTap: () => {
                           Get.toNamed(

@@ -4,6 +4,7 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 //import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../controllers/add_hewan_controller.dart';
 
@@ -386,45 +387,44 @@ class AddHewanView extends GetView<AddHewanController> {
             ),
           ),
           Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: DropdownButton<String>(
-                value: selectedGender,
-                onChanged: (sex) {
-                  controller.updateSelectedGender(sex!);
-                },
-                items: controller.genders.map((String gender) {
-                  return DropdownMenuItem<String>(
-                      value: gender, child: Text(gender));
-                }).toList(),
-                hint: Text("pilih jenis kelamin"),
-              )
-              // child : DropdownButton(
-              //   value : selected,
-              //   onChanged: (value){
-              //     print(value);
-              //     setState((){
-              //       selected = value;
-              //     });
-              //   },
-              //   underline: SizedBox(),
-              //   isExpanded: true,
-              //   items: genders.map((String gender){
-              //     return DropdownMenuItem<String>(
-              //       value : gender,
-              //       child: Text(gender),
-              //       );
-              //   }).toList(),
-              //   hint: Text("Gender"),
-              // ),
-              ),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: DropdownMenu<String>(
+              initialSelection: controller.genders.first,
+              onSelected: (String? value) {
+                // This is called when the user selects an item.
+                controller.selectedGender.value = value!;
+              },
+              dropdownMenuEntries: controller.genders
+                  .map<DropdownMenuEntry<String>>((String value) {
+                return DropdownMenuEntry<String>(value: value, label: value);
+              }).toList(),
+            ),
+            // child : DropdownButton(
+            //   value : selected,
+            //   onChanged: (value){
+            //     print(value);
+            //     setState((){
+            //       selected = value;
+            //     });
+            //   },
+            //   underline: SizedBox(),
+            //   isExpanded: true,
+            //   items: genders.map((String gender){
+            //     return DropdownMenuItem<String>(
+            //       value : gender,
+            //       child: Text(gender),
+            //       );
+            //   }).toList(),
+            //   hint: Text("Gender"),
+            // ),
+          ),
 
           // child: TextField(
           //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
