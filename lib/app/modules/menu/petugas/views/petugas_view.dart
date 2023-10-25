@@ -13,6 +13,7 @@ import '../controllers/petugas_controller.dart';
 
 class PetugasView extends GetView<PetugasController> {
   const PetugasView({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PetugasController>(
@@ -43,25 +44,42 @@ class PetugasView extends GetView<PetugasController> {
             actions: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: SizedBox(
-                  width: 200, // Sesuaikan lebar TextField sesuai kebutuhan
-                  child: TextField(
-                    style: TextStyle(
-                      color: Colors.amberAccent,
-                    ),
-                    controller: SearchController(),
-                    onChanged: (value) {
-                      controller.searchPetugas(value);
-                    },
-                    decoration: InputDecoration(
+                child: Obx(
+                  () => SizedBox(
+                    width: controller.isSearching.value
+                        ? 200
+                        : 50, // Sesuaikan lebar TextField sesuai kebutuhan
+                    child: TextField(
+                      style: TextStyle(
+                        color: Colors.amberAccent,
+                      ),
+                      onChanged: (value) {
+                        controller.isSearching.value = value.isNotEmpty;
+
+                        controller.searchPetugas(value);
+                      },
+                      decoration: InputDecoration(
                         hintText: 'Cari NIK atau Nama',
                         hintStyle: TextStyle(
-                            color: const Color.fromARGB(255, 255, 209, 224)),
+                          color: const Color.fromARGB(255, 255, 209, 224),
+                        ),
                         prefixIcon: Icon(
                           Icons.search,
                           color: const Color.fromARGB(255, 255, 255, 255),
                         ),
-                        iconColor: Colors.amber),
+                        icon: controller.isSearching.value
+                            ? IconButton(
+                                icon: Icon(Icons.clear),
+                                onPressed: () {
+                                  controller.isSearching.value = false;
+
+                                  // Perform any other operations here like clearing the search results.
+                                },
+                              )
+                            : null,
+                        iconColor: Colors.amber,
+                      ),
+                    ),
                   ),
                 ),
               ),

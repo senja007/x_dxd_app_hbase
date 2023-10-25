@@ -11,6 +11,7 @@ class PetugasController extends GetxController {
   var posts = PetugasListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
+  RxBool isSearching = false.obs;
 
   TextEditingController searchControllerC = TextEditingController();
   RxList<PetugasModel> filteredPosts = RxList<PetugasModel>();
