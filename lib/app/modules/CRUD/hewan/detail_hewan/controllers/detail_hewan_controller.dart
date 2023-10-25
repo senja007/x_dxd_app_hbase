@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:flutter/material.dart';
@@ -141,16 +142,17 @@ class DetailHewanController extends GetxController {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data Hewan",
       message: "Apakah anda ingin menghapus data Hewan ini ?",
-      onCancel: () => Get.back(),
+       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
         hewanModel =
             await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
-        // if (hewanModel!.status == 200) {
-        //   update();
-        //   Get.offAndToNamed(Routes.HOME);
-        // }
+
+        final HewanController hewanController =
+            Get.put(HewanController());
+        hewanController.reInitialize();
+        Get.back();
+        Get.back();
+        update();
       },
     );
   }

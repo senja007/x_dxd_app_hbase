@@ -149,11 +149,14 @@ class HomeView extends GetView<HomeController> {
                       MarkerLayer(
                         markers: [
                           Marker(
-                            point: LatLng(-8.1351667,
-                          113.2218143),
+                            point: LatLng(-8.1351667, 113.2218143),
                             width: 30,
                             height: 30,
-                            builder: (context) => Icon(Icons.place, color: Colors.blue, size: 40,),
+                            builder: (context) => Icon(
+                              Icons.place,
+                              color: Colors.blue,
+                              size: 40,
+                            ),
                           ),
                         ],
                       ),
@@ -201,12 +204,12 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         _buildCardWidget(
                             "assets/images/cow.png",
-                            "${controller.posts1?.value.totalElements ?? 0}",
+                            "${controller.posts1!.value.totalElements ?? 0}",
                             "Ternak"),
                         SizedBox(width: 12),
                         _buildCardWidget(
                             "assets/images/man.png",
-                            "${controller.posts2?.value.totalElements ?? 0}",
+                            "${controller.posts2!.value.totalElements ?? 0}",
                             "Peternak"),
                       ],
                     )),
@@ -215,11 +218,13 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         _buildCardWidget(
                             "assets/images/people.png",
-                            "${controller.posts?.value.totalElements ?? 0}",
+                            "${controller.posts!.value.totalElements ?? 0}",
                             "Petugas"),
                         SizedBox(width: 12),
                         _buildCardWidget(
-                            "assets/images/house.png", "38", "Kandang"),
+                            "assets/images/house.png",
+                            "${controller.posts3!.value.totalElements ?? 0}",
+                            "Kandang"),
                       ],
                     )),
 

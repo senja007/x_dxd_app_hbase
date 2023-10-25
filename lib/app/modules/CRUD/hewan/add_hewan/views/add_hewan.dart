@@ -391,11 +391,12 @@ class AddHewanView extends GetView<AddHewanController> {
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-              color: Colors.white,
+             color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: DropdownMenu<String>(
+              inputDecorationTheme: InputDecorationTheme(filled: false, iconColor: Colors.amber),
               initialSelection: controller.genders.first,
               onSelected: (String? value) {
                 // This is called when the user selects an item.

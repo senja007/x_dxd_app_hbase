@@ -1,7 +1,9 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/kandang_api.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -16,18 +18,22 @@ class HomeController extends GetxController {
   // HewanListModel? posts1;
   // PeternakListModel? posts2;
 
-  var posts = PetugasListModel().obs;
-  var posts1 = HewanListModel().obs;
-  var posts2 = PeternakListModel().obs;
+  Rx<PetugasListModel> posts = PetugasListModel().obs;
+  Rx<HewanListModel> posts1 = HewanListModel().obs;
+  Rx<PeternakListModel> posts2 = PeternakListModel().obs;
+  Rx<KandangListModel> posts3 = KandangListModel().obs;
 
   final box = GetStorage();
   bool homeScreen = false;
 
+@override
   HomeController() {
     // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
     loadHewanData();
     loadPeternakData();
+    loadKandangData();
+    super.onInit();
   }
 
   // default constructor
@@ -40,8 +46,8 @@ class HomeController extends GetxController {
     stopLoading();
     update();
     if (posts?.value.status == 200) {
-      update();
-      if (posts!.value.content!.isEmpty) {
+      
+      if (posts.value.content!.isEmpty) {
         homeScreen = true;
         update();
       }
@@ -86,8 +92,8 @@ class HomeController extends GetxController {
     posts2.value = await PeternakApi().loadPeternakApi();
     update();
     stopLoading();
-    if (posts2?.value.status == 200) {
-      if (posts2!.value.content!.isEmpty) {
+    if (posts2.value.status == 200) {
+      if (posts2.value.content!.isEmpty) {
         homeScreen = true;
         update();
       }
@@ -97,6 +103,29 @@ class HomeController extends GetxController {
       homeScreen = true;
       update();
     } else if (posts2!.value.status == 401) {
+    } else {
+      print("someting wrong 400");
+    }
+  }
+
+  loadKandangData() async {
+    homeScreen = false;
+    update();
+    showLoading();
+    posts3.value = await KandangApi().loadKandangApi();
+    update();
+    stopLoading();
+    if (posts3.value.status == 200) {
+      if (posts3.value.content!.isEmpty) {
+        homeScreen = true;
+        update();
+      }
+    } else if (posts3!.value.status == 204) {
+      print("Empty");
+    } else if (posts3!.value.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (posts3!.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
