@@ -198,12 +198,12 @@ class VaksinApi extends SharedApi {
   }
 
 //DELETE
-  Future<VaksinModel?> deleteVaksinApi(String id) async {
+  Future<VaksinModel?> deleteVaksinApi(String idVaksin) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/vaksin/' + id.toString()),
+        Uri.parse(baseUrl + '/vaksin/' + idVaksin.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -212,7 +212,7 @@ class VaksinApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi VaksinModel.fromJson

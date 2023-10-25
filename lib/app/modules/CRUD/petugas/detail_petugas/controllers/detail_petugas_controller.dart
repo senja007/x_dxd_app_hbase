@@ -1,9 +1,12 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
+import '../../../../../widgets/message/successMessage.dart';
 import '../../../../menu/petugas/controllers/petugas_controller.dart';
 
 class DetailPetugasController extends GetxController {
@@ -79,6 +82,13 @@ class DetailPetugasController extends GetxController {
       onConfirm: () async {
         petugasModel =
             await PetugasApi().deletePetugasApi(argsData["nikPetugas"]);
+
+        if (petugasModel?.status == 200) {
+          showSuccessMessage(
+              "Berhasil Hapus Data Petugas dengan ID: ${nikC.text}");
+        } else {
+          showErrorMessage("Gagal Hapus Data Petugas");
+        }
 
         final PetugasController petugasController =
             Get.put(PetugasController());

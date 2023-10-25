@@ -2,6 +2,8 @@ import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
+import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
+import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
@@ -142,13 +144,17 @@ class DetailHewanController extends GetxController {
     CustomAlertDialog.showPresenceAlert(
       title: "Hapus data Hewan",
       message: "Apakah anda ingin menghapus data Hewan ini ?",
-       onCancel: () => Get.back(),
+      onCancel: () => Get.back(),
       onConfirm: () async {
         hewanModel =
             await HewanApi().deleteHewanApi(argsData["eartag_hewan_detail"]);
-
-        final HewanController hewanController =
-            Get.put(HewanController());
+        if (hewanModel?.status == 200) {
+          showSuccessMessage(
+              "Berhasil Hapus Data Hewan dengan ID: ${kodeEartagNasionalC.text}");
+        } else {
+          showErrorMessage("Gagal Hapus Data Hewan");
+        }
+        final HewanController hewanController = Get.put(HewanController());
         hewanController.reInitialize();
         Get.back();
         Get.back();

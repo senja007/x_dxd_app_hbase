@@ -204,12 +204,12 @@ class InseminasiApi extends SharedApi {
   }
 
 //DELETE
-  Future<InseminasiModel?> deleteInseminasiAPI(String id) async {
+  Future<InseminasiModel?> deleteInseminasiAPI(String idInseminasi) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/inseminasi/' + id.toString()),
+        Uri.parse(baseUrl + '/inseminasi/' + idInseminasi.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -218,7 +218,7 @@ class InseminasiApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson

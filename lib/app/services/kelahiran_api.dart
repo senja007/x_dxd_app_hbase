@@ -236,12 +236,12 @@ class KelahiranApi extends SharedApi {
   }
 
 //DELETE
-  Future<KelahiranModel?> deleteKelahiranAPI(String id) async {
+  Future<KelahiranModel?> deleteKelahiranAPI(String id_kejadian_detail) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/kelahiran/' + id.toString()),
+        Uri.parse(baseUrl + '/kelahiran/' + id_kejadian_detail.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -250,7 +250,7 @@ class KelahiranApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        // postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi KelahiranModel.fromJson

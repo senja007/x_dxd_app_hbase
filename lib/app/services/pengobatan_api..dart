@@ -156,12 +156,12 @@ class PengobatanApi extends SharedApi {
   }
 
 //DELETE
-  Future<PengobatanModel?> deletePengobatanAPI(String id) async {
+  Future<PengobatanModel?> deletePengobatanAPI(String idKasus) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/pengobatan/' + id.toString()),
+        Uri.parse(baseUrl + '/pengobatan/' + idKasus.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -170,7 +170,7 @@ class PengobatanApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi PengobatanModel.fromJson

@@ -168,12 +168,12 @@ class KandangApi extends SharedApi {
     }
   }
 
-  Future<KandangModel?> deleteKandangAPI(String id) async {
+  Future<KandangModel?> deleteKandangAPI(String idKandang) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/kandang/' + id.toString()),
+        Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -182,10 +182,10 @@ class KandangApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
+        //postData["status"] = 1;
+        //postData['id'] = 0;
 
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson

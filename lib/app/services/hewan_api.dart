@@ -183,12 +183,12 @@ class HewanApi extends SharedApi {
   }
 
   //DELETE
-  Future<HewanModel?> deleteHewanApi(String id) async {
+  Future<HewanModel?> deleteHewanApi(String eartag_hewan_detail) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/hewan/' + id.toString()),
+        Uri.parse(baseUrl + '/hewan/' + eartag_hewan_detail.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -197,11 +197,11 @@ class HewanApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi InseminasiModel.fromJson
-        return HewanModel.fromJson(postData);
+        return HewanModel.fromJson({"status": 200});
       } else {
         showErrorMessage(jsonData['message']);
         return HewanModel.fromJson({"status": data.statusCode});

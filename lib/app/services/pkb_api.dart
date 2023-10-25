@@ -175,12 +175,12 @@ class PKBApi extends SharedApi {
   }
 
 //DELETE
-  Future<PKBModel?> deletePKBAPI(String id) async {
+  Future<PKBModel?> deletePKBAPI(String id_kejadian) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/pkb/' + id.toString()),
+        Uri.parse(baseUrl + '/pkb/' + id_kejadian.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -189,7 +189,7 @@ class PKBApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData['content'] = "";
+        // postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi PKBModel.fromJson

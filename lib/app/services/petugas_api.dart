@@ -148,12 +148,12 @@ class PetugasApi extends SharedApi {
   }
 
 //DELETE
-  Future<PetugasModel?> deletePetugasApi(String id) async {
+  Future<PetugasModel?> deletePetugasApi(String nikPetugas) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/petugas/' + id.toString()),
+        Uri.parse(baseUrl + '/petugas/' + nikPetugas.toString()),
         headers: getToken(),
       );
       stopLoading();
@@ -162,14 +162,14 @@ class PetugasApi extends SharedApi {
         // Simpan nilai jsonData['data'] dalam variabel baru
         var postData = <String, dynamic>{};
         postData["statusCode"] = 200;
-        postData["status"] = 1;
-        postData['id'] = 0;
+        //postData["status"] = 200;
+        //postData['id'] = 0;
 
-        postData['content'] = "";
+        //postData['content'] = "";
 
         print(postData);
         // Kirim variabel postData ke dalam fungsi PetugasModel.fromJson
-        return PetugasModel.fromJson(postData);
+        return PetugasModel.fromJson({"status": 200});
       } else {
         showErrorMessage(jsonData['message']);
         return PetugasModel.fromJson({"status": data.statusCode});
