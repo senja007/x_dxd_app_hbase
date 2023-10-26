@@ -23,6 +23,7 @@ dependencies:
   flutter_map: ^5.0.0
   latlong2: ^0.9.0
   search_page: ^2.3.0
+  image_picker: ^1.0.4
 
   
 

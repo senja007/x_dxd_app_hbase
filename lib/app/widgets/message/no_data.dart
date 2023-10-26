@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Diperlukan jika menggunakan Google Fonts.
 
@@ -5,7 +6,7 @@ class NoData extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: AppColor.primary,
       width: double.infinity,
       height: double.infinity,
       alignment: Alignment.center,
