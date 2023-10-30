@@ -85,102 +85,6 @@ class PetugasView extends GetView<PetugasController> {
               ),
             ],
           ),
-
-          // //body: Container(),
-          // body: GetBuilder<PetugasController>(
-          //   builder: (controller) => controller.posts?.value.status == 200
-          //       ? controller.posts!.value.content!.isEmpty
-          //           ? EmptyView()
-          //           : ListView.separated(
-          //               //itemCount: controller.posts!.value.content!.length,
-          //               itemCount: controller.filteredPosts.length,
-
-          //               shrinkWrap: true,
-          //               physics: BouncingScrollPhysics(),
-          //               separatorBuilder: (context, index) =>
-          //                   SizedBox(height: 8),
-          //               itemBuilder: (context, index) {
-          //                 var postData = controller.posts!.value.content![index];
-          //                 return InkWell(
-          //                   onTap: () => {
-          //                     Get.toNamed(
-          //                       Routes.DETAILPETUGAS,
-          //                       arguments: {
-          //                         "nikPetugas": "${postData.nikPetugas}",
-          //                         "namaPetugas": "${postData.namaPetugas}",
-          //                         "noTelp": "${postData.noTelp}",
-          //                         "email": "${postData.email}",
-          //                       },
-          //                     ),
-          //                   },
-          //                   borderRadius: BorderRadius.circular(8),
-          //                   child: Container(
-          //                     width: MediaQuery.of(context).size.width,
-          //                     decoration: BoxDecoration(
-          //                       boxShadow: [
-          //                         BoxShadow(
-          //                           offset: Offset(0, 5),
-          //                           color: Color.fromARGB(255, 0, 47, 255)
-          //                               .withOpacity(.2),
-          //                           spreadRadius: 2,
-          //                           blurRadius:
-          //                               10, // changes position of shadow
-          //                         ),
-          //                       ],
-          //                       color: AppColor.primaryExtraSoft,
-          //                       borderRadius: BorderRadius.circular(15),
-          //                       border: Border.all(
-          //                           width: 1, color: AppColor.primaryExtraSoft),
-          //                     ),
-          //                     padding: EdgeInsets.only(
-          //                         left: 20, top: 15, right: 29, bottom: 15),
-          //                     child: Row(
-          //                       mainAxisAlignment:
-          //                           MainAxisAlignment.spaceBetween,
-          //                       children: [
-          //                         Column(
-          //                           crossAxisAlignment:
-          //                               CrossAxisAlignment.start,
-          //                           children: [
-          //                             Text(
-          //                               (postData.status == null)
-          //                                   ? "-"
-          //                                   : "Nik Petugas: ${postData.nikPetugas}",
-          //                               style: TextStyle(
-          //                                   fontSize: 18,
-          //                                   fontWeight: FontWeight.bold),
-          //                             ),
-          //                             Text(
-          //                               (postData.status == null)
-          //                                   ? "-"
-          //                                   : "Nama Petugas: ${postData.namaPetugas}",
-          //                               style: TextStyle(
-          //                                   fontSize: 18,
-          //                                   fontWeight: FontWeight.normal),
-          //                             ),
-          //                             SizedBox(
-          //                               height: 2,
-          //                             ),
-          //                             Text(
-          //                               (postData.status == null)
-          //                                   ? "-"
-          //                                   : "Email Petugas"
-          //                                       "${postData.email}",
-          //                               style: TextStyle(
-          //                                   fontSize: 14,
-          //                                   fontWeight: FontWeight.normal),
-          //                             ),
-          //                           ],
-          //                         ),
-          //                       ],
-          //                     ),
-          //                   ),
-          //                 );
-          //               },
-          //             )
-          //       : NoData(),
-          // ),
-
           body: Obx(
             () {
               if (controller.posts?.value.status == 200) {
@@ -226,8 +130,9 @@ class PetugasView extends GetView<PetugasController> {
                           ),
                           padding: EdgeInsets.only(
                               left: 20, top: 15, right: 29, bottom: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Wrap(
+                            // Gunakan Wrap di sini
+                            alignment: WrapAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -254,7 +159,7 @@ class PetugasView extends GetView<PetugasController> {
                                   Text(
                                     (postData.status == null)
                                         ? "-"
-                                        : "Email Petugas"
+                                        : "Email Petugas: "
                                             "${postData.email}",
                                     style: TextStyle(
                                         fontSize: 14,
@@ -274,7 +179,6 @@ class PetugasView extends GetView<PetugasController> {
               }
             },
           ),
-
           floatingActionButton: Padding(
             padding: const EdgeInsets.only(bottom: 16.0),
             child: FloatingActionButton(
