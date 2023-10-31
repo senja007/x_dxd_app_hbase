@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class AddKandangController extends GetxController {
   KandangModel? kandangModel;
@@ -14,6 +15,8 @@ class AddKandangController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   final KandangController kandangController = Get.put(KandangController());
+  XFile? selectedImage;
+
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -41,6 +44,8 @@ class AddKandangController extends GetxController {
     kabupatenC.dispose();
     provinsiC.dispose();
   }
+
+  
 
   Future addKandang(BuildContext context) async {
     try {

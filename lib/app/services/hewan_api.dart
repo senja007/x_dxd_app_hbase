@@ -20,7 +20,7 @@ class HewanApi extends SharedApi {
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
-        // print(jsonData['content']);
+         print(jsonData['content']);
 
         return HewanListModel.fromJson({
           "status": 200,
