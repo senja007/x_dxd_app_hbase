@@ -424,18 +424,20 @@ class AddPkbView extends GetView<AddPkbController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
+            child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-                controller: controller.tanggalPkbC, //editing controller of this TextField
-                decoration: InputDecoration( 
+              controller:
+                  controller.tanggalPkbC, //editing controller of this TextField
+              decoration: InputDecoration(
                   border: InputBorder.none,
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Pkb" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalPkb(context),
-             ),
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Pkb" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalPkb(context),
+            ),
           ),
           SizedBox(height: 32),
           Container(

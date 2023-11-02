@@ -287,28 +287,20 @@ class AddKandangView extends GetView<AddKandangController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.provinsiC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Provinsi",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
+            child: Obx(
+              () => DropdownMenu<String>(
+                width: 300,
+                inputDecorationTheme: InputDecorationTheme(
+                    filled: false, iconColor: Colors.amber),
                 hintText: "Provinsi",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  controller.selcetedProvinsi.value = value!;
+                },
+                dropdownMenuEntries: controller.provinsi
+                    .map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
               ),
             ),
           ),

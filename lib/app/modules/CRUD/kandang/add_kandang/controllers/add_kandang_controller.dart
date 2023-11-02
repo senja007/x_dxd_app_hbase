@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
@@ -8,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart' as http;
 
 class AddKandangController extends GetxController {
   KandangModel? kandangModel;
@@ -16,7 +19,9 @@ class AddKandangController extends GetxController {
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   final KandangController kandangController = Get.put(KandangController());
   XFile? selectedImage;
-
+  RxString selcetedProvinsi = ''.obs;
+  // List<String> provinsi = ["JAWA TIMUR", "JAWA BARAT"];
+  RxList<String> provinsi = <String>[].obs;
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -28,7 +33,7 @@ class AddKandangController extends GetxController {
   TextEditingController desaC = TextEditingController();
   TextEditingController kecamatanC = TextEditingController();
   TextEditingController kabupatenC = TextEditingController();
-  TextEditingController provinsiC = TextEditingController();
+  // TextEditingController provinsiC = TextEditingController();
 
   @override
   onClose() {
@@ -42,10 +47,30 @@ class AddKandangController extends GetxController {
     desaC.dispose();
     kecamatanC.dispose();
     kabupatenC.dispose();
-    provinsiC.dispose();
+    // provinsiC.dispose();
   }
 
-  
+  @override
+  void onInit() {
+    super.onInit();
+    fetchProvinsiData();
+  }
+
+  void fetchProvinsiData() async {
+    final response = await http.get(Uri.parse(
+        'https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'));
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = json.decode(response.body);
+      provinsi.clear();
+      data.forEach((province) {
+        provinsi.add(province['name']);
+      });
+    } else {
+      // Handle the error if the request fails
+      print('Failed to fetch provinsi data');
+    }
+  }
 
   Future addKandang(BuildContext context) async {
     try {
@@ -61,7 +86,7 @@ class AddKandangController extends GetxController {
         desaC.text,
         kecamatanC.text,
         kabupatenC.text,
-        provinsiC.text,
+        selcetedProvinsi.value,
       );
 
       if (kandangModel != null) {
@@ -96,24 +121,4 @@ class AddKandangController extends GetxController {
       isLoading.value = false;
     }
   }
-
-  // void updateFormattedDate(String newDate) {
-  //   formattedDate.value = newDate;
-  // }
-
-  // late DateTime selectedDate = DateTime.now();
-
-  // Future<void> tanggalPendaftaran(BuildContext context) async {
-  //   final DateTime? picked = await showDatePicker(
-  //     context: context,
-  //     initialDate: selectedDate,
-  //     firstDate: DateTime(2000),
-  //     lastDate: DateTime(2101),
-  //   );
-
-  //   if (picked != null && picked != selectedDate) {
-  //     selectedDate = picked;
-  //     tanggalPendaftaranC.text = DateFormat('dd/MM/yyyy').format(picked);
-  //   }
-  // }
 }

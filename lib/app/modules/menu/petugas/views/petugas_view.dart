@@ -1,14 +1,9 @@
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
 import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart';
-import '../../menu_view/views/menu_view.dart';
 import '../controllers/petugas_controller.dart';
 
 class PetugasView extends GetView<PetugasController> {
