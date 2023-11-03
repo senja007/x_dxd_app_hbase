@@ -31,6 +31,8 @@ class DetailHewanController extends GetxController {
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
+  // String? fotoHewanC;
+  //TextEditingController fotoHewanC = TextEditingController();
 
   String originalEartag = "";
   String originalKartuTernak = "";
@@ -65,13 +67,15 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
+    //fotoHewanC.dispose();
+    //fotoHewanC;
   }
 
   @override
   void onInit() {
     super.onInit();
     isEditing.value = false;
-
+    //print(fotoHewanC);
     kodeEartagNasionalC.text = argsData["eartag_hewan_detail"];
     noKartuTernakC.text = argsData["kartu_hewan_detail"];
     provinsiC.text = argsData["provinsi_hewan_detail"];
@@ -87,6 +91,9 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
+    //fotoHewanC.text = argsData["foto_hewan_detail"];
+    //fotoHewanC = argsData["foto_hewan_detail"];
+    print(argsData["foto_hewan_detail"]);
 
     originalEartag = argsData["eartag_hewan_detail"];
     originalKartuTernak = argsData["kartu_hewan_detail"];

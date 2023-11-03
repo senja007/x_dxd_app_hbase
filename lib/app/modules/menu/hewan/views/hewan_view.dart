@@ -162,7 +162,8 @@ class HewanView extends GetView<HewanController> {
                                       "${postData.idPeternak?.namaPeternak}",
                                   "id_peternak_hewan_detail":
                                       "${postData.idPeternak?.idPeternak}",
-                                  "nik_hewan_detail": "${postData.idPeternak?.nikPeternak}",
+                                  "nik_hewan_detail":
+                                      "${postData.idPeternak?.nikPeternak}",
                                   "spesies_hewan_detail": "${postData.spesies}",
                                   "kelamin_hewan_detail": "${postData.sex}",
                                   "umur_hewan_detail": "${postData.umur}",
@@ -172,6 +173,7 @@ class HewanView extends GetView<HewanController> {
                                       "${postData.petugasPendaftar}",
                                   "tanggal_terdaftar_hewan_detail":
                                       "${postData.tanggalTerdaftar}",
+                                  "foto_hewan_detail": "${postData.fotoHewan}",
                                 },
                               ),
                             },

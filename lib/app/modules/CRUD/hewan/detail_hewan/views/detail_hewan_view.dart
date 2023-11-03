@@ -645,6 +645,22 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
+          Obx(() => Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: controller.isEditing.value
+                    ? Colors.white
+                    : Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: Image.network(
+                'http://192.168.5.252:8080/downloadFile/${controller.argsData["foto_hewan_detail"]}',
+                fit: BoxFit.cover,
+              ))),
 
           //BUTON EDIT AND DELETE
           Obx(() {
