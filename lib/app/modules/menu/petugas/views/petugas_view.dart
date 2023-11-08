@@ -2,7 +2,9 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
+import 'package:easy_search_bar/easy_search_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import '../controllers/petugas_controller.dart';
 
@@ -18,68 +20,25 @@ class PetugasView extends GetView<PetugasController> {
         },
         child: Scaffold(
           backgroundColor: AppColor.primary,
-          appBar: AppBar(
-            title: Text(
-              'Semua Data',
-              style: TextStyle(
-                color: AppColor.secondaryExtraSoft,
+          appBar: EasySearchBar(
+              searchBackgroundColor: AppColor.secondary,
+              elevation: 0,
+              searchCursorColor: Colors.white, 
+              iconTheme: IconThemeData(color: Colors.white),
+              searchClearIconTheme:IconThemeData(color: Colors.white) ,
+              searchBackIconTheme: IconThemeData(color: Colors.white) ,
+            systemOverlayStyle: SystemUiOverlayStyle.light,
+              searchHintText: 'Cari Data NIK Petugas',
+              searchTextStyle: TextStyle(color: Colors.white),
+              title: Text(
+                'Data Petugas',
+                style: TextStyle(color: Colors.white),
               ),
-            ),
-            backgroundColor: Color(0xff132137),
-            elevation: 0,
-            centerTitle: true,
-            bottom: PreferredSize(
-              preferredSize: Size.fromHeight(1),
-              child: Container(
-                width: MediaQuery.of(context).size.width,
-                height: 5,
-                color: AppColor.primary,
+              backgroundColor: AppColor.secondary,
+              onSearch: (value) => controller.searchPetugas(value)
               ),
-            ),
-            actions: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Obx(
-                  () => SizedBox(
-                    width: controller.isSearching.value
-                        ? 200
-                        : 50, // Sesuaikan lebar TextField sesuai kebutuhan
-                    child: TextField(
-                      style: TextStyle(
-                        color: Colors.amberAccent,
-                      ),
-                      onChanged: (value) {
-                        controller.isSearching.value = value.isNotEmpty;
 
-                        controller.searchPetugas(value);
-                      },
-                      decoration: InputDecoration(
-                        hintText: 'Cari NIK atau Nama',
-                        hintStyle: TextStyle(
-                          color: const Color.fromARGB(255, 255, 209, 224),
-                        ),
-                        prefixIcon: Icon(
-                          Icons.search,
-                          color: const Color.fromARGB(255, 255, 255, 255),
-                        ),
-                        icon: controller.isSearching.value
-                            ? IconButton(
-                                icon: Icon(Icons.clear),
-                                onPressed: () {
-                                  controller.isSearching.value = false;
-
-                                  // Perform any other operations here like clearing the search results.
-                                },
-                              )
-                            : null,
-                        iconColor: Colors.amber,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-            ],
-          ),
+         
           body: Obx(
             () {
               if (controller.posts?.value.status == 200) {

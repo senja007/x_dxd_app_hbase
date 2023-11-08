@@ -1,5 +1,7 @@
 import 'dart:convert';
+import 'dart:ffi';
 
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
@@ -20,8 +22,10 @@ class AddKandangController extends GetxController {
   final KandangController kandangController = Get.put(KandangController());
   XFile? selectedImage;
   RxString selcetedProvinsi = ''.obs;
+  RxString selcetedKabupaten = ''.obs;
   // List<String> provinsi = ["JAWA TIMUR", "JAWA BARAT"];
   RxList<String> provinsi = <String>[].obs;
+  RxList<String> kabupaten = <String>[].obs;
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -47,16 +51,17 @@ class AddKandangController extends GetxController {
     desaC.dispose();
     kecamatanC.dispose();
     kabupatenC.dispose();
-    // provinsiC.dispose();
+    //provinsiC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
     fetchProvinsiData();
+    fetchKabupatenData(selcetedProvinsi.value);
   }
 
-  void fetchProvinsiData() async {
+  void fetchProvinsiData() async { 
     final response = await http.get(Uri.parse(
         'https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'));
 
@@ -64,13 +69,92 @@ class AddKandangController extends GetxController {
       final List<dynamic> data = json.decode(response.body);
       provinsi.clear();
       data.forEach((province) {
+        provinsi.add(province['id']);
         provinsi.add(province['name']);
+      
       });
     } else {
       // Handle the error if the request fails
       print('Failed to fetch provinsi data');
     }
   }
+
+
+void fetchKabupatenData(String idProvinsi) async {
+  final response = await http.get(Uri.parse(
+      'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/.json'));
+
+  if (response.statusCode == 200) {
+    final List<dynamic> data = json.decode(response.body);
+    kabupaten.clear();
+    data.forEach((regency) {
+      kabupaten.add(regency['name']);
+    });
+  } else {
+    // Handle the error if the request fails
+    print('Failed to fetch kabupaten data');
+  }
+}
+
+// Update onSelected for provinsi dropdown to load related kabupaten
+onSelectedProvinsi(String? selectedProvinsi) {
+  if (selectedProvinsi != null) {
+    final List<dynamic> provinsiData = json.decode(selectedProvinsi);
+    final selectedProvinsiData = provinsiData.firstWhere(
+        (provinsi) => provinsi['name'] == selectedProvinsi, orElse: () => {});
+
+    if (selectedProvinsiData.isNotEmpty) {
+      final idProvinsi = selectedProvinsiData['id'];
+      selcetedProvinsi.value = selectedProvinsi;
+      fetchKabupatenData(idProvinsi);
+    }
+  }
+}
+
+
+
+  
+// void fetchKabupatenData(String selectedProvinsi) async {
+//   final response = await http.get(Uri.parse(
+//       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsi.[index]}.json'));
+
+//   if (response.statusCode == 200) {
+//     final List<dynamic> data = json.decode(response.body);
+//     kabupaten.clear();
+//     data.forEach((regency) {
+//       kabupaten.add(regency['name']);
+//     });
+//   } else {
+//     // Handle the error if the request fails
+//     print('Failed to fetch kabupaten data');
+//   }
+// }
+
+// // Update onSelected for provinsi dropdown to load related kabupaten
+// onSelectedProvinsi(String? selectedProvinsi) {
+//   if (selectedProvinsi != null) {
+//     selcetedProvinsi.value = selectedProvinsi;
+//     fetchKabupatenData(selectedProvinsi);
+//   }
+// }
+
+  
+  // void fetchKabupatenData() async { 
+  //   final response = await http.get(Uri.parse( 
+  //       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/35.json'));
+
+  //   if (response.statusCode == 200) {
+  //     final List<dynamic> data = json.decode(response.body);
+  //     kabupaten.clear();
+  //     data.forEach((kabupatenes) {
+  //       kabupaten.add(kabupatenes['name']);
+  //     });
+  //   } else {
+  //     // Handle the error if the request fails
+  //     print('Failed to fetch Kabupaten data');
+  //   }
+  // }
+
 
   Future addKandang(BuildContext context) async {
     try {
@@ -85,8 +169,9 @@ class AddKandangController extends GetxController {
         alamatC.text,
         desaC.text,
         kecamatanC.text,
-        kabupatenC.text,
+        //kabupatenC.text,
         selcetedProvinsi.value,
+        selcetedKabupaten.value,
       );
 
       if (kandangModel != null) {

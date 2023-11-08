@@ -13,7 +13,7 @@ class PetugasController extends GetxController {
   bool homeScreen = false;
   RxBool isSearching = false.obs;
 
-  TextEditingController searchControllerC = TextEditingController();
+  //TextEditingController searchControllerC = TextEditingController();
   RxList<PetugasModel> filteredPosts = RxList<PetugasModel>();
 
   @override
@@ -24,7 +24,7 @@ class PetugasController extends GetxController {
 
   @override
   void onClose() {
-    searchControllerC.dispose();
+   // searchControllerC.dispose();
   }
 
   void reInitialize() {

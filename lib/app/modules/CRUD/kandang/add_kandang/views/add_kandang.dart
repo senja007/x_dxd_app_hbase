@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/Provinsi.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -293,13 +294,13 @@ class AddKandangView extends GetView<AddKandangController> {
                 inputDecorationTheme: InputDecorationTheme(
                     filled: false, iconColor: Colors.amber),
                 hintText: "Provinsi",
-                onSelected: (String? value) {
+                onSelected: (String? masukan) {
                   // This is called when the user selects an item.
-                  controller.selcetedProvinsi.value = value!;
+                  controller.selcetedProvinsi.value = masukan!;
                 },
                 dropdownMenuEntries: controller.provinsi
-                    .map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
+                    .map<DropdownMenuEntry<String>>((String provinsi) {
+                  return DropdownMenuEntry<String>(value: provinsi, label: provinsi);
                 }).toList(),
               ),
             ),
@@ -313,28 +314,20 @@ class AddKandangView extends GetView<AddKandangController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.kabupatenC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Kabupaten",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
+            child: Obx(
+              () => DropdownMenu<String>(
+                width: 300,
+                inputDecorationTheme: InputDecorationTheme(
+                    filled: false, iconColor: Colors.amber),
                 hintText: "Kabupaten",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
+                onSelected: (String? masukan1) {
+                  // This is called when the user selects an item.
+                  controller.selcetedKabupaten.value = masukan1!;
+                },
+                dropdownMenuEntries: controller.kabupaten
+                    .map<DropdownMenuEntry<String>>((String dor) {
+                  return DropdownMenuEntry<String>(value: dor, label: dor);
+                }).toList(),
               ),
             ),
           ),

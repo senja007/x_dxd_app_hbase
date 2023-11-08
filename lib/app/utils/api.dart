@@ -4,8 +4,8 @@ class SharedApi {
   // String imageUrl = "http://192.168.5.245:8080/";
   // String baseUrl = "http://192.168.5.245:8080/api";
 
-  String imageUrl = "http://192.168.0.207:8080/";
-  String baseUrl = "http://192.168.0.207:8080/api";
+  String imageUrl = "http://192.168.0.230:8080/downloadFile/";
+  String baseUrl = "http://192.168.0.230:8080/api";
 
   Map<String, String> getToken() {
     final box = GetStorage();
