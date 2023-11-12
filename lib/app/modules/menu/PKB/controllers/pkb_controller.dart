@@ -5,46 +5,51 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class PKBController extends GetxController {
-  PKBListModel? posts;
+  var posts = PKBListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
 
+  RxList<PKBModel> filteredPosts = RxList<PKBModel>();
+
   @override
   void onInit() {
-    super.onInit();
     loadPKB();
+    super.onInit();
   }
 
   void reInitialize() {
     onInit();
   }
 
-  Future<void> refreshPKB() async {
-    posts = await PKBApi().loadPKBAPI();
-    update();
-    print("refresh");
-  }
-
   loadPKB() async {
     homeScreen = false;
     update();
     showLoading();
-    posts = await PKBApi().loadPKBAPI();
+    posts.value = await PKBApi().loadPKBAPI();
     update();
     stopLoading();
-    if (posts?.status == 200) {
-      if (posts!.content!.isEmpty) {
-        homeScreen = true;
-        update();
-      }
-    } else if (posts!.status == 204) {
-      print("Empty");
-    } else if (posts!.status == 404) {
+    if (posts.value.status == 200) {
+      final List<PKBModel> filteredList = posts.value.content!.toList();
+
+      filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.status == 401) {
+    } else if (posts!.value.status == 204) {
+      print("Empty");
+    } else if (posts!.value.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (posts!.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
+  }
+
+  void searchPKB(String keyword) {
+    final List<PKBModel> filteredList = posts.value.content!.where((pkb) {
+      return pkb.idKejadian!.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
+
+    filteredPosts.assignAll(filteredList);
   }
 }

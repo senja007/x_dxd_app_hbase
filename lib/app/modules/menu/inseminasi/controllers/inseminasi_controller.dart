@@ -6,46 +6,54 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class InseminasiController extends GetxController {
-  InseminasiListModel? posts;
+  var posts = InseminasiListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
 
+  RxList<InseminasiModel> filteredPosts = RxList<InseminasiModel>();
+
   @override
   void onInit() {
-    super.onInit();
     loadInseminasi();
+    super.onInit();
   }
 
   void reInitialize() {
     onInit();
   }
 
-  Future<void> refreshInseminasi() async {
-    posts = await InseminasiApi().loadInseminasiAPI();
-    update();
-    print("refresh");
-  }
-
   loadInseminasi() async {
     homeScreen = false;
     update();
     showLoading();
-    posts = await InseminasiApi().loadInseminasiAPI();
+    posts.value = await InseminasiApi().loadInseminasiAPI();
     update();
     stopLoading();
-    if (posts?.status == 200) {
-      if (posts!.content!.isEmpty) {
-        homeScreen = true;
-        update();
-      }
-    } else if (posts!.status == 204) {
-      print("Empty");
-    } else if (posts!.status == 404) {
+    if (posts.value.status == 200) {
+      final List<InseminasiModel> filteredList = posts.value.content!.toList();
+
+      filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.status == 401) {
+    } else if (posts!.value.status == 204) {
+      print("Empty");
+    } else if (posts!.value.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (posts!.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
+  }
+
+  void searchPetugas(String keyword) {
+    final List<InseminasiModel> filteredList =
+        posts.value.content!.where((inseminasi) {
+      return inseminasi.idInseminasi!
+          .toLowerCase()
+          .contains(keyword.toLowerCase());
+    }).toList();
+
+    filteredPosts.assignAll(filteredList);
   }
 }

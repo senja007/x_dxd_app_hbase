@@ -1,4 +1,4 @@
-import 'package:crud_flutter_api/app/data/Provinsi.dart';
+//import 'package:crud_flutter_api/app/data/Provinsi.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -300,7 +300,8 @@ class AddKandangView extends GetView<AddKandangController> {
                 },
                 dropdownMenuEntries: controller.provinsi
                     .map<DropdownMenuEntry<String>>((String provinsi) {
-                  return DropdownMenuEntry<String>(value: provinsi, label: provinsi);
+                  return DropdownMenuEntry<String>(
+                      value: provinsi, label: provinsi);
                 }).toList(),
               ),
             ),

@@ -6,25 +6,17 @@ import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 
 class PetugasController extends GetxController {
-//PetugasListModel? posts;
-
   var posts = PetugasListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
   RxBool isSearching = false.obs;
 
-  //TextEditingController searchControllerC = TextEditingController();
   RxList<PetugasModel> filteredPosts = RxList<PetugasModel>();
 
   @override
   void onInit() {
     loadPetugas();
     super.onInit();
-  }
-
-  @override
-  void onClose() {
-   // searchControllerC.dispose();
   }
 
   void reInitialize() {
@@ -39,13 +31,11 @@ class PetugasController extends GetxController {
     update();
     stopLoading();
     if (posts.value.status == 200) {
-      //if (posts!.value.content!.isEmpty) {
       final List<PetugasModel> filteredList = posts.value.content!.toList();
 
       filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-      // }
     } else if (posts!.value.status == 204) {
       print("Empty");
     } else if (posts!.value.status == 404) {

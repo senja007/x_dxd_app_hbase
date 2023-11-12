@@ -1,6 +1,7 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -15,6 +16,7 @@ class DetailHewanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
+  SharedApi sharedApi = SharedApi();
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -179,21 +181,22 @@ class DetailHewanController extends GetxController {
         Get.back(); // close modal
         update();
         hewanModel = await HewanApi().editHewanApi(
-            kodeEartagNasionalC.text,
-            noKartuTernakC.text,
-            provinsiC.text,
-            kabupatenC.text,
-            kecamatanC.text,
-            desaC.text,
-            namaPeternakC.text,
-            idPeternakC.text,
-            nikPeternakC.text,
-            spesiesC.text,
-            sexC.text,
-            umurC.text,
-            identifikasiHewanC.text,
-            petugasPendaftarC.text,
-            tanggalTerdaftarC.text);
+          kodeEartagNasionalC.text,
+          noKartuTernakC.text,
+          provinsiC.text,
+          kabupatenC.text,
+          kecamatanC.text,
+          desaC.text,
+          namaPeternakC.text,
+          idPeternakC.text,
+          nikPeternakC.text,
+          spesiesC.text,
+          sexC.text,
+          umurC.text,
+          identifikasiHewanC.text,
+          petugasPendaftarC.text,
+          tanggalTerdaftarC.text,
+        );
         isEditing.value = false;
       },
     );

@@ -658,9 +658,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     Border.all(width: 1, color: AppColor.secondaryExtraSoft),
               ),
               child: Image.network(
-                'http://192.168.0.230:8080/downloadFile/${controller.argsData["foto_hewan_detail"]}',
+                '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
                 fit: BoxFit.fill,
-                
               ))),
 
           //BUTON EDIT AND DELETE

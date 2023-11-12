@@ -5,9 +5,11 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class VaksinController extends GetxController {
-  VaksinListModel? posts;
+  var posts = VaksinListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
+
+  RxList<VaksinModel> filteredPosts = RxList<VaksinModel>();
 
   @override
   void onInit() {
@@ -23,22 +25,30 @@ class VaksinController extends GetxController {
     homeScreen = false;
     update();
     showLoading();
-    posts = await VaksinApi().loadVaksinAPI();
+    posts.value = await VaksinApi().loadVaksinAPI();
     update();
     stopLoading();
-    if (posts?.status == 200) {
-      if (posts!.content!.isEmpty) {
-        homeScreen = true;
-        update();
-      }
-    } else if (posts!.status == 204) {
-      print("Empty");
-    } else if (posts!.status == 404) {
+    if (posts.value.status == 200) {
+      final List<VaksinModel> filteredList = posts.value.content!.toList();
+      filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.status == 401) {
+    } else if (posts!.value.status == 204) {
+      print("Empty");
+    } else if (posts!.value.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (posts!.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
+  }
+
+  void searchVaksin(String keyword) {
+    final List<VaksinModel> filteredList = posts.value.content!.where((vaksin) {
+      return vaksin.idVaksin!.toLowerCase().contains(keyword.toLowerCase());
+    }).toList();
+
+    filteredPosts.assignAll(filteredList);
   }
 }
