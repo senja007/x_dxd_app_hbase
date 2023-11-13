@@ -1,10 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -19,12 +22,13 @@ class AddHewanController extends GetxController {
   HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+  final formattedDate = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
   List<String> genders = ["Jantan", "Betina"];
   // Rx<File?> fotoHewan = Rx<File?>(null);
-  Rx<File?> fotoHewan = Rx<File?>(File('path/to/default/image.jpg'));
-
+  Rx<File?> fotoHewan = Rx<File?>(File(''));
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPeternakId = ''.obs;
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -36,7 +40,7 @@ class AddHewanController extends GetxController {
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
-  //TextEditingController sexC = TextEditingController();
+
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
@@ -51,22 +55,48 @@ class AddHewanController extends GetxController {
     kecamatanC.dispose();
     desaC.dispose();
     namaPeternakC.dispose();
+
     idPeternakC.dispose();
     nikPeternakC.dispose();
     spesiesC.dispose();
-    // sexC.dispose();
+
     umurC.dispose();
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
     ever<File?>(fotoHewan, (_) {
-      update(); // Perbarui UI setiap kali ada perubahan pada fotoHewan
+      update();
     });
   }
 
-   // Fungsi untuk memilih gambar dari galeri
+  @override
+  void onInit() {
+    super.onInit();
+    fetchPeternaks();
+    print(fetchPeternaks());
+  }
+
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+  // Fungsi untuk memilih gambar dari galeri
   Future<void> pickImage() async {
-    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedFile != null) {
       fotoHewan.value = File(pickedFile.path);
@@ -88,8 +118,8 @@ class AddHewanController extends GetxController {
         throw "Kode Eartag tidak boleh kosong.";
       }
 
-      if (idPeternakC.text.isEmpty) {
-        throw "ID Peternak tidak boleh kosong.";
+      if (selectedPeternakId.value.isEmpty) {
+        throw "Pilih Peternak terlebih dahulu.";
       }
 
       hewanModel = await HewanApi().addHewanAPI(
@@ -100,7 +130,7 @@ class AddHewanController extends GetxController {
         kecamatanC.text,
         desaC.text,
         namaPeternakC.text,
-        idPeternakC.text,
+        selectedPeternakId.value,
         nikPeternakC.text,
         spesiesC.text,
         selectedGender.value,
@@ -115,10 +145,10 @@ class AddHewanController extends GetxController {
           final HewanController hewanController = Get.put(HewanController());
           hewanController.reInitialize();
           Get.back();
-          showSuccessMessage("Petugas Baru Berhasil ditambahkan");
+          showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");
         } else {
           showErrorMessage(
-              "Gagal menambahkan petugas dengan status ${hewanModel?.status}");
+              "Gagal menambahkan Hewan dengan status ${hewanModel?.status}");
         }
       }
     } catch (e) {
