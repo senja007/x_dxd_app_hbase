@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
@@ -391,12 +393,13 @@ class AddHewanView extends GetView<AddHewanController> {
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
-             color: Colors.white,
+              color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: DropdownMenu<String>(
-              inputDecorationTheme: InputDecorationTheme(filled: false, iconColor: Colors.amber),
+              inputDecorationTheme:
+                  InputDecorationTheme(filled: false, iconColor: Colors.amber),
               initialSelection: controller.genders.first,
               onSelected: (String? value) {
                 // This is called when the user selects an item.
@@ -621,6 +624,30 @@ class AddHewanView extends GetView<AddHewanController> {
             //   ),
             // ),
           ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  ElevatedButton(
+                    onPressed: () async {
+                      await controller.pickImage();
+                    },
+                    child: Text('Pilih Gambar'),
+                  ),
+                  if (controller.fotoHewan != null )
+                    Image.file(
+                      controller.fotoHewan?.value ?? File('path/to/default/image.jpg'),
+                      height: 100,
+                      width: 100,
+                      fit: BoxFit.cover,
+                    ),
+                ],
+              ),
+            ),
+          ),
+
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,

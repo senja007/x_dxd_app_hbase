@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
@@ -10,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddHewanController extends GetxController {
@@ -19,6 +22,9 @@ class AddHewanController extends GetxController {
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   RxString selectedGender = 'Jantan'.obs;
   List<String> genders = ["Jantan", "Betina"];
+  // Rx<File?> fotoHewan = Rx<File?>(null);
+  Rx<File?> fotoHewan = Rx<File?>(File('path/to/default/image.jpg'));
+
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -53,6 +59,25 @@ class AddHewanController extends GetxController {
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
+    ever<File?>(fotoHewan, (_) {
+      update(); // Perbarui UI setiap kali ada perubahan pada fotoHewan
+    });
+  }
+
+   // Fungsi untuk memilih gambar dari galeri
+  Future<void> pickImage() async {
+    final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      fotoHewan.value = File(pickedFile.path);
+      update(); // Perbarui UI setelah memilih gambar
+    }
+  }
+
+  // Fungsi untuk menghapus gambar yang sudah dipilih
+  void removeImage() {
+    fotoHewan.value = null;
+    update(); // Perbarui UI setelah menghapus gambar
   }
 
   Future addHewan(BuildContext context) async {
@@ -63,8 +88,8 @@ class AddHewanController extends GetxController {
         throw "Kode Eartag tidak boleh kosong.";
       }
 
-      if (nikPeternakC.text.isEmpty) {
-        throw "Nik tidak boleh kosong.";
+      if (idPeternakC.text.isEmpty) {
+        throw "ID Peternak tidak boleh kosong.";
       }
 
       hewanModel = await HewanApi().addHewanAPI(
@@ -83,6 +108,7 @@ class AddHewanController extends GetxController {
         identifikasiHewanC.text,
         petugasPendaftarC.text,
         tanggalTerdaftarC.text,
+        fotoHewan.value!,
       );
       if (hewanModel != null) {
         if (hewanModel?.status == 201) {
