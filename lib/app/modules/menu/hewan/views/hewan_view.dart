@@ -102,8 +102,9 @@ class HewanView extends GetView<HewanController> {
                           ),
                           padding: EdgeInsets.only(
                               left: 20, top: 15, right: 29, bottom: 15),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          child: Wrap(
+                            // Gunakan Wrap di sini
+                            alignment: WrapAlignment.spaceBetween,
                             children: [
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,

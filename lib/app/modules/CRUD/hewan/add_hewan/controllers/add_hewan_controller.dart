@@ -15,8 +15,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:http/http.dart' as http;
 
 class AddHewanController extends GetxController {
   HewanModel? hewanModel;
@@ -25,10 +27,12 @@ class AddHewanController extends GetxController {
   final formattedDate = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
   List<String> genders = ["Jantan", "Betina"];
-  // Rx<File?> fotoHewan = Rx<File?>(null);
-  Rx<File?> fotoHewan = Rx<File?>(File(''));
+  Rx<File?> fotoHewan = Rx<File?>(null);
+  //Rx<File?> fotoHewan = Rx<File?>(File(''));
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakId = ''.obs;
+  RxString selectedProvince = ''.obs; // Kode Provinsi Jawa Timur
+  RxList regencies = [].obs;
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -73,7 +77,9 @@ class AddHewanController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
-    print(fetchPeternaks());
+    selectedProvince.value = '35';
+    getRegencies();
+    print(getRegencies());
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -91,6 +97,20 @@ class AddHewanController extends GetxController {
       showErrorMessage("Error fetching peternaks: $e");
       return [];
     }
+  }
+
+  Future<void> getRegencies() async {
+    final response = await http.get(Uri.parse(
+        'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$selectedProvince.json'));
+
+    if (response.statusCode == 200) {
+      List<dynamic> data = jsonDecode(response.body);
+
+      regencies.value = List<Map<String, dynamic>>.from(data);
+    } else {
+      throw Exception('Failed to load data');
+    }
+    print(regencies);
   }
 
   // Fungsi untuk memilih gambar dari galeri
