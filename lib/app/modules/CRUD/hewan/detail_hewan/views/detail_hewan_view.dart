@@ -659,7 +659,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
               ),
               child: Image.network(
                 '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
-                fit: BoxFit.fill,
+                fit: BoxFit.fill, 
               ))),
 
           //BUTON EDIT AND DELETE

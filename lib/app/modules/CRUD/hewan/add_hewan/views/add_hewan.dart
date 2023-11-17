@@ -4,7 +4,10 @@ import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
+import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 //import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -640,6 +643,112 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
+
+          Container(
+            width: MediaQuery.of(context).size.width,
+            child: Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    "Titik Kordinat",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  GestureDetector(
+                    child: Text(controller.strLatLong.value),
+                    onLongPress: () {
+                      Clipboard.setData(
+                          ClipboardData(text: controller.strLatLong.value));
+                      final snackBar = SnackBar(
+                        content: const Text("LatLong berhasil disalin!"),
+                        backgroundColor: Colors.green,
+                        action: SnackBarAction(
+                          textColor: Colors.white,
+                          label: "tutup",
+                          onPressed: () {},
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    "alamat",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: GestureDetector(
+                      child: Text(controller.strAlamat.value),
+                      onLongPress: () {
+                        Clipboard.setData(
+                            ClipboardData(text: controller.strAlamat.value));
+                        final snackBar = SnackBar(
+                          content: const Text("Alamat Berhasil Disalin!"),
+                          backgroundColor: (Colors.green),
+                          action: SnackBarAction(
+                            textColor: Colors.white,
+                            label: "Tutup",
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                 controller.loading
+                  ? const Center(child: CircularProgressIndicator())
+                : 
+                ElevatedButton(
+  style: ButtonStyle(
+    backgroundColor: MaterialStateProperty.all(Colors.green),
+    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+      RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(25),
+        side: const BorderSide(color: Colors.green),
+      ),
+    ),
+  ),
+  onPressed: () async {
+    try {
+      // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
+      controller.loading = true;
+
+      // Mendapatkan posisi geolokasi
+      Position position = await controller.getGeoLocationPosition();
+
+      // Mengubah status loading menjadi false setelah mendapatkan posisi
+      controller.loading = false;
+
+      // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
+      controller.strLatLong.value = '${position.latitude}, ${position.longitude}';
+
+      // Mendapatkan alamat dari koordinat
+      await controller.getAddressFromLongLat(position);
+    } catch (e) {
+      // Handle error jika terjadi kesalahan
+      print('Error in onPressed: $e');
+      controller.loading = false; // Pastikan status loading diubah kembali jika terjadi kesalahan
+    }
+  },
+  child:  controller.loading
+      ? const Center(child: CircularProgressIndicator())
+      : const Text('Tagging Lokasi')),
+
+
+                ],
+              ),
+            ),
+          ),
+
           // Container(
           //   width: MediaQuery.of(context).size.width,
           //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -667,49 +776,75 @@ class AddHewanView extends GetView<AddHewanController> {
           //   }),
           // ),
 
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                SizedBox(height: 20),
-                Text('Pilih Provinsi:'),
-                DropdownButton<String>(
-                  value: controller.selectedProvince.value,
-                  onChanged: (String? newValue) {
-                    controller.selectedProvince.value = newValue!;
-                    controller.getRegencies();
-                  },
-                  items: [
-                    DropdownMenuItem(
-                      child: Text('Jawa Timur'),
-                      value: '35', // Kode Provinsi Jawa Timur
-                    ),
-                    // Tambahkan DropdownMenuItem untuk provinsi lain jika diperlukan
-                  ],
-                ),
-                SizedBox(height: 20),
-                Text('Kabupaten/Kota di Jawa Timur:'),
-                SingleChildScrollView(
-                  child: Column(
-                    children: List.generate(
-                      controller.regencies.length,
-                      (index) => ListTile(
-                        title: Text(controller.regencies[index]['nama']),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
+          //         Container(
+          //           width: MediaQuery.of(context).size.width,
+          //           padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //           margin: EdgeInsets.only(bottom: 16),
+          //           decoration: BoxDecoration(
+          //             color: Colors.white,
+          //             borderRadius: BorderRadius.circular(8),
+          //             border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //           ),
+          //           child: Obx(() {
+          //             return DropdownButton<String>(
+          //               value: controller.kabupatenC.text,
+          //               items: controller.regencies.map((regency) {
+          //                 return DropdownMenuItem<String>(
+          //                   value: regency['id'].toString(), // Ensure unique values
+          //                   child: Text(regency['name']),
+          //                 );
+          //               }).toList(),
+          //               onChanged: (String? value) {
+          //                 controller.kabupatenC.text = value ?? '';
+          //               },
+          //               hint: Text('Pilih Kabupaten'),
+          //             );
+          // }),
+          //         ),
+
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: Column(
+          //     crossAxisAlignment: CrossAxisAlignment.stretch,
+          //     children: [
+          //       SizedBox(height: 20),
+          //       Text('Pilih Provinsi:'),
+          //       DropdownButton<String>(
+          //         value: controller.selectedProvince.value,
+          //         onChanged: (String? newValue) {
+          //           controller.selectedProvince.value = newValue!;
+          //           controller.getRegencies();
+          //         },
+          //         items: [
+          //           DropdownMenuItem(
+          //             child: Text('Jawa Timur'),
+          //             value: '35', // Kode Provinsi Jawa Timur
+          //           ),
+          //           // Tambahkan DropdownMenuItem untuk provinsi lain jika diperlukan
+          //         ],
+          //       ),
+          //       SizedBox(height: 60),
+          //       Text('Kabupaten/Kota di Jawa Timur:'),
+          //       SingleChildScrollView(
+          //         child: Column(
+          //           children: List.generate(
+          //             controller.regencies.length,
+          //             (index) => ListTile(
+          //               title: Text(controller.regencies[index]['nama']),
+          //             ),
+          //           ),
+          //         ),
+          //       ),
+          //     ],
+          //   ),
+          // ),
 
           // Container(
           //   width: MediaQuery.of(context).size.width,

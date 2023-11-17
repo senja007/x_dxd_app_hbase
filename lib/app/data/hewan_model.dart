@@ -17,6 +17,8 @@ class HewanModel {
   final String? petugasPendaftar;
   final String? tanggalTerdaftar;
   final String? fotoHewan;
+  final String? latitude;
+  final String? longitude;
 
   final int? status;
 
@@ -38,6 +40,8 @@ class HewanModel {
     this.petugasPendaftar,
     this.tanggalTerdaftar,
     this.fotoHewan,
+    this.latitude,
+    this.longitude,
   });
 
   factory HewanModel.fromJson(Map<String, dynamic> jsonData) {
@@ -70,6 +74,8 @@ class HewanModel {
           ? jsonData['tanggalTerdaftar']
           : "",
       fotoHewan: jsonData['fotoHewan'] != null ? jsonData['fotoHewan'] : "",
+      latitude: jsonData['latitude'] != null ? jsonData['latitude'] : "",
+      longitude: jsonData['longitude'] != null ? jsonData['longitude'] : "",
     );
   }
 }

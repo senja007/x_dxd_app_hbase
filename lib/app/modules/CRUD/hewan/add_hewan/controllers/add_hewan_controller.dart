@@ -14,6 +14,8 @@ import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:image_picker/image_picker.dart';
@@ -31,8 +33,12 @@ class AddHewanController extends GetxController {
   //Rx<File?> fotoHewan = Rx<File?>(File(''));
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakId = ''.obs;
-  RxString selectedProvince = ''.obs; // Kode Provinsi Jawa Timur
-  RxList regencies = [].obs;
+  //RxString selectedProvince = ''.obs; // Kode Provinsi Jawa Timur
+  //RxList regencies = [].obs;
+  RxString strLatLong =
+      'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
+  RxString strAlamat = 'mencari lokasi..'.obs;
+  bool loading = false;
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -77,9 +83,11 @@ class AddHewanController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
-    selectedProvince.value = '35';
-    getRegencies();
-    print(getRegencies());
+    
+    //_getGeoLocationPosition();
+    //selectedProvince.value = '35';
+    //getRegencies();
+    //print(getRegencies());
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -99,19 +107,106 @@ class AddHewanController extends GetxController {
     }
   }
 
-  Future<void> getRegencies() async {
-    final response = await http.get(Uri.parse(
-        'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$selectedProvince.json'));
+  // Future<void> getRegencies() async {
+  //   final response = await http.get(Uri.parse(
+  //       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$selectedProvince.json'));
 
-    if (response.statusCode == 200) {
-      List<dynamic> data = jsonDecode(response.body);
+  //   if (response.statusCode == 200) {
+  //     List<dynamic> data = jsonDecode(response.body);
 
-      regencies.value = List<Map<String, dynamic>>.from(data);
-    } else {
-      throw Exception('Failed to load data');
+  //     regencies.value = List<Map<String, dynamic>>.from(data);
+  //   } else {
+  //     throw Exception('Failed to load data');
+  //   }
+  //   print(regencies);
+  // }
+
+   Future<Position> getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //location service not enabled, don't continue
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location service Not Enabled');
     }
-    print(regencies);
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permission denied');
+      }
+    }
+
+    //permission denied forever
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+        'Location permission denied forever, we cannot access',
+      );
+    }
+    //continue accessing the position of device
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
   }
+
+  // //getAddress
+  Future<void> getAddressFromLongLat(Position position) async {
+    List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+
+    Placemark place = placemarks[0];
+  
+      strAlamat.value = '${place.street}, ${place.subLocality}, ${place.locality}, '
+          '${place.postalCode}, ${place.country}' ;
+
+  }
+
+//   //getLATLONG
+//   Future<Position> _getGeoLocationPosition() async {
+//     bool serviceEnabled;
+//     LocationPermission permission;
+
+//     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+
+//     if (serviceEnabled) {
+//       await Geolocator.openLocationSettings();
+//       return Future.error('Location service is not enabled');
+//     }
+
+//     permission = await Geolocator.checkPermission();
+//     if (permission == LocationPermission.denied) {
+//       permission = await Geolocator.requestPermission();
+//       if (permission == LocationPermission.denied) {
+//         return Future.error('location permission is denied');
+//       }
+//     }
+
+//     //permision denied forever
+//     if (permission == LocationPermission.deniedForever) {
+//       return Future.error(
+//           'location permission denied forever, please try again');
+//     }
+
+// //contiue accessing the position of device
+//     return await Geolocator.getCurrentPosition(
+//       desiredAccuracy: LocationAccuracy.high,
+//     );
+//   }
+
+//   //getAdress
+//   Future<void> getAdressFromLatLong(Position position) async {
+//     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
+//     print(placemarks);
+
+//     Placemark place = placemarks[0];
+
+// strAlamat = '${place.street}, ${place.subLocality}, ${place.locality}, ' 
+//   '${place.postalCode}, ${place.country}' as RxString;
+//   }
+
+  
 
   // Fungsi untuk memilih gambar dari galeri
   Future<void> pickImage() async {
@@ -213,4 +308,9 @@ class AddHewanController extends GetxController {
       tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
+
+
+
+
+  
 }
