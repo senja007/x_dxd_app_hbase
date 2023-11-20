@@ -42,71 +42,76 @@ class HewanApi extends SharedApi {
   }
 
 //ADD
-Future<HewanModel?> addHewanAPI(
-  String kodeEartagNasional,
-  String noKartuTernak,
-  String provinsi,
-  String kabupaten,
-  String kecamatan,
-  String desa,
-  String namaPeternak,
-  String idPeternak,
-  String nikPeternak,
-  String spesies,
-  String sex,
-  String umur,
-  String identifikasiHewan,
-  String petugasPendaftar,
-  String tanggalTerdaftar,
-  File fotoHewan,
-) async {
-  try {
-    var jsonData;
-    showLoading();
+  Future<HewanModel?> addHewanAPI(
+      String kodeEartagNasional,
+      String noKartuTernak,
+      String provinsi,
+      String kabupaten,
+      String kecamatan,
+      String desa,
+      String namaPeternak,
+      String idPeternak,
+      String nikPeternak,
+      String spesies,
+      String sex,
+      String umur,
+      String identifikasiHewan,
+      String petugasPendaftar,
+      String tanggalTerdaftar,
+      File fotoHewan,
+      // String latitude,
+      // String longitude,
+      {required String latitude,
+      required String longitude}) async {
+    try {
+      var jsonData;
+      showLoading();
 
-    var request = http.MultipartRequest(
-      'POST',
-      Uri.parse(baseUrl + '/hewan'),
-    );
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(baseUrl + '/hewan'),
+      );
 
-    request.fields.addAll({
-      "kodeEartagNasional": kodeEartagNasional,
-      "noKartuTernak": noKartuTernak,
-      "provinsi": provinsi,
-      "kabupaten": kabupaten,
-      "kecamatan": kecamatan,
-      "desa": desa,
-      "namaPeternak": namaPeternak,
-      "idPeternak": idPeternak,
-      "nikPeternak": nikPeternak,
-      "spesies": spesies,
-      "sex": sex,
-      "umur": umur,
-      "identifikasiHewan": identifikasiHewan,
-      "petugasPendaftar": petugasPendaftar,
-      "tanggalTerdaftar": tanggalTerdaftar,
-      "fotoHewan": fotoHewan.path,
-    });
-    var imageField = http.MultipartFile(
-      'file',
-      fotoHewan.readAsBytes().asStream(),
-      fotoHewan.lengthSync(),
-      filename: fotoHewan.path.split("/").last,
-    );
-    request.files.add(imageField);
-    request.headers.addAll(
-      {
-        ...getToken(),
-        'Content-Type': 'multipart/form-data',
-      },
-    );
+      request.fields.addAll({
+        "kodeEartagNasional": kodeEartagNasional,
+        "noKartuTernak": noKartuTernak,
+        "provinsi": provinsi,
+        "kabupaten": kabupaten,
+        "kecamatan": kecamatan,
+        "desa": desa,
+        "namaPeternak": namaPeternak,
+        "idPeternak": idPeternak,
+        "nikPeternak": nikPeternak,
+        "spesies": spesies,
+        "sex": sex,
+        "umur": umur,
+        "identifikasiHewan": identifikasiHewan,
+        "petugasPendaftar": petugasPendaftar,
+        "tanggalTerdaftar": tanggalTerdaftar,
+        "fotoHewan": fotoHewan.path,
+        "latitude": latitude,
+        "longitude": longitude,
+      });
+      var imageField = http.MultipartFile(
+        'file',
+        fotoHewan.readAsBytes().asStream(),
+        fotoHewan.lengthSync(),
+        filename: fotoHewan.path.split("/").last,
+      );
+      request.files.add(imageField);
+      request.headers.addAll(
+        {
+          ...getToken(),
+          'Content-Type': 'multipart/form-data',
+        },
+      );
 
-    var response = await request.send();
-    var responseData = await response.stream.transform(utf8.decoder).toList();
-    var responseString = responseData.join('');
-    jsonData = json.decode(responseString);
-    stopLoading();
-if (response.statusCode == 201) {
+      var response = await request.send();
+      var responseData = await response.stream.transform(utf8.decoder).toList();
+      var responseString = responseData.join('');
+      jsonData = json.decode(responseString);
+      stopLoading();
+      if (response.statusCode == 201) {
         return HewanModel.fromJson({
           "status": 201,
           "kodeEartagNasional": jsonData['kodeEartagNasional'],
@@ -137,7 +142,6 @@ if (response.statusCode == 201) {
     }
   }
 
-
   // Future<HewanModel?> addHewanAPI(
   //   String kodeEartagNasional,
   //   String noKartuTernak,
@@ -160,7 +164,6 @@ if (response.statusCode == 201) {
   //     var jsonData;
   //     showLoading();
 
- 
   //     var bodyData = {
   //       "kodeEartagNasional": kodeEartagNasional,
   //       "noKartuTernak": noKartuTernak,
