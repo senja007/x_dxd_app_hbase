@@ -30,11 +30,8 @@ class AddHewanController extends GetxController {
   RxString selectedGender = 'Jantan'.obs;
   List<String> genders = ["Jantan", "Betina"];
   Rx<File?> fotoHewan = Rx<File?>(null);
-  //Rx<File?> fotoHewan = Rx<File?>(File(''));
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakId = ''.obs;
-  //RxString selectedProvince = ''.obs; // Kode Provinsi Jawa Timur
-  //RxList regencies = [].obs;
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
@@ -50,7 +47,6 @@ class AddHewanController extends GetxController {
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
-
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
@@ -83,12 +79,9 @@ class AddHewanController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
-    
-    //_getGeoLocationPosition();
-    //selectedProvince.value = '35';
-    //getRegencies();
-    //print(getRegencies());
   }
+
+
 
   Future<List<PeternakModel>> fetchPeternaks() async {
     try {
@@ -107,19 +100,6 @@ class AddHewanController extends GetxController {
     }
   }
 
-  // Future<void> getRegencies() async {
-  //   final response = await http.get(Uri.parse(
-  //       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/$selectedProvince.json'));
-
-  //   if (response.statusCode == 200) {
-  //     List<dynamic> data = jsonDecode(response.body);
-
-  //     regencies.value = List<Map<String, dynamic>>.from(data);
-  //   } else {
-  //     throw Exception('Failed to load data');
-  //   }
-  //   print(regencies);
-  // }
 
    Future<Position> getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -158,55 +138,46 @@ class AddHewanController extends GetxController {
 
     Placemark place = placemarks[0];
   
-      strAlamat.value = '${place.street}, ${place.subLocality}, ${place.locality}, '
-          '${place.postalCode}, ${place.country}' ;
-
+      strAlamat.value = '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
+          '${place.postalCode}, ${place.country}, ${place.administrativeArea}' ;
   }
 
-//   //getLATLONG
-//   Future<Position> _getGeoLocationPosition() async {
-//     bool serviceEnabled;
-//     LocationPermission permission;
 
-//     serviceEnabled = await Geolocator.isLocationServiceEnabled();
+  // Fungsi untuk mendapatkan alamat dari geolocation dan mengupdate nilai provinsi, kabupaten, kecamatan, dan desa
+Future<void> updateAlamatInfo() async {
+  try {
+    isLoading.value = true;
 
-//     if (serviceEnabled) {
-//       await Geolocator.openLocationSettings();
-//       return Future.error('Location service is not enabled');
-//     }
+    // Mendapatkan posisi geolokasi
+    Position position = await getGeoLocationPosition();
 
-//     permission = await Geolocator.checkPermission();
-//     if (permission == LocationPermission.denied) {
-//       permission = await Geolocator.requestPermission();
-//       if (permission == LocationPermission.denied) {
-//         return Future.error('location permission is denied');
-//       }
-//     }
+    // Mendapatkan alamat dari geolokasi
+    await getAddressFromLongLat(position);
 
-//     //permision denied forever
-//     if (permission == LocationPermission.deniedForever) {
-//       return Future.error(
-//           'location permission denied forever, please try again');
-//     }
+    // Mengupdate nilai provinsi, kabupaten, kecamatan, dan desa berdasarkan alamat
+    provinsiC.text = getAlamatInfo(5);//benar 5
+    kabupatenC.text = getAlamatInfo(0);//benar 0
+    kecamatanC.text = getAlamatInfo(2);//benar 2
+    desaC.text = getAlamatInfo(1);//benar 1 
+  } catch (e) {
+    print('Error updating alamat info: $e');
+    showErrorMessage("Error updating alamat info: $e");
+  } finally {
+    isLoading.value = false;
+  }
+}
 
-// //contiue accessing the position of device
-//     return await Geolocator.getCurrentPosition(
-//       desiredAccuracy: LocationAccuracy.high,
-//     );
-//   }
+// Fungsi untuk mendapatkan informasi alamat berdasarkan index
+String getAlamatInfo(int index) {
+  List<String> alamatInfo = strAlamat.value.split(', ');
+  if (index < alamatInfo.length) {
+    return alamatInfo[index];
+  } else {
+    return '';
+  }
+}
 
-//   //getAdress
-//   Future<void> getAdressFromLatLong(Position position) async {
-//     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
-//     print(placemarks);
 
-//     Placemark place = placemarks[0];
-
-// strAlamat = '${place.street}, ${place.subLocality}, ${place.locality}, ' 
-//   '${place.postalCode}, ${place.country}' as RxString;
-//   }
-
-  
 
   // Fungsi untuk memilih gambar dari galeri
   Future<void> pickImage() async {
@@ -226,68 +197,77 @@ class AddHewanController extends GetxController {
   }
 
   Future addHewan(BuildContext context) async {
-    try {
-      isLoading.value = true;
+  try {
+    isLoading.value = true;
 
-      if (kodeEartagNasionalC.text.isEmpty) {
-        throw "Kode Eartag tidak boleh kosong.";
-      }
-
-      if (selectedPeternakId.value.isEmpty) {
-        throw "Pilih Peternak terlebih dahulu.";
-      }
-
-      hewanModel = await HewanApi().addHewanAPI(
-        kodeEartagNasionalC.text,
-        noKartuTernakC.text,
-        provinsiC.text,
-        kabupatenC.text,
-        kecamatanC.text,
-        desaC.text,
-        namaPeternakC.text,
-        selectedPeternakId.value,
-        nikPeternakC.text,
-        spesiesC.text,
-        selectedGender.value,
-        umurC.text,
-        identifikasiHewanC.text,
-        petugasPendaftarC.text,
-        tanggalTerdaftarC.text,
-        fotoHewan.value!,
-      );
-      if (hewanModel != null) {
-        if (hewanModel?.status == 201) {
-          final HewanController hewanController = Get.put(HewanController());
-          hewanController.reInitialize();
-          Get.back();
-          showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");
-        } else {
-          showErrorMessage(
-              "Gagal menambahkan Hewan dengan status ${hewanModel?.status}");
-        }
-      }
-    } catch (e) {
-      showCupertinoDialog(
-        context: context, // Gunakan context yang diberikan sebagai parameter.
-        builder: (context) {
-          return CupertinoAlertDialog(
-            title: Text("Kesalahan"),
-            content: Text(e.toString()),
-            actions: [
-              CupertinoDialogAction(
-                child: Text("OK"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-            ],
-          );
-        },
-      );
-    } finally {
-      isLoading.value = false;
+    if (kodeEartagNasionalC.text.isEmpty) {
+      throw "Kode Eartag tidak boleh kosong.";
     }
+
+    if (selectedPeternakId.value.isEmpty) {
+      throw "Pilih Peternak terlebih dahulu.";
+    }
+
+    File? fotoHewanFile = fotoHewan.value;
+
+    if (fotoHewanFile == null) {
+      throw "Pilih gambar hewan terlebih dahulu.";
+    }
+
+    hewanModel = await HewanApi().addHewanAPI(
+      kodeEartagNasionalC.text,
+      noKartuTernakC.text,
+      provinsiC.text,
+      kabupatenC.text,
+      kecamatanC.text,
+      desaC.text,
+      namaPeternakC.text,
+      selectedPeternakId.value,
+      nikPeternakC.text,
+      spesiesC.text,
+      selectedGender.value,
+      umurC.text,
+      identifikasiHewanC.text,
+      petugasPendaftarC.text,
+      tanggalTerdaftarC.text,
+      fotoHewanFile,
+      
+    );
+    await updateAlamatInfo();
+   
+
+    if (hewanModel != null) {
+      if (hewanModel?.status == 201) {
+        final HewanController hewanController = Get.put(HewanController());
+        hewanController.reInitialize();
+        Get.back();
+        showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");
+      } else {
+        showErrorMessage("Gagal menambahkan Hewan dengan status ${hewanModel?.status}");
+      }
+    }
+  } catch (e) {
+    showCupertinoDialog(
+      context: context,
+      builder: (context) {
+        return CupertinoAlertDialog(
+          title: Text("Kesalahan"),
+          content: Text(e.toString()),
+          actions: [
+            CupertinoDialogAction(
+              child: Text("OK"),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  } finally {
+    isLoading.value = false;
   }
+}
 
   void updateFormattedDate(String newDate) {
     formattedDate.value = newDate;
@@ -308,9 +288,4 @@ class AddHewanController extends GetxController {
       tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
-
-
-
-
-  
 }

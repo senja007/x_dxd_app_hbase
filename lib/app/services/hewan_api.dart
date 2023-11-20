@@ -85,6 +85,7 @@ Future<HewanModel?> addHewanAPI(
       "identifikasiHewan": identifikasiHewan,
       "petugasPendaftar": petugasPendaftar,
       "tanggalTerdaftar": tanggalTerdaftar,
+      "fotoHewan": fotoHewan.path,
     });
     var imageField = http.MultipartFile(
       'file',

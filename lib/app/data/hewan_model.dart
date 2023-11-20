@@ -58,7 +58,7 @@ class HewanModel {
       desa: jsonData['desa'] != null ? jsonData['desa'] : "",
       namaPeternak:
           jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
+      idPeternak: jsonData['idPeternak'] != null ? IdPeternak.fromJson(jsonData['idPeternak']) : null,
       nikPeternak:
           jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
       spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",

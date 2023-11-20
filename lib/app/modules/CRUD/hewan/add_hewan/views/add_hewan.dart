@@ -120,176 +120,7 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.provinsiC,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                label: Text(
-                  "Provinsi",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Provinsi",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.kabupatenC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Kabupaten",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Kabupaten",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.kecamatanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Kecamatan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Kecamatan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.desaC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Desa",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Desa",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //   margin: EdgeInsets.only(bottom: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(8),
-          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //   ),
-          //   child: TextField(
-          //     style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-          //     maxLines: 1,
-          //     controller: controller.namaPeternakC,
-          //     keyboardType: TextInputType.text,
-          //     decoration: InputDecoration(
-          //       label: Text(
-          //         "Nama Peternak",
-          //         style: TextStyle(
-          //           color: AppColor.secondarySoft,
-          //           fontSize: 14,
-          //         ),
-          //       ),
-          //       floatingLabelBehavior: FloatingLabelBehavior.always,
-          //       border: InputBorder.none,
-          //       hintText: "Nama Peternak",
-          //       hintStyle: TextStyle(
-          //         fontSize: 14,
-          //         fontFamily: 'poppins',
-          //         fontWeight: FontWeight.w500,
-          //         color: AppColor.secondarySoft,
-          //       ),
-          //     ),
-          //   ),
-          // ),
+       
           Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -315,40 +146,6 @@ class AddHewanView extends GetView<AddHewanController> {
                   hint: Text('Pilih Peternak'),
                 );
               })),
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //   margin: EdgeInsets.only(bottom: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(8),
-          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //   ),
-          //   child: TextField(
-          //     style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-          //     maxLines: 1,
-          //     controller: controller.nikPeternakC,
-          //     keyboardType: TextInputType.text,
-          //     decoration: InputDecoration(
-          //       label: Text(
-          //         "Nik Peternak",
-          //         style: TextStyle(
-          //           color: AppColor.secondarySoft,
-          //           fontSize: 14,
-          //         ),
-          //       ),
-          //       floatingLabelBehavior: FloatingLabelBehavior.always,
-          //       border: InputBorder.none,
-          //       hintText: "Nik Peternak",
-          //       hintStyle: TextStyle(
-          //         fontSize: 14,
-          //         fontFamily: 'poppins',
-          //         fontWeight: FontWeight.w500,
-          //         color: AppColor.secondarySoft,
-          //       ),
-          //     ),
-          //   ),
-          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -405,50 +202,7 @@ class AddHewanView extends GetView<AddHewanController> {
                 return DropdownMenuEntry<String>(value: value, label: value);
               }).toList(),
             ),
-            // child : DropdownButton(
-            //   value : selected,
-            //   onChanged: (value){
-            //     print(value);
-            //     setState((){
-            //       selected = value;
-            //     });
-            //   },
-            //   underline: SizedBox(),
-            //   isExpanded: true,
-            //   items: genders.map((String gender){
-            //     return DropdownMenuItem<String>(
-            //       value : gender,
-            //       child: Text(gender),
-            //       );
-            //   }).toList(),
-            //   hint: Text("Gender"),
-            // ),
           ),
-
-          // child: TextField(
-          //   style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-          //   maxLines: 1,
-          //   controller: controller.sexC,
-          //   keyboardType: TextInputType.text,
-          //   decoration: InputDecoration(
-          //     label: Text(
-          //       "Sex",
-          //       style: TextStyle(
-          //         color: AppColor.secondarySoft,
-          //         fontSize: 14,
-          //       ),
-          //     ),
-          //     floatingLabelBehavior: FloatingLabelBehavior.always,
-          //     border: InputBorder.none,
-          //     hintText: "Sex",
-          //     hintStyle: TextStyle(
-          //       fontSize: 14,
-          //       fontFamily: 'poppins',
-          //       fontWeight: FontWeight.w500,
-          //       color: AppColor.secondarySoft,
-          //     ),
-          //   ),
-          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -573,51 +327,7 @@ class AddHewanView extends GetView<AddHewanController> {
               readOnly:
                   true, //set it true, so that user will not able to edit text
               onTap: () => controller.tanggalTerdaftar(context),
-              // async {
-              //   DateTime? pickedDate = await showDatePicker(
-              //       context: context, initialDate: DateTime.now(),
-              //       firstDate: DateTime(2000), //DateTime.now() - not to allow to choose before today.
-              //       lastDate: DateTime(2101)
-              //   );
-
-              //   if(pickedDate != null ){
-              //       print(pickedDate);  //pickedDate output format => 2021-03-10 00:00:00.000
-              //       String formattedDate = DateFormat('yyyy-MM-dd').format(pickedDate);
-              //       print(formattedDate); //formatted date output using intl package =>  2021-03-16
-              //         //you can implement different kind of Date Format here according to your requirement
-
-              //       Obx(() => Text('Formatted Date: ${controller.formattedDate.value}'));
-              //   }else{
-              //       print("Date is not selected");
-              //   }
-
-              // },
             ),
-            // child: TextField(
-            //   focusNode: AlwaysDisabledFocusNode(),
-            //   controller: controller.tanggalTerdaftarC,
-            //   onTap: () {
-            //     _selectDate(context);
-            //   },
-            //   decoration: InputDecoration(
-            //     label: Text(
-            //       "Tanggal Terdaftar",
-            //       style: TextStyle(
-            //         color: AppColor.secondarySoft,
-            //         fontSize: 14,
-            //       ),
-            //     ),
-            //     floatingLabelBehavior: FloatingLabelBehavior.always,
-            //     border: InputBorder.none,
-            //     hintText: "Tanggal Terdaftar",
-            //     hintStyle: TextStyle(
-            //       fontSize: 14,
-            //       fontFamily: 'poppins',
-            //       fontWeight: FontWeight.w500,
-            //       color: AppColor.secondarySoft,
-            //     ),
-            //   ),
-            // ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -631,9 +341,9 @@ class AddHewanView extends GetView<AddHewanController> {
                     },
                     child: Text('Pilih Gambar'),
                   ),
-                  if (controller.fotoHewan != null)
+                  if (controller.fotoHewan.value != null)
                     Image.file(
-                      controller.fotoHewan?.value ??
+                      controller.fotoHewan.value ??
                           File('null'), //path/to/default/image.jpg
                       height: 100,
                       width: 100,
@@ -643,7 +353,6 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-
           Container(
             width: MediaQuery.of(context).size.width,
             child: Obx(
@@ -704,168 +413,62 @@ class AddHewanView extends GetView<AddHewanController> {
                   const SizedBox(
                     height: 20,
                   ),
-                 controller.loading
-                  ? const Center(child: CircularProgressIndicator())
-                : 
-                ElevatedButton(
-  style: ButtonStyle(
-    backgroundColor: MaterialStateProperty.all(Colors.green),
-    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-      RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(25),
-        side: const BorderSide(color: Colors.green),
-      ),
-    ),
-  ),
-  onPressed: () async {
-    try {
-      // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
-      controller.loading = true;
+                  controller.loading
+                      ? const Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                side: const BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            try {
+                              // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
+                              controller.loading = true;
 
-      // Mendapatkan posisi geolokasi
-      Position position = await controller.getGeoLocationPosition();
+                              // Mendapatkan posisi geolokasi
+                              Position position =
+                                  await controller.getGeoLocationPosition();
 
-      // Mengubah status loading menjadi false setelah mendapatkan posisi
-      controller.loading = false;
+                              // Mengubah status loading menjadi false setelah mendapatkan posisi
+                              controller.loading = false;
 
-      // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
-      controller.strLatLong.value = '${position.latitude}, ${position.longitude}';
+                              // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
+                              controller.strLatLong.value =
+                                  '${position.latitude}, ${position.longitude}';
 
-      // Mendapatkan alamat dari koordinat
-      await controller.getAddressFromLongLat(position);
-    } catch (e) {
-      // Handle error jika terjadi kesalahan
-      print('Error in onPressed: $e');
-      controller.loading = false; // Pastikan status loading diubah kembali jika terjadi kesalahan
-    }
-  },
-  child:  controller.loading
-      ? const Center(child: CircularProgressIndicator())
-      : const Text('Tagging Lokasi')),
-
-
+                              // Mendapatkan alamat dari koordinat
+                              await controller.getAddressFromLongLat(position);
+                            } catch (e) {
+                              // Handle error jika terjadi kesalahan
+                              print('Error in onPressed: $e');
+                              controller.loading =
+                                  false; // Pastikan status loading diubah kembali jika terjadi kesalahan
+                            }
+                          },
+                          child: controller.loading
+                              ? const Center(child: CircularProgressIndicator())
+                              : const Text('Tagging Lokasi')),
                 ],
               ),
             ),
           ),
-
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //   margin: EdgeInsets.only(bottom: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(8),
-          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //   ),
-          //   child: Obx(() {
-          //     return DropdownButton<String>(
-          //       value: controller.selectedProvince.value,
-          //       onChanged: (String? newValue) {
-          //         controller.selectedProvince.value = newValue!;
-          //         controller.getRegencies();
-          //       },
-          //       items: [
-          //         DropdownMenuItem(
-          //           child: Text('Jawa Timur'),
-          //           value: '35', // Kode Provinsi Jawa Timur
-          //         ),
-          //         // Tambahkan DropdownMenuItem untuk provinsi lain jika diperlukan
-          //       ],
-          //     );
-          //   }),
-          // ),
-
-          //         Container(
-          //           width: MediaQuery.of(context).size.width,
-          //           padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //           margin: EdgeInsets.only(bottom: 16),
-          //           decoration: BoxDecoration(
-          //             color: Colors.white,
-          //             borderRadius: BorderRadius.circular(8),
-          //             border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //           ),
-          //           child: Obx(() {
-          //             return DropdownButton<String>(
-          //               value: controller.kabupatenC.text,
-          //               items: controller.regencies.map((regency) {
-          //                 return DropdownMenuItem<String>(
-          //                   value: regency['id'].toString(), // Ensure unique values
-          //                   child: Text(regency['name']),
-          //                 );
-          //               }).toList(),
-          //               onChanged: (String? value) {
-          //                 controller.kabupatenC.text = value ?? '';
-          //               },
-          //               hint: Text('Pilih Kabupaten'),
-          //             );
-          // }),
-          //         ),
-
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //   margin: EdgeInsets.only(bottom: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(8),
-          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //   ),
-          //   child: Column(
-          //     crossAxisAlignment: CrossAxisAlignment.stretch,
-          //     children: [
-          //       SizedBox(height: 20),
-          //       Text('Pilih Provinsi:'),
-          //       DropdownButton<String>(
-          //         value: controller.selectedProvince.value,
-          //         onChanged: (String? newValue) {
-          //           controller.selectedProvince.value = newValue!;
-          //           controller.getRegencies();
-          //         },
-          //         items: [
-          //           DropdownMenuItem(
-          //             child: Text('Jawa Timur'),
-          //             value: '35', // Kode Provinsi Jawa Timur
-          //           ),
-          //           // Tambahkan DropdownMenuItem untuk provinsi lain jika diperlukan
-          //         ],
-          //       ),
-          //       SizedBox(height: 60),
-          //       Text('Kabupaten/Kota di Jawa Timur:'),
-          //       SingleChildScrollView(
-          //         child: Column(
-          //           children: List.generate(
-          //             controller.regencies.length,
-          //             (index) => ListTile(
-          //               title: Text(controller.regencies[index]['nama']),
-          //             ),
-          //           ),
-          //         ),
-          //       ),
-          //     ],
-          //   ),
-          // ),
-
-          // Container(
-          //   width: MediaQuery.of(context).size.width,
-          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-          //   margin: EdgeInsets.only(bottom: 16),
-          //   decoration: BoxDecoration(
-          //     color: Colors.white,
-          //     borderRadius: BorderRadius.circular(8),
-          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-          //   ),
-          //   child: Obx(() {}),
-          // ),
-
           SizedBox(height: 32),
           Container(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
-                onPressed: () {
-                  if (controller.isLoading.isFalse) {
-                    controller.addHewan(context);
+                onPressed: () async {
+                  if (!controller.isLoading.isTrue) {
+                    await controller
+                        .updateAlamatInfo(); // Memanggil updateAlamatInfo
+                    await controller.addHewan(context); // Memanggil addHewan
                   }
                 },
                 child: Text(
@@ -898,3 +501,5 @@ class Gender {
 
   Gender({this.id, this.sex});
 }
+
+
