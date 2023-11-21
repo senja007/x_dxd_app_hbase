@@ -413,7 +413,7 @@ class AddHewanView extends GetView<AddHewanController> {
                   const SizedBox(
                     height: 20,
                   ),
-                  controller.loading
+                  controller.loading.value
                       ? const Center(child: CircularProgressIndicator())
                       : ElevatedButton(
                           style: ButtonStyle(
@@ -430,14 +430,14 @@ class AddHewanView extends GetView<AddHewanController> {
                           onPressed: () async {
                             try {
                               // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
-                              controller.loading = true;
+                              controller.loading.value = true;
 
                               // Mendapatkan posisi geolokasi
                               Position position =
                                   await controller.getGeoLocationPosition();
 
                               // Mengubah status loading menjadi false setelah mendapatkan posisi
-                              controller.loading = false;
+                              controller.loading.value = false;
 
                               // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
                               controller.strLatLong.value =
@@ -448,11 +448,11 @@ class AddHewanView extends GetView<AddHewanController> {
                             } catch (e) {
                               // Handle error jika terjadi kesalahan
                               print('Error in onPressed: $e');
-                              controller.loading =
+                              controller.loading.value =
                                   false; // Pastikan status loading diubah kembali jika terjadi kesalahan
                             }
                           },
-                          child: controller.loading
+                          child: controller.loading.value
                               ? const Center(child: CircularProgressIndicator())
                               : const Text('Tagging Lokasi')),
                 ],

@@ -35,7 +35,7 @@ class AddHewanController extends GetxController {
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
-  bool loading = false;
+  RxBool loading = false.obs;
   String latitude = '';
   String longitude = '';
 
@@ -63,11 +63,9 @@ class AddHewanController extends GetxController {
     kecamatanC.dispose();
     desaC.dispose();
     namaPeternakC.dispose();
-
     idPeternakC.dispose();
     nikPeternakC.dispose();
     spesiesC.dispose();
-
     umurC.dispose();
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();

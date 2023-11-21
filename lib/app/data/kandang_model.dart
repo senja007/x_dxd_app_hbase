@@ -8,10 +8,10 @@ class KandangModel {
   final String? kapasitas;
   final String? nilaiBangunan;
   final String? alamat;
-  final String? desa;
-  final String? kecamatan;
-  final String? kabupaten;
   final String? provinsi;
+  final String? kabupaten;
+  final String? kecamatan;
+  final String? desa;
 
   final int? status;
 
@@ -34,7 +34,7 @@ class KandangModel {
     return KandangModel(
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       idKandang: jsonData['idKandang'] != null ? jsonData['idKandang'] : "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
+      idPeternak: jsonData['idPeternak'] != null ? IdPeternak.fromJson(jsonData['idPeternak']) : null,
       namaPeternak:
           jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       luas: jsonData['luas'] != null ? jsonData['luas'] : "",

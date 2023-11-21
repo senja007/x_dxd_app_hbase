@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
@@ -37,24 +38,99 @@ class KandangApi extends SharedApi {
     }
   }
 
-//ADD
+// //ADD
+//   Future<KandangModel?> addKandangAPI(
+//       String idKandang,
+//       String idPeternak,
+//       String namaPeternak,
+//       String luas,
+//       String kapasitas,
+//       String nilaiBangunan,
+//       String alamat,
+//       String desa,
+//       String kecamatan,
+//       String kabupaten,
+//       String provinsi) async {
+//     try {
+//       var jsonData;
+//       showLoading();
+
+//       var bodyData = {
+//         'idKandang': idKandang,
+//         'idPeternak': idPeternak,
+//         'namaPeternak': namaPeternak,
+//         'luas': luas,
+//         'kapasitas': kapasitas,
+//         'nilaiBangunan': nilaiBangunan,
+//         'alamat': alamat,
+//         'desa': desa,
+//         'kecamatan': kecamatan,
+//         'kabupaten': kabupaten,
+//         'provinsi': provinsi,
+//       };
+//       var data = await http.post(
+//         Uri.parse(baseUrl + '/kandang'),
+//         headers: {
+//           ...getToken(),
+//           'Content-Type': 'application/json',
+//         },
+//         body: jsonEncode(bodyData),
+//       );
+//       stopLoading();
+//       jsonData = json.decode(data.body);
+//       if (data.statusCode == 201) {
+//         return KandangModel.fromJson({
+//           "status": 201,
+//           "idKandang": jsonData['idKandang'],
+//           "idPeternak": jsonData['idPeternak'],
+//           "namaPeternak": jsonData['namaPeternak'],
+//           "luas": jsonData['luas'],
+//           "kapasitas": jsonData['kapasitas'],
+//           "nilaiBangunan": jsonData['nilaiBangunan'],
+//           "alamat": jsonData['alamat'],
+//           "desa": jsonData['desa'],
+//           "kecamatan": jsonData['kecamatan'],
+//           "kabupaten": jsonData['kabupaten'],
+//           "provinsi": jsonData['provinsi'],
+//         });
+//       } else {
+//         showErrorMessage(jsonData['message']);
+//         return null; //InseminasiModel.fromJson({"status": data.statusCode});
+//       }
+//     } on Exception catch (_) {
+//       stopLoading();
+//       showInternetMessage("Periksa koneksi internet anda");
+//       return KandangModel.fromJson({"status": 404});
+//     }
+//   }
+
+  //ADD
   Future<KandangModel?> addKandangAPI(
-      String idKandang,
-      String idPeternak,
-      String namaPeternak,
-      String luas,
-      String kapasitas,
-      String nilaiBangunan,
-      String alamat,
-      String desa,
-      String kecamatan,
-      String kabupaten,
-      String provinsi) async {
+    String idKandang,
+    String idPeternak,
+    String namaPeternak,
+    String luas,
+    String kapasitas,
+    String nilaiBangunan,
+    String alamat,
+    String desa,
+    String kecamatan,
+    String kabupaten,
+    String provinsi,
+    File fotoKandang, {
+    required String latitude,
+    required String longitude,
+  }) async {
     try {
       var jsonData;
       showLoading();
 
-      var bodyData = {
+      var request = http.MultipartRequest(
+        'POST',
+        Uri.parse(baseUrl + '/kandang'),
+      );
+
+      request.fields.addAll({
         'idKandang': idKandang,
         'idPeternak': idPeternak,
         'namaPeternak': namaPeternak,
@@ -66,18 +142,30 @@ class KandangApi extends SharedApi {
         'kecamatan': kecamatan,
         'kabupaten': kabupaten,
         'provinsi': provinsi,
-      };
-      var data = await http.post(
-        Uri.parse(baseUrl + '/kandang'),
-        headers: {
-          ...getToken(),
-          'Content-Type': 'application/json',
-        },
-        body: jsonEncode(bodyData),
+        'fotoKandang': fotoKandang.path,
+        "latitude": latitude,
+        "longitude": longitude,
+      });
+      var imageField = http.MultipartFile(
+        'file',
+        fotoKandang.readAsBytes().asStream(),
+        fotoKandang.lengthSync(),
+        filename: fotoKandang.path.split("/").last,
       );
+      request.files.add(imageField);
+      request.headers.addAll(
+        {
+          ...getToken(),
+          'Content-Type': 'multipart/form-data',
+        },
+      );
+
+      var response = await request.send();
+      var responseData = await response.stream.transform(utf8.decoder).toList();
+      var responseString = responseData.join('');
+      jsonData = json.decode(responseString);
       stopLoading();
-      jsonData = json.decode(data.body);
-      if (data.statusCode == 201) {
+      if (response.statusCode == 201) {
         return KandangModel.fromJson({
           "status": 201,
           "idKandang": jsonData['idKandang'],
@@ -91,10 +179,13 @@ class KandangApi extends SharedApi {
           "kecamatan": jsonData['kecamatan'],
           "kabupaten": jsonData['kabupaten'],
           "provinsi": jsonData['provinsi'],
+          "fotoKandang": jsonData['fotoKandang'],
+          "latitude": jsonData['latitude'],
+          "longtitude": jsonData['longtitude'],
         });
       } else {
         showErrorMessage(jsonData['message']);
-        return null; //InseminasiModel.fromJson({"status": data.statusCode});
+        return KandangModel.fromJson({"status": response.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
