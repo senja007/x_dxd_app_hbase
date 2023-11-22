@@ -77,7 +77,7 @@ class AddKandangController extends GetxController {
     fetchPeternaks();
   }
 
-    Future<List<PeternakModel>> fetchPeternaks() async {
+  Future<List<PeternakModel>> fetchPeternaks() async {
     try {
       final PeternakListModel peternakListModel =
           await PeternakApi().loadPeternakApi();
@@ -135,7 +135,6 @@ class AddKandangController extends GetxController {
     latitude.value = position.latitude.toString();
     longitude.value = position.longitude.toString();
 
-
     strAlamat.value =
         '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
         '${place.postalCode}, ${place.country}, ${place.administrativeArea}';
@@ -176,9 +175,10 @@ class AddKandangController extends GetxController {
   }
 
   // Fungsi untuk memilih gambar dari galeri
-  Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> pickImage(bool fromCamera) async {
+    final ImageSource source =
+        fromCamera ? ImageSource.camera : ImageSource.gallery;
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
       fotoKandang.value = File(pickedFile.path);
@@ -210,7 +210,6 @@ class AddKandangController extends GetxController {
         throw "Pilih gambar Kandang terlebih dahulu.";
       }
 
-
       kandangModel = await KandangApi().addKandangAPI(
         idKandangC.text,
         selectedPeternakId.value,
@@ -223,19 +222,16 @@ class AddKandangController extends GetxController {
         kabupatenC.text,
         kecamatanC.text,
         desaC.text,
-        // selcetedProvinsi.value,
-        // selcetedKabupaten.value,
-        // selcetedKecamatan.value,
-        // selcetedDesa.value,
         fotoKandangFile,
         latitude: latitude.value,
         longitude: longitude.value,
       );
-     //await updateAlamatInfo();
+      //await updateAlamatInfo();
 
       if (kandangModel != null) {
         if (kandangModel?.status == 201) {
-          final KandangController hewanController = Get.put(KandangController());
+          final KandangController hewanController =
+              Get.put(KandangController());
           hewanController.reInitialize();
           Get.back();
           showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");
@@ -267,151 +263,3 @@ class AddKandangController extends GetxController {
     }
   }
 }
-
-//   Future addKandang(BuildContext context) async {
-//     try {
-//       isLoading.value = true;
-//       kandangModel = await KandangApi().addKandangAPI(
-//         idKandangC.text,
-//         idPeternakC.text,
-//         namaPeternakC.text,
-//         luasC.text,
-//         kapasitasC.text,
-//         nilaiBangunanC.text,
-//         alamatC.text,
-//         desaC.text,
-//         kecamatanC.text,
-//         //kabupatenC.text,
-//         selcetedProvinsi.value,
-//         selcetedKabupaten.value,
-//         latitude: 
-//       );
-
-//       if (kandangModel != null) {
-//         if (kandangModel!.status == 201) {
-//           kandangController.reInitialize();
-//           Get.back();
-//           showSuccessMessage("Kandang Baru berhasil ditambahkan");
-//         } else {
-//           showErrorMessage(
-//               "Gagal menambahkan Kandang dengan status ${kandangModel?.status}");
-//         }
-//       }
-//     } catch (e) {
-//       showCupertinoDialog(
-//         context: context, // Gunakan context yang diberikan sebagai parameter.
-//         builder: (context) {
-//           return CupertinoAlertDialog(
-//             title: Text("Kesalahan"),
-//             content: Text(e.toString()),
-//             actions: [
-//               CupertinoDialogAction(
-//                 child: Text("OK"),
-//                 onPressed: () {
-//                   Navigator.pop(context);
-//                 },
-//               ),
-//             ],
-//           );
-//         },
-//       );
-//     } finally {
-//       isLoading.value = false;
-//     }
-//   }
-// }
-
-
-  // void fetchProvinsiData() async { 
-  //   final response = await http.get(Uri.parse(
-  //       'https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json'));
-
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = json.decode(response.body);
-  //     provinsi.clear();
-  //     data.forEach((province) {
-  //       provinsi.add(province['id']);
-  //       provinsi.add(province['name']);
-      
-  //     });
-  //   } else {
-  //     // Handle the error if the request fails
-  //     print('Failed to fetch provinsi data');
-  //   }
-  // }
-
-
-// void fetchKabupatenData(String idProvinsi) async {
-//   final response = await http.get(Uri.parse(
-//       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/.json'));
-
-//   if (response.statusCode == 200) {
-//     final List<dynamic> data = json.decode(response.body);
-//     kabupaten.clear();
-//     data.forEach((regency) {
-//       kabupaten.add(regency['name']);
-//     });
-//   } else {
-//     // Handle the error if the request fails
-//     print('Failed to fetch kabupaten data');
-//   }
-// }
-
-// // Update onSelected for provinsi dropdown to load related kabupaten
-// onSelectedProvinsi(String? selectedProvinsi) {
-//   if (selectedProvinsi != null) {
-//     final List<dynamic> provinsiData = json.decode(selectedProvinsi);
-//     final selectedProvinsiData = provinsiData.firstWhere(
-//         (provinsi) => provinsi['name'] == selectedProvinsi, orElse: () => {});
-
-//     if (selectedProvinsiData.isNotEmpty) {
-//       final idProvinsi = selectedProvinsiData['id'];
-//       selcetedProvinsi.value = selectedProvinsi;
-//       fetchKabupatenData(idProvinsi);
-//     }
-//   }
-// }
-
-
-
-  
-// void fetchKabupatenData(String selectedProvinsi) async {
-//   final response = await http.get(Uri.parse(
-//       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${provinsi.[index]}.json'));
-
-//   if (response.statusCode == 200) {
-//     final List<dynamic> data = json.decode(response.body);
-//     kabupaten.clear();
-//     data.forEach((regency) {
-//       kabupaten.add(regency['name']);
-//     });
-//   } else {
-//     // Handle the error if the request fails
-//     print('Failed to fetch kabupaten data');
-//   }
-// }
-
-// // Update onSelected for provinsi dropdown to load related kabupaten
-// onSelectedProvinsi(String? selectedProvinsi) {
-//   if (selectedProvinsi != null) {
-//     selcetedProvinsi.value = selectedProvinsi;
-//     fetchKabupatenData(selectedProvinsi);
-//   }
-// }
-
-  
-  // void fetchKabupatenData() async { 
-  //   final response = await http.get(Uri.parse( 
-  //       'https://www.emsifa.com/api-wilayah-indonesia/api/regencies/35.json'));
-
-  //   if (response.statusCode == 200) {
-  //     final List<dynamic> data = json.decode(response.body);
-  //     kabupaten.clear();
-  //     data.forEach((kabupatenes) {
-  //       kabupaten.add(kabupatenes['name']);
-  //     });
-  //   } else {
-  //     // Handle the error if the request fails
-  //     print('Failed to fetch Kabupaten data');
-  //   }
-  // }

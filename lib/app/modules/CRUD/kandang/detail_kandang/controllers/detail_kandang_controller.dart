@@ -1,6 +1,7 @@
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
+import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -17,6 +18,7 @@ class DetailKandangController extends GetxController {
   RxBool isEditing = false.obs;
   final formattedDate = ''.obs;
   final KandangController kandangController = Get.put(KandangController());
+  SharedApi sharedApi = SharedApi();
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -72,6 +74,8 @@ class DetailKandangController extends GetxController {
     kecamatanC.text = argsData["kecamatan"];
     kabupatenC.text = argsData["kabupaten"];
     provinsiC.text = argsData["provinsi"];
+
+    print(argsData["fotoKandang"]);
 
     originalIdKandang = argsData["idKandang"];
     originalIdPeternak = argsData["idPeternak"];

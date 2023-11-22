@@ -83,30 +83,47 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
 
           Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: Obx(() {
-                return DropdownButton<String>(
-                  value: controller.selectedPeternakId.value,
-                  items: controller.peternakList.map((PeternakModel peternak) {
-                    return DropdownMenuItem<String>(
-                      value: peternak.idPeternak ?? '',
-                      child: Text(peternak.namaPeternak ?? ''),
-                    );
-                  }).toList(),
-                  onChanged: (String? selectedId) {
-                    controller.selectedPeternakId.value = selectedId ?? '';
-                  },
-                  hint: Text('Pilih Peternak'),
-                );
-              })),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Nama Peternak",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.selectedPeternakId.value,
+                    items:
+                        controller.peternakList.map((PeternakModel peternak) {
+                      return DropdownMenuItem<String>(
+                        value: peternak.idPeternak ?? '',
+                        child: Text(peternak.namaPeternak ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedId) {
+                      controller.selectedPeternakId.value = selectedId ?? '';
+                    },
+                    hint: Text('Pilih Peternak'),
+                  );
+                }),
+              ],
+            ),
+          ),
+
           // Container(
           //   width: MediaQuery.of(context).size.width,
           //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -279,6 +296,106 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.all(14),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Gambar Kandang', // Label teks untuk container
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    color: AppColor.secondarySoft,
+                    fontSize: 12,
+                  ),
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (controller.fotoKandang.value != null)
+                                Column(
+                                  children: [
+                                    Image.file(
+                                      controller.fotoKandang.value ??
+                                          File('null'),
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(height: 8),
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.removeImage();
+                                      },
+                                      icon: Icon(Icons.delete),
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        // Tampilkan dialog atau pilihan untuk memilih sumber gambar
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Pilih Sumber Gambar"),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: Icon(Icons.camera),
+                                      title: Text("Kamera"),
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        controller.pickImage(true);
+                                      },
+                                    ),
+                                    SizedBox(height: 8),
+                                    ListTile(
+                                      leading: Icon(Icons.photo_library),
+                                      title: Text("Galeri"),
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        controller.pickImage(false);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: Icon(Icons.add_a_photo),
+                      label: Text('Pilih Gambar'),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+
+          Container(
+            width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
@@ -308,31 +425,6 @@ class AddKandangView extends GetView<AddKandangController> {
                   fontWeight: FontWeight.w500,
                   color: AppColor.secondarySoft,
                 ),
-              ),
-            ),
-          ),
-
-          Container(
-            width: MediaQuery.of(context).size.width,
-            child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      await controller.pickImage();
-                    },
-                    child: Text('Pilih Gambar'),
-                  ),
-                  if (controller.fotoKandang.value != null)
-                    Image.file(
-                      controller.fotoKandang.value ??
-                          File('null'), //path/to/default/image.jpg
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
-                    ),
-                ],
               ),
             ),
           ),
@@ -442,7 +534,6 @@ class AddKandangView extends GetView<AddKandangController> {
                       ),
 
                       SizedBox(height: 32),
-                     
 
                       // Tombol Tambah Post
                       ElevatedButton(
@@ -463,9 +554,10 @@ class AddKandangView extends GetView<AddKandangController> {
                             }
                           }
                         },
-                        
                         child: Text(
-                          (controller.loading.value) ? 'Loading...' : 'Tambah post',
+                          (controller.loading.value)
+                              ? 'Loading...'
+                              : 'Tambah post',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'poppins',
@@ -473,7 +565,10 @@ class AddKandangView extends GetView<AddKandangController> {
                         ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Color(0xff132137),
-                          padding: EdgeInsets.symmetric(vertical: 18, horizontal: MediaQuery.of(context).size.width * 0.3,),
+                          padding: EdgeInsets.symmetric(
+                            vertical: 18,
+                            horizontal: MediaQuery.of(context).size.width * 0.3,
+                          ),
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),

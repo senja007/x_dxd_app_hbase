@@ -486,6 +486,22 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
+          Obx(() => Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: controller.isEditing.value
+                    ? Colors.white
+                    : Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: Image.network(
+                '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
+                fit: BoxFit.fill,
+              ))),
           Obx(() {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,

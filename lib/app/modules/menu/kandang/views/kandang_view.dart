@@ -68,6 +68,7 @@ class KandangView extends GetView<KandangController> {
                               "kecamatan": "${postData.kecamatan}",
                               "kabupaten": "${postData.kabupaten}",
                               "provinsi": "${postData.provinsi}",
+                              "fotoKandang": "${postData.fotoKandang}"
                             },
                           ),
                         },
