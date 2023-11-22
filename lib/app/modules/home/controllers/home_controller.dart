@@ -69,17 +69,17 @@ class HomeController extends GetxController {
     posts1.value = await HewanApi().loadHewanApi();
     update();
     stopLoading();
-    if (posts1?.value.status == 200) {
-      if (posts1!.value.content!.isEmpty) {
+    if (posts1.value.status == 200) {
+      if (posts1.value.content!.isEmpty) {
         homeScreen = true;
         update();
       }
-    } else if (posts1!.value.status == 204) {
+    } else if (posts1.value.status == 204) {
       print("Empty");
-    } else if (posts1!.value.status == 404) {
+    } else if (posts1.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts1!.value.status == 401) {
+    } else if (posts1.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
