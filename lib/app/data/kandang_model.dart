@@ -13,23 +13,28 @@ class KandangModel {
   final String? kecamatan;
   final String? desa;
   final String? fotoKandang;
+  final String? latitude;
+  final String? longitude;
 
   final int? status;
 
-  KandangModel(
-      {this.status,
-      this.idKandang,
-      this.idPeternak,
-      this.namaPeternak,
-      this.luas,
-      this.kapasitas,
-      this.nilaiBangunan,
-      this.alamat,
-      this.desa,
-      this.kecamatan,
-      this.kabupaten,
-      this.provinsi,
-      this.fotoKandang});
+  KandangModel({
+    this.status,
+    this.idKandang,
+    this.idPeternak,
+    this.namaPeternak,
+    this.luas,
+    this.kapasitas,
+    this.nilaiBangunan,
+    this.alamat,
+    this.desa,
+    this.kecamatan,
+    this.kabupaten,
+    this.provinsi,
+    this.fotoKandang,
+    this.latitude,
+    this.longitude,
+  });
 
   factory KandangModel.fromJson(Map<String, dynamic> jsonData) {
     return KandangModel(
@@ -51,6 +56,8 @@ class KandangModel {
       provinsi: jsonData['provinsi'] != null ? jsonData['provinsi'] : "",
       fotoKandang:
           jsonData['fotoKandang'] != null ? jsonData['fotoKandang'] : "",
+      latitude: jsonData['latitude'] != null ? jsonData['latitude'] : "",
+      longitude: jsonData['longitude'] != null ? jsonData['longitude'] : "",
     );
   }
 }

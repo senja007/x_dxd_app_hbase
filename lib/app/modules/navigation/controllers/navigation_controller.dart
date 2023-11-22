@@ -8,6 +8,7 @@ class NavigationController extends GetxController {
   void changeTabIndex(int index) {
     tabIndex = index;
     update();
+    Get.reloadAll();
   }
 
   // @override

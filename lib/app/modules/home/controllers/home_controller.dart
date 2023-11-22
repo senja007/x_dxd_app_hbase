@@ -26,7 +26,7 @@ class HomeController extends GetxController {
   final box = GetStorage();
   bool homeScreen = false;
 
-@override
+  @override
   HomeController() {
     // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
@@ -45,8 +45,7 @@ class HomeController extends GetxController {
     posts.value = await PetugasApi().loadPetugasApi();
     stopLoading();
     update();
-    if (posts?.value.status == 200) {
-      
+    if (posts.value.status == 200) {
       if (posts.value.content!.isEmpty) {
         homeScreen = true;
         update();
@@ -119,6 +118,7 @@ class HomeController extends GetxController {
       if (posts3.value.content!.isEmpty) {
         homeScreen = true;
         update();
+        Get.offAllNamed(loadKandangData());
       }
     } else if (posts3!.value.status == 204) {
       print("Empty");
