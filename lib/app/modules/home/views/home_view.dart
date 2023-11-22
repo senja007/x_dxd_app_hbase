@@ -29,8 +29,54 @@ class HomeView extends GetView<HomeController> {
   int _currentIndex = 0;
   CarouselController _carouselController = CarouselController();
 
+  get markers => null;
+
   @override
   Widget build(BuildContext context) {
+// Obx(() {
+//   List<Marker> markers = [];
+
+//   if (controller.posts1 != null && controller.posts1!.value != null && controller.posts1!.value.content != null) {
+//     markers = controller.posts1!.value.content!.map((n) {
+//       return Marker(
+//         width: 80.0,
+//         height: 80.0,
+//         point: LatLng(
+//           double.tryParse(n.latitude ?? '') ?? 00.0,
+//           double.tryParse(n.longitude ?? '') ?? 00.0,
+//         ),
+//         builder: (ctx) => Container(
+//           child: Image.asset(
+//             'assets/images/cow.png', // Ganti dengan path ke gambar Anda
+//             width: 1, // Sesuaikan dengan ukuran yang diinginkan
+//             height: 1,
+//           ),
+//         ),
+//       );
+//     }).toList();
+//   }
+// });
+
+// Selanjutnya, gunakan variabel markers sesuai kebutuhan Anda
+
+    // List<Marker> markers = controller.posts1.value.content!.map((n) {
+    //   return Marker(
+    //     width: 80.0,
+    //     height: 80.0,
+    //     point: LatLng(
+    //       double.tryParse(n.latitude ?? '') ?? 00.0,
+    //       double.tryParse(n.longitude ?? '') ?? 00.00,
+    //     ),
+    //     builder: (ctx) => Container(
+    //       child: Image.asset(
+    //         'assets/images/cow.png', // Ganti dengan path ke gambar Anda
+    //         width: 30, // Sesuaikan dengan ukuran yang diinginkan
+    //         height: 30,
+    //       ),
+    //     ),
+    //   );
+    // }).toList();
+
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
         statusBarColor: AppColor.secondary, // Set your primary color here
@@ -133,37 +179,69 @@ class HomeView extends GetView<HomeController> {
                 SizedBox(
                   width: double.maxFinite,
                   height: 250,
-                  child: FlutterMap(
-                    options: MapOptions(
-                      center: LatLng(-8.1351667,
-                          113.2218143), // Koordinat LatLng sebagai titik tengah peta
-                      zoom: 13, // Tingkat zoom awal
-                    ),
-                    children: [
-                      TileLayer(
-                        urlTemplate:
-                            'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                        subdomains: ['a', 'b', 'c'],
-                        userAgentPackageName: 'com.duar.app',
-                      ),
-                      MarkerLayer(
-                        markers: [
-                          Marker(
-                            point: LatLng(-8.1351667, 113.2218143),
-                            width: 30,
-                            height: 30,
-                            builder: (context) => Icon(
-                              Icons.place,
-                              color: Colors.blue,
-                              size: 40,
+                  child: Obx(() {
+                    List<Marker> markersTernak = [];
+                    List<Marker> markersKandang = [];
+
+                    if (controller.posts1 != null &&
+                        controller.posts1!.value != null &&
+                        controller.posts1!.value.content != null) {
+                      markersTernak = controller.posts1!.value.content!.map((n) {
+                        return Marker(
+                          width: 25.0,
+                          height: 25.0,
+                          point: LatLng(
+                            double.tryParse(n.latitude ?? '') ?? 00.0,
+                            double.tryParse(n.longitude ?? '') ?? 00.0,
+                          ),
+                          builder: (ctx) => Container(
+                            child: Image.asset(
+                              'assets/images/cow.png', // Ganti dengan path ke gambar Anda
                             ),
                           ),
-                        ],
+                        );
+                      }).toList();
+
+                      markersKandang = controller.posts3.value.content!.map((n) {
+        return Marker(
+          width: 25.0,
+          height: 25.0,
+          point: LatLng(
+            double.tryParse(n.latitude ?? '') ?? 00.0,
+            double.tryParse(n.longitude ?? '') ?? 00.0,
+          ),
+          builder: (ctx) => Container(
+            child: Image.asset(
+              'assets/images/house.png', // Ganti dengan path ke gambar kandang Anda
+            ),
+          ),
+        );
+      }).toList();
+                      
+                    }
+                    List<Marker> allMarkers = [...markersTernak, ...markersKandang];
+
+                    return FlutterMap(
+                      options: MapOptions(
+                        center: LatLng(-8.1351667, 113.2218143),
+                        zoom: 13,
                       ),
-                      //Tambahkan layer peta tambahan di sini jika diperlukan
-                    ],
-                  ),
+                      children: [
+                        TileLayer(
+                          urlTemplate:
+                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                          subdomains: ['a', 'b', 'c'],
+                          userAgentPackageName: 'com.duar.app',
+                        ),
+                        MarkerLayer(
+                          markers: allMarkers, 
+                        ),
+                        // Tambahkan layer peta tambahan di sini jika diperlukan
+                      ],
+                    );
+                  }),
                 ),
+
                 Padding(
                     padding: EdgeInsets.all(5),
                     child: Container(
