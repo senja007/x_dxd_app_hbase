@@ -85,6 +85,7 @@ class DetailKandangController extends GetxController {
     originalNilaiBangunan = argsData["nilaiBangunan"];
     originalAlamat = argsData["alamat"];
     originalDesa = argsData["desa"];
+    originalKecamatan = argsData["kecamatan"];
     originalKabupaten = argsData["kabupaten"];
     originalProvinsi = argsData["provinsi"];
   }

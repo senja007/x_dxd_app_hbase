@@ -209,7 +209,7 @@ class AddKandangView extends GetView<AddKandangController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.nilaiBangunanC,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                   label: Text(
                     "Nilai Bangunan",

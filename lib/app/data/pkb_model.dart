@@ -6,9 +6,7 @@ class PKBModel {
   final String? idKejadian;
   final String? tanggalPkb;
   final String? lokasi;
-  final String? namaPeternak;
   final IdPeternak? idPeternak;
-  final String? nikPeternak;
   final String? idHewan;
   final String? spesies;
   final String? kategori;
@@ -21,9 +19,7 @@ class PKBModel {
     this.idKejadian,
     this.tanggalPkb,
     this.lokasi,
-    this.namaPeternak,
     this.idPeternak,
-    this.nikPeternak,
     this.idHewan,
     this.spesies,
     this.kategori,
@@ -38,11 +34,9 @@ class PKBModel {
       idKejadian: jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
       tanggalPkb: jsonData['tanggalPkb'] != null ? jsonData['tanggalPkb'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      namaPeternak:
-          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
-      nikPeternak:
-          jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null
+          ? IdPeternak.fromJson(jsonData['idPeternak'])
+          : null,
       idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
       spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
       kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
