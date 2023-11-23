@@ -144,29 +144,38 @@ class HewanApi extends SharedApi {
     }
   }
 
- 
 //EDIT
   Future<HewanModel?> editHewanApi(
-    String kodeEartagNasional,
-    String noKartuTernak,
-    String provinsi,
-    String kabupaten,
-    String kecamatan,
-    String desa,
-    String namaPeternak,
-    String idPeternak,
-    String nikPeternak,
-    String spesies,
-    String sex,
-    String umur,
-    String identifikasiHewan,
-    String petugasPendaftar,
-    String tanggalTerdaftar,
-  ) async {
+      String kodeEartagNasional,
+      String noKartuTernak,
+      String provinsi,
+      String kabupaten,
+      String kecamatan,
+      String desa,
+      String namaPeternak,
+      String idPeternak,
+      String nikPeternak,
+      String spesies,
+      String sex,
+      String umur,
+      String identifikasiHewan,
+      String petugasPendaftar,
+      String tanggalTerdaftar,
+      File fotoHewan,
+      // String latitude,
+      // String longitude,
+      {required String latitude,
+      required String longitude}) async {
     try {
       var jsonData;
       showLoading();
-      var bodyDataedit = {
+
+      var request = http.MultipartRequest(
+        'PUT',
+        Uri.parse(baseUrl + '/hewan' + kodeEartagNasional.toString()),
+      );
+
+      request.fields.addAll({
         "kodeEartagNasional": kodeEartagNasional,
         "noKartuTernak": noKartuTernak,
         "provinsi": provinsi,
@@ -182,25 +191,37 @@ class HewanApi extends SharedApi {
         "identifikasiHewan": identifikasiHewan,
         "petugasPendaftar": petugasPendaftar,
         "tanggalTerdaftar": tanggalTerdaftar,
-      };
-
-      var data = await http.put(
-        Uri.parse(baseUrl + '/hewan/' + kodeEartagNasional.toString()),
-        headers: {...getToken(), 'Content-Type': 'application/json'},
-        body: jsonEncode(bodyDataedit),
+        "fotoHewan": fotoHewan.path,
+        "latitude": latitude,
+        "longitude": longitude,
+      });
+      var imageField = http.MultipartFile(
+        'file',
+        fotoHewan.readAsBytes().asStream(),
+        fotoHewan.lengthSync(),
+        filename: fotoHewan.path.split("/").last,
       );
-      //print(data.body);
-      stopLoading();
+      request.files.add(imageField);
+      request.headers.addAll(
+        {
+          ...getToken(),
+          'Content-Type': 'multipart/form-data',
+        },
+      );
 
-      jsonData = json.decode(data.body);
-      if (data.statusCode == 201) {
+      var response = await request.send();
+      var responseData = await response.stream.transform(utf8.decoder).toList();
+      var responseString = responseData.join('');
+      jsonData = json.decode(responseString);
+      stopLoading();
+      if (response.statusCode == 201) {
         jsonData['statusCode'] = 201;
-        // print(data.body);
+        print(response.contentLength);
         // print(jsonData);
         return HewanModel.fromJson(jsonData);
       } else {
         showErrorMessage(jsonData['message']);
-        return HewanModel.fromJson({"status": data.statusCode});
+        return HewanModel.fromJson({"status": response.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
@@ -208,6 +229,69 @@ class HewanApi extends SharedApi {
       return HewanModel.fromJson({"status": 404});
     }
   }
+
+  // Future<HewanModel?> editHewanApi(
+  //   String kodeEartagNasional,
+  //   String noKartuTernak,
+  //   String provinsi,
+  //   String kabupaten,
+  //   String kecamatan,
+  //   String desa,
+  //   String namaPeternak,
+  //   String idPeternak,
+  //   String nikPeternak,
+  //   String spesies,
+  //   String sex,
+  //   String umur,
+  //   String identifikasiHewan,
+  //   String petugasPendaftar,
+  //   String tanggalTerdaftar,
+  // ) async {
+  //   try {
+  //     var jsonData;
+  //     showLoading();
+  //     var bodyDataedit = {
+  //       "kodeEartagNasional": kodeEartagNasional,
+  //       "noKartuTernak": noKartuTernak,
+  //       "provinsi": provinsi,
+  //       "kabupaten": kabupaten,
+  //       "kecamatan": kecamatan,
+  //       "desa": desa,
+  //       "namaPeternak": namaPeternak,
+  //       "idPeternak": idPeternak,
+  //       "nikPeternak": nikPeternak,
+  //       "spesies": spesies,
+  //       "sex": sex,
+  //       "umur": umur,
+  //       "identifikasiHewan": identifikasiHewan,
+  //       "petugasPendaftar": petugasPendaftar,
+  //       "tanggalTerdaftar": tanggalTerdaftar,
+  //     };
+
+  //     var data = await http.put(
+  //       Uri.parse(baseUrl + '/hewan/' ),
+  //       headers: {...getToken(), 'Content-Type': 'application/json'},
+  //       body: jsonEncode(bodyDataedit),
+  //     );
+  //     //print(data.body);
+  //     stopLoading();
+
+  //     jsonData = json.decode(data.body);
+  //     if (data.statusCode == 201) {
+  //       jsonData['statusCode'] = 201;
+  //       // print(data.body);
+  //       // print(jsonData);
+  //       return HewanModel.fromJson(jsonData);
+  //     } else {
+  //       showErrorMessage(jsonData['message']);
+  //       return HewanModel.fromJson({"status": data.statusCode});
+  //     }
+  //   } on Exception catch (_) {
+  //     stopLoading();
+  //     showInternetMessage("Periksa koneksi internet anda");
+  //     return HewanModel.fromJson({"status": 404});
+  //   }
+  // }
 
   //DELETE
   Future<HewanModel?> deleteHewanApi(String eartag_hewan_detail) async {
@@ -218,7 +302,7 @@ class HewanApi extends SharedApi {
         Uri.parse(baseUrl + '/hewan/' + eartag_hewan_detail.toString()),
         headers: getToken(),
       );
-      stopLoading(); 
+      stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
         // Simpan nilai jsonData['data'] dalam variabel baru

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
@@ -9,7 +11,10 @@ import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DetailHewanController extends GetxController {
   //TODO: Implement DetailPostController
@@ -21,6 +26,13 @@ class DetailHewanController extends GetxController {
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   SharedApi sharedApi = SharedApi();
+  RxString strLatLong =
+      'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
+  RxString strAlamat = 'mencari lokasi..'.obs;
+  RxBool loading = false.obs;
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
+  Rx<File?> fotoHewan = Rx<File?>(null);
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -37,8 +49,6 @@ class DetailHewanController extends GetxController {
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
-  // String? fotoHewanC;
-  //TextEditingController fotoHewanC = TextEditingController();
 
   String originalEartag = "";
   String originalKartuTernak = "";
@@ -55,6 +65,9 @@ class DetailHewanController extends GetxController {
   String originalIdentifikasi = "";
   String originalPetugas = "";
   String originalTanggal = "";
+  String originalfotoHewan = "";
+  String originalLatitude = "";
+  String originalLongitude = "";
 
   @override
   onClose() {
@@ -73,6 +86,9 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
+    ever<File?>(fotoHewan, (_) {
+      update();
+    });
     //fotoHewanC.dispose();
     //fotoHewanC;
   }
@@ -99,7 +115,8 @@ class DetailHewanController extends GetxController {
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
     //fotoHewanC.text = argsData["foto_hewan_detail"];
-    //fotoHewanC = argsData["foto_hewan_detail"];
+    fotoHewan.value = File(argsData["foto_hewan_detail"]);
+
     print(argsData["foto_hewan_detail"]);
 
     originalEartag = argsData["eartag_hewan_detail"];
@@ -117,6 +134,7 @@ class DetailHewanController extends GetxController {
     originalIdentifikasi = argsData["identifikasi_hewan_detail"];
     originalPetugas = argsData["petugas_terdaftar_hewan_detail"];
     originalTanggal = argsData["tanggal_terdaftar_hewan_detail"];
+    originalfotoHewan = argsData["foto_hewan_detail"];
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -135,7 +153,104 @@ class DetailHewanController extends GetxController {
       return [];
     }
   }
-  
+
+  Future<Position> getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //location service not enabled, don't continue
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location service Not Enabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permission denied');
+      }
+    }
+
+    //permission denied forever
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+        'Location permission denied forever, we cannot access',
+      );
+    }
+    //continue accessing the position of device
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+  }
+
+  //getAddress
+  Future<void> getAddressFromLongLat(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+
+    Placemark place = placemarks[0];
+
+    latitude.value = position.latitude.toString();
+    longitude.value = position.longitude.toString();
+
+    strAlamat.value =
+        '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
+        '${place.postalCode}, ${place.country}, ${place.administrativeArea}';
+  }
+
+  // Fungsi untuk mendapatkan alamat dari geolocation dan mengupdate nilai provinsi, kabupaten, kecamatan, dan desa
+  Future<void> updateAlamatInfo() async {
+    try {
+      isLoading.value = true;
+
+      // Mendapatkan posisi geolokasi
+      Position position = await getGeoLocationPosition();
+
+      // Mendapatkan alamat dari geolokasi
+      await getAddressFromLongLat(position);
+
+      // Mengupdate nilai provinsi, kabupaten, kecamatan, dan desa berdasarkan alamat
+      provinsiC.text = getAlamatInfo(5); //benar 5
+      kabupatenC.text = getAlamatInfo(0); //benar 0
+      kecamatanC.text = getAlamatInfo(2); //benar 2
+      desaC.text = getAlamatInfo(1); //benar 1
+    } catch (e) {
+      print('Error updating alamat info: $e');
+      showErrorMessage("Error updating alamat info: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+// Fungsi untuk mendapatkan informasi alamat berdasarkan index
+  String getAlamatInfo(int index) {
+    List<String> alamatInfo = strAlamat.value.split(', ');
+    if (index < alamatInfo.length) {
+      return alamatInfo[index];
+    } else {
+      return '';
+    }
+  }
+
+  // Fungsi untuk memilih gambar dari galeri
+  Future<void> pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedFile != null) {
+      fotoHewan.value = File(pickedFile.path);
+      update(); // Perbarui UI setelah memilih gambar
+    }
+  }
+
+  // Fungsi untuk menghapus gambar yang sudah dipilih
+  void removeImage() {
+    fotoHewan.value = null;
+    update(); // Perbarui UI setelah menghapus gambar
+  }
+
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
@@ -165,7 +280,9 @@ class DetailHewanController extends GetxController {
         identifikasiHewanC.text = originalIdentifikasi;
         petugasPendaftarC.text = originalPetugas;
         tanggalTerdaftarC.text = originalTanggal;
-
+        originalfotoHewan = originalfotoHewan;
+        latitude.value = originalLatitude;
+        longitude.value = originalLongitude;
         isEditing.value = false;
       },
     );
@@ -195,6 +312,7 @@ class DetailHewanController extends GetxController {
   }
 
   Future<void> editHewan() async {
+    File? fotoHewanFile = fotoHewan.value;
     CustomAlertDialog.showPresenceAlert(
       title: "edit data Hewan",
       message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
@@ -218,7 +336,11 @@ class DetailHewanController extends GetxController {
           identifikasiHewanC.text,
           petugasPendaftarC.text,
           tanggalTerdaftarC.text,
+          fotoHewanFile!,
+          latitude: latitude.value,
+          longitude: longitude.value,
         );
+        //await updateAlamatInfo();
         isEditing.value = false;
       },
     );
