@@ -3,7 +3,6 @@ import 'package:crud_flutter_api/app/data/hewan_model.dart';
 class KandangModel {
   final String? idKandang;
   final IdPeternak? idPeternak;
-  final String? namaPeternak;
   final String? luas;
   final String? kapasitas;
   final String? nilaiBangunan;
@@ -22,7 +21,6 @@ class KandangModel {
     this.status,
     this.idKandang,
     this.idPeternak,
-    this.namaPeternak,
     this.luas,
     this.kapasitas,
     this.nilaiBangunan,
@@ -43,8 +41,6 @@ class KandangModel {
       idPeternak: jsonData['idPeternak'] != null
           ? IdPeternak.fromJson(jsonData['idPeternak'])
           : null,
-      namaPeternak:
-          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
       luas: jsonData['luas'] != null ? jsonData['luas'] : "",
       kapasitas: jsonData['kapasitas'] != null ? jsonData['kapasitas'] : "",
       nilaiBangunan:

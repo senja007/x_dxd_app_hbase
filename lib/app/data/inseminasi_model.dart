@@ -4,7 +4,6 @@ class InseminasiModel {
   final String? idInseminasi;
   final String? tanggalIB;
   final String? lokasi;
-  final String? namaPeternak;
   final IdPeternak? idPeternak;
   final String? idHewan;
   final String? eartag;
@@ -34,7 +33,6 @@ class InseminasiModel {
     this.ibLain,
     this.produsen,
     this.idPeternak,
-    this.namaPeternak,
     this.lokasi,
     this.inseminator,
     this.tanggalIB,
@@ -57,9 +55,9 @@ class InseminasiModel {
       ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",
       ibLain: jsonData['ibLain'] != null ? jsonData['ibLain'] : "",
       produsen: jsonData['produsen'] != null ? jsonData['produsen'] : "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
-      namaPeternak:
-          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+      idPeternak: jsonData['idPeternak'] != null
+          ? IdPeternak.fromJson(jsonData['idPeternak'])
+          : null,
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
       inseminator:
           jsonData['inseminator'] != null ? jsonData['inseminator'] : "",

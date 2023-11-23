@@ -192,7 +192,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.luasC,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     label: Text(
                       "Luas Kandang",
@@ -209,6 +209,13 @@ class DetailKandangView extends GetView<DetailKandangController> {
                       fontFamily: 'poppins',
                       fontWeight: FontWeight.w500,
                       color: AppColor.secondarySoft,
+                    ),
+                    suffixText: 'm²',
+                    suffixStyle: TextStyle(
+                      color: Colors.black,
+                      fontFamily: 'poppins',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
                 ),
@@ -272,23 +279,29 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   controller: controller.nilaiBangunanC,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Nilai Bangunan",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
+                      label: Text(
+                        "Nilai Bangunan",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Nilai Bangunan",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Nilai Bangunan",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                      prefixText: "Rp. ",
+                      prefixStyle: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'poppins',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      )),
                 ),
               )),
           Obx(() => Container(

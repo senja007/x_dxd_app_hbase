@@ -108,7 +108,6 @@ class KandangApi extends SharedApi {
   Future<KandangModel?> addKandangAPI(
     String idKandang,
     String idPeternak,
-    String namaPeternak,
     String luas,
     String kapasitas,
     String nilaiBangunan,
@@ -133,7 +132,6 @@ class KandangApi extends SharedApi {
       request.fields.addAll({
         'idKandang': idKandang,
         'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
         'luas': luas,
         'kapasitas': kapasitas,
         'nilaiBangunan': nilaiBangunan,
@@ -170,7 +168,6 @@ class KandangApi extends SharedApi {
           "status": 201,
           "idKandang": jsonData['idKandang'],
           "idPeternak": jsonData['idPeternak'],
-          "namaPeternak": jsonData['namaPeternak'],
           "luas": jsonData['luas'],
           "kapasitas": jsonData['kapasitas'],
           "nilaiBangunan": jsonData['nilaiBangunan'],
