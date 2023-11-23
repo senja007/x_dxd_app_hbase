@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -306,32 +307,50 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.namaPeternakC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Nama Peternak",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Nama Peternak",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
+                child: GestureDetector(
+                  onTap:(){
+                    print("${controller.selectedPeternakId.value}");
+                  },
+                  child: DropdownButton<String>(
+                  value: controller.selectedPeternakId.value,
+                  items: controller.peternakList.map((PeternakModel peternak) {
+                    return DropdownMenuItem<String>(
+                      value: peternak.idPeternak ?? '',
+                      child: Text(peternak.namaPeternak ?? ''),
+                    );
+                  }).toList(),
+                  onChanged: (String? selectedId) {
+                    controller.selectedPeternakId.value = selectedId ?? '';
+                  },
+                  hint: Text('Pilih Peternak'),
                 ),
+                ),
+                // child: TextFormField(
+                //   enabled: controller.isEditing.value,
+                //   style: TextStyle(
+                //       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                //   maxLines: 1,
+                //   controller: controller.namaPeternakC,
+                //   keyboardType: TextInputType.text,
+                //   decoration: InputDecoration(
+                //     label: Text(
+                //       "Nama Peternak",
+                //       style: TextStyle(
+                //         color: AppColor.secondarySoft,
+                //         fontSize: 15,
+                //       ),
+                //     ),
+                //     floatingLabelBehavior: FloatingLabelBehavior.always,
+                //     border: InputBorder.none,
+                //     hintText: "Nama Peternak",
+                //     hintStyle: TextStyle(
+                //       fontSize: 15,
+                //       fontFamily: 'poppins',
+                //       fontWeight: FontWeight.w500,
+                //       color: AppColor.secondarySoft,
+                //     ),
+                //   ),
+                // ),
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,

@@ -1,6 +1,8 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -16,6 +18,8 @@ class DetailHewanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   SharedApi sharedApi = SharedApi();
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
@@ -76,6 +80,7 @@ class DetailHewanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchPeternaks();
     isEditing.value = false;
     //print(fotoHewanC);
     kodeEartagNasionalC.text = argsData["eartag_hewan_detail"];
@@ -114,6 +119,23 @@ class DetailHewanController extends GetxController {
     originalTanggal = argsData["tanggal_terdaftar_hewan_detail"];
   }
 
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+  
   Future<void> tombolEdit() async {
     isEditing.value = true;
     update();
@@ -187,7 +209,7 @@ class DetailHewanController extends GetxController {
           kabupatenC.text,
           kecamatanC.text,
           desaC.text,
-          namaPeternakC.text,
+          selectedPeternakId.value,
           idPeternakC.text,
           nikPeternakC.text,
           spesiesC.text,
