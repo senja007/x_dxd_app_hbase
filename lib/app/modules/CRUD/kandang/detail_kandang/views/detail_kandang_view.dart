@@ -279,23 +279,29 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   controller: controller.nilaiBangunanC,
                   keyboardType: TextInputType.emailAddress,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Nilai Bangunan",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
+                      label: Text(
+                        "Nilai Bangunan",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 15,
+                        ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Nilai Bangunan",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
+                      floatingLabelBehavior: FloatingLabelBehavior.always,
+                      border: InputBorder.none,
+                      hintText: "Nilai Bangunan",
+                      hintStyle: TextStyle(
+                        fontSize: 15,
+                        fontFamily: 'poppins',
+                        fontWeight: FontWeight.w500,
+                        color: AppColor.secondarySoft,
+                      ),
+                      prefixText: "Rp. ",
+                      prefixStyle: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'poppins',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500,
+                      )),
                 ),
               )),
           Obx(() => Container(
