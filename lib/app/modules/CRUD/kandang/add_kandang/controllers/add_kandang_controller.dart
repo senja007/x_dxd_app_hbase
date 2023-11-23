@@ -41,7 +41,6 @@ class AddKandangController extends GetxController {
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
   TextEditingController luasC = TextEditingController();
   TextEditingController kapasitasC = TextEditingController();
   TextEditingController nilaiBangunanC = TextEditingController();
@@ -55,7 +54,6 @@ class AddKandangController extends GetxController {
   onClose() {
     idKandangC.dispose();
     idPeternakC.dispose();
-    namaPeternakC.dispose();
     luasC.dispose();
     kapasitasC.dispose();
     nilaiBangunanC.dispose();
@@ -215,7 +213,6 @@ class AddKandangController extends GetxController {
       kandangModel = await KandangApi().addKandangAPI(
         idKandangC.text,
         selectedPeternakId.value,
-        namaPeternakC.text,
         luasC.text,
         kapasitasC.text,
         nilaiBangunanC.text,

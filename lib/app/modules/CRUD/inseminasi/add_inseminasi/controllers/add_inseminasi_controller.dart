@@ -1,5 +1,7 @@
 import 'package:crud_flutter_api/app/data/inseminasi_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/inseminasi_controller.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,6 +16,9 @@ class AddInseminasiController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+
   TextEditingController idInseminasiC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -26,7 +31,6 @@ class AddInseminasiController extends GetxController {
   TextEditingController ibLainC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
   TextEditingController tanggalIBC = TextEditingController();
@@ -44,10 +48,32 @@ class AddInseminasiController extends GetxController {
     ibLainC.dispose();
     produsenC.dispose();
     idPeternakC.dispose();
-    namaPeternakC.dispose();
     lokasiC.dispose();
     inseminatorC.dispose();
     tanggalIBC.dispose();
+  }
+
+  @override
+  void onInit() {
+    super.onInit();
+    fetchPeternaks();
+  }
+
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
   }
 
   Future addInseminasi(BuildContext context) async {
@@ -65,8 +91,7 @@ class AddInseminasiController extends GetxController {
           ib3C.text,
           ibLainC.text,
           produsenC.text,
-          idPeternakC.text,
-          namaPeternakC.text,
+          selectedPeternakId.value,
           lokasiC.text,
           inseminatorC.text,
           tanggalIBC.text);
