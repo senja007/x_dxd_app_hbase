@@ -131,12 +131,13 @@ class AddKandangController extends GetxController {
     print(placemarks);
 
     Placemark place = placemarks[0];
+    Placemark street = placemarks[1];
 
     latitude.value = position.latitude.toString();
     longitude.value = position.longitude.toString();
 
     strAlamat.value =
-        '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
+        ' ${street.street}, ${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
         '${place.postalCode}, ${place.country}, ${place.administrativeArea}';
   }
 
@@ -152,10 +153,11 @@ class AddKandangController extends GetxController {
       await getAddressFromLongLat(position);
 
       // Mengupdate nilai provinsi, kabupaten, kecamatan, dan desa berdasarkan alamat
-      provinsiC.text = getAlamatInfo(5); //benar 5
-      kabupatenC.text = getAlamatInfo(0); //benar 0
-      kecamatanC.text = getAlamatInfo(2); //benar 2
-      desaC.text = getAlamatInfo(1); //benar 1
+      provinsiC.text = getAlamatInfo(1); //benar 5
+      kabupatenC.text = getAlamatInfo(2); //benar 0
+      kecamatanC.text = getAlamatInfo(0); //benar 2
+      desaC.text = getAlamatInfo(5); //benar 1
+      alamatC.text = getAlamatInfo(6);
     } catch (e) {
       print('Error updating alamat info: $e');
       showErrorMessage("Error updating alamat info: $e");
