@@ -135,25 +135,31 @@ class AddKandangView extends GetView<AddKandangController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.luasC,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
-                label: Text(
-                  "Luas",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+                  label: Text(
+                    "Luas",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Luas",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: InputBorder.none,
+                  hintText: "Luas",
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.secondarySoft,
+                  ),
+                  suffixText: 'm²',
+                  suffixStyle: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
           ),
           Container(
@@ -205,23 +211,29 @@ class AddKandangView extends GetView<AddKandangController> {
               controller: controller.nilaiBangunanC,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
-                label: Text(
-                  "Nilai Bangunan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+                  label: Text(
+                    "Nilai Bangunan",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Nilai Bangunan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: InputBorder.none,
+                  hintText: "Nilai Bangunan",
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.secondarySoft,
+                  ),
+                  prefixText: "Rp. ",
+                  prefixStyle: TextStyle(
+                    color: Colors.black,
+                    fontFamily: 'poppins',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                  )),
             ),
           ),
           Container(
