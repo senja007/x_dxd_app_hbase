@@ -4,6 +4,7 @@ import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -22,6 +23,9 @@ class HomeController extends GetxController {
   Rx<HewanListModel> posts1 = HewanListModel().obs;
   Rx<PeternakListModel> posts2 = PeternakListModel().obs;
   Rx<KandangListModel> posts3 = KandangListModel().obs;
+
+  PopupController popupLayerController = PopupController();
+
 
   final box = GetStorage();
   bool homeScreen = false;
@@ -118,7 +122,6 @@ class HomeController extends GetxController {
       if (posts3.value.content!.isEmpty) {
         homeScreen = true;
         update();
-        Get.offAllNamed(loadKandangData());
       }
     } else if (posts3!.value.status == 204) {
       print("Empty");

@@ -3,6 +3,7 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -10,7 +11,7 @@ import 'package:crud_flutter_api/app/modules/home/controllers/home_controller.da
 import 'package:crud_flutter_api/app/modules/CRUD/hewan/add_hewan/controllers/add_hewan_controller.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -152,7 +153,7 @@ class HomeView extends GetView<HomeController> {
                             double.tryParse(n.latitude ?? '') ?? 00.0,
                             double.tryParse(n.longitude ?? '') ?? 00.0,
                           ),
-                          builder: (ctx) => Container(
+                          child: Container(
                             child: Image.asset(
                               'assets/images/cow.png', // Ganti dengan path ke gambar Anda
                             ),
@@ -169,9 +170,9 @@ class HomeView extends GetView<HomeController> {
                             double.tryParse(n.latitude ?? '') ?? 00.0,
                             double.tryParse(n.longitude ?? '') ?? 00.0,
                           ),
-                          builder: (ctx) => Container(
+                          child: Container(
                             child: Image.asset(
-                              'assets/images/house.png', // Ganti dengan path ke gambar kandang Anda
+                              'assets/images/house.png', // Ganti dengan path ke gambar Anda
                             ),
                           ),
                         );
@@ -184,8 +185,8 @@ class HomeView extends GetView<HomeController> {
 
                     return FlutterMap(
                       options: MapOptions(
-                        center: LatLng(-8.1351667, 113.2218143),
-                        zoom: 9,
+                        initialCenter: LatLng(-8.1351667, 113.2218143),
+                        initialZoom: 9,
                       ),
                       children: [
                         TileLayer(
@@ -194,10 +195,18 @@ class HomeView extends GetView<HomeController> {
                           subdomains: ['a', 'b', 'c'],
                           userAgentPackageName: 'com.duar.app',
                         ),
-                        MarkerLayer(
-                          markers: allMarkers,
+                        PopupMarkerLayer(
+                          options: PopupMarkerLayerOptions(
+                            markers: allMarkers,
+                            popupController: controller.popupLayerController, // pastikan Anda memiliki controller untuk popup
+                            selectedMarkerBuilder:
+                                (BuildContext context, Marker marker) {
+                              return Container(
+                                child: Text('ini adalah'),
+                              );
+                            },
+                          ),
                         ),
-                        // Tambahkan layer peta tambahan di sini jika diperlukan
                       ],
                     );
                   }),

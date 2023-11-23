@@ -20,7 +20,8 @@ dependencies:
   animations: ^2.0.3
   font_awesome_flutter: ^10.1.0
   carousel_slider: ^4.2.1
-  flutter_map: ^5.0.0
+  flutter_map: ^6.0.1
+  flutter_map_marker_popup: ^6.1.2
   latlong2: ^0.9.0
   easy_search_bar: ^2.5.0
   image_picker: ^1.0.4
