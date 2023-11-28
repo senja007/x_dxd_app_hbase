@@ -178,7 +178,7 @@ class KandangApi extends SharedApi {
           "provinsi": jsonData['provinsi'],
           "fotoKandang": jsonData['fotoKandang'],
           "latitude": jsonData['latitude'],
-          "longtitude": jsonData['longtitude'],
+          "longitude": jsonData['longitude'],
         });
       } else {
         showErrorMessage(jsonData['message']);
@@ -193,24 +193,32 @@ class KandangApi extends SharedApi {
 
 //EDIT
   Future<KandangModel?> editKandangApi(
-      String idKandang,
-      String idPeternak,
-      String namaPeternak,
-      String luas,
-      String kapasitas,
-      String nilaiBangunan,
-      String alamat,
-      String desa,
-      String kecamatan,
-      String kabupaten,
-      String provinsi) async {
+    String idKandang,
+    String idPeternak,
+    String luas,
+    String kapasitas,
+    String nilaiBangunan,
+    String alamat,
+    String desa,
+    String kecamatan,
+    String kabupaten,
+    String provinsi,
+    File? fotoKandang, {
+    required String latitude,
+    required String longitude,
+  }) async {
     try {
       var jsonData;
       showLoading();
-      var bodyDataedit = {
+
+      var request = http.MultipartRequest(
+        'PUT',
+        Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
+      );
+
+      request.fields.addAll({
         'idKandang': idKandang,
         'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
         'luas': luas,
         'kapasitas': kapasitas,
         'nilaiBangunan': nilaiBangunan,
@@ -219,23 +227,34 @@ class KandangApi extends SharedApi {
         'kecamatan': kecamatan,
         'kabupaten': kabupaten,
         'provinsi': provinsi,
-      };
-
-      var data = await http.put(
-        Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
-        headers: {...getToken(), 'Content-Type': 'application/json'},
-        body: jsonEncode(bodyDataedit),
+        'fotoKandang': fotoKandang!.path,
+        "latitude": latitude,
+        "longitude": longitude,
+      });
+      var imageField = http.MultipartFile(
+        'file',
+        fotoKandang.readAsBytes().asStream(),
+        fotoKandang.lengthSync(),
+        filename: fotoKandang.path.split("/").last,
       );
-      // print(data.body);
-      stopLoading();
+      request.files.add(imageField);
+      request.headers.addAll(
+        {
+          ...getToken(),
+          'Content-Type': 'multipart/form-data',
+        },
+      );
 
-      jsonData = json.decode(data.body);
-      if (data.statusCode == 201) {
+      var response = await request.send();
+      var responseData = await response.stream.transform(utf8.decoder).toList();
+      var responseString = responseData.join('');
+      jsonData = json.decode(responseString);
+      stopLoading();
+      if (response.statusCode == 201) {
         return KandangModel.fromJson({
           "status": 201,
           "idKandang": jsonData['idKandang'],
           "idPeternak": jsonData['idPeternak'],
-          "namaPeternak": jsonData['namaPeternak'],
           "luas": jsonData['luas'],
           "kapasitas": jsonData['kapasitas'],
           "nilaiBangunan": jsonData['nilaiBangunan'],
@@ -244,10 +263,13 @@ class KandangApi extends SharedApi {
           "kecamatan": jsonData['kecamatan'],
           "kabupaten": jsonData['kabupaten'],
           "provinsi": jsonData['provinsi'],
+          "fotoKandang": jsonData['fotoKandang'],
+          "latitude": jsonData['latitude'],
+          "longitude": jsonData['longitude'],
         });
       } else {
-        // showErrorMessage(jsonData['message']);
-        return KandangModel.fromJson({"status": data.statusCode});
+        showErrorMessage(jsonData['message']);
+        return KandangModel.fromJson({"status": response.statusCode});
       }
     } on Exception catch (_) {
       stopLoading();
