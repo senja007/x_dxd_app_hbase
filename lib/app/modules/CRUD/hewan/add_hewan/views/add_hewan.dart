@@ -284,7 +284,7 @@ class AddHewanView extends GetView<AddHewanController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.petugasPendaftarC,
-              keyboardType: TextInputType.number,
+              keyboardType: TextInputType.text,
               decoration: InputDecoration(
                 label: Text(
                   "Petugas Pendaftar",

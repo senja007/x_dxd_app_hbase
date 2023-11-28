@@ -9,6 +9,7 @@ import '../controllers/add_kelahiran_controller.dart';
 class AddKelahiranView extends GetView<AddkelahiranController> {
   const AddKelahiranView({Key? key}) : super(key: key);
   Widget build(BuildContext context) {
+    var selectedGender;
     return Scaffold(
       backgroundColor: Color(0xffF7EBE1),
       appBar: AppBar(
@@ -288,31 +289,54 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.jenisKelaminAnakC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Jenis Kelamin Anak",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Jenis Kelamin Anak",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+            child: DropdownMenu<String>(
+              inputDecorationTheme:
+                  InputDecorationTheme(filled: false, iconColor: Colors.amber),
+              initialSelection: controller.genders.first,
+              onSelected: (String? value) {
+                // This is called when the user selects an item.
+                controller.selectedGender.value = value!;
+              },
+              dropdownMenuEntries: controller.genders
+                  .map<DropdownMenuEntry<String>>((String value) {
+                return DropdownMenuEntry<String>(value: value, label: value);
+              }).toList(),
             ),
           ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: TextField(
+          //     style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          //     maxLines: 1,
+          //     controller: controller.jenisKelaminAnakC,
+          //     keyboardType: TextInputType.text,
+          //     decoration: InputDecoration(
+          //       label: Text(
+          //         "Jenis Kelamin Anak",
+          //         style: TextStyle(
+          //           color: AppColor.secondarySoft,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //       floatingLabelBehavior: FloatingLabelBehavior.always,
+          //       border: InputBorder.none,
+          //       hintText: "Jenis Kelamin Anak",
+          //       hintStyle: TextStyle(
+          //         fontSize: 14,
+          //         fontFamily: 'poppins',
+          //         fontWeight: FontWeight.w500,
+          //         color: AppColor.secondarySoft,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -326,7 +350,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.jumlahC,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: Text(
                   "Jumlah",
@@ -796,4 +820,11 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
       ),
     );
   }
+}
+
+class Gender {
+  int? id;
+  String? jenisKelaminAnak;
+
+  Gender({this.id, this.jenisKelaminAnak});
 }

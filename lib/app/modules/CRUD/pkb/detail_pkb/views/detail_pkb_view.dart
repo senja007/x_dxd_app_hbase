@@ -289,7 +289,7 @@ class DetailPkbView extends GetView<DetailPkbController> {
                   ),
                   maxLines: 1,
                   controller: controller.jumlahC,
-                  keyboardType: TextInputType.text,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     label: Text(
                       "Jumlah",

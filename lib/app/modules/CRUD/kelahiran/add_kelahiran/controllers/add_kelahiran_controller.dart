@@ -14,6 +14,8 @@ class AddkelahiranController extends GetxController {
   KelahiranModel? kelahiranModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
+  RxString selectedGender = 'Jantan'.obs;
+  List<String> genders = ["Jantan", "Betina"];
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
@@ -32,7 +34,6 @@ class AddkelahiranController extends GetxController {
   TextEditingController kartuTernakAnakC = TextEditingController();
   TextEditingController eartagAnakC = TextEditingController();
   TextEditingController idHewanAnakC = TextEditingController();
-  TextEditingController jenisKelaminAnakC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
   TextEditingController petugasPelaporC = TextEditingController();
   TextEditingController urutanIbC = TextEditingController();
@@ -57,7 +58,6 @@ class AddkelahiranController extends GetxController {
     kartuTernakAnakC.dispose();
     eartagAnakC.dispose();
     idHewanAnakC.dispose();
-    jenisKelaminAnakC.dispose();
     kategoriC.dispose();
     petugasPelaporC.dispose();
     urutanIbC.dispose();
@@ -93,7 +93,7 @@ class AddkelahiranController extends GetxController {
         kartuTernakAnakC.text,
         eartagAnakC.text,
         idHewanAnakC.text,
-        jenisKelaminAnakC.text,
+        selectedGender.value,
         kategoriC.text,
         petugasPelaporC.text,
         urutanIbC.text,

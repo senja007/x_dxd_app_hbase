@@ -88,7 +88,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.nikPeternakC,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: Text(
                   "NIK Peternak",
