@@ -232,7 +232,7 @@ class AddPkbView extends GetView<AddPkbController> {
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.jumlahC,
-              keyboardType: TextInputType.text,
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 label: Text(
                   "Jumlah",

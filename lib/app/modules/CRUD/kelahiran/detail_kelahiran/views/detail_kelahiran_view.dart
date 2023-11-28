@@ -418,7 +418,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     maxLines: 1,
                     autofocus: true,
                     controller: controller.jumlahC,
-                    keyboardType: TextInputType.name,
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       label: Text(
                         "Jumlah",
