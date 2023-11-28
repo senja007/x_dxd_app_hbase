@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:ffi';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
@@ -18,6 +19,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class AddKandangController extends GetxController {
   KandangModel? kandangModel;
@@ -181,9 +183,28 @@ class AddKandangController extends GetxController {
     final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
-      fotoKandang.value = File(pickedFile.path);
+      File imageFile = File(pickedFile.path);
+
+      // Kompresi gambar sebelum menyimpannya
+      File compressedImage = await compressImage(imageFile);
+
+      fotoKandang.value = compressedImage;
       update(); // Perbarui UI setelah memilih gambar
     }
+  }
+
+  Future<File> compressImage(File imageFile) async {
+    // Kompresi gambar dengan ukuran tertentu (misalnya, kualitas 85)
+    Uint8List? imageBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.absolute.path,
+      quality: 20, // Sesuaikan dengan kebutuhan kamu
+    );
+
+    // Simpan gambar yang telah dikompresi
+    File compressedImageFile = File('${imageFile.path}_compressed.jpg');
+    await compressedImageFile.writeAsBytes(imageBytes!);
+
+    return compressedImageFile;
   }
 
   // Fungsi untuk menghapus gambar yang sudah dipilih
