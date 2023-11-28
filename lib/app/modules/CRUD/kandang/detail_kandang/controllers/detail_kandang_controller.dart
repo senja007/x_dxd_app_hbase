@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
@@ -8,6 +10,7 @@ import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class DetailKandangController extends GetxController {
   //TODO: Implement DetailPostController
@@ -19,6 +22,10 @@ class DetailKandangController extends GetxController {
   final formattedDate = ''.obs;
   final KandangController kandangController = Get.put(KandangController());
   SharedApi sharedApi = SharedApi();
+  RxBool loading = false.obs;
+
+  Rx<File?> fotoKandang = Rx<File?>(null);
+
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -43,6 +50,9 @@ class DetailKandangController extends GetxController {
   String originalKecamatan = "";
   String originalKabupaten = "";
   String originalProvinsi = "";
+  String originalFotoKandang = "";
+  String originalLatitude = "";
+  String originalLongitude = "";
 
   @override
   onClose() {
@@ -57,6 +67,9 @@ class DetailKandangController extends GetxController {
     kecamatanC.dispose();
     kabupatenC.dispose();
     provinsiC.dispose();
+    ever<File?>(fotoKandang, (_) {
+      update();
+    });
   }
 
   @override
@@ -88,6 +101,30 @@ class DetailKandangController extends GetxController {
     originalKecamatan = argsData["kecamatan"];
     originalKabupaten = argsData["kabupaten"];
     originalProvinsi = argsData["provinsi"];
+    originalFotoKandang = argsData["fotoKandang"];
+    originalLatitude = argsData["latitude"];
+    originalLongitude = argsData["longitude"];
+  }
+
+  // Fungsi untuk memilih gambar dari galeri
+Future<void> pickImage() async {
+  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  if (pickedFile != null) {
+    fotoKandang.value = File(pickedFile.path);
+    update(); // Perbarui UI setelah memilih gambar
+  } else {
+    // Penanganan ketika gambar tidak berhasil dipilih
+    print('Gambar tidak dipilih.');
+  }
+}
+
+
+
+  // Fungsi untuk menghapus gambar yang sudah dipilih
+  void removeImage() {
+    fotoKandang.value = null;
+    update(); // Perbarui UI setelah menghapus gambar
   }
 
   Future<void> tombolEdit() async {
@@ -115,6 +152,8 @@ class DetailKandangController extends GetxController {
         kecamatanC.text = originalKecamatan;
         kabupatenC.text = originalKabupaten;
         provinsiC.text = originalProvinsi;
+        fotoKandang.value = null;
+
 
         isEditing.value = false;
       },
@@ -151,10 +190,11 @@ class DetailKandangController extends GetxController {
       message: "Apakah anda ingin mengedit data Kandang ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
+        print(kandangModel);
         kandangModel = await KandangApi().editKandangApi(
+          
           idKandangC.text,
           idPeternakC.text,
-          namaPeternakC.text,
           luasC.text,
           kapasitasC.text,
           nilaiBangunanC.text,
@@ -163,7 +203,12 @@ class DetailKandangController extends GetxController {
           kecamatanC.text,
           kabupatenC.text,
           provinsiC.text,
+          fotoKandang.value,
+         // originalFotoKandang,
+          latitude: originalLatitude,
+          longitude: originalLongitude,
         );
+        
         isEditing.value = false;
 
         // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
@@ -177,8 +222,10 @@ class DetailKandangController extends GetxController {
         }
 
         kandangController.reInitialize();
+        
         Get.back();
-        Get.back(); // close modal
+        Get.back(); 
+        Get.reload();  // close modal
         update();
       },
     );

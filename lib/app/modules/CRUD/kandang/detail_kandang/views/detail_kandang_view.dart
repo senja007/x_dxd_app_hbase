@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:get/get.dart';
 
@@ -499,22 +502,56 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: controller.isEditing.value
-                    ? Colors.white
-                    : Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: Image.network(
-                '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
-                fit: BoxFit.fill,
-              ))),
+            Obx(() => Container(
+  width: MediaQuery.of(context).size.width,
+  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+  margin: EdgeInsets.only(bottom: 16),
+  decoration: BoxDecoration(
+    color: controller.isEditing.value ? Colors.white : Colors.grey[200],
+    borderRadius: BorderRadius.circular(8),
+    border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+  ),
+  child: Stack(
+    children: [
+      GestureDetector(
+        onTap: () {
+          if (controller.isEditing.value) {
+            controller.pickImage(); // Fungsi untuk memilih gambar
+          }
+        },
+        child: Obx(() {
+          // Gunakan nilai fotoKandang dari controller
+          File? selectedImage = controller.fotoKandang.value;
+          if (selectedImage != null) {
+            // Jika ada gambar yang dipilih, tampilkan menggunakan Image.file
+            return Image.file(
+              selectedImage,
+              fit: BoxFit.fill,
+            );
+          } else {
+            // Jika tidak ada gambar yang dipilih, tampilkan menggunakan Image.network
+            return Image.network(
+              '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
+              fit: BoxFit.fill,
+            );
+          }
+        }),
+      ),
+      if (controller.isEditing.value)
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: IconButton(
+            icon: Icon(Icons.edit),
+            onPressed: () {
+              controller.pickImage(); // Fungsi untuk memilih gambar
+            },
+          ),
+        ),
+    ],
+  ),
+)),
+
           Obx(() {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -574,3 +611,73 @@ class DetailKandangView extends GetView<DetailKandangController> {
     );
   }
 }
+
+
+
+
+
+//               Obx(() => Container(
+//   width: MediaQuery.of(context).size.width,
+//   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+//   margin: EdgeInsets.only(bottom: 16),
+//   decoration: BoxDecoration(
+//     color: controller.isEditing.value ? Colors.white : Colors.grey[200],
+//     borderRadius: BorderRadius.circular(8),
+//     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+//   ),
+//   child: Stack(
+//     children: [
+//       GestureDetector(
+//         onTap: () {
+//           if (controller.isEditing.value) {
+//             controller.pickImage(); // Fungsi untuk memilih gambar
+//           }
+//         },
+//         child: Image.network(
+//           '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
+//           fit: BoxFit.fill,
+//         ),
+//       ),
+//       if (controller.isEditing.value)
+//         Positioned(
+//           bottom: 0,
+//           right: 0,
+//           child: IconButton(
+//             icon: Icon(Icons.edit),
+//             onPressed: () {
+//               controller.pickImage(); // Fungsi untuk memilih gambar
+//             },
+//           ),
+//         ),
+//     ],
+//   ),
+// )),
+
+// Fungsi untuk memilih gambar dari galeri atau kamera
+// Future<void> _pickImage() async {
+//   final pickedFile = await ImagePicker().getImage(
+//     source: ImageSource.gallery, // Ganti dengan ImageSource.camera jika ingin dari kamera
+//   );
+
+//   if (pickedFile != null) {
+//     // Lakukan sesuatu dengan gambar yang dipilih
+//     // Misalnya, simpan path gambar di state controller
+//     controller.fotoKandang.value = File(pickedFile.path);
+//   }
+// },
+          // Obx(() => Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //     margin: EdgeInsets.only(bottom: 16),
+          //     decoration: BoxDecoration(
+          //       color: controller.isEditing.value
+          //           ? Colors.white
+          //           : Colors.grey[200],
+          //       borderRadius: BorderRadius.circular(8),
+          //       border:
+          //           Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //     ),
+          //     child: Image.network(
+          //       '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
+          //       fit: BoxFit.fill,
+          //     ))),
