@@ -1,5 +1,3 @@
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
-
 class KandangModel {
   final String? idKandang;
   final IdPeternak? idPeternak;

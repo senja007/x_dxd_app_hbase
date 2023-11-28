@@ -1,6 +1,8 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/peternak/controllers/peternak_controller.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -17,13 +19,14 @@ class DetailPeternakController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
   final formattedDate = ''.obs;
+  RxString selectedPetugas = ''.obs;
+  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
 
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idISIKHNASC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
 
   String originalIdPeternak = "";
@@ -41,20 +44,20 @@ class DetailPeternakController extends GetxController {
     namaPeternakC.dispose();
     idISIKHNASC.dispose();
     lokasiC.dispose();
-    petugasPendaftarC.dispose();
     tanggalPendaftaranC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
+    fetchPetugas();
 
     idPeternakC.text = argsData["idPeternak"];
     nikPeternakC.text = argsData["nikPeternak"];
     namaPeternakC.text = argsData["namaPeternak"];
     idISIKHNASC.text = argsData["idISIKHNAS"];
     lokasiC.text = argsData["lokasi"];
-    petugasPendaftarC.text = argsData["petugasPendaftar"];
+    selectedPetugas.value = argsData["petugasPendaftar"];
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
 
     originalIdPeternak = argsData["idPeternak"];
@@ -64,6 +67,23 @@ class DetailPeternakController extends GetxController {
     originalLokasi = argsData["lokasi"];
     originalPetugasPendaftar = argsData["petugasPendaftar"];
     originalTanggalPendaftaran = argsData["tanggalPendaftaran"];
+  }
+
+  Future<List<PetugasModel>> fetchPetugas() async {
+    try {
+      final PetugasListModel petugasListModel =
+          await PetugasApi().loadPetugasApi();
+      final List<PetugasModel> petugas = petugasListModel.content ?? [];
+      if (petugas.isNotEmpty) {
+        selectedPetugas.value = petugas.first.namaPetugas ?? '';
+      }
+      petugasList.assignAll(petugas);
+      return petugas;
+    } catch (e) {
+      print('Error fetching petugas: $e');
+      showErrorMessage("Error fetching petugas: $e");
+      return [];
+    }
   }
 
   Future<void> tombolEdit() async {
@@ -85,7 +105,7 @@ class DetailPeternakController extends GetxController {
         namaPeternakC.text = originalNamaPeternak;
         idISIKHNASC.text = originalIdIskhnas;
         lokasiC.text = originalLokasi;
-        petugasPendaftarC.text = originalIdIskhnas;
+        selectedPetugas.value = originalPetugasPendaftar;
         tanggalPendaftaranC.text = originalTanggalPendaftaran;
 
         isEditing.value = false;
@@ -131,7 +151,7 @@ class DetailPeternakController extends GetxController {
           namaPeternakC.text,
           idISIKHNASC.text,
           lokasiC.text,
-          petugasPendaftarC.text,
+          selectedPetugas.value,
           tanggalPendaftaranC.text,
         );
         isEditing.value = false;

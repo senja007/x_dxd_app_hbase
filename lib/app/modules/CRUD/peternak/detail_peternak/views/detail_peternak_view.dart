@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -252,45 +253,46 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: controller.isEditing.value
-                      ? Colors.white
-                      : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-                ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.petugasPendaftarC,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Petugas Pendaftar",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Petugas Pendaftar",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Petugas Pendaftar",
+                    style: TextStyle(
                       color: AppColor.secondarySoft,
+                      fontSize: 12,
                     ),
                   ),
                 ),
-              )),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.selectedPetugas.value,
+                    items: controller.petugasList.map((PetugasModel petugas) {
+                      return DropdownMenuItem<String>(
+                        value: petugas.namaPetugas ?? '',
+                        child: Text(petugas.namaPetugas ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNama) {
+                      controller.selectedPetugas.value = selectedNama ?? '';
+                    },
+                    hint: Text('Pilih Petugas'),
+                  );
+                }),
+              ],
+            ),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),

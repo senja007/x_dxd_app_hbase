@@ -50,7 +50,6 @@ class VaksinApi extends SharedApi {
       String ibLain,
       String produsen,
       String idPeternak,
-      String namaPeternak,
       String lokasi,
       String inseminator,
       String tanggalIB) async {
@@ -71,7 +70,6 @@ class VaksinApi extends SharedApi {
         'ibLain': ibLain,
         'produsen': produsen,
         'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
         'lokasi': lokasi,
         'inseminator': inseminator,
         'tanggalIB': tanggalIB
@@ -103,7 +101,6 @@ class VaksinApi extends SharedApi {
           "ibLain": jsonData['ibLain'],
           "produsen": jsonData['produsen'],
           "idPeternak": jsonData['idPeternak'],
-          "namaPeternak": jsonData['namaPeternak'],
           "lokasi": jsonData['lokasi'],
           "inseminator": jsonData['inseminator'],
           "tanggalIB": jsonData['tanggalIB'],

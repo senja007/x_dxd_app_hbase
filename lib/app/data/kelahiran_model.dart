@@ -1,5 +1,3 @@
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
-
 class KelahiranModel {
   final int? status;
   final String? idKejadian;

@@ -45,9 +45,9 @@ class VaksinModel {
       idVaksin: jsonData['idVaksin'] != null ? jsonData['idVaksin'] : "",
       tanggalIB: jsonData['tanggalIB'] != null ? jsonData['tanggalIB'] : "",
       lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      namaPeternak:
-          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
+      idPeternak: jsonData['idPeternak'] != null
+          ? IdPeternak.fromJson(jsonData['idPeternak'])
+          : null,
       idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
       eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
       ib1: jsonData['ib1'] != null ? jsonData['ib1'] : "",
