@@ -1,6 +1,8 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:geolocator/geolocator.dart';
 
 import 'package:get/get.dart';
 
@@ -680,7 +682,112 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
                 fit: BoxFit.fill, 
               ))),
+     Container(
+            width: MediaQuery.of(context).size.width,
+            child: Obx(
+              () => Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const Text(
+                    "Titik Kordinat",
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                  GestureDetector(
+                    child: Text(controller.strLatLong.value),
+                    onLongPress: () {
+                      Clipboard.setData(
+                          ClipboardData(text: controller.strLatLong.value));
+                      final snackBar = SnackBar(
+                        content: const Text("LatLong berhasil disalin!"),
+                        backgroundColor: Colors.green,
+                        action: SnackBarAction(
+                          textColor: Colors.white,
+                          label: "tutup",
+                          onPressed: () {},
+                        ),
+                      );
+                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                    },
+                  ),
+                  const SizedBox(
+                    height: 40,
+                  ),
+                  const Text(
+                    "alamat",
+                    style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                    child: GestureDetector(
+                      child: Text(controller.strAlamat.value),
+                      onLongPress: () {
+                        Clipboard.setData(
+                            ClipboardData(text: controller.strAlamat.value));
+                        final snackBar = SnackBar(
+                          content: const Text("Alamat Berhasil Disalin!"),
+                          backgroundColor: (Colors.green),
+                          action: SnackBarAction(
+                            textColor: Colors.white,
+                            label: "Tutup",
+                            onPressed: () {},
+                          ),
+                        );
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                      },
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  controller.loading.value
+                      ? const Center(child: CircularProgressIndicator())
+                      : ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.green),
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(
+                              RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                side: const BorderSide(color: Colors.green),
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            try {
+                              // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
+                              controller.loading.value = true;
 
+                              // Mendapatkan posisi geolokasi
+                              Position position =
+                                  await controller.getGeoLocationPosition();
+
+                              // Mengubah status loading menjadi false setelah mendapatkan posisi
+                              controller.loading.value = false;
+
+                              // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
+                              controller.strLatLong.value =
+                                  '${position.latitude}, ${position.longitude}';
+
+                              // Mendapatkan alamat dari koordinat
+                              await controller.getAddressFromLongLat(position);
+                            } catch (e) {
+                              // Handle error jika terjadi kesalahan
+                              print('Error in onPressed: $e');
+                              controller.loading.value =
+                                  false; // Pastikan status loading diubah kembali jika terjadi kesalahan
+                            }
+                          },
+                          child: controller.loading.value
+                              ? const Center(child: CircularProgressIndicator())
+                              : const Text('Tagging Lokasi')),
+                ],
+              ),
+            ),
+          ),
           //BUTON EDIT AND DELETE
           Obx(() {
             return Row(

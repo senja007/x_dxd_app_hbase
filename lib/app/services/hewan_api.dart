@@ -161,7 +161,7 @@ class HewanApi extends SharedApi {
       String identifikasiHewan,
       String petugasPendaftar,
       String tanggalTerdaftar,
-      File fotoHewan,
+      File? fotoHewan,
       // String latitude,
       // String longitude,
       {required String latitude,
@@ -172,7 +172,7 @@ class HewanApi extends SharedApi {
 
       var request = http.MultipartRequest(
         'PUT',
-        Uri.parse(baseUrl + '/hewan' + kodeEartagNasional.toString()),
+        Uri.parse(baseUrl + '/hewan/' + kodeEartagNasional.toString()),
       );
 
       request.fields.addAll({
@@ -191,10 +191,11 @@ class HewanApi extends SharedApi {
         "identifikasiHewan": identifikasiHewan,
         "petugasPendaftar": petugasPendaftar,
         "tanggalTerdaftar": tanggalTerdaftar,
-        "fotoHewan": fotoHewan.path,
+
         "latitude": latitude,
         "longitude": longitude,
       });
+     if (fotoHewan != null) {
       var imageField = http.MultipartFile(
         'file',
         fotoHewan.readAsBytes().asStream(),
@@ -202,6 +203,7 @@ class HewanApi extends SharedApi {
         filename: fotoHewan.path.split("/").last,
       );
       request.files.add(imageField);
+    }
       request.headers.addAll(
         {
           ...getToken(),
@@ -218,9 +220,29 @@ class HewanApi extends SharedApi {
         jsonData['statusCode'] = 201;
         print(response.contentLength);
         // print(jsonData);
-        return HewanModel.fromJson(jsonData);
+        return HewanModel.fromJson({
+           "status": 201,
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
+          "noKartuTernak": jsonData['noKartuTernak'],
+          "provinsi": jsonData['provinsi'],
+          "kabupaten": jsonData['kabupaten'],
+          "kecamatan": jsonData['kecamatan'],
+          "desa": jsonData['desa'],
+          "namaPeternak": jsonData['namaPeternak'],
+          "idPeternak": jsonData['idPeternak'],
+          "nikPeternak": jsonData['nikPeternak'],
+          "spesies": jsonData['spesies'],
+          "sex": jsonData['sex'],
+          "umur": jsonData['umur'],
+          "identifikasiHewan": jsonData['identifikasiHewan'],
+          "petugasPendaftar": jsonData['petugasPendaftar'],
+          "tanggalTerdaftar": jsonData['tanggalTerdaftar'],
+          "fotoHewan": jsonData['fotoHewan'],
+          "latitude": jsonData['latitude'],
+          "longitude": jsonData['longitude'],
+        });
       } else {
-        showErrorMessage(jsonData['message']);
+        showErrorMessage(jsonData?['message']);
         return HewanModel.fromJson({"status": response.statusCode});
       }
     } on Exception catch (_) {

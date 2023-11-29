@@ -17,6 +17,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DetailHewanController extends GetxController {
+  final HewanController hewanController = Get.put(HewanController());
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
   HewanModel? hewanModel;
@@ -115,7 +116,7 @@ class DetailHewanController extends GetxController {
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
     //fotoHewanC.text = argsData["foto_hewan_detail"];
-    fotoHewan.value = File(argsData["foto_hewan_detail"]);
+    //fotoHewan.value = File(argsData["foto_hewan_detail"]);
 
     print(argsData["foto_hewan_detail"]);
 
@@ -280,7 +281,7 @@ class DetailHewanController extends GetxController {
         identifikasiHewanC.text = originalIdentifikasi;
         petugasPendaftarC.text = originalPetugas;
         tanggalTerdaftarC.text = originalTanggal;
-        originalfotoHewan = originalfotoHewan;
+        fotoHewan.value = null;
         latitude.value = originalLatitude;
         longitude.value = originalLongitude;
         isEditing.value = false;
@@ -312,14 +313,14 @@ class DetailHewanController extends GetxController {
   }
 
   Future<void> editHewan() async {
-    File? fotoHewanFile = fotoHewan.value;
+
     CustomAlertDialog.showPresenceAlert(
       title: "edit data Hewan",
       message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        Get.back(); // close modal
-        update();
+        
+        await updateAlamatInfo();
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
           noKartuTernakC.text,
@@ -336,12 +337,30 @@ class DetailHewanController extends GetxController {
           identifikasiHewanC.text,
           petugasPendaftarC.text,
           tanggalTerdaftarC.text,
-          fotoHewanFile!,
+          fotoHewan.value,
           latitude: latitude.value,
           longitude: longitude.value,
         );
-        //await updateAlamatInfo();
         isEditing.value = false;
+
+        
+        if (hewanModel != null) {
+        if (hewanModel!.status == 201) {
+          showSuccessMessage(
+              "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
+        } else {
+          showErrorMessage("Gagal mengedit Data Hewan ");
+        }
+      } else {
+        // Handle the case where hewanModel is null
+        showErrorMessage("Gagal mengedit Data Hewan. Response is null");
+      }
+
+        hewanController.reInitialize();
+        
+        Get.back();
+        Get.back(); 
+        update();
       },
     );
   }
