@@ -14,6 +14,7 @@ import 'package:flutter/widgets.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+
 import 'package:image_picker/image_picker.dart';
 
 class DetailHewanController extends GetxController {
@@ -27,6 +28,8 @@ class DetailHewanController extends GetxController {
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   SharedApi sharedApi = SharedApi();
+  RxString selectedPeternakIdInEditMode = ''.obs;
+
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
@@ -117,6 +120,18 @@ class DetailHewanController extends GetxController {
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
     //fotoHewanC.text = argsData["foto_hewan_detail"];
     //fotoHewan.value = File(argsData["foto_hewan_detail"]);
+    // Tambahkan listener untuk selectedPeternakId
+    ever(selectedPeternakId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PeternakModel? selectedPeternak = peternakList.firstWhere(
+          (peternak) => peternak.idPeternak == selectedId,
+          orElse: () => PeternakModel());
+      nikPeternakC.text =
+          selectedPeternak.nikPeternak ?? argsData["nik_hewan_detail"];
+      namaPeternakC.text = selectedPeternak.namaPeternak ??
+          argsData["nama_peternak_hewan_detail"];
+      update();
+    });
 
     print(argsData["foto_hewan_detail"]);
 
@@ -254,6 +269,7 @@ class DetailHewanController extends GetxController {
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
+    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
     update();
   }
 
@@ -273,6 +289,7 @@ class DetailHewanController extends GetxController {
         kecamatanC.text = originalKecamatan;
         desaC.text = originalDesa;
         namaPeternakC.text = originalNamaPeternak;
+        selectedPeternakId.value = selectedPeternakIdInEditMode.value;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         spesiesC.text = originalSpesies;
@@ -313,13 +330,11 @@ class DetailHewanController extends GetxController {
   }
 
   Future<void> editHewan() async {
-
     CustomAlertDialog.showPresenceAlert(
       title: "edit data Hewan",
       message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        
         await updateAlamatInfo();
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
@@ -328,9 +343,9 @@ class DetailHewanController extends GetxController {
           kabupatenC.text,
           kecamatanC.text,
           desaC.text,
+          // namaPeternakC.text
           selectedPeternakId.value,
-          idPeternakC.text,
-          nikPeternakC.text,
+          // nikPeternakC.text,
           spesiesC.text,
           sexC.text,
           umurC.text,
@@ -343,23 +358,22 @@ class DetailHewanController extends GetxController {
         );
         isEditing.value = false;
 
-        
         if (hewanModel != null) {
-        if (hewanModel!.status == 201) {
-          showSuccessMessage(
-              "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
+          if (hewanModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
+          } else {
+            showErrorMessage("Gagal mengedit Data Hewan ");
+          }
         } else {
-          showErrorMessage("Gagal mengedit Data Hewan ");
+          // Handle the case where hewanModel is null
+          showErrorMessage("Gagal mengedit Data Hewan. Response is null");
         }
-      } else {
-        // Handle the case where hewanModel is null
-        showErrorMessage("Gagal mengedit Data Hewan. Response is null");
-      }
 
         hewanController.reInitialize();
-        
+
         Get.back();
-        Get.back(); 
+        Get.back();
         update();
       },
     );

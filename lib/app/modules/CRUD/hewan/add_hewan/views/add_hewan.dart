@@ -120,7 +120,6 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-       
           Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -331,26 +330,101 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  ElevatedButton(
-                    onPressed: () async {
-                      await controller.pickImage();
-                    },
-                    child: Text('Pilih Gambar'),
+            padding: EdgeInsets.all(14),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Text(
+                  'Gambar Hewan', // Label teks untuk container
+                  style: TextStyle(
+                    fontFamily: 'poppins',
+                    color: AppColor.secondarySoft,
+                    fontSize: 12,
                   ),
-                  if (controller.fotoHewan.value != null)
-                    Image.file(
-                      controller.fotoHewan.value ??
-                          File('null'), //path/to/default/image.jpg
-                      height: 100,
-                      width: 100,
-                      fit: BoxFit.cover,
+                ),
+                SizedBox(height: 8),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(
+                      child: Padding(
+                        padding: EdgeInsets.symmetric(vertical: 8),
+                        child: Obx(
+                          () => Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              if (controller.fotoHewan.value != null)
+                                Column(
+                                  children: [
+                                    Image.file(
+                                      controller.fotoHewan.value ??
+                                          File('null'),
+                                      height: 100,
+                                      width: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                    SizedBox(height: 8),
+                                    IconButton(
+                                      onPressed: () {
+                                        controller.removeImage();
+                                      },
+                                      icon: Icon(Icons.delete),
+                                      color: Colors.red,
+                                    ),
+                                  ],
+                                ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                ],
-              ),
+                    ElevatedButton.icon(
+                      onPressed: () async {
+                        // Tampilkan dialog atau pilihan untuk memilih sumber gambar
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              title: Text("Pilih Sumber Gambar"),
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    ListTile(
+                                      leading: Icon(Icons.camera),
+                                      title: Text("Kamera"),
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        controller.pickImage(true);
+                                      },
+                                    ),
+                                    SizedBox(height: 8),
+                                    ListTile(
+                                      leading: Icon(Icons.photo_library),
+                                      title: Text("Galeri"),
+                                      onTap: () {
+                                        Navigator.of(context).pop();
+                                        controller.pickImage(false);
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      },
+                      icon: Icon(Icons.add_a_photo),
+                      label: Text('Pilih Gambar'),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
           Container(
@@ -501,5 +575,3 @@ class Gender {
 
   Gender({this.id, this.sex});
 }
-
-

@@ -81,7 +81,8 @@ class MainMenuView extends GetView<MainMenuController> {
                       buildButton(
                           Routes.KANDANG, 'Kandang', Icons.holiday_village),
                       SizedBox(width: 30),
-                      buildButton(Routes.PKB, 'LIVE MONITORING', Icons.monitor),
+                      buildButton(
+                          Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
                     ],
                   ),
                 ],

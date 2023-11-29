@@ -152,9 +152,9 @@ class HewanApi extends SharedApi {
       String kabupaten,
       String kecamatan,
       String desa,
-      String namaPeternak,
+      // String namaPeternak,
       String idPeternak,
-      String nikPeternak,
+      // String nikPeternak,
       String spesies,
       String sex,
       String umur,
@@ -182,9 +182,9 @@ class HewanApi extends SharedApi {
         "kabupaten": kabupaten,
         "kecamatan": kecamatan,
         "desa": desa,
-        "namaPeternak": namaPeternak,
+        // "namaPeternak": namaPeternak,
         "idPeternak": idPeternak,
-        "nikPeternak": nikPeternak,
+        //  "nikPeternak": nikPeternak,
         "spesies": spesies,
         "sex": sex,
         "umur": umur,
@@ -195,15 +195,15 @@ class HewanApi extends SharedApi {
         "latitude": latitude,
         "longitude": longitude,
       });
-     if (fotoHewan != null) {
-      var imageField = http.MultipartFile(
-        'file',
-        fotoHewan.readAsBytes().asStream(),
-        fotoHewan.lengthSync(),
-        filename: fotoHewan.path.split("/").last,
-      );
-      request.files.add(imageField);
-    }
+      if (fotoHewan != null) {
+        var imageField = http.MultipartFile(
+          'file',
+          fotoHewan.readAsBytes().asStream(),
+          fotoHewan.lengthSync(),
+          filename: fotoHewan.path.split("/").last,
+        );
+        request.files.add(imageField);
+      }
       request.headers.addAll(
         {
           ...getToken(),
@@ -221,16 +221,16 @@ class HewanApi extends SharedApi {
         print(response.contentLength);
         // print(jsonData);
         return HewanModel.fromJson({
-           "status": 201,
+          "status": 201,
           "kodeEartagNasional": jsonData['kodeEartagNasional'],
           "noKartuTernak": jsonData['noKartuTernak'],
           "provinsi": jsonData['provinsi'],
           "kabupaten": jsonData['kabupaten'],
           "kecamatan": jsonData['kecamatan'],
           "desa": jsonData['desa'],
-          "namaPeternak": jsonData['namaPeternak'],
+          // "namaPeternak": jsonData['namaPeternak'],
           "idPeternak": jsonData['idPeternak'],
-          "nikPeternak": jsonData['nikPeternak'],
+          //  "nikPeternak": jsonData['nikPeternak'],
           "spesies": jsonData['spesies'],
           "sex": jsonData['sex'],
           "umur": jsonData['umur'],

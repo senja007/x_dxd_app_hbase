@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
@@ -14,6 +15,7 @@ import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -179,15 +181,46 @@ class AddHewanController extends GetxController {
   }
 
   // Fungsi untuk memilih gambar dari galeri
-  Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> pickImage(bool fromCamera) async {
+    final ImageSource source =
+        fromCamera ? ImageSource.camera : ImageSource.gallery;
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
-      fotoHewan.value = File(pickedFile.path);
+      File imageFile = File(pickedFile.path);
+
+      // Kompresi gambar sebelum menyimpannya
+      File compressedImage = await compressImage(imageFile);
+
+      fotoHewan.value = compressedImage;
       update(); // Perbarui UI setelah memilih gambar
     }
   }
+
+  Future<File> compressImage(File imageFile) async {
+    // Kompresi gambar dengan ukuran tertentu (misalnya, kualitas 85)
+    Uint8List? imageBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.absolute.path,
+      quality: 20, // Sesuaikan dengan kebutuhan kamu
+    );
+
+    // Simpan gambar yang telah dikompresi
+    File compressedImageFile = File('${imageFile.path}_compressed.jpg');
+    await compressedImageFile.writeAsBytes(imageBytes!);
+
+    return compressedImageFile;
+  }
+
+  // // Fungsi untuk memilih gambar dari galeri
+  // Future<void> pickImage() async {
+  //   final pickedFile =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  //   if (pickedFile != null) {
+  //     fotoHewan.value = File(pickedFile.path);
+  //     update(); // Perbarui UI setelah memilih gambar
+  //   }
+  // }
 
   // Fungsi untuk menghapus gambar yang sudah dipilih
   void removeImage() {
