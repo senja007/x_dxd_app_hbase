@@ -9,6 +9,8 @@ import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:geocoding/geocoding.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -23,6 +25,12 @@ class DetailKandangController extends GetxController {
   final KandangController kandangController = Get.put(KandangController());
   SharedApi sharedApi = SharedApi();
   RxBool loading = false.obs;
+
+  RxString strLatLong =
+      'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
+  RxString strAlamat = 'mencari lokasi..'.obs;
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
 
   Rx<File?> fotoKandang = Rx<File?>(null);
 
@@ -106,6 +114,88 @@ class DetailKandangController extends GetxController {
     originalLongitude = argsData["longitude"];
   }
 
+
+  Future<Position> getGeoLocationPosition() async {
+    bool serviceEnabled;
+    LocationPermission permission;
+
+    serviceEnabled = await Geolocator.isLocationServiceEnabled();
+    //location service not enabled, don't continue
+    if (!serviceEnabled) {
+      await Geolocator.openLocationSettings();
+      return Future.error('Location service Not Enabled');
+    }
+    permission = await Geolocator.checkPermission();
+    if (permission == LocationPermission.denied) {
+      permission = await Geolocator.requestPermission();
+      if (permission == LocationPermission.denied) {
+        return Future.error('Location permission denied');
+      }
+    }
+
+    //permission denied forever
+    if (permission == LocationPermission.deniedForever) {
+      return Future.error(
+        'Location permission denied forever, we cannot access',
+      );
+    }
+    //continue accessing the position of device
+    return await Geolocator.getCurrentPosition(
+      desiredAccuracy: LocationAccuracy.high,
+    );
+  }
+
+  //getAddress
+  Future<void> getAddressFromLongLat(Position position) async {
+    List<Placemark> placemarks =
+        await placemarkFromCoordinates(position.latitude, position.longitude);
+    print(placemarks);
+
+    Placemark place = placemarks[0];
+
+    latitude.value = position.latitude.toString();
+    longitude.value = position.longitude.toString();
+
+    strAlamat.value =
+        '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
+        '${place.postalCode}, ${place.country}, ${place.administrativeArea}';
+  }
+
+  // Fungsi untuk mendapatkan alamat dari geolocation dan mengupdate nilai provinsi, kabupaten, kecamatan, dan desa
+  Future<void> updateAlamatInfo() async {
+    try {
+      isLoading.value = true;
+
+      // Mendapatkan posisi geolokasi
+      Position position = await getGeoLocationPosition();
+
+      // Mendapatkan alamat dari geolokasi
+      await getAddressFromLongLat(position);
+
+      // Mengupdate nilai provinsi, kabupaten, kecamatan, dan desa berdasarkan alamat
+      provinsiC.text = getAlamatInfo(5); //benar 5
+      kabupatenC.text = getAlamatInfo(0); //benar 0
+      kecamatanC.text = getAlamatInfo(2); //benar 2
+      desaC.text = getAlamatInfo(1); //benar 1
+    } catch (e) {
+      print('Error updating alamat info: $e');
+      showErrorMessage("Error updating alamat info: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+// Fungsi untuk mendapatkan informasi alamat berdasarkan index
+  String getAlamatInfo(int index) {
+    List<String> alamatInfo = strAlamat.value.split(', ');
+    if (index < alamatInfo.length) {
+      return alamatInfo[index];
+    } else {
+      return '';
+    }
+  }
+  
+
   // Fungsi untuk memilih gambar dari galeri
 Future<void> pickImage() async {
   final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
@@ -153,7 +243,8 @@ Future<void> pickImage() async {
         kabupatenC.text = originalKabupaten;
         provinsiC.text = originalProvinsi;
         fotoKandang.value = null;
-
+        latitude.value = originalLatitude;
+        longitude.value = originalLongitude;
 
         isEditing.value = false;
       },
@@ -176,7 +267,7 @@ Future<void> pickImage() async {
             showErrorMessage("Gagal Hapus Data Kandang ");
           }
         }
-        kandangController.reInitialize();
+        //kandangController.reInitialize();
         Get.back();
         Get.back();
         update();
@@ -190,7 +281,8 @@ Future<void> pickImage() async {
       message: "Apakah anda ingin mengedit data Kandang ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        print(kandangModel);
+        //print(kandangModel);
+        await updateAlamatInfo();
         kandangModel = await KandangApi().editKandangApi(
           
           idKandangC.text,
@@ -204,31 +296,32 @@ Future<void> pickImage() async {
           kabupatenC.text,
           provinsiC.text,
           fotoKandang.value,
-         // originalFotoKandang,
-          latitude: originalLatitude,
-          longitude: originalLongitude,
+         //originalFotoKandang,
+          latitude: latitude.value,
+          longitude: longitude.value,
         );
-        
         isEditing.value = false;
 
-        // await PetugasApi().editPetugasApi(argsData["nikPetugas"], argsData["namaPetugas"], argsData["noTelp"],argsData["email"]);
         if (kandangModel != null) {
-          if (kandangModel!.status == 201) {
-            showSuccessMessage(
-                "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
-          } else {
-            showErrorMessage("Gagal mengedit Data Kandang ");
-          }
+        if (kandangModel!.status == 201) {
+          showSuccessMessage(
+              "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
+        } else {
+          showErrorMessage("Gagal mengedit Data Kandang ");
         }
+      } else {
+        // Handle the case where kandangModel is null
+        showErrorMessage("Gagal mengedit Data Kandang. Response is null");
+      }
 
         kandangController.reInitialize();
         
         Get.back();
         Get.back(); 
-        Get.reload();  // close modal
         update();
       },
     );
+
   }
 
   // void updateFormattedDate(String newDate) {

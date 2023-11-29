@@ -36,8 +36,8 @@ class AddHewanController extends GetxController {
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
   RxBool loading = false.obs;
-  String latitude = '';
-  String longitude = '';
+  RxString latitude = ''.obs;
+  RxString longitude = ''.obs;
 
   TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController noKartuTernakC = TextEditingController();
@@ -136,8 +136,8 @@ class AddHewanController extends GetxController {
 
     Placemark place = placemarks[0];
 
-    latitude = position.latitude.toString();
-    longitude = position.longitude.toString();
+    latitude.value = position.latitude.toString();
+    longitude.value = position.longitude.toString();
 
     strAlamat.value =
         '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
@@ -230,8 +230,8 @@ class AddHewanController extends GetxController {
         petugasPendaftarC.text,
         tanggalTerdaftarC.text,
         fotoHewanFile,
-        latitude: latitude,
-        longitude: longitude,
+        latitude: latitude.value,
+        longitude: longitude.value,
       );
       await updateAlamatInfo();
 

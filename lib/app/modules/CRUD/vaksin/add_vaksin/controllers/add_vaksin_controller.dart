@@ -98,7 +98,7 @@ class AddVaksinController extends GetxController {
           ibLainC.text,
           produsenC.text,
           idPeternakC.text,
-          selectedPeternakId.value,
+          //selectedPeternakId.value,
           lokasiC.text,
           inseminatorC.text,
           tanggalIBC.text);

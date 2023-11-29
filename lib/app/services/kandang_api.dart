@@ -192,7 +192,7 @@ class KandangApi extends SharedApi {
   }
 
 //EDIT
-  Future<KandangModel?> editKandangApi(
+Future<KandangModel?> editKandangApi(
     String idKandang,
     String idPeternak,
     String luas,
@@ -203,80 +203,174 @@ class KandangApi extends SharedApi {
     String kecamatan,
     String kabupaten,
     String provinsi,
-    File? fotoKandang, {
+    File? newfotoKandang,
+    //String originalFotoKandang,
+     {
     required String latitude,
     required String longitude,
   }) async {
-    try {
-      var jsonData;
-      showLoading();
+  try {
+    var jsonData;
+    showLoading();
 
-      var request = http.MultipartRequest(
-        'PUT',
-        Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
-      );
+    var request = http.MultipartRequest(
+      'PUT',
+      Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
+    );
 
-      request.fields.addAll({
-        'idKandang': idKandang,
-        'idPeternak': idPeternak,
-        'luas': luas,
-        'kapasitas': kapasitas,
-        'nilaiBangunan': nilaiBangunan,
-        'alamat': alamat,
-        'desa': desa,
-        'kecamatan': kecamatan,
-        'kabupaten': kabupaten,
-        'provinsi': provinsi,
-        'fotoKandang': fotoKandang!.path,
-        "latitude": latitude,
-        "longitude": longitude,
-      });
+    request.fields.addAll({
+      'idKandang': idKandang,
+      'idPeternak': idPeternak,
+      'luas': luas,
+      'kapasitas': kapasitas,
+      'nilaiBangunan': nilaiBangunan,
+      'alamat': alamat,
+      'desa': desa,
+      'kecamatan': kecamatan,
+      'kabupaten': kabupaten,
+      'provinsi': provinsi,
+      'latitude': latitude,
+      'longitude': longitude,
+    });
+
+    if (newfotoKandang != null) {
       var imageField = http.MultipartFile(
         'file',
-        fotoKandang.readAsBytes().asStream(),
-        fotoKandang.lengthSync(),
-        filename: fotoKandang.path.split("/").last,
+        newfotoKandang.readAsBytes().asStream(),
+        newfotoKandang.lengthSync(),
+        filename: newfotoKandang.path.split("/").last,
       );
       request.files.add(imageField);
-      request.headers.addAll(
-        {
-          ...getToken(),
-          'Content-Type': 'multipart/form-data',
-        },
-      );
-
-      var response = await request.send();
-      var responseData = await response.stream.transform(utf8.decoder).toList();
-      var responseString = responseData.join('');
-      jsonData = json.decode(responseString);
-      stopLoading();
-      if (response.statusCode == 201) {
-        return KandangModel.fromJson({
-          "status": 201,
-          "idKandang": jsonData['idKandang'],
-          "idPeternak": jsonData['idPeternak'],
-          "luas": jsonData['luas'],
-          "kapasitas": jsonData['kapasitas'],
-          "nilaiBangunan": jsonData['nilaiBangunan'],
-          "alamat": jsonData['alamat'],
-          "desa": jsonData['desa'],
-          "kecamatan": jsonData['kecamatan'],
-          "kabupaten": jsonData['kabupaten'],
-          "provinsi": jsonData['provinsi'],
-          "fotoKandang": jsonData['fotoKandang'],
-          "latitude": jsonData['latitude'],
-          "longitude": jsonData['longitude'],
-        });
-      } else {
-        showErrorMessage(jsonData['message']);
-        return KandangModel.fromJson({"status": response.statusCode});
-      }
-    } on Exception catch (_) {
-      stopLoading();
-      showInternetMessage("Periksa koneksi internet anda");
-      return KandangModel.fromJson({"status": 404});
     }
+
+    request.headers.addAll(
+      {
+        ...getToken(),
+        'Content-Type': 'multipart/form-data',
+      },
+    );
+
+    var response = await request.send();
+    var responseData = await response.stream.transform(utf8.decoder).toList();
+    var responseString = responseData.join('');
+    jsonData = json.decode(responseString);
+    stopLoading();
+
+    if (response.statusCode == 201) {
+      return KandangModel.fromJson({
+        "status": 201,
+        "idKandang": jsonData['idKandang'],
+        "idPeternak": jsonData['idPeternak'],
+        "luas": jsonData['luas'],
+        "kapasitas": jsonData['kapasitas'],
+        "nilaiBangunan": jsonData['nilaiBangunan'],
+        "alamat": jsonData['alamat'],
+        "desa": jsonData['desa'],
+        "kecamatan": jsonData['kecamatan'],
+        "kabupaten": jsonData['kabupaten'],
+        "provinsi": jsonData['provinsi'],
+        "fotoKandang": jsonData['fotoKandang'],
+        "latitude": jsonData['latitude'],
+        "longitude": jsonData['longitude'],
+      });
+    } else {
+      showErrorMessage(jsonData?['message']);
+      return KandangModel.fromJson({"status": response.statusCode});
+    }
+  } on Exception catch (_) {
+    stopLoading();
+    showInternetMessage("Periksa koneksi internet anda");
+    return KandangModel.fromJson({"status": 404});
   }
+}
+
+
+  // Future<KandangModel?> editKandangApi(
+  //   String idKandang,
+  //   String idPeternak,
+  //   String luas,
+  //   String kapasitas,
+  //   String nilaiBangunan,
+  //   String alamat,
+  //   String desa,
+  //   String kecamatan,
+  //   String kabupaten,
+  //   String provinsi,
+  //   File? newfotoKandang,
+  //   String originalFotoKandang, {
+  //   required String latitude,
+  //   required String longitude,
+  // }) async {
+  //   try {
+  //     var jsonData;
+  //     showLoading();
+
+  //     var request = http.MultipartRequest(
+  //       'PUT',
+  //       Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
+  //     );
+
+  //     request.fields.addAll({
+  //       'idKandang': idKandang,
+  //       'idPeternak': idPeternak,
+  //       'luas': luas,
+  //       'kapasitas': kapasitas,
+  //       'nilaiBangunan': nilaiBangunan,
+  //       'alamat': alamat,
+  //       'desa': desa,
+  //       'kecamatan': kecamatan,
+  //       'kabupaten': kabupaten,
+  //       'provinsi': provinsi,
+  //       'fotoKandang': newfotoKandang?.path ?? '' ,
+  //       "latitude": latitude,
+  //       "longitude": longitude,
+  //     });
+  //     var imageField = http.MultipartFile(
+  //       'file',
+  //       newfotoKandang!.readAsBytes().asStream(),
+  //       newfotoKandang.lengthSync(),
+  //       filename: newfotoKandang.path.split("/").last,
+  //     );
+  //     request.files.add(imageField);
+  //     request.headers.addAll(
+  //       {
+  //         ...getToken(),
+  //         'Content-Type': 'multipart/form-data',
+  //       },
+  //     );
+
+  //     var response = await request.send();
+  //     var responseData = await response.stream.transform(utf8.decoder).toList();
+  //     var responseString = responseData.join('');
+  //     jsonData = json.decode(responseString);
+  //     stopLoading();
+  //     if (response.statusCode == 201) {
+  //       return KandangModel.fromJson({
+  //         "status": 201,
+  //         "idKandang": jsonData['idKandang'],
+  //         "idPeternak": jsonData['idPeternak'],
+  //         "luas": jsonData['luas'],
+  //         "kapasitas": jsonData['kapasitas'],
+  //         "nilaiBangunan": jsonData['nilaiBangunan'],
+  //         "alamat": jsonData['alamat'],
+  //         "desa": jsonData['desa'],
+  //         "kecamatan": jsonData['kecamatan'],
+  //         "kabupaten": jsonData['kabupaten'],
+  //         "provinsi": jsonData['provinsi'],
+  //         "fotoKandang": jsonData['fotoKandang'],
+  //         "latitude": jsonData['latitude'],
+  //         "longitude": jsonData['longitude'],
+  //       });
+  //     } else {
+  //       showErrorMessage(jsonData?['message']);
+  //       return KandangModel.fromJson({"status": response.statusCode});
+  //     }
+  //   } on Exception catch (_) {
+  //     stopLoading();
+  //     showInternetMessage("Periksa koneksi internet anda");
+  //     return KandangModel.fromJson({"status": 404});
+  //   }
+  // }
 
   Future<KandangModel?> deleteKandangAPI(String idKandang) async {
     try {
