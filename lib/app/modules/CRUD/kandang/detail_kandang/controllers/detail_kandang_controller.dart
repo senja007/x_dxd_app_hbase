@@ -29,6 +29,7 @@ class DetailKandangController extends GetxController {
   RxBool loading = false.obs;
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPeternakIdInEditMode = ''.obs;
 
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
@@ -262,7 +263,7 @@ class DetailKandangController extends GetxController {
         update();
         // Reset data ke yang sebelumnya
         idKandangC.text = originalIdKandang;
-        idPeternakC.text = originalIdPeternak;
+        selectedPeternakId.value = selectedPeternakIdInEditMode.value;
         namaPeternakC.text = originalNamaPeternak;
         luasC.text = originalLuas;
         kapasitasC.text = originalKapasitas;
@@ -315,7 +316,7 @@ class DetailKandangController extends GetxController {
         await updateAlamatInfo();
         kandangModel = await KandangApi().editKandangApi(
           idKandangC.text,
-          idPeternakC.text,
+          selectedPeternakId.value,
           luasC.text,
           kapasitasC.text,
           nilaiBangunanC.text,
