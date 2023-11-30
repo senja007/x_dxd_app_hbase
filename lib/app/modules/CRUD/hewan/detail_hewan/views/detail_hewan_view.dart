@@ -501,8 +501,13 @@ class DetailHewanView extends GetView<DetailHewanController> {
                               )
                             : TextField(
                                 controller: controller.idPeternakC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
                                 decoration: InputDecoration(
-                                  labelText: 'ID Peternak',
+                                  // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
                                 readOnly: true,

@@ -1,8 +1,10 @@
 import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -25,6 +27,8 @@ class DetailKandangController extends GetxController {
   final KandangController kandangController = Get.put(KandangController());
   SharedApi sharedApi = SharedApi();
   RxBool loading = false.obs;
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
 
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
@@ -33,7 +37,6 @@ class DetailKandangController extends GetxController {
   RxString longitude = ''.obs;
 
   Rx<File?> fotoKandang = Rx<File?>(null);
-
 
   TextEditingController idKandangC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
@@ -84,6 +87,9 @@ class DetailKandangController extends GetxController {
   void onInit() {
     super.onInit();
 
+    fetchPeternaks();
+    isEditing.value = false;
+
     idKandangC.text = argsData["idKandang"];
     idPeternakC.text = argsData["idPeternak"];
     namaPeternakC.text = argsData["namaPeternak"];
@@ -95,6 +101,16 @@ class DetailKandangController extends GetxController {
     kecamatanC.text = argsData["kecamatan"];
     kabupatenC.text = argsData["kabupaten"];
     provinsiC.text = argsData["provinsi"];
+
+    ever(selectedPeternakId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PeternakModel? selectedPeternak = peternakList.firstWhere(
+          (peternak) => peternak.idPeternak == selectedId,
+          orElse: () => PeternakModel());
+      namaPeternakC.text =
+          selectedPeternak.namaPeternak ?? argsData["namaPeternak"];
+      update();
+    });
 
     print(argsData["fotoKandang"]);
 
@@ -114,6 +130,22 @@ class DetailKandangController extends GetxController {
     originalLongitude = argsData["longitude"];
   }
 
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
 
   Future<Position> getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -194,22 +226,20 @@ class DetailKandangController extends GetxController {
       return '';
     }
   }
-  
 
   // Fungsi untuk memilih gambar dari galeri
-Future<void> pickImage() async {
-  final pickedFile = await ImagePicker().pickImage(source: ImageSource.gallery);
+  Future<void> pickImage() async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
 
-  if (pickedFile != null) {
-    fotoKandang.value = File(pickedFile.path);
-    update(); // Perbarui UI setelah memilih gambar
-  } else {
-    // Penanganan ketika gambar tidak berhasil dipilih
-    print('Gambar tidak dipilih.');
+    if (pickedFile != null) {
+      fotoKandang.value = File(pickedFile.path);
+      update(); // Perbarui UI setelah memilih gambar
+    } else {
+      // Penanganan ketika gambar tidak berhasil dipilih
+      print('Gambar tidak dipilih.');
+    }
   }
-}
-
-
 
   // Fungsi untuk menghapus gambar yang sudah dipilih
   void removeImage() {
@@ -284,7 +314,6 @@ Future<void> pickImage() async {
         //print(kandangModel);
         await updateAlamatInfo();
         kandangModel = await KandangApi().editKandangApi(
-          
           idKandangC.text,
           idPeternakC.text,
           luasC.text,
@@ -296,32 +325,31 @@ Future<void> pickImage() async {
           kabupatenC.text,
           provinsiC.text,
           fotoKandang.value,
-         //originalFotoKandang,
+          //originalFotoKandang,
           latitude: latitude.value,
           longitude: longitude.value,
         );
         isEditing.value = false;
 
         if (kandangModel != null) {
-        if (kandangModel!.status == 201) {
-          showSuccessMessage(
-              "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
+          if (kandangModel!.status == 201) {
+            showSuccessMessage(
+                "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
+          } else {
+            showErrorMessage("Gagal mengedit Data Kandang ");
+          }
         } else {
-          showErrorMessage("Gagal mengedit Data Kandang ");
+          // Handle the case where kandangModel is null
+          showErrorMessage("Gagal mengedit Data Kandang. Response is null");
         }
-      } else {
-        // Handle the case where kandangModel is null
-        showErrorMessage("Gagal mengedit Data Kandang. Response is null");
-      }
 
         kandangController.reInitialize();
-        
+
         Get.back();
-        Get.back(); 
+        Get.back();
         update();
       },
     );
-
   }
 
   // void updateFormattedDate(String newDate) {

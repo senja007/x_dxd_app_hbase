@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -101,22 +102,28 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
+          // Bagian yang menampilkan field ID Peternak
+          Obx(
+            () => Visibility(
+              visible: !controller.isEditing
+                  .value, // Mengatur visibility berdasarkan status editing
+              child: Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: controller.isEditing.value
-                      ? Colors.white
-                      : Colors.grey[200],
+                  color: Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextFormField(
-                  enabled: controller.isEditing.value,
+                  enabled: false,
                   style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                    fontSize: 18,
+                    fontFamily: 'poppins',
+                    color: Colors.black,
+                  ),
                   maxLines: 1,
                   controller: controller.idPeternakC,
                   keyboardType: TextInputType.emailAddress,
@@ -139,46 +146,86 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     ),
                   ),
                 ),
-              )),
-          Obx(() => Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: controller.isEditing.value
-                      ? Colors.white
-                      : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-                ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.namaPeternakC,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Nama Peternak",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Nama Peternak",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
+              ),
+            ),
+          ),
+          Obx(
+            () => Container(
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: controller.isEditing.value
+                    ? Colors.white
+                    : Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: GestureDetector(
+                  onTap: () {
+                    print("${controller.selectedPeternakId.value}");
+                  },
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 0),
+                          child: Text(
+                            "Nama Peternak",
+                            style: TextStyle(
+                              color: AppColor.secondarySoft,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedPeternakId.value,
+                                items: controller.peternakList
+                                    .map((PeternakModel peternak) {
+                                  return DropdownMenuItem<String>(
+                                    value: peternak.idPeternak ?? '',
+                                    child: Text(peternak.namaPeternak ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  // Update selectedPeternakId
+                                  controller.selectedPeternakId.value =
+                                      selectedId ?? '';
+
+                                  // // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                  // PeternakModel selectedPeternak =
+                                  //     controller.peternakList.firstWhere(
+                                  //   (peternak) =>
+                                  //       peternak.idPeternak == selectedId,
+                                  //   orElse: () =>
+                                  //       PeternakModel(), // Default value if not found
+                                  // );
+                                  // controller.namaPeternakC.text =
+                                  //     selectedPeternak.namaPeternak ?? '';
+                                },
+                                hint: Text('Pilih Peternak'),
+                              )
+                            : TextField(
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'poppins',
+                                    color: Colors.black),
+                                controller: controller.namaPeternakC,
+                                decoration: InputDecoration(
+                                  // labelText: 'Nama Peternak',
+                                  // labelStyle: TextStyle(
+                                  //   color: AppColor.secondarySoft,
+                                  //   fontSize: 15,
+                                  // ),
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ])),
+            ),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -504,58 +551,60 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-            Obx(() => Container(
-  width: MediaQuery.of(context).size.width,
-  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-  margin: EdgeInsets.only(bottom: 16),
-  decoration: BoxDecoration(
-    color: controller.isEditing.value ? Colors.white : Colors.grey[200],
-    borderRadius: BorderRadius.circular(8),
-    border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-  ),
-  child: Stack(
-    children: [
-      GestureDetector(
-        onTap: () {
-          if (controller.isEditing.value) {
-            controller.pickImage(); // Fungsi untuk memilih gambar
-          }
-        },
-        child: Obx(() {
-          // Gunakan nilai fotoKandang dari controller
-          File? selectedImage = controller.fotoKandang.value;
-          if (selectedImage != null) {
-            // Jika ada gambar yang dipilih, tampilkan menggunakan Image.file
-            return Image.file(
-              selectedImage,
-              fit: BoxFit.fill,
-            );
-          } else {
-            // Jika tidak ada gambar yang dipilih, tampilkan menggunakan Image.network
-            return Image.network(
-              '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
-              fit: BoxFit.fill,
-            );
-          }
-        }),
-      ),
-      if (controller.isEditing.value)
-        Positioned(
-          bottom: 0,
-          right: 0,
-          child: IconButton(
-            icon: Icon(Icons.edit),
-            onPressed: () {
-              controller.pickImage(); // Fungsi untuk memilih gambar
-            },
-          ),
-        ),
-    ],
-  ),
-)),
- 
-                 
-                  Container(
+          Obx(() => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+                ),
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (controller.isEditing.value) {
+                          controller.pickImage(); // Fungsi untuk memilih gambar
+                        }
+                      },
+                      child: Obx(() {
+                        // Gunakan nilai fotoKandang dari controller
+                        File? selectedImage = controller.fotoKandang.value;
+                        if (selectedImage != null) {
+                          // Jika ada gambar yang dipilih, tampilkan menggunakan Image.file
+                          return Image.file(
+                            selectedImage,
+                            fit: BoxFit.fill,
+                          );
+                        } else {
+                          // Jika tidak ada gambar yang dipilih, tampilkan menggunakan Image.network
+                          return Image.network(
+                            '${controller.sharedApi.imageUrl}${controller.argsData["fotoKandang"]}',
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      }),
+                    ),
+                    if (controller.isEditing.value)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            controller
+                                .pickImage(); // Fungsi untuk memilih gambar
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              )),
+          Container(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Column(
@@ -661,7 +710,6 @@ class DetailKandangView extends GetView<DetailKandangController> {
               ),
             ),
           ),
-          
           Obx(() {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,
