@@ -121,30 +121,46 @@ class AddHewanView extends GetView<AddHewanController> {
             ),
           ),
           Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: Obx(() {
-                return DropdownButton<String>(
-                  value: controller.selectedPeternakId.value,
-                  items: controller.peternakList.map((PeternakModel peternak) {
-                    return DropdownMenuItem<String>(
-                      value: peternak.idPeternak ?? '',
-                      child: Text(peternak.namaPeternak ?? ''),
-                    );
-                  }).toList(),
-                  onChanged: (String? selectedId) {
-                    controller.selectedPeternakId.value = selectedId ?? '';
-                  },
-                  hint: Text('Pilih Peternak'),
-                );
-              })),
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Nama Peternak",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.selectedPeternakId.value,
+                    items:
+                        controller.peternakList.map((PeternakModel peternak) {
+                      return DropdownMenuItem<String>(
+                        value: peternak.idPeternak ?? '',
+                        child: Text(peternak.namaPeternak ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedId) {
+                      controller.selectedPeternakId.value = selectedId ?? '';
+                    },
+                    hint: Text('Pilih Peternak'),
+                  );
+                }),
+              ],
+            ),
+          ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -188,19 +204,32 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: DropdownMenu<String>(
-              inputDecorationTheme:
-                  InputDecorationTheme(filled: false, iconColor: Colors.amber),
-              initialSelection: controller.genders.first,
-              onSelected: (String? value) {
-                // This is called when the user selects an item.
-                controller.selectedGender.value = value!;
-              },
-              dropdownMenuEntries: controller.genders
-                  .map<DropdownMenuEntry<String>>((String value) {
-                return DropdownMenuEntry<String>(value: value, label: value);
-              }).toList(),
-            ),
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0),
+                child: Text(
+                  "Jenis Kelamin",
+                  style: TextStyle(
+                    color: AppColor.secondarySoft,
+                    fontSize: 12,
+                  ),
+                ),
+              ),
+              DropdownMenu<String>(
+                inputDecorationTheme: InputDecorationTheme(
+                    filled: false, iconColor: Colors.amber),
+                initialSelection: controller.genders.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  controller.selectedGender.value = value!;
+                },
+                dropdownMenuEntries: controller.genders
+                    .map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+            ]),
           ),
           Container(
             width: MediaQuery.of(context).size.width,

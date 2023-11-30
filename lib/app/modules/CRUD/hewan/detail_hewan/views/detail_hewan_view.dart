@@ -438,7 +438,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           //       ),
           //     )),
 
-          Obx(() => Container(
+          Obx(
+            () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -450,50 +451,65 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: GestureDetector(
-                  onTap: () {
-                    print("${controller.selectedPeternakId.value}");
-                  },
-                  child: controller.isEditing.value
-                      ? DropdownButton<String>(
-                          value: controller.selectedPeternakId.value,
-                          items: controller.peternakList
-                              .map((PeternakModel peternak) {
-                            return DropdownMenuItem<String>(
-                              value: peternak.idPeternak ?? '',
-                              child: Text(peternak.namaPeternak ?? ''),
-                            );
-                          }).toList(),
-                          onChanged: (String? selectedId) {
-                            // Update selectedPeternakId
-                            controller.selectedPeternakId.value =
-                                selectedId ?? '';
-
-                            // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                            PeternakModel selectedPeternak =
-                                controller.peternakList.firstWhere(
-                              (peternak) => peternak.idPeternak == selectedId,
-                              orElse: () =>
-                                  PeternakModel(), // Default value if not found
-                            );
-
-                            controller.nikPeternakC.text =
-                                selectedPeternak.nikPeternak ?? '';
-                            controller.namaPeternakC.text =
-                                selectedPeternak.namaPeternak ?? '';
-                          },
-                          hint: Text('Pilih Peternak'),
-                        )
-                      : TextField(
-                          controller: controller.idPeternakC,
-                          decoration: InputDecoration(
-                            labelText: 'ID Peternak',
-                            border: InputBorder.none,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Id Peternak",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
                           ),
-                          readOnly: true,
                         ),
-                ),
-              )),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedPeternakId.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedPeternakId.value,
+                                items: controller.peternakList
+                                    .map((PeternakModel peternak) {
+                                  return DropdownMenuItem<String>(
+                                    value: peternak.idPeternak ?? '',
+                                    child: Text(peternak.idPeternak ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  // Update selectedPeternakId
+                                  controller.selectedPeternakId.value =
+                                      selectedId ?? '';
+
+                                  // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                  PeternakModel selectedPeternak =
+                                      controller.peternakList.firstWhere(
+                                    (peternak) =>
+                                        peternak.idPeternak == selectedId,
+                                    orElse: () =>
+                                        PeternakModel(), // Default value if not found
+                                  );
+
+                                  controller.nikPeternakC.text =
+                                      selectedPeternak.nikPeternak ?? '';
+                                  controller.namaPeternakC.text =
+                                      selectedPeternak.namaPeternak ?? '';
+                                },
+                                hint: Text('Pilih Peternak'),
+                              )
+                            : TextField(
+                                controller: controller.idPeternakC,
+                                decoration: InputDecoration(
+                                  labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
