@@ -11,64 +11,69 @@ class MonitoringView extends GetView<MonitoringController> {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(MonitoringController());
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Live Motion Tracking'),
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          // Video Player
-          Positioned.fill(
-            child: Container(
-              // Placeholder for video player
-              color: Colors.black,
-              child: Center(
-                child: controller.videoPlayerController.value.isInitialized
-                    ? Chewie(
+        appBar: AppBar(
+          title: const Text('Live Motion Tracking'),
+          centerTitle: true,
+        ),
+        body: Stack(
+          children: [
+            // Video Player
+            Positioned.fill(
+                child: Container(
+                    color: Colors.black,
+                    child: Center(
+                      child: Chewie(
                         controller: ChewieController(
                           videoPlayerController:
-                              VideoPlayerController.networkUrl(
-                                  Uri.file(controller.videoUrl)),
-
+                              controller.videoControllerJOSSS,
+                          aspectRatio: 9 / 16, // Potret
+                          //
                           autoPlay: true,
                           looping: true,
-                          // And other Chewie options...
+                          // Dan opsi Chewie lainnya...
                         ),
-                      )
-                    : CircularProgressIndicator(),
+                      ),
+                    ))),
+
+            // Data Display
+            Positioned(
+              top: 20,
+              right: 20,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  // Ammonia Data
+                  Obx(() => DataWidget(
+                        label: 'Ammonia',
+                        value: controller.ammonia.value,
+                      )),
+
+                  // Wind Speed Data
+                  Obx(() => DataWidget(
+                        label: 'Wind Speed',
+                        value: controller.windSpeed.value,
+                      )),
+
+                  // Humidity Data
+                  Obx(() => DataWidget(
+                        label: 'Humidity',
+                        value: controller.humidity.value,
+                      )),
+
+                  Obx(() => DataWidget(
+                        label: 'weather',
+                        value: controller.cuaca.value,
+                      )),
+                ],
               ),
             ),
-          ),
-
-          // Data Display
-          Positioned(
-            top: 20,
-            right: 20,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                // Ammonia Data
-                DataWidget(label: 'Ammonia', value: controller.ammonia.value),
-
-                // Wind Speed Data
-                DataWidget(
-                    label: 'Wind Speed', value: controller.windSpeed.value),
-
-                // Humidity Data
-                DataWidget(label: 'Humidity', value: controller.humidity.value),
-
-                DataWidget(label: 'Cuaca', value: controller.cuaca.value),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+          ],
+        ));
   }
 }
 
-// Widget untuk menampilkan data
 class DataWidget extends StatelessWidget {
   final String label;
   final String value;
@@ -101,7 +106,6 @@ class DataWidget extends StatelessWidget {
     );
   }
 }
-
 
 // import 'package:flutter/material.dart';
 
@@ -195,4 +199,3 @@ class DataWidget extends StatelessWidget {
 //     );
 //   }
 // }
-

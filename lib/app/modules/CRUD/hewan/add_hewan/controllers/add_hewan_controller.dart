@@ -30,7 +30,21 @@ class AddHewanController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
+  RxString selectedSpesies = 'Sapi'.obs;
   List<String> genders = ["Jantan", "Betina"];
+  List<String> spesies = [
+    "Banteng",
+    "Domba",
+    "Kambing",
+    "Sapi",
+    "Sapi Brahman",
+    "Sapi Brangus",
+    "Sapi Limosin",
+    "Sapi fh",
+    "Sapi Perah",
+    "Sapi PO",
+    "Sapi Simental"
+  ];
   Rx<File?> fotoHewan = Rx<File?>(null);
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakId = ''.obs;
@@ -256,7 +270,7 @@ class AddHewanController extends GetxController {
         namaPeternakC.text,
         selectedPeternakId.value,
         nikPeternakC.text,
-        spesiesC.text,
+        selectedSpesies.value,
         selectedGender.value,
         umurC.text,
         identifikasiHewanC.text,

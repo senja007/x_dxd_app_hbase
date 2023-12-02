@@ -170,30 +170,32 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.spesiesC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 0),
+                child: Text(
                   "Spesies",
                   style: TextStyle(
                     color: AppColor.secondarySoft,
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Spesies",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
               ),
-            ),
+              DropdownMenu<String>(
+                inputDecorationTheme: InputDecorationTheme(
+                    filled: false, iconColor: Colors.amber),
+                initialSelection: controller.spesies.first,
+                onSelected: (String? value) {
+                  // This is called when the user selects an item.
+                  controller.selectedSpesies.value = value!;
+                },
+                dropdownMenuEntries: controller.spesies
+                    .map<DropdownMenuEntry<String>>((String value) {
+                  return DropdownMenuEntry<String>(value: value, label: value);
+                }).toList(),
+              ),
+            ]),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
