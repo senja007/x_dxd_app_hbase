@@ -34,63 +34,136 @@ class MainMenuView extends GetView<MainMenuController> {
                       color: Color(0xff132137),
                     ),
                   ),
-                  SizedBox(height: 50),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildButton(Routes.HEWAN, 'Hewan', Icons.pets),
-                      SizedBox(width: 30),
-                      buildButton(Routes.PEMILIK, 'Peternak', Icons.person),
-                    ],
-                  ),
                   SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildButton(Routes.PETUGAS, 'Petugas', Icons.people),
-                      SizedBox(width: 30),
-                      buildButton(
-                          Routes.VAKSIN, 'Vaksin', Icons.medical_services),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildButton(
-                          Routes.PENGOBATAN, 'Pengobatan', Icons.healing),
-                      SizedBox(width: 30),
-                      buildButton(
-                          Routes.INSEMINASI, 'Inseminasi', Icons.adjust),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildButton(
-                          Routes.KELAHIRAN, 'Kelahiran', Icons.child_care),
-                      SizedBox(width: 30),
-                      buildButton(Routes.PKB, 'PKB', Icons.work),
-                    ],
-                  ),
-                  SizedBox(height: 30),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      buildButton(
-                          Routes.KANDANG, 'Kandang', Icons.holiday_village),
-                      SizedBox(width: 30),
-                      buildButton(
-                          Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
-                    ],
-                  ),
+                  // Menerapkan kondisi berdasarkan peran pengguna
+                  if (controller.isAdmin.value)
+                    buildAdminMenu()
+                  else if (controller.isPetugas.value)
+                    buildLecturerMenu()
+                  else if (controller.isUser.value)
+                    buildStudentMenu(),
                 ],
               ),
             ),
           ),
         ),
       ),
+    );
+  }
+
+  Widget buildAdminMenu() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        //SizedBox(height: 50),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.HEWAN, 'Hewan', Icons.pets),
+            SizedBox(width: 30),
+            buildButton(Routes.PEMILIK, 'Peternak', Icons.person),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.PETUGAS, 'Petugas', Icons.people),
+            SizedBox(width: 30),
+            buildButton(Routes.VAKSIN, 'Vaksin', Icons.medical_services),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.PENGOBATAN, 'Pengobatan', Icons.healing),
+            SizedBox(width: 30),
+            buildButton(Routes.INSEMINASI, 'Inseminasi', Icons.adjust),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.KELAHIRAN, 'Kelahiran', Icons.child_care),
+            SizedBox(width: 30),
+            buildButton(Routes.PKB, 'PKB', Icons.work),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
+            SizedBox(width: 30),
+            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget buildLecturerMenu() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        //SizedBox(height: 50),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.HEWAN, 'Hewan', Icons.pets),
+            SizedBox(width: 30),
+            buildButton(Routes.VAKSIN, 'Vaksin', Icons.medical_services),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.PENGOBATAN, 'Pengobatan', Icons.healing),
+            SizedBox(width: 30),
+            buildButton(Routes.INSEMINASI, 'Inseminasi', Icons.adjust),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.KELAHIRAN, 'Kelahiran', Icons.child_care),
+            SizedBox(width: 30),
+            buildButton(Routes.PKB, 'PKB', Icons.work),
+          ],
+        ),
+        SizedBox(height: 30),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
+            SizedBox(width: 30),
+            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+          ],
+        ),
+        // ... (Tambahkan menu lain sesuai kebutuhan untuk ROLE_LECTURE)
+      ],
+    );
+  }
+
+  Widget buildStudentMenu() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Tambahkan menu yang hanya terlihat untuk ROLE_STUDENT
+            buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
+            SizedBox(width: 30),
+            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+          ],
+        ),
+        // ... (Tambahkan menu lain sesuai kebutuhan untuk ROLE_STUDENT)
+      ],
     );
   }
 
