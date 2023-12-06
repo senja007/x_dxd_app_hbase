@@ -1,4 +1,7 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -690,31 +693,23 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                child: TextField(
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.umurC,
-                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Umur",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Umur",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Umur",
+                    
                   ),
+                  readOnly: !controller.isEditing
+                      .value, // Memastikan bahwa TextField dapat diedit hanya jika isEditing bernilai true
+                  onTap: () {
+                    if (controller.isEditing.value) {
+                      controller.tanggalLahir(context);
+                    }
+                  },
                 ),
               )),
           Obx(() => Container(
@@ -756,7 +751,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
+          Obx(
+            () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -768,33 +764,70 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.petugasPendaftarC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Petugas Pendaftar",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Nama Petugas",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Petugas Pendaftar",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedPetugasId.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedPetugasId.value,
+                                items: controller.petugasList
+                                    .map((PetugasModel petugass) {
+                                  return DropdownMenuItem<String>(
+                                    value: petugass.namaPetugas ?? '',
+                                    child: Text(petugass.namaPetugas ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  // Update selectedPeternakId
+                                  controller.selectedPetugasId.value =
+                                      selectedId ?? '';
+
+                                  // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                  PetugasModel selectedPetugas =
+                                      controller.petugasList.firstWhere(
+                                    (petugas) =>
+                                        petugas.namaPetugas == selectedId,
+                                    orElse: () =>
+                                        PetugasModel(), // Default value if not found
+                                  );
+
+                                  controller.petugasPendaftarC.text =
+                                      selectedPetugas.namaPetugas ?? '';
+                                  // controller.namaPeternakC.text =
+                                  //     selectedPetugas.namaPeternak ?? '';
+                                },
+                                hint: Text('Pilih Petugas'),
+                              )
+                            : TextField(
+                                controller: controller.petugasPendaftarC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  // labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -807,49 +840,78 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+                child: TextField(
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.tanggalTerdaftarC,
-                  keyboardType: TextInputType.datetime,
                   decoration: InputDecoration(
-                    label: Text(
-                      "Tanggal",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
                     border: InputBorder.none,
-                    hintText: "Tanggal",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
+                    icon: Icon(Icons.calendar_today),
+                    labelText: "Tanggal Terdaftar",
+                    
                   ),
+                  readOnly: !controller.isEditing
+                      .value, // Memastikan bahwa TextField dapat diedit hanya jika isEditing bernilai true
+                  onTap: () {
+                    if (controller.isEditing.value) {
+                      controller.tanggalTerdaftar(context);
+                    }
+                  },
                 ),
               )),
-          Obx(() => Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: controller.isEditing.value
-                    ? Colors.white
-                    : Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: Image.network(
-                '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
-                fit: BoxFit.fill,
-              ))),
+               Obx(() => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+                ),
+                child: Stack(
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        if (controller.isEditing.value) {
+                          controller.pickImage(true); // Fungsi untuk memilih gambar
+                        }
+                      },
+                      child: Obx(() {
+                        // Gunakan nilai fotoKandang dari controller
+                        File? selectedImage = controller.fotoHewan.value;
+                        if (selectedImage != null) {
+                          // Jika ada gambar yang dipilih, tampilkan menggunakan Image.file
+                          return Image.file(
+                            selectedImage,
+                            fit: BoxFit.fill,
+                          );
+                        } else {
+                          // Jika tidak ada gambar yang dipilih, tampilkan menggunakan Image.network
+                          return Image.network(
+                            '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
+                            fit: BoxFit.fill,
+                          );
+                        }
+                      }),
+                    ),
+                    if (controller.isEditing.value)
+                      Positioned(
+                        bottom: 0,
+                        right: 0,
+                        child: IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            controller
+                                .pickImage(false); // Fungsi untuk memilih gambar
+                          },
+                        ),
+                      ),
+                  ],
+                ),
+              )),
           Container(
             width: MediaQuery.of(context).size.width,
             child: Obx(
@@ -944,6 +1006,11 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                     '${position.latitude}, ${position.longitude}';
 
                                 // Mendapatkan alamat dari koordinat
+                                if (controller.isEditing.value) {
+                                  await controller.updateAlamatInfo();
+                                }
+
+                                // Mendapatkan alamat dari koordinat
                                 await controller
                                     .getAddressFromLongLat(position);
                               } catch (e) {
@@ -961,6 +1028,9 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
               ),
             ),
+          ),
+          SizedBox(
+            height: 30,
           ),
 //AND DELETE
           Obx(() {

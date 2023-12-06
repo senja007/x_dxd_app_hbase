@@ -29,8 +29,15 @@ class AddHewanController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs;
+  final formattedDate1 = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
   RxString selectedSpesies = 'Sapi'.obs;
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPetugasId = ''.obs;
+  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
+  Rx<File?> fotoHewan = Rx<File?>(null);
+
   List<String> genders = ["Jantan", "Betina"];
   List<String> spesies = [
     "Banteng",
@@ -45,9 +52,7 @@ class AddHewanController extends GetxController {
     "Sapi PO",
     "Sapi Simental"
   ];
-  Rx<File?> fotoHewan = Rx<File?>(null);
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxString selectedPeternakId = ''.obs;
+
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
@@ -64,7 +69,6 @@ class AddHewanController extends GetxController {
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
-  TextEditingController spesiesC = TextEditingController();
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
   TextEditingController petugasPendaftarC = TextEditingController();
@@ -81,7 +85,7 @@ class AddHewanController extends GetxController {
     namaPeternakC.dispose();
     idPeternakC.dispose();
     nikPeternakC.dispose();
-    spesiesC.dispose();
+   
     umurC.dispose();
     identifikasiHewanC.dispose();
     petugasPendaftarC.dispose();
@@ -95,8 +99,9 @@ class AddHewanController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
+    fetchPetugas();
   }
-
+//GET DATA PETERNAK
   Future<List<PeternakModel>> fetchPeternaks() async {
     try {
       final PeternakListModel peternakListModel =
@@ -114,6 +119,26 @@ class AddHewanController extends GetxController {
     }
   }
 
+//GET DATA PETUGAS
+  Future<List<PetugasModel>> fetchPetugas() async {
+    try {
+      final PetugasListModel petugasListModel =
+          await PetugasApi().loadPetugasApi();
+      final List<PetugasModel> petugass = petugasListModel.content ?? [];
+      if (petugass.isNotEmpty) {
+        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
+      }
+      petugasList.assignAll(petugass);
+      return petugass;
+    } catch (e) {
+      print('Error fetching Petugas: $e');
+      showErrorMessage("Error fetching Petugas: $e");
+      return [];
+    }
+  }
+
+
+//GET LOCATION
   Future<Position> getGeoLocationPosition() async {
     bool serviceEnabled;
     LocationPermission permission;
@@ -254,6 +279,10 @@ class AddHewanController extends GetxController {
         throw "Pilih Peternak terlebih dahulu.";
       }
 
+      if (selectedPetugasId.value.isEmpty) {
+        throw "Pilih Peternak terlebih dahulu.";
+      }
+
       File? fotoHewanFile = fotoHewan.value;
 
       if (fotoHewanFile == null) {
@@ -274,7 +303,7 @@ class AddHewanController extends GetxController {
         selectedGender.value,
         umurC.text,
         identifikasiHewanC.text,
-        petugasPendaftarC.text,
+       selectedPetugasId.value,
         tanggalTerdaftarC.text,
         fotoHewanFile,
         latitude: latitude.value,
@@ -320,7 +349,13 @@ class AddHewanController extends GetxController {
     formattedDate.value = newDate;
   }
 
+  void updateFormattedDate1(String newDate) {
+    formattedDate1.value = newDate;
+  }
+
   late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate1 = DateTime.now();
+  
 
   Future<void> tanggalTerdaftar(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -333,6 +368,20 @@ class AddHewanController extends GetxController {
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
       tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
+  }
+
+   Future<void> tanggalLahir(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate1) {
+      selectedDate1 = picked;
+      umurC.text = DateFormat('dd/MM/yyyy').format(picked);
     }
   }
 }

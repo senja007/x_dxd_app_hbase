@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
@@ -182,18 +183,20 @@ class AddHewanView extends GetView<AddHewanController> {
                   ),
                 ),
               ),
-              DropdownMenu<String>(
-                inputDecorationTheme: InputDecorationTheme(
-                    filled: false, iconColor: Colors.amber),
-                initialSelection: controller.spesies.first,
-                onSelected: (String? value) {
-                  // This is called when the user selects an item.
-                  controller.selectedSpesies.value = value!;
-                },
-                dropdownMenuEntries: controller.spesies
-                    .map<DropdownMenuEntry<String>>((String value) {
-                  return DropdownMenuEntry<String>(value: value, label: value);
-                }).toList(),
+              Obx(() =>
+                 DropdownMenu<String>(
+                  inputDecorationTheme: InputDecorationTheme(
+                      filled: false, iconColor: Colors.amber),
+                  initialSelection: controller.selectedSpesies.value,
+                  onSelected: (String? value) {
+                    // This is called when the user selects an item.
+                    controller.selectedSpesies.value = value!;
+                  },
+                  dropdownMenuEntries: controller.spesies
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(value: value, label: value);
+                  }).toList(),
+                ),
               ),
             ]),
           ),
@@ -245,26 +248,16 @@ class AddHewanView extends GetView<AddHewanController> {
             child: TextField(
               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.umurC,
-              keyboardType: TextInputType.datetime,
+              controller: controller
+                  .umurC, //editing controller of this TextField
               decoration: InputDecoration(
-                label: Text(
-                  "Umur ",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+                  border: InputBorder.none,
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Umur" //label text of field
                   ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Umur ",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalLahir(context),
             ),
           ),
           Container(
@@ -301,7 +294,7 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-          Container(
+         Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: EdgeInsets.only(bottom: 16),
@@ -310,29 +303,37 @@ class AddHewanView extends GetView<AddHewanController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.petugasPendaftarC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Petugas Pendaftar",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Nama Petugas",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Petugas Pendaftar",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    
+                    value: controller.selectedPetugasId.value,
+                    items:
+                        controller.petugasList.map((PetugasModel petugas) {
+                      return DropdownMenuItem<String>(
+                        value: petugas.namaPetugas ?? '',
+                        child: Text(petugas.namaPetugas ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNik) {
+                      controller.selectedPetugasId.value = selectedNik ?? '';
+                    },
+                    hint: Text('Pilih Petugas'),
+                  );
+                }),
+              ],
             ),
           ),
           Container(

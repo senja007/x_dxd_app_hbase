@@ -1,21 +1,26 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class DetailHewanController extends GetxController {
   final HewanController hewanController = Get.put(HewanController());
@@ -23,12 +28,33 @@ class DetailHewanController extends GetxController {
   final Map<String, dynamic> argsData = Get.arguments;
   HewanModel? hewanModel;
   RxBool isLoading = false.obs;
-  RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
+  final formattedDate = ''.obs;
+  final formattedDate1 = ''.obs;
+  RxBool isLoadingCreateTodo = false.obs;
+  RxString selectedGender = 'Jantan'.obs;
+  RxString selectedSpesies = 'Sapi'.obs;
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPetugasId = ''.obs;
+  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
   SharedApi sharedApi = SharedApi();
   RxString selectedPeternakIdInEditMode = ''.obs;
+
+  List<String> genders = ["Jantan", "Betina"];
+  List<String> spesies = [
+    "Banteng",
+    "Domba",
+    "Kambing",
+    "Sapi",
+    "Sapi Brahman",
+    "Sapi Brangus",
+    "Sapi Limosin",
+    "Sapi fh",
+    "Sapi Perah",
+    "Sapi PO",
+    "Sapi Simental"
+  ];
 
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
@@ -101,6 +127,7 @@ class DetailHewanController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
+    fetchPetugas();
     isEditing.value = false;
     //print(fotoHewanC);
     kodeEartagNasionalC.text = argsData["eartag_hewan_detail"];
@@ -132,7 +159,17 @@ class DetailHewanController extends GetxController {
           argsData["nama_peternak_hewan_detail"];
       update();
     });
-
+    // ever(selectedPetugasId, (String? selectedName) {
+    //   // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+    //   PetugasModel? selectedPetugassss = petugasList.firstWhere(
+    //       (petugas) => petugas.namaPetugas == selectedName,
+    //       orElse: () => PetugasModel());
+    //   nikPeternakC.text =
+    //       selectedPetugassss.namaPetugas ?? argsData["petugas_terdaftar_hewan_detail"];
+    //   // namaPeternakC.text = selectedPetugassss.namaPetugas ??
+    //   //     argsData["nama_peternak_hewan_detail"];
+    //   update();
+    // });
     print(argsData["foto_hewan_detail"]);
 
     originalEartag = argsData["eartag_hewan_detail"];
@@ -166,6 +203,24 @@ class DetailHewanController extends GetxController {
     } catch (e) {
       print('Error fetching peternaks: $e');
       showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+  //GET DATA PETUGAS
+  Future<List<PetugasModel>> fetchPetugas() async {
+    try {
+      final PetugasListModel petugasListModel =
+          await PetugasApi().loadPetugasApi();
+      final List<PetugasModel> petugass = petugasListModel.content ?? [];
+      if (petugass.isNotEmpty) {
+        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
+      }
+      petugasList.assignAll(petugass);
+      return petugass;
+    } catch (e) {
+      print('Error fetching Petugas: $e');
+      showErrorMessage("Error fetching Petugas: $e");
       return [];
     }
   }
@@ -250,21 +305,91 @@ class DetailHewanController extends GetxController {
     }
   }
 
-  // Fungsi untuk memilih gambar dari galeri
-  Future<void> pickImage() async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
+  /// Fungsi untuk memilih gambar dari galeri
+  Future<void> pickImage(bool fromCamera) async {
+    final ImageSource source =
+        fromCamera ? ImageSource.camera : ImageSource.gallery;
+    final pickedFile = await ImagePicker().pickImage(source: source);
 
     if (pickedFile != null) {
-      fotoHewan.value = File(pickedFile.path);
+      File imageFile = File(pickedFile.path);
+
+      // Kompresi gambar sebelum menyimpannya
+      File compressedImage = await compressImage(imageFile);
+
+      fotoHewan.value = compressedImage;
       update(); // Perbarui UI setelah memilih gambar
     }
   }
+
+  Future<File> compressImage(File imageFile) async {
+    // Kompresi gambar dengan ukuran tertentu (misalnya, kualitas 85)
+    Uint8List? imageBytes = await FlutterImageCompress.compressWithFile(
+      imageFile.absolute.path,
+      quality: 20, // Sesuaikan dengan kebutuhan kamu
+    );
+
+    // Simpan gambar yang telah dikompresi
+    File compressedImageFile = File('${imageFile.path}_compressed.jpg');
+    await compressedImageFile.writeAsBytes(imageBytes!);
+
+    return compressedImageFile;
+  }
+
+  // // Fungsi untuk memilih gambar dari galeri
+  // Future<void> pickImage() async {
+  //   final pickedFile =
+  //       await ImagePicker().pickImage(source: ImageSource.gallery);
+
+  //   if (pickedFile != null) {
+  //     fotoHewan.value = File(pickedFile.path);
+  //     update(); // Perbarui UI setelah memilih gambar
+  //   }
+  // }
 
   // Fungsi untuk menghapus gambar yang sudah dipilih
   void removeImage() {
     fotoHewan.value = null;
     update(); // Perbarui UI setelah menghapus gambar
+  }
+
+  void updateFormattedDate(String newDate) {
+    formattedDate.value = newDate;
+  }
+
+  void updateFormattedDate1(String newDate) {
+    formattedDate1.value = newDate;
+  }
+
+  late DateTime selectedDate = DateTime.now();
+  late DateTime selectedDate1 = DateTime.now();
+
+  Future<void> tanggalTerdaftar(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate) {
+      selectedDate = picked;
+      tanggalTerdaftarC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
+  }
+
+  Future<void> tanggalLahir(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate1,
+      firstDate: DateTime(2000),
+      lastDate: DateTime(2101),
+    );
+
+    if (picked != null && picked != selectedDate1) {
+      selectedDate1 = picked;
+      umurC.text = DateFormat('dd/MM/yyyy').format(picked);
+    }
   }
 
   Future<void> tombolEdit() async {
@@ -289,7 +414,7 @@ class DetailHewanController extends GetxController {
         kecamatanC.text = originalKecamatan;
         desaC.text = originalDesa;
         namaPeternakC.text = originalNamaPeternak;
-        selectedPeternakId.value = selectedPeternakIdInEditMode.value;
+        selectedPeternakId.value = originalIdPeternak;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         spesiesC.text = originalSpesies;
@@ -335,7 +460,6 @@ class DetailHewanController extends GetxController {
       message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
-        await updateAlamatInfo();
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
           noKartuTernakC.text,
@@ -350,26 +474,41 @@ class DetailHewanController extends GetxController {
           sexC.text,
           umurC.text,
           identifikasiHewanC.text,
-          petugasPendaftarC.text,
+          selectedPetugasId.value,
           tanggalTerdaftarC.text,
           fotoHewan.value,
           latitude: latitude.value,
           longitude: longitude.value,
         );
-        isEditing.value = false;
+        // await updateAlamatInfo();
+        // isEditing.value = false;
 
-        if (hewanModel != null) {
-          if (hewanModel!.status == 201) {
-            showSuccessMessage(
-                "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
-          } else {
-            showErrorMessage("Gagal mengedit Data Hewan ");
-          }
+        // if (hewanModel != null) {
+        //   if (hewanModel!.status == 201) {
+        //     showSuccessMessage(
+        //         "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
+        //   } else {
+        //     showErrorMessage("Gagal mengedit Data Hewan ");
+        //   }
+        // } else {
+        //   // Handle the case where hewanModel is null
+        //   showErrorMessage("Gagal mengedit Data Hewan. Response is null");
+        // }
+
+        // hewanController.reInitialize();
+
+        if (hewanModel != null && hewanModel!.status == 201) {
+          // Jika tagging berhasil, update data dan reset isEditing
+          await updateAlamatInfo();
+          isEditing.value = false;
+          showSuccessMessage(
+              "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
         } else {
-          // Handle the case where hewanModel is null
-          showErrorMessage("Gagal mengedit Data Hewan. Response is null");
+          // Jika tagging gagal, tidak perlu merubah data dan status isEditing
+          showErrorMessage("Gagal mengedit Data Hewan ");
         }
 
+        // Tetap reinitialize jika berhasil atau tidak
         hewanController.reInitialize();
 
         Get.back();
