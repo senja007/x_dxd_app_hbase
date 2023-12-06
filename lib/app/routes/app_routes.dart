@@ -28,6 +28,7 @@ abstract class Routes {
   static const PETUGAS = _Paths.PETUGAS;
   static const KANDANG = _Paths.KANDANG;
   static const MONITORING = _Paths.MONITORING;
+  static const TERNAKSAYA = _Paths.TERNAKSAYA;
 
   // ADD DATA
   static const ADDHEWAN = _Paths.ADDHEWAN;
@@ -79,6 +80,7 @@ abstract class _Paths {
   static const PETUGAS = '/petugas';
   static const KANDANG = '/kandang';
   static const MONITORING = '/monitoring';
+  static const TERNAKSAYA = '/ternak-saya';
 
   // Create read update delete
 

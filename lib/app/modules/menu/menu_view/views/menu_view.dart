@@ -23,18 +23,6 @@ class MainMenuView extends GetView<MainMenuController> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 30),
-                  TyperAnimatedTextKit(
-                    // Widget untuk animasi tulisan diketik
-                    text: ["Semua data Peternakan Lumajang"],
-                    speed: Duration(milliseconds: 100),
-                    textStyle: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Color(0xff132137),
-                    ),
-                  ),
-                  SizedBox(height: 30),
                   // Menerapkan kondisi berdasarkan peran pengguna
                   if (controller.isAdmin.value)
                     buildAdminMenu()
@@ -55,6 +43,18 @@ class MainMenuView extends GetView<MainMenuController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(height: 30),
+        TyperAnimatedTextKit(
+          // Widget untuk animasi tulisan diketik
+          text: ["Semua data Peternakan Lumajang"],
+          speed: Duration(milliseconds: 100),
+          textStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff132137),
+          ),
+        ),
+        SizedBox(height: 30),
         //SizedBox(height: 50),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -108,6 +108,18 @@ class MainMenuView extends GetView<MainMenuController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(height: 30),
+        TyperAnimatedTextKit(
+          // Widget untuk animasi tulisan diketik
+          text: ["Semua data Peternakan Lumajang"],
+          speed: Duration(milliseconds: 100),
+          textStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff132137),
+          ),
+        ),
+        SizedBox(height: 30),
         //SizedBox(height: 50),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -153,13 +165,26 @@ class MainMenuView extends GetView<MainMenuController> {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
+        SizedBox(height: 30),
+        TyperAnimatedTextKit(
+          // Widget untuk animasi tulisan diketik
+          text: ["Semua Data Ternak Saya"],
+          speed: Duration(milliseconds: 100),
+          textStyle: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: Color(0xff132137),
+          ),
+        ),
+        SizedBox(height: 30),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            // Tambahkan menu yang hanya terlihat untuk ROLE_STUDENT
-            buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
             SizedBox(width: 30),
-            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+            // Tambahkan menu yang hanya terlihat untuk ROLE_STUDENT
+            buildButton(Routes.TERNAKSAYA, 'Ternak Saya', Icons.pets_sharp),
+            SizedBox(width: 30),
+            buildButton(Routes.MONITORING, 'Live Monitoring', Icons.monitor),
           ],
         ),
         // ... (Tambahkan menu lain sesuai kebutuhan untuk ROLE_STUDENT)

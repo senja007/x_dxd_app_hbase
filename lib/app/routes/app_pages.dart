@@ -1,5 +1,7 @@
 import 'package:crud_flutter_api/app/modules/menu/monitoring/bindings/monitoring_binding.dart';
 import 'package:crud_flutter_api/app/modules/menu/monitoring/views/monitoring_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/ternak_saya/bindings/ternak_saya_binding.dart';
+import 'package:crud_flutter_api/app/modules/menu/ternak_saya/views/ternak_saya_view.dart';
 import 'package:get/get.dart';
 
 import '../modules/CRUD/hewan/add_hewan/bindings/add_hewan_binding.dart';
@@ -168,8 +170,14 @@ class AppPages {
       binding: MonitoringBinding(),
       transition: Transition.rightToLeft,
     ),
+    GetPage(
+      name: _Paths.TERNAKSAYA,
+      page: () => TernakSayaView(),
+      binding: TernakSayaBinding(),
+      transition: Transition.rightToLeft,
+    ),
 
-    // DDD Data
+    // ADD Data
 
     GetPage(
       name: _Paths.ADDHEWAN,
