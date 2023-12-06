@@ -253,45 +253,67 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                   ),
                 ),
               )),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
-                  child: Text(
-                    "Petugas Pendaftar",
-                    style: TextStyle(
-                      color: AppColor.secondarySoft,
-                      fontSize: 12,
-                    ),
-                  ),
+          Obx(
+            () => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                Obx(() {
-                  return DropdownButton<String>(
-                    value: controller.selectedPetugas.value,
-                    items: controller.petugasList.map((PetugasModel petugas) {
-                      return DropdownMenuItem<String>(
-                        value: petugas.namaPetugas ?? '',
-                        child: Text(petugas.namaPetugas ?? ''),
-                      );
-                    }).toList(),
-                    onChanged: (String? selectedNama) {
-                      controller.selectedPetugas.value = selectedNama ?? '';
-                    },
-                    hint: Text('Pilih Petugas'),
-                  );
-                }),
-              ],
-            ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Nama Petugas",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedPetugas.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedPetugas.value,
+                                items: controller.petugasList
+                                    .map((PetugasModel petugass) {
+                                  return DropdownMenuItem<String>(
+                                    value: petugass.namaPetugas ?? '',
+                                    child: Text(petugass.namaPetugas ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  controller.selectedPetugas.value =
+                                      selectedId ?? '';
+                                },
+                                hint: Text('Pilih Petugas'),
+                              )
+                            : TextField(
+                                controller: controller.petugasPendaftarC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  // labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,

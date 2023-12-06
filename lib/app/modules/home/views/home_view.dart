@@ -192,13 +192,14 @@ class HomeView extends GetView<HomeController> {
                         TileLayer(
                           urlTemplate:
                               'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          subdomains: ['a', 'b', 'c'],
+                          //subdomains: ['a', 'b', 'c'],
                           userAgentPackageName: 'com.duar.app',
                         ),
                         PopupMarkerLayer(
                           options: PopupMarkerLayerOptions(
                             markers: allMarkers,
-                            popupController: controller.popupLayerController, // pastikan Anda memiliki controller untuk popup
+                            popupController: controller
+                                .popupLayerController, // pastikan Anda memiliki controller untuk popup
                             selectedMarkerBuilder:
                                 (BuildContext context, Marker marker) {
                               return Container(

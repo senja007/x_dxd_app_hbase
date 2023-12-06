@@ -602,8 +602,117 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
+          Obx(
+            () => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Spesies",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedSpesies.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedSpesies.value ?? '',
+                                items: controller.spesies.map((String? valll) {
+                                  print(valll);
+                                  return DropdownMenuItem<String>(
+                                    value: valll ?? '',
+                                    child: Text(valll! ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? value) {
+                                  controller.selectedSpesies.value =
+                                      value ?? '';
+                                },
+                                hint: Text('Pilih Spesies'),
+                              )
+                            : TextField(
+                                controller: controller.spesiesC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
+          // Obx(
+          //   () => Container(
+          //     width: MediaQuery.of(context).size.width,
+          //     padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //     margin: EdgeInsets.only(bottom: 16),
+          //     decoration: BoxDecoration(
+          //       color: controller.isEditing.value
+          //           ? Colors.white
+          //           : Colors.grey[200],
+          //       borderRadius: BorderRadius.circular(8),
+          //       border: Border.all(
+          //         width: 1,
+          //         color: AppColor.secondaryExtraSoft,
+          //       ),
+          //     ),
+          //     child: Column(
+          //       crossAxisAlignment: CrossAxisAlignment.start,
+          //       children: [
+          //         Padding(
+          //           padding: EdgeInsets.symmetric(horizontal: 0),
+          //           child: Text(
+          //             "Spesies",
+          //             style: TextStyle(
+          //               color: AppColor.secondarySoft,
+          //               fontSize: 12,
+          //             ),
+          //           ),
+          //         ),
+          //         DropdownMenu<String>(
+          //           inputDecorationTheme: InputDecorationTheme(
+          //             filled: false,
+          //             iconColor: Colors.amber,
+          //           ),
+          //           initialSelection: controller.selectedSpesies.value,
+          //           onSelected: (String? value) {
+          //             controller.selectedSpesies.value = value!;
+          //           },
+          //           dropdownMenuEntries: controller.spesies
+          //               .map<DropdownMenuEntry<String>>((String value) {
+          //             return DropdownMenuEntry<String>(
+          //                 value: value, label: value);
+          //           }).toList(),
+          //         ),
+          //       ],
+          //     ),
+          //   ),
+          // ),
 
-          Obx(() => Container(
+          Obx(
+            () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -615,72 +724,53 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.spesiesC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Spesies",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Sex",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Spesies",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
-          Obx(() => Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: controller.isEditing.value
-                      ? Colors.white
-                      : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-                ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                      fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-                  maxLines: 1,
-                  controller: controller.sexC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Sex",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedGender.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedGender.value ?? '',
+                                items: controller.genders.map((String? valll) {
+                                  print(valll);
+                                  return DropdownMenuItem<String>(
+                                    value: valll ?? '',
+                                    child: Text(valll! ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? value) {
+                                  controller.selectedGender.value = value ?? '';
+                                },
+                                hint: Text('Pilih Jenis Kelamin'),
+                              )
+                            : TextField(
+                                controller: controller.sexC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Sex",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
+                    ])),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -701,7 +791,6 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Umur",
-                    
                   ),
                   readOnly: !controller.isEditing
                       .value, // Memastikan bahwa TextField dapat diedit hanya jika isEditing bernilai true
@@ -792,23 +881,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                   );
                                 }).toList(),
                                 onChanged: (String? selectedId) {
-                                  // Update selectedPeternakId
                                   controller.selectedPetugasId.value =
                                       selectedId ?? '';
-
-                                  // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                                  PetugasModel selectedPetugas =
-                                      controller.petugasList.firstWhere(
-                                    (petugas) =>
-                                        petugas.namaPetugas == selectedId,
-                                    orElse: () =>
-                                        PetugasModel(), // Default value if not found
-                                  );
-
-                                  controller.petugasPendaftarC.text =
-                                      selectedPetugas.namaPetugas ?? '';
-                                  // controller.namaPeternakC.text =
-                                  //     selectedPetugas.namaPeternak ?? '';
                                 },
                                 hint: Text('Pilih Petugas'),
                               )
@@ -848,7 +922,6 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Tanggal Terdaftar",
-                    
                   ),
                   readOnly: !controller.isEditing
                       .value, // Memastikan bahwa TextField dapat diedit hanya jika isEditing bernilai true
@@ -859,7 +932,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   },
                 ),
               )),
-               Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -876,7 +949,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     GestureDetector(
                       onTap: () {
                         if (controller.isEditing.value) {
-                          controller.pickImage(true); // Fungsi untuk memilih gambar
+                          controller
+                              .pickImage(true); // Fungsi untuk memilih gambar
                         }
                       },
                       child: Obx(() {
@@ -904,8 +978,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                         child: IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () {
-                            controller
-                                .pickImage(false); // Fungsi untuk memilih gambar
+                            controller.pickImage(
+                                false); // Fungsi untuk memilih gambar
                           },
                         ),
                       ),

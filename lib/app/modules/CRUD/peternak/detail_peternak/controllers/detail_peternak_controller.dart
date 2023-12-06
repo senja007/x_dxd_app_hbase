@@ -27,6 +27,7 @@ class DetailPeternakController extends GetxController {
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idISIKHNASC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
+  TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalPendaftaranC = TextEditingController();
 
   String originalIdPeternak = "";
@@ -57,8 +58,21 @@ class DetailPeternakController extends GetxController {
     namaPeternakC.text = argsData["namaPeternak"];
     idISIKHNASC.text = argsData["idISIKHNAS"];
     lokasiC.text = argsData["lokasi"];
-    selectedPetugas.value = argsData["petugasPendaftar"];
+    petugasPendaftarC.text = argsData["petugasPendaftar"];
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
+
+    ever(selectedPetugas, (String? selectedName) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugassss = petugasList.firstWhere(
+          (petugas) => petugas.namaPetugas == selectedName,
+          orElse: () => PetugasModel());
+      selectedPetugas.value =
+          selectedPetugassss.namaPetugas ?? argsData["petugasPendaftar"];
+      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
+      //     argsData["nama_peternak_hewan_detail"];
+      print(selectedPetugas.value);
+      update();
+    });
 
     originalIdPeternak = argsData["idPeternak"];
     originalNikPeternak = argsData["nikPeternak"];
@@ -69,19 +83,20 @@ class DetailPeternakController extends GetxController {
     originalTanggalPendaftaran = argsData["tanggalPendaftaran"];
   }
 
+  //GET DATA PETUGAS
   Future<List<PetugasModel>> fetchPetugas() async {
     try {
       final PetugasListModel petugasListModel =
           await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugas = petugasListModel.content ?? [];
-      if (petugas.isNotEmpty) {
-        selectedPetugas.value = petugas.first.namaPetugas ?? '';
+      final List<PetugasModel> petugass = petugasListModel.content ?? [];
+      if (petugass.isNotEmpty) {
+        selectedPetugas.value = petugass.first.namaPetugas ?? '';
       }
-      petugasList.assignAll(petugas);
-      return petugas;
+      petugasList.assignAll(petugass);
+      return petugass;
     } catch (e) {
-      print('Error fetching petugas: $e');
-      showErrorMessage("Error fetching petugas: $e");
+      print('Error fetching Petugas: $e');
+      showErrorMessage("Error fetching Petugas: $e");
       return [];
     }
   }

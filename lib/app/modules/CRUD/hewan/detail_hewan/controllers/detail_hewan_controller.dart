@@ -32,8 +32,8 @@ class DetailHewanController extends GetxController {
   final formattedDate = ''.obs;
   final formattedDate1 = ''.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  RxString selectedGender = 'Jantan'.obs;
-  RxString selectedSpesies = 'Sapi'.obs;
+  RxString selectedGender = ''.obs;
+  RxString selectedSpesies = ''.obs;
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPetugasId = ''.obs;
@@ -128,6 +128,8 @@ class DetailHewanController extends GetxController {
     super.onInit();
     fetchPeternaks();
     fetchPetugas();
+    selectedSpesies(argsData["spesies_hewan_detail"]);
+    selectedGender(argsData["kelamin_hewan_detail"]);
     isEditing.value = false;
     //print(fotoHewanC);
     kodeEartagNasionalC.text = argsData["eartag_hewan_detail"];
@@ -159,18 +161,21 @@ class DetailHewanController extends GetxController {
           argsData["nama_peternak_hewan_detail"];
       update();
     });
-    // ever(selectedPetugasId, (String? selectedName) {
-    //   // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-    //   PetugasModel? selectedPetugassss = petugasList.firstWhere(
-    //       (petugas) => petugas.namaPetugas == selectedName,
-    //       orElse: () => PetugasModel());
-    //   nikPeternakC.text =
-    //       selectedPetugassss.namaPetugas ?? argsData["petugas_terdaftar_hewan_detail"];
-    //   // namaPeternakC.text = selectedPetugassss.namaPetugas ??
-    //   //     argsData["nama_peternak_hewan_detail"];
-    //   update();
-    // });
+    ever(selectedPetugasId, (String? selectedName) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugassss = petugasList.firstWhere(
+          (petugas) => petugas.namaPetugas == selectedName,
+          orElse: () => PetugasModel());
+      selectedPetugasId.value = selectedPetugassss.namaPetugas ??
+          argsData["petugas_terdaftar_hewan_detail"];
+      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
+      //     argsData["nama_peternak_hewan_detail"];
+      print(selectedPetugasId.value);
+      update();
+    });
+
     print(argsData["foto_hewan_detail"]);
+    print(argsData["spesies_hewan_detail"]);
 
     originalEartag = argsData["eartag_hewan_detail"];
     originalKartuTernak = argsData["kartu_hewan_detail"];
@@ -265,6 +270,14 @@ class DetailHewanController extends GetxController {
 
     latitude.value = position.latitude.toString();
     longitude.value = position.longitude.toString();
+
+    // String subLocality = place.subLocality ?? '';
+    // String locality = place.locality ?? '';
+    // String administrativeArea = place.administrativeArea ?? '';
+
+    // String desiredAddress = '$subLocality $locality $administrativeArea';
+
+    // strAlamat.value = desiredAddress.trim();
 
     strAlamat.value =
         '${place.subAdministrativeArea}, ${place.subLocality}, ${place.locality}, '
@@ -470,8 +483,9 @@ class DetailHewanController extends GetxController {
           // namaPeternakC.text
           selectedPeternakId.value,
           // nikPeternakC.text,
-          spesiesC.text,
-          sexC.text,
+          selectedSpesies.value,
+          selectedGender.value,
+
           umurC.text,
           identifikasiHewanC.text,
           selectedPetugasId.value,
