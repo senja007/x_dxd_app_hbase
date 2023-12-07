@@ -102,17 +102,90 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-          // Bagian yang menampilkan field ID Peternak
           Obx(
-            () => Visibility(
-              visible: !controller.isEditing
-                  .value, // Mengatur visibility berdasarkan status editing
-              child: Container(
+            () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
-                  color: Colors.grey[200],
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Id Peternak",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedPeternakId.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedPeternakId.value,
+                                items: controller.peternakList
+                                    .map((PeternakModel peternak) {
+                                  return DropdownMenuItem<String>(
+                                    value: peternak.idPeternak ?? '',
+                                    child: Text(peternak.namaPeternak ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  // Update selectedPeternakId
+                                  controller.selectedPeternakId.value =
+                                      selectedId ?? '';
+
+                                  // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                  PeternakModel selectedPeternak =
+                                      controller.peternakList.firstWhere(
+                                    (peternak) =>
+                                        peternak.idPeternak == selectedId,
+                                    orElse: () =>
+                                        PeternakModel(), // Default value if not found
+                                  );
+
+                                  
+                                  controller.idPeternakC.text =
+                                      selectedPeternak.idPeternak ?? '';
+                                },
+                                hint: Text('Pilih Peternak'),
+                              )
+                            : TextField(
+                                controller: controller.namaPeternakC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  // labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
+          Obx(() => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.grey[200]
+                      : Colors.grey[200],
                   borderRadius: BorderRadius.circular(8),
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
@@ -126,7 +199,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                   maxLines: 1,
                   controller: controller.idPeternakC,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.number,
                   decoration: InputDecoration(
                     label: Text(
                       "ID Peternak",
@@ -146,86 +219,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     ),
                   ),
                 ),
-              ),
-            ),
-          ),
-          Obx(
-            () => Container(
-              width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: controller.isEditing.value
-                    ? Colors.white
-                    : Colors.grey[200],
-                borderRadius: BorderRadius.circular(8),
-                border:
-                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: GestureDetector(
-                  onTap: () {
-                    print("${controller.selectedPeternakId.value}");
-                  },
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 0),
-                          child: Text(
-                            "Nama Peternak",
-                            style: TextStyle(
-                              color: AppColor.secondarySoft,
-                              fontSize: 12,
-                            ),
-                          ),
-                        ),
-                        controller.isEditing.value
-                            ? DropdownButton<String>(
-                                value: controller.selectedPeternakId.value,
-                                items: controller.peternakList
-                                    .map((PeternakModel peternak) {
-                                  return DropdownMenuItem<String>(
-                                    value: peternak.idPeternak ?? '',
-                                    child: Text(peternak.namaPeternak ?? ''),
-                                  );
-                                }).toList(),
-                                onChanged: (String? selectedId) {
-                                  // Update selectedPeternakId
-                                  controller.selectedPeternakId.value =
-                                      selectedId ?? '';
-
-                                  // // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                                  // PeternakModel selectedPeternak =
-                                  //     controller.peternakList.firstWhere(
-                                  //   (peternak) =>
-                                  //       peternak.idPeternak == selectedId,
-                                  //   orElse: () =>
-                                  //       PeternakModel(), // Default value if not found
-                                  // );
-                                  // controller.namaPeternakC.text =
-                                  //     selectedPeternak.namaPeternak ?? '';
-                                },
-                                hint: Text('Pilih Peternak'),
-                              )
-                            : TextField(
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'poppins',
-                                    color: Colors.black),
-                                controller: controller.namaPeternakC,
-                                decoration: InputDecoration(
-                                  // labelText: 'Nama Peternak',
-                                  // labelStyle: TextStyle(
-                                  //   color: AppColor.secondarySoft,
-                                  //   fontSize: 15,
-                                  // ),
-                                  border: InputBorder.none,
-                                ),
-                                readOnly: true,
-                              ),
-                      ])),
-            ),
-          ),
+              )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -551,7 +545,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
+  Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: EdgeInsets.only(bottom: 16),
@@ -568,7 +562,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     GestureDetector(
                       onTap: () {
                         if (controller.isEditing.value) {
-                          controller.pickImage(); // Fungsi untuk memilih gambar
+                          controller
+                              .pickImage(true); // Fungsi untuk memilih gambar
                         }
                       },
                       child: Obx(() {
@@ -596,120 +591,135 @@ class DetailKandangView extends GetView<DetailKandangController> {
                         child: IconButton(
                           icon: Icon(Icons.edit),
                           onPressed: () {
-                            controller
-                                .pickImage(); // Fungsi untuk memilih gambar
+                            controller.pickImage(
+                                false); // Fungsi untuk memilih gambar
                           },
                         ),
                       ),
                   ],
                 ),
               )),
-          Container(
+           Container(
             width: MediaQuery.of(context).size.width,
             child: Obx(
-              () => Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  const Text(
-                    "Titik Kordinat",
-                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
-                  ),
-                  GestureDetector(
-                    child: Text(controller.strLatLong.value),
-                    onLongPress: () {
-                      Clipboard.setData(
-                          ClipboardData(text: controller.strLatLong.value));
-                      final snackBar = SnackBar(
-                        content: const Text("LatLong berhasil disalin!"),
-                        backgroundColor: Colors.green,
-                        action: SnackBarAction(
-                          textColor: Colors.white,
-                          label: "tutup",
-                          onPressed: () {},
-                        ),
-                      );
-                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                    },
-                  ),
-                  const SizedBox(
-                    height: 40,
-                  ),
-                  const Text(
-                    "alamat",
-                    style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
+              () => Visibility(
+                visible: controller.isEditing.value,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    const Text(
+                      "Titik Kordinat",
+                      style:
+                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-                    child: GestureDetector(
-                      child: Text(controller.strAlamat.value),
+                    GestureDetector(
+                      child: Text(controller.strLatLong.value),
                       onLongPress: () {
                         Clipboard.setData(
-                            ClipboardData(text: controller.strAlamat.value));
+                            ClipboardData(text: controller.strLatLong.value));
                         final snackBar = SnackBar(
-                          content: const Text("Alamat Berhasil Disalin!"),
-                          backgroundColor: (Colors.green),
+                          content: const Text("LatLong berhasil disalin!"),
+                          backgroundColor: Colors.green,
                           action: SnackBarAction(
                             textColor: Colors.white,
-                            label: "Tutup",
+                            label: "tutup",
                             onPressed: () {},
                           ),
                         );
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                       },
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  controller.loading.value
-                      ? const Center(child: CircularProgressIndicator())
-                      : ElevatedButton(
-                          style: ButtonStyle(
-                            backgroundColor:
-                                MaterialStateProperty.all(Colors.green),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(25),
-                                side: const BorderSide(color: Colors.green),
+                    const SizedBox(
+                      height: 40,
+                    ),
+                    const Text(
+                      "alamat",
+                      style: TextStyle(
+                        fontSize: 22,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+                      child: GestureDetector(
+                        child: Text(controller.strAlamat.value),
+                        onLongPress: () {
+                          Clipboard.setData(
+                              ClipboardData(text: controller.strAlamat.value));
+                          final snackBar = SnackBar(
+                            content: const Text("Alamat Berhasil Disalin!"),
+                            backgroundColor: (Colors.green),
+                            action: SnackBarAction(
+                              textColor: Colors.white,
+                              label: "Tutup",
+                              onPressed: () {},
+                            ),
+                          );
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    controller.loading.value
+                        ? const Center(child: CircularProgressIndicator())
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all(Colors.green),
+                              shape: MaterialStateProperty.all<
+                                  RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(25),
+                                  side: const BorderSide(color: Colors.green),
+                                ),
                               ),
                             ),
-                          ),
-                          onPressed: () async {
-                            try {
-                              // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
-                              controller.loading.value = true;
+                            onPressed: () async {
+                              try {
+                                // Mengubah status loading menjadi true untuk menunjukkan bahwa proses sedang berlangsung
+                                controller.loading.value = true;
 
-                              // Mendapatkan posisi geolokasi
-                              Position position =
-                                  await controller.getGeoLocationPosition();
+                                // Mendapatkan posisi geolokasi
+                                Position position =
+                                    await controller.getGeoLocationPosition();
 
-                              // Mengubah status loading menjadi false setelah mendapatkan posisi
-                              controller.loading.value = false;
+                                // Mengubah status loading menjadi false setelah mendapatkan posisi
+                                controller.loading.value = false;
 
-                              // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
-                              controller.strLatLong.value =
-                                  '${position.latitude}, ${position.longitude}';
+                                // Memperbarui nilai strLatLong dengan koordinat yang didapatkan
+                                controller.strLatLong.value =
+                                    '${position.latitude}, ${position.longitude}';
 
-                              // Mendapatkan alamat dari koordinat
-                              await controller.getAddressFromLongLat(position);
-                            } catch (e) {
-                              // Handle error jika terjadi kesalahan
-                              print('Error in onPressed: $e');
-                              controller.loading.value =
-                                  false; // Pastikan status loading diubah kembali jika terjadi kesalahan
-                            }
-                          },
-                          child: controller.loading.value
-                              ? const Center(child: CircularProgressIndicator())
-                              : const Text('Tagging Lokasi')),
-                ],
+                                // Mendapatkan alamat dari koordinat
+                                if (controller.isEditing.value) {
+                                  await controller.updateAlamatInfo();
+                                }
+
+                                // Mendapatkan alamat dari koordinat
+                                await controller
+                                    .getAddressFromLongLat(position);
+                              } catch (e) {
+                                // Handle error jika terjadi kesalahan
+                                print('Error in onPressed: $e');
+                                controller.loading.value =
+                                    false; // Pastikan status loading diubah kembali jika terjadi kesalahan
+                              }
+                            },
+                            child: controller.loading.value
+                                ? const Center(
+                                    child: CircularProgressIndicator())
+                                : const Text('Tagging Lokasi')),
+                  ],
+                ),
               ),
             ),
           ),
+          SizedBox(
+            height: 30,
+          ),
+//AND DELETE
           Obx(() {
             return Row(
               mainAxisAlignment: MainAxisAlignment.center,

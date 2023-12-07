@@ -107,7 +107,7 @@ class DetailHewanController extends GetxController {
     kabupatenC.dispose();
     kecamatanC.dispose();
     desaC.dispose();
-    namaPeternakC.dispose();
+    namaPeternakC.dispose(); 
     idPeternakC.dispose();
     nikPeternakC.dispose();
     spesiesC.dispose();
@@ -147,6 +147,8 @@ class DetailHewanController extends GetxController {
     identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
+    latitude.value = argsData["latitude_hewan_detail"];
+    longitude.value = argsData["longitude_hewan_detail"];
     //fotoHewanC.text = argsData["foto_hewan_detail"];
     //fotoHewan.value = File(argsData["foto_hewan_detail"]);
     // Tambahkan listener untuk selectedPeternakId
@@ -193,6 +195,8 @@ class DetailHewanController extends GetxController {
     originalPetugas = argsData["petugas_terdaftar_hewan_detail"];
     originalTanggal = argsData["tanggal_terdaftar_hewan_detail"];
     originalfotoHewan = argsData["foto_hewan_detail"];
+    originalLatitude = argsData["latitude_hewan_detail"];
+    originalLongitude = argsData["longitude_hewan_detail"];
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {

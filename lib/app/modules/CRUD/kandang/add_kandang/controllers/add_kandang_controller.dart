@@ -246,12 +246,11 @@ class AddKandangController extends GetxController {
         latitude: latitude.value,
         longitude: longitude.value,
       );
-      //await updateAlamatInfo();
+      await updateAlamatInfo();
 
       if (kandangModel != null) {
-        if (kandangModel?.status == 201) {
-          final KandangController hewanController =
-              Get.put(KandangController());
+        if (kandangModel!.status == 201) {
+          final KandangController hewanController = Get.put(KandangController());
           hewanController.reInitialize();
           Get.back();
           showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");

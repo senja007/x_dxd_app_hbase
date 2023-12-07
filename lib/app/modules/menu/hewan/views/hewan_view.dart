@@ -79,6 +79,8 @@ class HewanView extends GetView<HewanController> {
                               "tanggal_terdaftar_hewan_detail":
                                   "${postData.tanggalTerdaftar}",
                               "foto_hewan_detail": "${postData.fotoHewan}",
+                              "latitude_hewan_detail": "${postData.latitude}",
+                              "longitude_hewan_detail": "${postData.longitude}",
                             },
                           ),
                         },

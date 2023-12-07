@@ -191,7 +191,7 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         TileLayer(
                           urlTemplate:
-                              'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                           //subdomains: ['a', 'b', 'c'],
                           userAgentPackageName: 'com.duar.app',
                         ),
