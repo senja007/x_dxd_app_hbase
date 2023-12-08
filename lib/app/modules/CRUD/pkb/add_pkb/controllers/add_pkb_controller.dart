@@ -18,6 +18,20 @@ class AddPkbController extends GetxController {
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedSpesies = 'Sapi'.obs;
+  List<String> spesies = [
+    "Banteng",
+    "Domba",
+    "Kambing",
+    "Sapi",
+    "Sapi Brahman",
+    "Sapi Brangus",
+    "Sapi Limosin",
+    "Sapi fh",
+    "Sapi Perah",
+    "Sapi PO",
+    "Sapi Simental"
+  ];
 
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController idHewanC = TextEditingController();
@@ -25,7 +39,7 @@ class AddPkbController extends GetxController {
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController spesiesC = TextEditingController();
+  //TextEditingController spesiesC = TextEditingController();
   TextEditingController umurKebuntinganC = TextEditingController();
   TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
@@ -37,7 +51,7 @@ class AddPkbController extends GetxController {
     jumlahC.dispose();
     kategoriC.dispose();
     lokasiC.dispose();
-    spesiesC.dispose();
+    //spesiesC.dispose();
     umurKebuntinganC.dispose();
     pemeriksaKebuntinganC.dispose();
     tanggalPkbC.dispose();
@@ -76,7 +90,7 @@ class AddPkbController extends GetxController {
           jumlahC.text,
           kategoriC.text,
           lokasiC.text,
-          spesiesC.text,
+          selectedSpesies.value,
           umurKebuntinganC.text,
           pemeriksaKebuntinganC.text,
           tanggalPkbC.text);

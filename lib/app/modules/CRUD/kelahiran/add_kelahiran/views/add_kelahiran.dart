@@ -1,3 +1,5 @@
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
@@ -541,6 +543,40 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               ),
             ),
           ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: TextField(
+          //     style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          //     maxLines: 1,
+          //     controller: controller.idPeternakC,
+          //     keyboardType: TextInputType.text,
+          //     decoration: InputDecoration(
+          //       label: Text(
+          //         "Id peternak",
+          //         style: TextStyle(
+          //           color: AppColor.secondarySoft,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //       floatingLabelBehavior: FloatingLabelBehavior.always,
+          //       border: InputBorder.none,
+          //       hintText: "Id peternak",
+          //       hintStyle: TextStyle(
+          //         fontSize: 14,
+          //         fontFamily: 'poppins',
+          //         fontWeight: FontWeight.w500,
+          //         color: AppColor.secondarySoft,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -550,29 +586,36 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.idPeternakC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Id peternak",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Nama Peternak",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Id peternak",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.selectedPeternakId.value,
+                    items:
+                        controller.peternakList.map((PeternakModel peternak) {
+                      return DropdownMenuItem<String>(
+                        value: peternak.idPeternak ?? '',
+                        child: Text(peternak.namaPeternak ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedId) {
+                      controller.selectedPeternakId.value = selectedId ?? '';
+                    },
+                    hint: Text('Pilih Peternak'),
+                  );
+                }),
+              ],
             ),
           ),
           Container(
@@ -584,63 +627,37 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.namaPeternakC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Nama Peternak",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Petugas Pelapor",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Nama Peternak",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.petugasPelaporC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Petugas Pelapor",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Petugas Pelapor",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    
+                    value: controller.selectedPetugasId.value,
+                    items:
+                        controller.petugasList.map((PetugasModel petugas) {
+                      return DropdownMenuItem<String>(
+                        value: petugas.namaPetugas ?? '',
+                        child: Text(petugas.namaPetugas ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNik) {
+                      controller.selectedPetugasId.value = selectedNik ?? '';
+                    },
+                    hint: Text('Pilih Petugas'),
+                  );
+                }),
+              ],
             ),
           ),
           Container(

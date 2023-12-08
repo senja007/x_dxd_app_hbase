@@ -303,7 +303,7 @@ class AddHewanController extends GetxController {
         selectedGender.value,
         umurC.text,
         identifikasiHewanC.text,
-       selectedPetugasId.value,
+        selectedPetugasId.value,
         tanggalTerdaftarC.text,
         fotoHewanFile,
         latitude: latitude.value,

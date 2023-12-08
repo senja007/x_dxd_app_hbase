@@ -1,7 +1,11 @@
 import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
@@ -15,6 +19,10 @@ class AddkelahiranController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxString selectedGender = 'Jantan'.obs;
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPetugasId = ''.obs;
+  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
   List<String> genders = ["Jantan", "Betina"];
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
@@ -63,6 +71,48 @@ class AddkelahiranController extends GetxController {
     urutanIbC.dispose();
   }
 
+  @override
+  void onInit() {
+    super.onInit();
+    fetchPeternaks();
+    fetchPetugas();
+  }
+//GET DATA PETERNAK
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+//GET DATA PETUGAS
+  Future<List<PetugasModel>> fetchPetugas() async {
+    try {
+      final PetugasListModel petugasListModel =
+          await PetugasApi().loadPetugasApi();
+      final List<PetugasModel> petugass = petugasListModel.content ?? [];
+      if (petugass.isNotEmpty) {
+        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
+      }
+      petugasList.assignAll(petugass);
+      return petugass;
+    } catch (e) {
+      print('Error fetching Petugas: $e');
+      showErrorMessage("Error fetching Petugas: $e");
+      return [];
+    }
+  }
+
   Future addKelahiran(BuildContext context) async {
     try {
       isLoading.value = true;
@@ -70,9 +120,14 @@ class AddkelahiranController extends GetxController {
         throw "ID Kejadian tidak boleh kosong.";
       }
 
-      if (idPeternakC.text.isEmpty) {
-        throw "ID Peternak tidak boleh kosong.";
+      if (selectedPeternakId.value.isEmpty) {
+        throw "Pilih Peternak terlebih dahulu.";
       }
+
+      if (selectedPetugasId.value.isEmpty) {
+        throw "Pilih Peternak terlebih dahulu.";
+      }
+
 
       kelahiranModel = await KelahiranApi().addKelahiranAPI(
         idKejadianC.text,
@@ -80,7 +135,7 @@ class AddkelahiranController extends GetxController {
         tanggalLahirC.text,
         lokasiC.text,
         namaPeternakC.text,
-        idPeternakC.text,
+        selectedPeternakId.value,
         kartuTernakIndukC.text,
         eartagIndukC.text,
         idHewanIndukC.text,
@@ -95,15 +150,15 @@ class AddkelahiranController extends GetxController {
         idHewanAnakC.text,
         selectedGender.value,
         kategoriC.text,
-        petugasPelaporC.text,
+        selectedPetugasId.value,
         urutanIbC.text,
       );
 
       if (kelahiranModel != null) {
         if (kelahiranModel?.status == 201) {
-          final KelahiranController petugasController =
+          final KelahiranController kelahiranController =
               Get.put(KelahiranController());
-          petugasController.reInitialize();
+          kelahiranController.reInitialize();
           Get.back();
           showSuccessMessage("Kelahiran Baru Berhasil ditambahkan");
         } else {

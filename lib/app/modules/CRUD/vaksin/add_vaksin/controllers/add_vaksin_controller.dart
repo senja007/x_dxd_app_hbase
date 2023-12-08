@@ -30,7 +30,7 @@ class AddVaksinController extends GetxController {
   TextEditingController ibLainC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
+  //TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController inseminatorC = TextEditingController();
   TextEditingController tanggalIBC = TextEditingController();
@@ -38,7 +38,7 @@ class AddVaksinController extends GetxController {
   onClose() {
     inseminatorC.dispose();
     tanggalIBC.dispose();
-    namaPeternakC.dispose();
+    //namaPeternakC.dispose();
     lokasiC.dispose();
     produsenC.dispose();
     idPeternakC.dispose();
@@ -97,8 +97,8 @@ class AddVaksinController extends GetxController {
           ib3C.text,
           ibLainC.text,
           produsenC.text,
-          idPeternakC.text,
-          //selectedPeternakId.value,
+          //idPeternakC.text,
+          selectedPeternakId.value,
           lokasiC.text,
           inseminatorC.text,
           tanggalIBC.text);
