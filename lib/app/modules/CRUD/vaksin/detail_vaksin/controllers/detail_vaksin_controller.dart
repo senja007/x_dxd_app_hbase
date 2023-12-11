@@ -1,5 +1,9 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -16,12 +20,18 @@ class DetailVaksinController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
 
+  RxString selectedHewanId = ''.obs;
+  RxList<HewanModel> hewanList = <HewanModel>[].obs;
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPeternakIdInEditMode = ''.obs;
+
   TextEditingController idVaksinC = TextEditingController();
   TextEditingController tanggalIBC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
-  TextEditingController idHewanC = TextEditingController();
+  // TextEditingController idHewanC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
   TextEditingController ib1C = TextEditingController();
   TextEditingController ib2C = TextEditingController();
@@ -57,7 +67,7 @@ class DetailVaksinController extends GetxController {
     lokasiC.dispose();
     namaPeternakC.dispose();
     idPeternakC.dispose();
-    idHewanC.dispose();
+    // idHewanC.dispose();
     eartagC.dispose();
     ib1C.dispose();
     ib2C.dispose();
@@ -73,13 +83,15 @@ class DetailVaksinController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchPeternaks();
+    fetchHewans();
 
     idVaksinC.text = argsData["idVaksin"];
     tanggalIBC.text = argsData["tanggalIB"];
     lokasiC.text = argsData["lokasi"];
-    namaPeternakC.text = argsData["namaPeternak"];
     idPeternakC.text = argsData["idPeternak"];
-    idHewanC.text = argsData["idHewan"];
+    namaPeternakC.text = argsData["namaPeternak"];
+    //idHewanC.text = argsData["idHewan"];
     eartagC.text = argsData["kodeEartagNasional"];
     ib1C.text = argsData["ib1"];
     ib2C.text = argsData["ib2"];
@@ -91,12 +103,32 @@ class DetailVaksinController extends GetxController {
     produsenC.text = argsData["produsen"];
     inseminatorC.text = argsData["inseminator"];
 
+    ever(selectedPeternakId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PeternakModel? selectedPeternak = peternakList.firstWhere(
+          (peternak) => peternak.idPeternak == selectedId,
+          orElse: () => PeternakModel());
+      namaPeternakC.text =
+          selectedPeternak.namaPeternak ?? argsData["namaPeternak"];
+      update();
+    });
+
+    ever(selectedHewanId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      HewanModel? selectedHewan = hewanList.firstWhere(
+          (peternak) => peternak.kodeEartagNasional == selectedId,
+          orElse: () => HewanModel());
+      eartagC.text =
+          selectedHewan.kodeEartagNasional ?? argsData["kodeEartagNasional"];
+      update();
+    });
+
     originalIdVaksin = argsData["idVaksin"];
     originalTanggalIB = argsData["tanggalIB"];
     originalLokasi = argsData["lokasi"];
     originalNamaPeternak = argsData["namaPeternak"];
     originalIdPeternak = argsData["idPeternak"];
-    originalIdHewan = argsData["idHewan"];
+    //originalIdHewan = argsData["idHewan"];
     originalEartag = argsData["kodeEartagNasional"];
     originalIb1 = argsData["ib1"];
     originalIb2 = argsData["ib2"];
@@ -109,8 +141,44 @@ class DetailVaksinController extends GetxController {
     originalInseminator = argsData["inseminator"];
   }
 
+  Future<List<HewanModel>> fetchHewans() async {
+    try {
+      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
+      final List<HewanModel> hewans = hewanListModel.content ?? [];
+      if (hewans.isNotEmpty) {
+        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
+      }
+      hewanList.assignAll(hewans);
+      print(selectedHewanId.value);
+      return hewans;
+    } catch (e) {
+      // print('Error fetching peternaks: $e');
+      // showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      print(selectedPeternakId.value);
+      return peternaks;
+    } catch (e) {
+      // print('Error fetching peternaks: $e');
+      // showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
   Future<void> tombolEdit() async {
     isEditing.value = true;
+    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
     update();
   }
 
@@ -128,7 +196,7 @@ class DetailVaksinController extends GetxController {
         lokasiC.text = originalLokasi;
         namaPeternakC.text = originalNamaPeternak;
         idPeternakC.text = originalIdPeternak;
-        idHewanC.text = originalIdHewan;
+        // idHewanC.text = originalIdHewan;
         eartagC.text = originalEartag;
         ib1C.text = originalIb1;
         ib2C.text = originalIb2;
@@ -177,8 +245,9 @@ class DetailVaksinController extends GetxController {
       onConfirm: () async {
         vaksinModel = await VaksinApi().editVaksinApi(
           idVaksinC.text,
-          eartagC.text,
-          idHewanC.text,
+          selectedHewanId.value,
+          // eartagC.text,
+          //  idHewanC.text,
           idPembuatanC.text,
           idPejantanC.text,
           bangsaPejantanC.text,
@@ -187,7 +256,7 @@ class DetailVaksinController extends GetxController {
           ib3C.text,
           ibLainC.text,
           produsenC.text,
-          idPeternakC.text,
+          selectedPeternakId.value,
           namaPeternakC.text,
           lokasiC.text,
           inseminatorC.text,

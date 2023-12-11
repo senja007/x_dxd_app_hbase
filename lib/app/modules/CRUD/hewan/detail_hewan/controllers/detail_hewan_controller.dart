@@ -33,7 +33,7 @@ class DetailHewanController extends GetxController {
   RxBool isEditing = false.obs;
   final formattedDate = ''.obs;
   final formattedDate1 = ''.obs;
-  RxString alamat = 'ini alamat'.obs;
+  RxString alamat = ''.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxString selectedGender = ''.obs;
   RxString selectedSpesies = ''.obs;
@@ -115,7 +115,7 @@ class DetailHewanController extends GetxController {
     kabupatenC.dispose();
     kecamatanC.dispose();
     desaC.dispose();
-    namaPeternakC.dispose(); 
+    namaPeternakC.dispose();
     idPeternakC.dispose();
     idKandagC.dispose();
     nikPeternakC.dispose();
@@ -138,9 +138,7 @@ class DetailHewanController extends GetxController {
     fetchPeternaks();
     fetchPetugas();
     fetchKandangs();
-    print(fetchKandangs());
-    // alamat.value = strAlamat.value;
-    // update();
+
     selectedSpesies(argsData["spesies_hewan_detail"]);
     selectedGender(argsData["kelamin_hewan_detail"]);
     isEditing.value = false;
@@ -151,12 +149,12 @@ class DetailHewanController extends GetxController {
     kabupatenC.text = argsData["kabupaten_hewan_detail"];
     kecamatanC.text = argsData["kecamatan_hewan_detail"];
     desaC.text = argsData["desa_hewan_detail"];
-    //alamat.value = argsData["alamat_hewan_detail"];
-    namaPeternakC.text = argsData["nama_peternak_hewan_detail"];
+    alamat.value = argsData["alamat_hewan_detail"];
+    //namaPeternakC.text = argsData["nama_peternak_hewan_detail"];
     idPeternakC.text = argsData["id_peternak_hewan_detail"];
-    idKandagC.text = argsData["id_kandang_hewan detail"]; 
+    idKandagC.text = argsData["id_kandang_hewan_detail"];
     //selectedKandangId.value = argsData["id_kandang_hewan_detail"];
-    nikPeternakC.text = argsData["nik_hewan_detail"];
+    //nikPeternakC.text = argsData["nik_hewan_detail"];
     spesiesC.text = argsData["spesies_hewan_detail"];
     sexC.text = argsData["kelamin_hewan_detail"];
     umurC.text = argsData["umur_hewan_detail"];
@@ -179,6 +177,7 @@ class DetailHewanController extends GetxController {
           argsData["nama_peternak_hewan_detail"];
       update();
     });
+
     ever(selectedPetugasId, (String? selectedName) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
       PetugasModel? selectedPetugassss = petugasList.firstWhere(
@@ -197,8 +196,8 @@ class DetailHewanController extends GetxController {
       KandangModel? selectedKandangsss = kandangList.firstWhere(
           (kandang) => kandang.idKandang == selectedids,
           orElse: () => KandangModel());
-      selectedKandangId.value = selectedKandangsss.idKandang ??
-          argsData["id_kandang_hewan_detail"];
+      selectedKandangId.value =
+          selectedKandangsss.idKandang ?? argsData["id_kandang_hewan_detail"];
       // namaPeternakC.text = selectedPetugassss.namaPetugas ??
       //     argsData["nama_peternak_hewan_detail"];
       print(selectedKandangId.value);
@@ -214,10 +213,10 @@ class DetailHewanController extends GetxController {
     originalKabupaten = argsData["kabupaten_hewan_detail"];
     originalKecamatan = argsData["kecamatan_hewan_detail"];
     originalDesa = argsData["desa_hewan_detail"];
-    //originalAlamat = argsData["alamat_hewan_detail"];
+    originalAlamat = argsData["alamat_hewan_detail"];
     originalNamaPeternak = argsData["nama_peternak_hewan_detail"];
     originalIdPeternak = argsData["id_peternak_hewan_detail"];
-    //originalIdKandang = argsData["id_kandang_hewan_detail"];
+    originalIdKandang = argsData["id_kandang_hewan_detail"];
     originalNikPeternak = argsData["nik_hewan_detail"];
     originalSpesies = argsData["spesies_hewan_detail"];
     originalSex = argsData["kelamin_hewan_detail"];
@@ -239,15 +238,16 @@ class DetailHewanController extends GetxController {
         selectedPeternakId.value = peternaks.first.idPeternak ?? '';
       }
       peternakList.assignAll(peternaks);
+      print(selectedPeternakId.value);
       return peternaks;
     } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
+      // print('Error fetching peternaks: $e');
+      // showErrorMessage("Error fetching peternaks: $e");
       return [];
     }
   }
 
-   Future<List<KandangModel>> fetchKandangs() async {
+  Future<List<KandangModel>> fetchKandangs() async {
     try {
       final KandangListModel kandangListModel =
           await KandangApi().loadKandangApi();
@@ -401,17 +401,6 @@ class DetailHewanController extends GetxController {
     return compressedImageFile;
   }
 
-  // // Fungsi untuk memilih gambar dari galeri
-  // Future<void> pickImage() async {
-  //   final pickedFile =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   if (pickedFile != null) {
-  //     fotoHewan.value = File(pickedFile.path);
-  //     update(); // Perbarui UI setelah memilih gambar
-  //   }
-  // }
-
   // Fungsi untuk menghapus gambar yang sudah dipilih
   void removeImage() {
     fotoHewan.value = null;
@@ -481,7 +470,7 @@ class DetailHewanController extends GetxController {
         alamat.value = originalAlamat;
         namaPeternakC.text = originalNamaPeternak;
         selectedPeternakId.value = originalIdPeternak;
-        selectedKandangId.value = originalIdKandang;
+        idKandagC.text = originalIdKandang;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         spesiesC.text = originalSpesies;
@@ -538,7 +527,6 @@ class DetailHewanController extends GetxController {
         print(selectedKandangId);
         print(selectedSpesies);
         print(selectedPetugasId);
-       
 
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
@@ -547,7 +535,7 @@ class DetailHewanController extends GetxController {
           kabupatenC.text,
           kecamatanC.text,
           desaC.text,
-          alamat.value,
+          alamat.value = strAlamat.value,
           // namaPeternakC.text
           selectedPeternakId.value,
           selectedKandangId.value,
@@ -563,22 +551,6 @@ class DetailHewanController extends GetxController {
           latitude: latitude.value,
           longitude: longitude.value,
         );
-        // await updateAlamatInfo();
-        // isEditing.value = false;
-
-        // if (hewanModel != null) {
-        //   if (hewanModel!.status == 201) {
-        //     showSuccessMessage(
-        //         "Berhasil mengedit Hewan dengan ID: ${kodeEartagNasionalC.text}");
-        //   } else {
-        //     showErrorMessage("Gagal mengedit Data Hewan ");
-        //   }
-        // } else {
-        //   // Handle the case where hewanModel is null
-        //   showErrorMessage("Gagal mengedit Data Hewan. Response is null");
-        // }
-
-        // hewanController.reInitialize();
 
         if (hewanModel != null && hewanModel!.status == 201) {
           // Jika tagging berhasil, update data dan reset isEditing

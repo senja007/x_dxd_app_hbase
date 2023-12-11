@@ -88,7 +88,7 @@ class VaksinApi extends SharedApi {
         return VaksinModel.fromJson({
           "status": 201,
           "idVaksin": jsonData['idVaksin'],
-          "eartag": jsonData['eartag'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
           "idPembuatan": jsonData['idPembuatan'],
           "idPejantan": jsonData['idPejantan'],
           "bangsaPejantan": jsonData['bangsaPejantan'],
@@ -115,8 +115,7 @@ class VaksinApi extends SharedApi {
 //EDIT
   Future<VaksinModel?> editVaksinApi(
       String idVaksin,
-      String eartag,
-      String idHewan,
+      String kodeEartagNasional,
       String idPembuatan,
       String idPejantan,
       String bangsaPejantan,
@@ -135,8 +134,7 @@ class VaksinApi extends SharedApi {
       showLoading();
       var bodyDataedit = {
         'idVaksin': idVaksin,
-        'eartag': eartag,
-        'idHewan': idHewan,
+        'kodeEartagNasional': kodeEartagNasional,
         'idPembuatan': idPembuatan,
         'idPejantan': idPejantan,
         'bangsaPejantan': bangsaPejantan,
@@ -165,8 +163,7 @@ class VaksinApi extends SharedApi {
         return VaksinModel.fromJson({
           "status": 201,
           "idVaksin": jsonData['idVaksin'],
-          "eartag": jsonData['eartag'],
-          "idHewan": jsonData['idHewan'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
           "idPembuatan": jsonData['idPembuatan'],
           "idPejantan": jsonData['idPejantan'],
           "bangsaPejantan": jsonData['bangsaPejantan'],

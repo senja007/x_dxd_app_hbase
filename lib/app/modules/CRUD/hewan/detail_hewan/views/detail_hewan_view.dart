@@ -20,7 +20,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text( 
+        title: Text(
           'Detail Hewan',
           style: TextStyle(
             color: Colors.white,
@@ -301,45 +301,46 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
-              // Obx(() => Container(
-              //   width: MediaQuery.of(context).size.width,
-              //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              //   margin: EdgeInsets.only(bottom: 16),
-              //   decoration: BoxDecoration(
-              //     color: controller.isEditing.value
-              //         ? Colors.white
-              //         : Colors.grey[200],
-              //     borderRadius: BorderRadius.circular(8),
-              //     border:
-              //         Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              //   ),
-              //   child: TextFormField(
-              //     enabled: controller.isEditing.value,
-              //     style: TextStyle(
-              //         fontSize: 18, fontFamily: 'poppins', color: Colors.black),
-              //     maxLines: 1,
-              //     controller: TextEditingController(text: controller.alamat.value),
-              //     keyboardType: TextInputType.text,
-              //     decoration: InputDecoration(
-              //       label: Text(
-              //         "Alamat",
-              //         style: TextStyle(
-              //           color: AppColor.secondarySoft,
-              //           fontSize: 15,
-              //         ),
-              //       ),
-              //       floatingLabelBehavior: FloatingLabelBehavior.always,
-              //       border: InputBorder.none,
-              //       hintText: "Alamat",
-              //       hintStyle: TextStyle(
-              //         fontSize: 15,
-              //         fontFamily: 'poppins',
-              //         fontWeight: FontWeight.w500,
-              //         color: AppColor.secondarySoft,
-              //       ),
-              //     ),
-              //   ),
-              // )),
+
+          // Obx(() => Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: controller.isEditing.value
+          //         ? Colors.white
+          //         : Colors.grey[200],
+          //     borderRadius: BorderRadius.circular(8),
+          //     border:
+          //         Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: TextFormField(
+          //     enabled: controller.isEditing.value,
+          //     style: TextStyle(
+          //         fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+          //     maxLines: 1,
+          //     controller: TextEditingController(text: controller.alamat.value),
+          //     keyboardType: TextInputType.text,
+          //     decoration: InputDecoration(
+          //       label: Text(
+          //         "Alamat",
+          //         style: TextStyle(
+          //           color: AppColor.secondarySoft,
+          //           fontSize: 15,
+          //         ),
+          //       ),
+          //       floatingLabelBehavior: FloatingLabelBehavior.always,
+          //       border: InputBorder.none,
+          //       hintText: "Alamat",
+          //       hintStyle: TextStyle(
+          //         fontSize: 15,
+          //         fontFamily: 'poppins',
+          //         fontWeight: FontWeight.w500,
+          //         color: AppColor.secondarySoft,
+          //       ),
+          //     ),
+          //   ),
+          // )),
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
@@ -417,7 +418,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                     ])),
           ),
-           Obx(
+          Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -451,10 +452,10 @@ class DetailHewanView extends GetView<DetailHewanController> {
                             ? DropdownButton<String>(
                                 value: controller.selectedKandangId.value,
                                 items: controller.kandangList
-                                    .map((KandangModel kandangs) {
+                                    .map((KandangModel kandangss) {
                                   return DropdownMenuItem<String>(
-                                    value: kandangs.idKandang ?? '',
-                                    child: Text(kandangs.idKandang ?? ''),
+                                    value: kandangss.idKandang ?? '',
+                                    child: Text(kandangss.desa ?? ''),
                                   );
                                 }).toList(),
                                 onChanged: (String? selectedId) {
