@@ -64,8 +64,8 @@ class VaksinView extends GetView<VaksinController> {
                                   "${postData.idPeternak?.namaPeternak}",
                               "idPeternak":
                                   "${postData.idPeternak?.idPeternak}",
-                              "idHewan": "${postData.idHewan}",
-                              "eartag": "${postData.eartag}",
+                              "kodeEartagNasional":
+                                  "${postData.kodeEartagNasional?.kodeEartagNasional}",
                               "ib1": "${postData.ib1}",
                               "ib2": "${postData.ib2}",
                               "ib3": "${postData.ib3}",
@@ -107,7 +107,7 @@ class VaksinView extends GetView<VaksinController> {
                                   Text(
                                     (postData.status == null)
                                         ? "-"
-                                        : "No Eartag: ${postData.eartag}",
+                                        : "No Eartag: ${postData.kodeEartagNasional?.kodeEartagNasional}",
                                     style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),

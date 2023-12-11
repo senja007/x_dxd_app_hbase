@@ -1,6 +1,8 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -17,6 +19,8 @@ class AddVaksinController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakId = ''.obs;
+  RxList<HewanModel> hewanList = <HewanModel>[].obs;
+  RxString selectedHewanEartag = ''.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   TextEditingController idVaksinC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
@@ -38,7 +42,6 @@ class AddVaksinController extends GetxController {
   onClose() {
     inseminatorC.dispose();
     tanggalIBC.dispose();
-    //namaPeternakC.dispose();
     lokasiC.dispose();
     produsenC.dispose();
     idPeternakC.dispose();
@@ -58,8 +61,25 @@ class AddVaksinController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
+    fetchHewan();
   }
-  
+
+  Future<List<HewanModel>> fetchHewan() async {
+    try {
+      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
+      final List<HewanModel> hewan = hewanListModel.content ?? [];
+      if (hewan.isNotEmpty) {
+        selectedHewanEartag.value = hewan.first.kodeEartagNasional ?? '';
+      }
+      hewanList.assignAll(hewan);
+      return hewan;
+    } catch (e) {
+      print('Error fetching hewan: $e');
+      showErrorMessage("Error fetching hewan: $e");
+      return [];
+    }
+  }
+
   Future<List<PeternakModel>> fetchPeternaks() async {
     try {
       final PeternakListModel peternakListModel =
@@ -76,7 +96,7 @@ class AddVaksinController extends GetxController {
       return [];
     }
   }
-  
+
   Future addPost(BuildContext context) async {
     try {
       isLoading.value = true;
@@ -87,8 +107,7 @@ class AddVaksinController extends GetxController {
 
       vaksinModel = await VaksinApi().addVaksinAPI(
           idVaksinC.text,
-          eartagC.text,
-          idHewanC.text,
+          selectedHewanEartag.value,
           idPembuatanC.text,
           idPejantanC.text,
           bangsaPejantanC.text,

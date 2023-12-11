@@ -36,8 +36,8 @@ class MainMenuController extends GetxController {
     String role = user.role ?? '';
 
     isAdmin.value = role == 'ROLE_ADMINISTRATOR';
-    isPetugas.value = role == 'ROLE_LECTURE';
-    isUser.value = role == 'ROLE_STUDENT';
+    isPetugas.value = role == 'ROLE_PETUGAS';
+    isUser.value = role == 'ROLE_PETERNAK';
 
     // print(isAdmin.value);
     // print(isPetugas.value);

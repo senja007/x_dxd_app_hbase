@@ -80,7 +80,7 @@ class DetailVaksinController extends GetxController {
     namaPeternakC.text = argsData["namaPeternak"];
     idPeternakC.text = argsData["idPeternak"];
     idHewanC.text = argsData["idHewan"];
-    eartagC.text = argsData["eartag"];
+    eartagC.text = argsData["kodeEartagNasional"];
     ib1C.text = argsData["ib1"];
     ib2C.text = argsData["ib2"];
     ib3C.text = argsData["ib3"];
@@ -97,7 +97,7 @@ class DetailVaksinController extends GetxController {
     originalNamaPeternak = argsData["namaPeternak"];
     originalIdPeternak = argsData["idPeternak"];
     originalIdHewan = argsData["idHewan"];
-    originalEartag = argsData["eartag"];
+    originalEartag = argsData["kodeEartagNasional"];
     originalIb1 = argsData["ib1"];
     originalIb2 = argsData["ib2"];
     originalIb3 = argsData["ib3"];

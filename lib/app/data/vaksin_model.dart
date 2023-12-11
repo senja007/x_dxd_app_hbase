@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/hewan_eartag.dart';
 
 class VaksinModel {
   final int? status;
@@ -7,8 +8,7 @@ class VaksinModel {
   final String? lokasi;
   final String? namaPeternak;
   final IdPeternak? idPeternak;
-  final String? idHewan;
-  final String? eartag;
+  final EartagHewan? kodeEartagNasional;
   final String? ib1;
   final String? ib2;
   final String? ib3;
@@ -26,8 +26,7 @@ class VaksinModel {
     this.lokasi,
     this.namaPeternak,
     this.idPeternak,
-    this.idHewan,
-    this.eartag,
+    this.kodeEartagNasional,
     this.ib1,
     this.ib2,
     this.ib3,
@@ -48,8 +47,9 @@ class VaksinModel {
       idPeternak: jsonData['idPeternak'] != null
           ? IdPeternak.fromJson(jsonData['idPeternak'])
           : null,
-      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
-      eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
+      kodeEartagNasional: jsonData['kodeEartagNasional'] != null
+          ? EartagHewan.fromJson(jsonData['kodeEartagNasional'])
+          : null,
       ib1: jsonData['ib1'] != null ? jsonData['ib1'] : "",
       ib2: jsonData['ib2'] != null ? jsonData['ib2'] : "",
       ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",

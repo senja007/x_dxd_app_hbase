@@ -39,8 +39,7 @@ class VaksinApi extends SharedApi {
 //ADD
   Future<VaksinModel?> addVaksinAPI(
       String idVaksin,
-      String eartag,
-      String idHewan,
+      String kodeEartagNasional,
       String idPembuatan,
       String idPejantan,
       String bangsaPejantan,
@@ -59,8 +58,7 @@ class VaksinApi extends SharedApi {
 
       var bodyData = {
         'idVaksin': idVaksin,
-        'eartag': eartag,
-        'idHewan': idHewan,
+        'kodeEartagNasional': kodeEartagNasional,
         'idPembuatan': idPembuatan,
         'idPejantan': idPejantan,
         'bangsaPejantan': bangsaPejantan,
@@ -91,7 +89,6 @@ class VaksinApi extends SharedApi {
           "status": 201,
           "idVaksin": jsonData['idVaksin'],
           "eartag": jsonData['eartag'],
-          "idHewan": jsonData['idHewan'],
           "idPembuatan": jsonData['idPembuatan'],
           "idPejantan": jsonData['idPejantan'],
           "bangsaPejantan": jsonData['bangsaPejantan'],

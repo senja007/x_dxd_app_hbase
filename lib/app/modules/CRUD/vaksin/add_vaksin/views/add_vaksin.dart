@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
@@ -76,73 +77,45 @@ class AddVaksinView extends GetView<AddVaksinController> {
             ),
           ),
           Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.eartagC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "No Eartag Nasional",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "No Eartag Nasional",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
+              width: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
               ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.idHewanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Id Hewan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Id Hewan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 0),
+                      child: Text(
+                        "Kode Eartag Nasional",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Obx(() {
+                      return DropdownButton<String>(
+                        value: controller.selectedHewanEartag.value,
+                        items: controller.hewanList.map((HewanModel hewan) {
+                          return DropdownMenuItem<String>(
+                            value: hewan.kodeEartagNasional ?? '',
+                            child: Text(hewan.kodeEartagNasional ?? ''),
+                          );
+                        }).toList(),
+                        onChanged: (String? selectedEartag) {
+                          controller.selectedHewanEartag.value =
+                              selectedEartag ?? '';
+                        },
+                        hint: Text('Pilih Kode Eartag Nasional'),
+                      );
+                    })
+                  ])),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -460,37 +433,36 @@ class AddVaksinView extends GetView<AddVaksinController> {
                     Border.all(width: 1, color: AppColor.secondaryExtraSoft),
               ),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 0),
-                    child: Text(
-                      "Nama Peternak",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 12,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 0),
+                      child: Text(
+                        "Nama Peternak",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 12,
+                        ),
                       ),
                     ),
-                  ),
-                  Obx(() {
-                    return DropdownButton<String>(
-                      value: controller.selectedPeternakId.value,
-                      items: controller.peternakList.map((PeternakModel peternak) {
-                        return DropdownMenuItem<String>(
-                          value: peternak.idPeternak ?? '',
-                          child: Text(peternak.namaPeternak ?? ''),
-                        );
-                      }).toList(),
-                      onChanged: (String? selectedId) {
-                        controller.selectedPeternakId.value = selectedId ?? '';
-                      },
-                      hint: Text('Pilih Peternak'),
+                    Obx(() {
+                      return DropdownButton<String>(
+                        value: controller.selectedPeternakId.value,
+                        items: controller.peternakList
+                            .map((PeternakModel peternak) {
+                          return DropdownMenuItem<String>(
+                            value: peternak.idPeternak ?? '',
+                            child: Text(peternak.namaPeternak ?? ''),
+                          );
+                        }).toList(),
+                        onChanged: (String? selectedId) {
+                          controller.selectedPeternakId.value =
+                              selectedId ?? '';
+                        },
+                        hint: Text('Pilih Peternak'),
                       );
-                    }
-                  )
-                ]
-              )
-          ),
+                    })
+                  ])),
           // Container(
           //   width: MediaQuery.of(context).size.width,
           //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),

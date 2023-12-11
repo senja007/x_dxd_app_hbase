@@ -144,49 +144,6 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                   ),
                 ),
               )),
-          // Id Hewan
-          Obx(() => Container(
-                width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: controller.isEditing.value
-                      ? Colors.white
-                      : Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8),
-                  border:
-                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-                ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                  ),
-                  maxLines: 1,
-                  controller: controller.idHewanC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Id Hewan",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 15,
-                      ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Id Hewan",
-                    hintStyle: TextStyle(
-                      fontSize: 15,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
           // Id Pembuatan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
