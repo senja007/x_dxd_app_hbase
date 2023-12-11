@@ -2,10 +2,12 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/kandang_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
@@ -31,6 +33,7 @@ class DetailHewanController extends GetxController {
   RxBool isEditing = false.obs;
   final formattedDate = ''.obs;
   final formattedDate1 = ''.obs;
+  RxString alamat = 'ini alamat'.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxString selectedGender = ''.obs;
   RxString selectedSpesies = ''.obs;
@@ -38,6 +41,8 @@ class DetailHewanController extends GetxController {
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPetugasId = ''.obs;
   RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
+  RxString selectedKandangId = ''.obs;
+  RxList<KandangModel> kandangList = <KandangModel>[].obs;
   SharedApi sharedApi = SharedApi();
   RxString selectedPeternakIdInEditMode = ''.obs;
 
@@ -72,6 +77,7 @@ class DetailHewanController extends GetxController {
   TextEditingController desaC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
+  TextEditingController idKandagC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController spesiesC = TextEditingController();
   TextEditingController sexC = TextEditingController();
@@ -86,8 +92,10 @@ class DetailHewanController extends GetxController {
   String originalKabupaten = "";
   String originalKecamatan = "";
   String originalDesa = "";
+  String originalAlamat = "";
   String originalNamaPeternak = "";
   String originalIdPeternak = "";
+  String originalIdKandang = "";
   String originalNikPeternak = "";
   String originalSpesies = "";
   String originalSex = "";
@@ -109,6 +117,7 @@ class DetailHewanController extends GetxController {
     desaC.dispose();
     namaPeternakC.dispose(); 
     idPeternakC.dispose();
+    idKandagC.dispose();
     nikPeternakC.dispose();
     spesiesC.dispose();
     sexC.dispose();
@@ -128,6 +137,10 @@ class DetailHewanController extends GetxController {
     super.onInit();
     fetchPeternaks();
     fetchPetugas();
+    fetchKandangs();
+    print(fetchKandangs());
+    // alamat.value = strAlamat.value;
+    // update();
     selectedSpesies(argsData["spesies_hewan_detail"]);
     selectedGender(argsData["kelamin_hewan_detail"]);
     isEditing.value = false;
@@ -138,8 +151,11 @@ class DetailHewanController extends GetxController {
     kabupatenC.text = argsData["kabupaten_hewan_detail"];
     kecamatanC.text = argsData["kecamatan_hewan_detail"];
     desaC.text = argsData["desa_hewan_detail"];
+    //alamat.value = argsData["alamat_hewan_detail"];
     namaPeternakC.text = argsData["nama_peternak_hewan_detail"];
     idPeternakC.text = argsData["id_peternak_hewan_detail"];
+    idKandagC.text = argsData["id_kandang_hewan detail"]; 
+    //selectedKandangId.value = argsData["id_kandang_hewan_detail"];
     nikPeternakC.text = argsData["nik_hewan_detail"];
     spesiesC.text = argsData["spesies_hewan_detail"];
     sexC.text = argsData["kelamin_hewan_detail"];
@@ -176,6 +192,19 @@ class DetailHewanController extends GetxController {
       update();
     });
 
+    ever(selectedKandangId, (String? selectedids) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      KandangModel? selectedKandangsss = kandangList.firstWhere(
+          (kandang) => kandang.idKandang == selectedids,
+          orElse: () => KandangModel());
+      selectedKandangId.value = selectedKandangsss.idKandang ??
+          argsData["id_kandang_hewan_detail"];
+      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
+      //     argsData["nama_peternak_hewan_detail"];
+      print(selectedKandangId.value);
+      update();
+    });
+
     print(argsData["foto_hewan_detail"]);
     print(argsData["spesies_hewan_detail"]);
 
@@ -185,8 +214,10 @@ class DetailHewanController extends GetxController {
     originalKabupaten = argsData["kabupaten_hewan_detail"];
     originalKecamatan = argsData["kecamatan_hewan_detail"];
     originalDesa = argsData["desa_hewan_detail"];
+    //originalAlamat = argsData["alamat_hewan_detail"];
     originalNamaPeternak = argsData["nama_peternak_hewan_detail"];
     originalIdPeternak = argsData["id_peternak_hewan_detail"];
+    //originalIdKandang = argsData["id_kandang_hewan_detail"];
     originalNikPeternak = argsData["nik_hewan_detail"];
     originalSpesies = argsData["spesies_hewan_detail"];
     originalSex = argsData["kelamin_hewan_detail"];
@@ -209,6 +240,23 @@ class DetailHewanController extends GetxController {
       }
       peternakList.assignAll(peternaks);
       return peternaks;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+   Future<List<KandangModel>> fetchKandangs() async {
+    try {
+      final KandangListModel kandangListModel =
+          await KandangApi().loadKandangApi();
+      final List<KandangModel> kandangs = kandangListModel.content ?? [];
+      if (kandangs.isNotEmpty) {
+        selectedKandangId.value = kandangs.first.idKandang ?? '';
+      }
+      kandangList.assignAll(kandangs);
+      return kandangs;
     } catch (e) {
       print('Error fetching peternaks: $e');
       showErrorMessage("Error fetching peternaks: $e");
@@ -430,8 +478,10 @@ class DetailHewanController extends GetxController {
         kabupatenC.text = originalKabupaten;
         kecamatanC.text = originalKecamatan;
         desaC.text = originalDesa;
+        alamat.value = originalAlamat;
         namaPeternakC.text = originalNamaPeternak;
         selectedPeternakId.value = originalIdPeternak;
+        selectedKandangId.value = originalIdKandang;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         spesiesC.text = originalSpesies;
@@ -477,6 +527,19 @@ class DetailHewanController extends GetxController {
       message: "Apakah anda ingin mengedit data ini data Petugas ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
+        print(kodeEartagNasionalC);
+        print(noKartuTernakC);
+        print(provinsiC);
+        print(kabupatenC);
+        print(kecamatanC);
+        print(desaC);
+        print(alamat);
+        print(selectedPeternakId);
+        print(selectedKandangId);
+        print(selectedSpesies);
+        print(selectedPetugasId);
+       
+
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
           noKartuTernakC.text,
@@ -484,8 +547,10 @@ class DetailHewanController extends GetxController {
           kabupatenC.text,
           kecamatanC.text,
           desaC.text,
+          alamat.value,
           // namaPeternakC.text
           selectedPeternakId.value,
+          selectedKandangId.value,
           // nikPeternakC.text,
           selectedSpesies.value,
           selectedGender.value,

@@ -63,10 +63,12 @@ class HewanView extends GetView<HewanController> {
                               "kabupaten_hewan_detail": "${postData.kabupaten}",
                               "kecamatan_hewan_detail": "${postData.kecamatan}",
                               "desa_hewan_detail": "${postData.desa}",
+                              "alamat_hewan_detail": "${postData.alamat}",
                               "nama_peternak_hewan_detail":
                                   "${postData.idPeternak?.namaPeternak}",
                               "id_peternak_hewan_detail":
                                   "${postData.idPeternak?.idPeternak}",
+                                  "id_kandang_hewan detail": "${postData.idKandang?.idKandang}",
                               "nik_hewan_detail":
                                   "${postData.idPeternak?.nikPeternak}",
                               "spesies_hewan_detail": "${postData.spesies}",

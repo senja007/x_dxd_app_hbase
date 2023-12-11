@@ -7,8 +7,10 @@ class HewanModel {
   final String? kabupaten;
   final String? kecamatan;
   final String? desa;
+  final String? alamat;
   final String? namaPeternak;
   final IdPeternak? idPeternak;
+  final IdKandang? idKandang;
   final String? nikPeternak;
   final String? spesies;
   final String? sex;
@@ -30,8 +32,10 @@ class HewanModel {
     this.kabupaten,
     this.kecamatan,
     this.desa,
+    this.alamat,
     this.namaPeternak,
     this.idPeternak,
+    this.idKandang,
     this.nikPeternak,
     this.spesies,
     this.sex,
@@ -58,7 +62,8 @@ class HewanModel {
       desa: jsonData['desa'] != null ? jsonData['desa'] : "",
       namaPeternak:
           jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      idPeternak: jsonData['idPeternak'] != null ? IdPeternak.fromJson(jsonData['idPeternak']) : null,
+      idPeternak: jsonData['idPeternak'] != null ? IdPeternak.fromJson(jsonData['idPeternak']): null,
+      idKandang: jsonData['idKandang'] != null ? IdKandang.fromJson(jsonData['idKandang']): null,
       nikPeternak:
           jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
       spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
@@ -160,5 +165,81 @@ class IdPeternak {
         "lokasi": lokasi,
         "petugasPendaftar": petugasPendaftar,
         "tanggalPendaftaran": tanggalPendaftaran,
+      };
+}
+
+class IdKandang {
+  DateTime createdAt;
+  DateTime updatedAt;
+  int createdBy;
+  int updatedBy;
+  String idKandang;
+  String luas;
+  String kapasitas;
+  String nilaiBangunan;
+  String alamat;
+  String desa;
+  String kecamatan;
+  String kabupaten;
+  String provinsi;
+  String fotoKandang;
+  String latitude;
+  String longitude;
+
+  IdKandang({
+    required this.createdAt,
+    required this.updatedAt,
+    required this.createdBy,
+    required this.updatedBy,
+    required this.idKandang,
+    required this.luas,
+    required this.kapasitas,
+    required this.nilaiBangunan,
+    required this.alamat,
+    required this.desa,
+    required this.kecamatan,
+    required this.kabupaten,
+    required this.provinsi,
+    required this.fotoKandang,
+    required this.latitude,
+    required this.longitude,
+  });
+
+  factory IdKandang.fromJson(Map<String, dynamic> json) => IdKandang(
+        createdAt: DateTime.parse(json["createdAt"]),
+        updatedAt: DateTime.parse(json["updatedAt"]),
+        createdBy: json["createdBy"],
+        updatedBy: json["updatedBy"],
+        idKandang: json["idKandang"],
+        luas: json["luas"],
+        kapasitas: json["kapasitas"],
+        nilaiBangunan: json["nilaiBangunan"],
+        alamat: json["alamat"],
+        desa: json["desa"],
+        kecamatan: json["kecamatan"],
+        kabupaten: json["kabupaten"],
+        provinsi: json["provinsi"],
+        fotoKandang: json["fotoKandang"],
+        latitude: json["latitude"],
+        longitude: json["longitude"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "createdAt": createdAt.toIso8601String(),
+        "updatedAt": updatedAt.toIso8601String(),
+        "createdBy": createdBy,
+        "updatedBy": updatedBy,
+        "idKandang": idKandang,
+        "luas": luas,
+        "kapasitas": kapasitas,
+        "nilaiBangunan": nilaiBangunan,
+        "alamat": alamat,
+        "desa": desa,
+        "kecamatan": kecamatan,
+        "kabupaten": kabupaten,
+        "provinsi": provinsi,
+        "fotoKandang": fotoKandang,
+        "latitude": latitude,
+        "longitude": longitude,
       };
 }

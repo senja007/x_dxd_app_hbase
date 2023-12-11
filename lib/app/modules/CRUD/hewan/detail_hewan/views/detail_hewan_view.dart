@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
@@ -300,6 +301,45 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ),
                 ),
               )),
+              // Obx(() => Container(
+              //   width: MediaQuery.of(context).size.width,
+              //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+              //   margin: EdgeInsets.only(bottom: 16),
+              //   decoration: BoxDecoration(
+              //     color: controller.isEditing.value
+              //         ? Colors.white
+              //         : Colors.grey[200],
+              //     borderRadius: BorderRadius.circular(8),
+              //     border:
+              //         Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              //   ),
+              //   child: TextFormField(
+              //     enabled: controller.isEditing.value,
+              //     style: TextStyle(
+              //         fontSize: 18, fontFamily: 'poppins', color: Colors.black),
+              //     maxLines: 1,
+              //     controller: TextEditingController(text: controller.alamat.value),
+              //     keyboardType: TextInputType.text,
+              //     decoration: InputDecoration(
+              //       label: Text(
+              //         "Alamat",
+              //         style: TextStyle(
+              //           color: AppColor.secondarySoft,
+              //           fontSize: 15,
+              //         ),
+              //       ),
+              //       floatingLabelBehavior: FloatingLabelBehavior.always,
+              //       border: InputBorder.none,
+              //       hintText: "Alamat",
+              //       hintStyle: TextStyle(
+              //         fontSize: 15,
+              //         fontFamily: 'poppins',
+              //         fontWeight: FontWeight.w500,
+              //         color: AppColor.secondarySoft,
+              //       ),
+              //     ),
+              //   ),
+              // )),
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
@@ -363,6 +403,68 @@ class DetailHewanView extends GetView<DetailHewanController> {
                               )
                             : TextField(
                                 controller: controller.idPeternakC,
+                                style: TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: InputDecoration(
+                                  // labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
+           Obx(
+            () => Container(
+                width: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: EdgeInsets.only(bottom: 16),
+                decoration: BoxDecoration(
+                  color: controller.isEditing.value
+                      ? Colors.white
+                      : Colors.grey[200],
+                  borderRadius: BorderRadius.circular(8),
+                  border:
+                      Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+                ),
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "ID Kandang",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          print("${controller.selectedKandangId.value}");
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller.selectedKandangId.value,
+                                items: controller.kandangList
+                                    .map((KandangModel kandangs) {
+                                  return DropdownMenuItem<String>(
+                                    value: kandangs.idKandang ?? '',
+                                    child: Text(kandangs.idKandang ?? ''),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectedId) {
+                                  controller.selectedKandangId.value =
+                                      selectedId ?? '';
+                                },
+                                hint: Text('Pilih Kandang'),
+                              )
+                            : TextField(
+                                controller: controller.idKandagC,
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
@@ -941,6 +1043,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                 // Mendapatkan alamat dari koordinat
                                 if (controller.isEditing.value) {
                                   await controller.updateAlamatInfo();
+                                  controller.update();
                                 }
 
                                 // Mendapatkan alamat dari koordinat

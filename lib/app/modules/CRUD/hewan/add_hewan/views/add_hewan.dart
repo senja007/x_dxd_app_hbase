@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
@@ -157,6 +158,48 @@ class AddHewanView extends GetView<AddHewanController> {
                       controller.selectedPeternakId.value = selectedId ?? '';
                     },
                     hint: Text('Pilih Peternak'),
+                  );
+                }),
+              ],
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Nama Kandang",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
+                  ),
+                ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    
+                    value: controller.selectedKandangId.value,
+                    items:
+                        controller.kandangList.map((KandangModel kandang) {
+                      return DropdownMenuItem<String>(
+                        value: kandang.idKandang ?? '',
+                        child: Text(kandang.desa ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNik) {
+                      controller.selectedKandangId.value = selectedNik ?? '';
+                    },
+                    hint: Text('Pilih Kandang'),
                   );
                 }),
               ],

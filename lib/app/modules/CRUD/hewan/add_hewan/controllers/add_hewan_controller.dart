@@ -1,13 +1,16 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/kandang_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -30,12 +33,15 @@ class AddHewanController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs;
   final formattedDate1 = ''.obs;
+  RxString alamat = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
   RxString selectedSpesies = 'Sapi'.obs;
   RxString selectedPeternakId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPetugasId = ''.obs;
   RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
+    RxString selectedKandangId = ''.obs;
+  RxList<KandangModel> kandangList = <KandangModel>[].obs;
   Rx<File?> fotoHewan = Rx<File?>(null);
 
   List<String> genders = ["Jantan", "Betina"];
@@ -100,6 +106,7 @@ class AddHewanController extends GetxController {
     super.onInit();
     fetchPeternaks();
     fetchPetugas();
+    fetchKandangs();
   }
 //GET DATA PETERNAK
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -136,6 +143,26 @@ class AddHewanController extends GetxController {
       return [];
     }
   }
+
+//GET DATA PETERNAK
+  Future<List<KandangModel>> fetchKandangs() async {
+    try {
+      final KandangListModel kandangListModel =
+          await KandangApi().loadKandangApi();
+      final List<KandangModel> kandangs = kandangListModel.content ?? [];
+      if (kandangs.isNotEmpty) {
+        selectedKandangId.value = kandangs.first.idKandang ?? '';
+      }
+      kandangList.assignAll(kandangs);
+      return kandangs;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+ 
+
 
 
 //GET LOCATION
@@ -296,9 +323,12 @@ class AddHewanController extends GetxController {
         kabupatenC.text,
         kecamatanC.text,
         desaC.text,
-        namaPeternakC.text,
+        alamat.value =strAlamat.value,
+        //namaPeternakC.text,
         selectedPeternakId.value,
-        nikPeternakC.text,
+        selectedKandangId.value,
+  
+       // nikPeternakC.text,
         selectedSpesies.value,
         selectedGender.value,
         umurC.text,
