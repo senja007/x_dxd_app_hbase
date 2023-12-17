@@ -212,7 +212,27 @@ class HomeView extends GetView<HomeController> {
                     );
                   }),
                 ),
-
+                SizedBox(height: 3),
+                Obx(() => Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        _buildMiniCardWidget(
+                            //"assets/images/cow.png",
+                            "${controller.posts1!.value.totalElements ?? 0}",
+                            "KRB 1"),
+                        SizedBox(width: 3),
+                        _buildMiniCardWidget(
+                            // "assets/images/man.png",
+                            "${controller.posts2!.value.totalElements ?? 0}",
+                            "KRB 2"),
+                        SizedBox(width: 3),
+                        _buildMiniCardWidget(
+                            // "assets/images/man.png",
+                            "${controller.posts2!.value.totalElements ?? 0}",
+                            "KRB 3"),
+                      ],
+                    )),
+                SizedBox(height: 7),
                 Padding(
                     padding: EdgeInsets.all(5),
                     child: Container(
@@ -280,6 +300,53 @@ class HomeView extends GetView<HomeController> {
                 // Other widgets...
               ],
             ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMiniCardWidget(String count, String label) {
+    return SizedBox(
+      width: 120.0,
+      height: 60.0,
+      child: Card(
+        color: Color(0xff132137),
+        elevation: 2.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: InkWell(
+          // onTap: () => Navigator.pushNamed(
+          //     AddHewanController() as BuildContext, '/homePage'),
+          child: Column(
+            children: [
+              // Padding(
+              //   padding: EdgeInsets.all(13.0), // Add top padding here
+              //   child: Image.asset(
+              //     imagePath,
+              //     width: 70.0,
+              //   ),
+              // ),
+              SizedBox(height: 2.0),
+              Text(
+                count,
+                style: TextStyle(
+                  color: Color(0xffF7EBE1),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+              SizedBox(height: 2.0),
+              Text(
+                label,
+                style: TextStyle(
+                  color: Color.fromARGB(255, 137, 255, 143),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            ],
           ),
         ),
       ),
