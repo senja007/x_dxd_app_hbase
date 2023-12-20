@@ -6,7 +6,7 @@ class InseminasiModel {
   final String? lokasi;
   final IdPeternak? idPeternak;
   final String? idHewan;
-  final String? eartag;
+  final HewanModel? eartag;
   final String? ib1;
   final String? ib2;
   final String? ib3;
@@ -43,7 +43,9 @@ class InseminasiModel {
       status: jsonData['status'] != null ? jsonData['status'] : 0,
       idInseminasi:
           jsonData['idInseminasi'] != null ? jsonData['idInseminasi'] : "",
-      eartag: jsonData['eartag'] != null ? jsonData['eartag'] : "",
+      eartag: jsonData['eartag'] != null
+          ? HewanModel.fromJson(jsonData['eartag'])
+          : null,
       idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
       idPembuatan:
           jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",

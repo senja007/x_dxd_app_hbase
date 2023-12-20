@@ -478,7 +478,8 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
                         controller.peternakList.map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
-                        child: Text(peternak.namaPeternak ?? ''),
+                        child: Text('${peternak.namaPeternak ?? ''}' '   ${peternak.nikPeternak ?? ''}' ),
+                        
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
