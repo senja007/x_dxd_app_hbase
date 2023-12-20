@@ -15,20 +15,23 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:latlong2/latlong.dart';
 
 class HomeController extends GetxController {
+  late BannerAd bannerAd;
+
   // PetugasListModel? posts;
   // HewanListModel? posts1;
   // PeternakListModel? posts2;
 
-  LatLng centerSemeru = LatLng(-8.1067727,112.9209181); // Koordinat pusat Gunung Semeru
-double radiusKRB = 100; // Radius wilayah KRB dalam meter
+  LatLng centerSemeru =
+      LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
+  double radiusKRB = 100; // Radius wilayah KRB dalam meter
 
-List<LatLng>? krbBoundary;
+  List<LatLng>? krbBoundary;
 
 // Gunakan krbBoundary dalam Flutter Map atau tujuan lainnya
-
 
   Rx<PetugasListModel> posts = PetugasListModel().obs;
   Rx<HewanListModel> posts1 = HewanListModel().obs;
@@ -42,6 +45,7 @@ List<LatLng>? krbBoundary;
 
   @override
   HomeController() {
+    loadBannerAd();
     krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
     // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
@@ -49,6 +53,16 @@ List<LatLng>? krbBoundary;
     loadPeternakData();
     loadKandangData();
     super.onInit();
+  }
+  void loadBannerAd() {
+    bannerAd = BannerAd(
+      adUnitId: 'ca-app-pub-6237408663282103/4857843118',
+      size: AdSize.banner,
+      request: AdRequest(),
+      listener: BannerAdListener(),
+    );
+
+    bannerAd.load();
   }
 
   // default constructor
@@ -122,8 +136,6 @@ List<LatLng>? krbBoundary;
     }
   }
 
-
-
   loadKandangData() async {
     homeScreen = false;
     update();
@@ -140,11 +152,12 @@ List<LatLng>? krbBoundary;
         posts3.value.content!.forEach((kandang) {
           double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
           double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
-print(kandang.latitude);
-print(kandang.longitude);
+          print(kandang.latitude);
+          print(kandang.longitude);
 
           // Check if the kandang is in the KRB
-          if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude, centerSemeru.longitude, radiusKRB)) {
+          if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+              centerSemeru.longitude, radiusKRB)) {
             // Kandang berada dalam wilayah KRB
             // Lakukan tindakan atau logika yang sesuai di sini
             print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
@@ -165,7 +178,8 @@ print(kandang.longitude);
     }
   }
 
-   bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
+  bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat,
+      double krbLon, double radiusKRB) {
     // Convert latitude and longitude from degrees to radians
     final kandangLatRad = _degreesToRadians(kandangLat);
     final kandangLonRad = _degreesToRadians(kandangLon);
@@ -190,7 +204,6 @@ print(kandang.longitude);
     return degrees * pi / 180.0;
   }
 
-
 //   bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
 //   // Convert latitude and longitude from degrees to radians
 //   final kandangLatRad = radians(kandangLat);
@@ -212,32 +225,31 @@ print(kandang.longitude);
 //   return distance <= radiusKRB;
 // }
 
+  List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
+    List<LatLng> boundary = [];
+    int numberOfPoints = 100;
 
+    for (double angle in List.generate(numberOfPoints,
+        (index) => (360 / numberOfPoints) * index * (pi / 180.0))) {
+      double latitude = center.latitude + (radius / 111) * cos(angle);
 
-List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
-  List<LatLng> boundary = [];
-  int numberOfPoints = 100;
+      // Modulo 360 agar nilai longitude tetap dalam rentang -180 hingga 180
+      double longitude = (center.longitude +
+              (radius / (111 * cos(center.latitude))) * sin(angle)) %
+          360;
 
- for (double angle in List.generate(numberOfPoints, (index) => (360 / numberOfPoints) * index * (pi / 180.0))) {
-   double latitude = center.latitude + (radius / 111) * cos(angle);
+      // Periksa apakah nilai longitude berada dalam rentang -180 hingga 180
+      if (longitude > 180) {
+        longitude -= 360;
+      } else if (longitude < -180) {
+        longitude += 360;
+      }
 
-   // Modulo 360 agar nilai longitude tetap dalam rentang -180 hingga 180
-   double longitude = (center.longitude + (radius / (111 * cos(center.latitude))) * sin(angle)) % 360;
-
-   // Periksa apakah nilai longitude berada dalam rentang -180 hingga 180
-   if (longitude > 180) {
-      longitude -= 360;
-   } else if (longitude < -180) {
-      longitude += 360;
-   }
-
-   boundary.add(LatLng(latitude, longitude));
-
-
+      boundary.add(LatLng(latitude, longitude));
+    }
+    print(krbBoundary);
+    return boundary;
   }
-print(krbBoundary);
-  return boundary;
-}
 }
 
 
