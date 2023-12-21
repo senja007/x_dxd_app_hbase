@@ -13,7 +13,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
 import 'package:flutter_map/flutter_map.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:latlong2/latlong.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -69,12 +69,12 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 ),
-                Container(
-                  alignment: Alignment.bottomCenter,
-                  child: AdWidget(ad: controller.bannerAd),
-                  width: controller.bannerAd.size.width.toDouble(),
-                  height: controller.bannerAd.size.height.toDouble(),
-                ),
+                // Container(
+                //   alignment: Alignment.bottomCenter,
+                //   child: AdWidget(ad: controller.bannerAd),
+                //   width: controller.bannerAd.size.width.toDouble(),
+                //   height: controller.bannerAd.size.height.toDouble(),
+                // ),
                 Padding(
                     padding: EdgeInsets.all(0),
                     child: Text(
@@ -193,7 +193,7 @@ class HomeView extends GetView<HomeController> {
                       return FlutterMap(
                         options: MapOptions(
                           initialCenter: LatLng(-8.1351667, 113.2218143),
-                          initialZoom: 5,
+                          initialZoom: 9,
                         ),
                         children: [
                           TileLayer(

@@ -15,11 +15,11 @@ import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
-import 'package:google_mobile_ads/google_mobile_ads.dart';
+
 import 'package:latlong2/latlong.dart';
 
 class HomeController extends GetxController {
-  late BannerAd bannerAd;
+ // late BannerAd bannerAd;
 
   // PetugasListModel? posts;
   // HewanListModel? posts1;
@@ -27,7 +27,7 @@ class HomeController extends GetxController {
 
   LatLng centerSemeru =
       LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
-  double radiusKRB = 100; // Radius wilayah KRB dalam meter
+  double radiusKRB = 10; // Radius wilayah KRB dalam meter
 
   List<LatLng>? krbBoundary;
 
@@ -55,14 +55,14 @@ class HomeController extends GetxController {
     super.onInit();
   }
   void loadBannerAd() {
-    bannerAd = BannerAd(
-      adUnitId: 'ca-app-pub-6237408663282103/4857843118',
-      size: AdSize.banner,
-      request: AdRequest(),
-      listener: BannerAdListener(),
-    );
+    // bannerAd = BannerAd(
+    //   adUnitId: 'ca-app-pub-6237408663282103/4857843118',
+    //   size: AdSize.banner,
+    //   request: AdRequest(),
+    //   listener: BannerAdListener(),
+    // );
 
-    bannerAd.load();
+    // bannerAd.load();
   }
 
   // default constructor
@@ -247,7 +247,7 @@ class HomeController extends GetxController {
 
       boundary.add(LatLng(latitude, longitude));
     }
-    print(krbBoundary);
+    print('KRB Boundary: $boundary');
     return boundary;
   }
 }
