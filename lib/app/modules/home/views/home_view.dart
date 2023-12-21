@@ -206,8 +206,8 @@ class HomeView extends GetView<HomeController> {
                               polygons: [
                                 Polygon(
                                   points: controller.krbBoundary!,
-                                  color: Color.fromARGB(255, 42, 255, 106),
-                                  borderColor: Colors.blue,
+                                  color: Color.fromARGB(255, 255, 0, 0),
+                                  borderColor: Color.fromARGB(255, 255, 21, 21),
                                   borderStrokeWidth:
                                       2, // Sesuaikan dengan kebutuhan Anda
                                 ),

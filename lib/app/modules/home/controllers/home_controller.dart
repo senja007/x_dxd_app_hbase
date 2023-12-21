@@ -20,18 +20,10 @@ import 'package:latlong2/latlong.dart';
 
 class HomeController extends GetxController {
  // late BannerAd bannerAd;
-
-  // PetugasListModel? posts;
-  // HewanListModel? posts1;
-  // PeternakListModel? posts2;
-
   LatLng centerSemeru =
       LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
-  double radiusKRB = 10; // Radius wilayah KRB dalam meter
-
+  double radiusKRB = 20; // Radius wilayah KRB dalam meter
   List<LatLng>? krbBoundary;
-
-// Gunakan krbBoundary dalam Flutter Map atau tujuan lainnya
 
   Rx<PetugasListModel> posts = PetugasListModel().obs;
   Rx<HewanListModel> posts1 = HewanListModel().obs;
@@ -45,16 +37,18 @@ class HomeController extends GetxController {
 
   @override
   HomeController() {
-    loadBannerAd();
+    
+    //loadBannerAd();
     krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
     // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
     loadHewanData();
     loadPeternakData();
     loadKandangData();
+    //checkKandangInKRB();
     super.onInit();
   }
-  void loadBannerAd() {
+ // void loadBannerAd() {
     // bannerAd = BannerAd(
     //   adUnitId: 'ca-app-pub-6237408663282103/4857843118',
     //   size: AdSize.banner,
@@ -63,9 +57,7 @@ class HomeController extends GetxController {
     // );
 
     // bannerAd.load();
-  }
-
-  // default constructor
+  //}
 
   loadPetugasData() async {
     homeScreen = false;
@@ -137,72 +129,201 @@ class HomeController extends GetxController {
   }
 
   loadKandangData() async {
-    homeScreen = false;
-    update();
-    showLoading();
-    posts3.value = await KandangApi().loadKandangApi();
-    update();
-    stopLoading();
-    if (posts3.value.status == 200) {
-      if (posts3.value.content!.isEmpty) {
-        homeScreen = true;
-        update();
-      } else {
-        // Mengambil data latitude dan longitude dari setiap kandang
-        posts3.value.content!.forEach((kandang) {
-          double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
-          double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
-          print(kandang.latitude);
-          print(kandang.longitude);
-
-          // Check if the kandang is in the KRB
-          if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
-              centerSemeru.longitude, radiusKRB)) {
-            // Kandang berada dalam wilayah KRB
-            // Lakukan tindakan atau logika yang sesuai di sini
-            print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
-          } else {
-            // Kandang di luar wilayah KRB
-            print('Kandang ${kandang.idKandang} di luar wilayah KRB');
-          }
-        });
-      }
-    } else if (posts3!.value.status == 204) {
-      print("Empty");
-    } else if (posts3!.value.status == 404) {
+  homeScreen = false;
+  update();
+  showLoading();
+  posts3.value = await KandangApi().loadKandangApi();
+  update();
+  stopLoading();
+  if (posts3.value.status == 200) {
+    if (posts3.value.content!.isEmpty) {
       homeScreen = true;
       update();
-    } else if (posts3!.value.status == 401) {
     } else {
-      print("someting wrong 400");
+      // Mengambil data latitude dan longitude dari setiap kandang
+      posts3.value.content!.forEach((kandang) {
+        double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
+        double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
+        print(kandang.latitude);
+        print(kandang.longitude);
+
+        // Check if the kandang is in the KRB
+        if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+            centerSemeru.longitude, radiusKRB)) {
+          // Kandang berada dalam wilayah KRB
+          // Lakukan tindakan atau logika yang sesuai di sini
+          print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
+        } else {
+          // Kandang di luar wilayah KRB
+          print('Kandang ${kandang.idKandang} di luar wilayah KRB');
+        }
+      });
+
+      // Panggil checkKandangInKRB setelah iterasi selesai
+      checkKandangInKRB();
     }
+  } else if (posts3!.value.status == 204) {
+    print("Empty");
+  } else if (posts3!.value.status == 404) {
+    homeScreen = true;
+    update();
+  } else if (posts3!.value.status == 401) {
+  } else {
+    print("someting wrong 400");
   }
+}
 
-  bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat,
-      double krbLon, double radiusKRB) {
-    // Convert latitude and longitude from degrees to radians
-    final kandangLatRad = _degreesToRadians(kandangLat);
-    final kandangLonRad = _degreesToRadians(kandangLon);
-    final krbLatRad = _degreesToRadians(krbLat);
-    final krbLonRad = _degreesToRadians(krbLon);
 
-    // Haversine formula
-    final dLat = kandangLatRad - krbLatRad;
-    final dLon = kandangLonRad - krbLonRad;
-    final a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(krbLatRad) * cos(kandangLatRad) * sin(dLon / 2) * sin(dLon / 2);
-    final c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
-    // Distance in meters (assuming Earth's radius is approximately 6371 km)
-    final distance = 6371000 * c;
+bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
+  // Convert latitude and longitude from degrees to radians
+  final kandangLatRad = _degreesToRadians(kandangLat);
+  final kandangLonRad = _degreesToRadians(kandangLon);
+  final krbLatRad = _degreesToRadians(krbLat);
+  final krbLonRad = _degreesToRadians(krbLon);
 
-    // Check if the distance is within the KRB radius
-    return distance <= radiusKRB;
-  }
+  // Haversine formula
+  final dLat = kandangLatRad - krbLatRad;
+  final dLon = kandangLonRad - krbLonRad;
+  final a = sin(dLat / 2) * sin(dLat / 2) +
+      cos(krbLatRad) * cos(kandangLatRad) * sin(dLon / 2) * sin(dLon / 2);
+  final c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+  // Distance in meters (assuming Earth's radius is approximately 6371 km)
+  final distance = 5000 * c;
+
+  // Check if the distance is within the KRB radius
+  return distance <= radiusKRB;
+}
+
+
+  void checkKandangInKRB() {
+    List<LatLng> krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
+  print('KRB Boundary: $krbBoundary');
+  int countKandangInKRB = 0;
+  // Iterate through the list of kandang
+  posts3.value.content!.forEach((kandang) {
+    double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
+    double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
+
+    // Check if the kandang is in the KRB
+    if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+        centerSemeru.longitude, radiusKRB)) {
+      // Kandang berada dalam wilayah KRB
+      // Lakukan tindakan atau logika yang sesuai di sini
+      print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
+      countKandangInKRB++;
+    } else {
+      // Kandang di luar wilayah KRB
+      print('Kandang ${kandang.idKandang} di luar wilayah KRB');
+    }
+  });
+
+  // Cetak atau gunakan nilai countKandangInKRB di sini
+  print('Jumlah kandang dalam wilayah KRB: $countKandangInKRB');
+}
+
+
+
 
   double _degreesToRadians(double degrees) {
     return degrees * pi / 180.0;
   }
+
+List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
+  List<LatLng> boundary = [];
+  int numberOfPoints = 100;
+
+  for (double angle in List.generate(numberOfPoints,
+      (index) => (360 / numberOfPoints) * index * (pi / 180.0))) {
+    double latitude = center.latitude + (radius / 111.0) * cos(angle);
+    double longitude =
+        center.longitude + (radius / (111.0 * cos(_degreesToRadians(center.latitude)))) * sin(angle);
+
+    // Periksa apakah nilai longitude berada dalam rentang -180 hingga 180
+    if (longitude > 180) {
+      longitude -= 360;
+    } else if (longitude < -180) {
+      longitude += 360;
+    }
+
+    boundary.add(LatLng(latitude, longitude));
+  }
+
+  print('KRB Boundary: $boundary');
+  return boundary;
+}
+
+}
+
+// void checkKandangInKRB() {
+//   // Iterate through the list of kandang
+//   posts3.value.content!.forEach((kandang) {
+//     double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
+//     double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
+
+//     // Check if the kandang is in the KRB
+//     if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+//         centerSemeru.longitude, radiusKRB)) {
+//       // Kandang berada dalam wilayah KRB
+//       // Lakukan tindakan atau logika yang sesuai di sini
+//       print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
+
+//       // Tambahkan logika atau tindakan lain yang sesuai di sini
+//     } else {
+//       // Kandang di luar wilayah KRB
+//       print('Kandang ${kandang.idKandang} di luar wilayah KRB');
+
+//       // Tambahkan logika atau tindakan lain yang sesuai di sini
+//     }
+//   });
+// }
+
+
+
+  // loadKandangData() async {
+  //   homeScreen = false;
+  //   update();
+  //   showLoading();
+  //   posts3.value = await KandangApi().loadKandangApi();
+  //   update();
+  //   stopLoading();
+  //   if (posts3.value.status == 200) {
+  //     if (posts3.value.content!.isEmpty) {
+  //       homeScreen = true;
+  //       update();
+  //     } else {
+  //       // Mengambil data latitude dan longitude dari setiap kandang
+  //       posts3.value.content!.forEach((kandang) {
+  //         double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
+  //         double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
+  //         print(kandang.latitude);
+  //         print(kandang.longitude);
+
+  //         // Check if the kandang is in the KRB
+  //         if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+  //             centerSemeru.longitude, radiusKRB)) {
+  //           // Kandang berada dalam wilayah KRB
+  //           // Lakukan tindakan atau logika yang sesuai di sini
+  //           print('Kandang ${kandang.idKandang} berada dalam wilayah KRB');
+  //         } else {
+  //           // Kandang di luar wilayah KRB
+  //           print('Kandang ${kandang.idKandang} di luar wilayah KRB');
+  //         }
+
+  //         checkKandangInKRB();
+  //       });
+  //     }
+  //   } else if (posts3!.value.status == 204) {
+  //     print("Empty");
+  //   } else if (posts3!.value.status == 404) {
+  //     homeScreen = true;
+  //     update();
+  //   } else if (posts3!.value.status == 401) {
+  //   } else {
+  //     print("someting wrong 400");
+  //   }
+  // }
 
 //   bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
 //   // Convert latitude and longitude from degrees to radians
@@ -224,35 +345,6 @@ class HomeController extends GetxController {
 //   // Check if the distance is within the KRB radius
 //   return distance <= radiusKRB;
 // }
-
-  List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
-    List<LatLng> boundary = [];
-    int numberOfPoints = 100;
-
-    for (double angle in List.generate(numberOfPoints,
-        (index) => (360 / numberOfPoints) * index * (pi / 180.0))) {
-      double latitude = center.latitude + (radius / 111) * cos(angle);
-
-      // Modulo 360 agar nilai longitude tetap dalam rentang -180 hingga 180
-      double longitude = (center.longitude +
-              (radius / (111 * cos(center.latitude))) * sin(angle)) %
-          360;
-
-      // Periksa apakah nilai longitude berada dalam rentang -180 hingga 180
-      if (longitude > 180) {
-        longitude -= 360;
-      } else if (longitude < -180) {
-        longitude += 360;
-      }
-
-      boundary.add(LatLng(latitude, longitude));
-    }
-    print('KRB Boundary: $boundary');
-    return boundary;
-  }
-}
-
-
 
   // loadKandangData() async {
   //   homeScreen = false;
