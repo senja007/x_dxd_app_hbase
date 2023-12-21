@@ -24,6 +24,8 @@ class HomeController extends GetxController {
       LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
   double radiusKRB = 20; // Radius wilayah KRB dalam meter
   List<LatLng>? krbBoundary;
+  RxInt countKandangInKRB = 0.obs;
+
 
   Rx<PetugasListModel> posts = PetugasListModel().obs;
   Rx<HewanListModel> posts1 = HewanListModel().obs;
@@ -200,7 +202,7 @@ bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double 
   void checkKandangInKRB() {
     List<LatLng> krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
   print('KRB Boundary: $krbBoundary');
-  int countKandangInKRB = 0;
+  countKandangInKRB.value = 0;
   // Iterate through the list of kandang
   posts3.value.content!.forEach((kandang) {
     double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
@@ -220,7 +222,7 @@ bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double 
   });
 
   // Cetak atau gunakan nilai countKandangInKRB di sini
-  print('Jumlah kandang dalam wilayah KRB: $countKandangInKRB');
+  print('Jumlah kandang dalam wilayah KRB: ${countKandangInKRB.value}');
 }
 
 

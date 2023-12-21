@@ -235,17 +235,17 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         _buildMiniCardWidget(
                             //"assets/images/cow.png",
-                            "${controller.posts1!.value.totalElements ?? 0}",
+                            "${controller.countKandangInKRB.value }",
                             "KRB 1"),
                         SizedBox(width: 3),
                         _buildMiniCardWidget(
                             // "assets/images/man.png",
-                            "${controller.posts2!.value.totalElements ?? 0}",
+                            "${0}",
                             "KRB 2"),
                         SizedBox(width: 3),
                         _buildMiniCardWidget(
                             // "assets/images/man.png",
-                            "${controller.posts2!.value.totalElements ?? 0}",
+                            "${0}",
                             "KRB 3"),
                       ],
                     )),
