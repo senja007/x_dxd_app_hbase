@@ -1,4 +1,8 @@
+import 'dart:io';
+import 'package:excel/excel.dart' as excel;
 import 'dart:math' show cos, sin, sqrt, atan2, pi;
+import 'package:path_provider/path_provider.dart';
+import 'package:file_picker/file_picker.dart';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
@@ -7,6 +11,7 @@ import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
 import 'package:flutter_map_marker_popup/flutter_map_marker_popup.dart';
+
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -256,6 +261,115 @@ List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
   return boundary;
 }
 
+// void downloadDataInKRB() {
+//   // Dapatkan data yang hanya masuk ke dalam wilayah KRB
+//   List<KandangModel> kandangInKRB = getKandangInKRB();
+
+//   // Lakukan logika atau panggil fungsi pengunduhan data di sini
+//   // Contoh:
+//   // downloadData(kandangInKRB);
+// }
+List<KandangModel> getKandangInKRB() {
+  List<KandangModel> kandangInKRB = [];
+
+  // Iterate through the list of kandang
+  posts3.value.content!.forEach((kandang) {
+    double kandangLat = double.tryParse(kandang.latitude ?? '') ?? 0.0;
+    double kandangLon = double.tryParse(kandang.longitude ?? '') ?? 0.0;
+
+    // Check if the kandang is in the KRB
+    if (isKandangInKRB(kandangLat, kandangLon, centerSemeru.latitude,
+        centerSemeru.longitude, radiusKRB)) {
+      // Kandang berada dalam wilayah KRB
+      // Tambahkan kandang ke dalam list kandangInKRB
+      kandangInKRB.add(kandang);
+    }
+  });
+
+  return kandangInKRB;
+}
+
+ // Fungsi untuk memilih lokasi penyimpanan
+  Future<void> pickSaveLocation() async {
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx'], // Sesuaikan dengan ekstensi file Excel yang dihasilkan
+      withData: false,
+    );
+
+    if (result != null) {
+      String? savePath = result.files.single.path;
+      print('File akan disimpan di: $savePath');
+      // Lakukan pengolahan lebih lanjut sesuai kebutuhan, seperti menyimpan ke lokasi yang dipilih.
+    } else {
+      // Pengguna membatalkan pemilihan lokasi penyimpanan
+      print('Batal memilih lokasi penyimpanan');
+    }
+  }
+
+void downloadDataInKRB() async {
+  // Dapatkan data yang hanya masuk ke dalam wilayah KRB
+  List<KandangModel> kandangInKRB = getKandangInKRB();
+
+  // Cek apakah ada data yang akan diunduh
+  if (kandangInKRB.isEmpty) {
+    print("Tidak ada data Kandang dalam wilayah KRB.");
+    return;
+  }
+
+  // Simpan data ke dalam file Excel
+  await saveDataToExcel(kandangInKRB);
+}
+
+Future<void> saveDataToExcel(List<KandangModel> kandangList) async {
+  // Dapatkan direktori penyimpanan lokal
+  Directory? appDocDir = await getApplicationDocumentsDirectory();
+
+  // Tampilkan dialog pemilihan direktori penyimpanan
+  Directory? selectedDirectory = await getDirectory();
+
+  // Periksa apakah pengguna telah memilih direktori atau membatalkan pemilihan
+  if (selectedDirectory == null) {
+    print("Batal memilih direktori penyimpanan.");
+    return;
+  }
+
+  // Tentukan nama file Excel
+  String excelFileName = "data_kandang_krb.xlsx";
+
+  // Buat objek Excel
+  var excelFile = excel.Excel.createExcel();
+
+  // Tambahkan sheet ke file Excel
+  var sheet = excelFile['Sheet1'];
+
+  // Tambahkan header ke sheet
+  sheet.appendRow(["ID Kandang", "Latitude", "Longitude", /*Tambahkan kolom lain sesuai kebutuhan*/]);
+
+  // Tambahkan data kandang ke sheet
+  kandangList.forEach((kandang) {
+    sheet.appendRow([kandang.idKandang, kandang.latitude, kandang.longitude, /*Tambahkan data lain sesuai kebutuhan*/]);
+  });
+
+  // Simpan file Excel di direktori yang dipilih oleh pengguna
+  var excelFilePath = '${selectedDirectory.path}/$excelFileName';
+  await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
+
+  // Tampilkan lokasi file yang telah disimpan
+  print("File Excel disimpan di: $excelFilePath");
+}
+
+// Fungsi untuk menampilkan dialog pemilihan direktori penyimpanan
+Future<Directory?> getDirectory() async {
+  Directory? appDocDir = await getApplicationDocumentsDirectory();
+  String initialDirectory = appDocDir.path;
+
+  Directory? selectedDirectory = (await FilePicker.platform.getDirectoryPath(
+    initialDirectory: initialDirectory,
+  )) as Directory?;
+
+  return selectedDirectory;
+}
 }
 
 // void checkKandangInKRB() {

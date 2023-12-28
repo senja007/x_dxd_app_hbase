@@ -235,8 +235,9 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         _buildMiniCardWidget(
                             //"assets/images/cow.png",
-                            "${controller.countKandangInKRB.value }",
+                            "${controller.countKandangInKRB.value}",
                             "KRB 1"),
+                       
                         SizedBox(width: 3),
                         _buildMiniCardWidget(
                             // "assets/images/man.png",
@@ -248,7 +249,17 @@ class HomeView extends GetView<HomeController> {
                             "${0}",
                             "KRB 3"),
                       ],
-                    )),
+                    )
+                    ),
+                    ElevatedButton(
+    onPressed: () async {
+      // Panggil fungsi untuk mengunduh data yang masuk ke dalam wilayah KRB
+      controller.downloadDataInKRB();
+      // Setelah unduhan selesai, tampilkan popup untuk memilih lokasi penyimpanan
+      await controller.pickSaveLocation();
+    },
+    child: Text('Download Data KRB'),
+  ),
                 SizedBox(height: 7),
                 Padding(
                     padding: EdgeInsets.all(5),
