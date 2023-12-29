@@ -33,6 +33,7 @@ dependencies:
   excel: ^2.0.7
   file_picker: ^4.0.0
   wakelock: ^0.6.2
+  permission_handler: ^10.4.4
 
  
   

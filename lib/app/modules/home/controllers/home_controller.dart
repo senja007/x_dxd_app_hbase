@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:excel/excel.dart' as excel;
+import 'package:flutter/material.dart';
 import 'dart:math' show cos, sin, sqrt, atan2, pi;
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -22,14 +23,16 @@ import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 
 import 'package:latlong2/latlong.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomeController extends GetxController {
- // late BannerAd bannerAd;
+
   LatLng centerSemeru =
       LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
   double radiusKRB = 20; // Radius wilayah KRB dalam meter
   List<LatLng>? krbBoundary;
   RxInt countKandangInKRB = 0.obs;
+Rx<Directory?> savePath = Rx<Directory?>(null);
 
 
   Rx<PetugasListModel> posts = PetugasListModel().obs;
@@ -44,27 +47,13 @@ class HomeController extends GetxController {
 
   @override
   HomeController() {
-    
-    //loadBannerAd();
     krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
-    // Panggil loadPetugasData saat HomeController dibuat
     loadPetugasData();
     loadHewanData();
     loadPeternakData();
     loadKandangData();
-    //checkKandangInKRB();
     super.onInit();
   }
- // void loadBannerAd() {
-    // bannerAd = BannerAd(
-    //   adUnitId: 'ca-app-pub-6237408663282103/4857843118',
-    //   size: AdSize.banner,
-    //   request: AdRequest(),
-    //   listener: BannerAdListener(),
-    // );
-
-    // bannerAd.load();
-  //}
 
   loadPetugasData() async {
     homeScreen = false;
@@ -180,8 +169,6 @@ class HomeController extends GetxController {
   }
 }
 
-
-
 bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
   // Convert latitude and longitude from degrees to radians
   final kandangLatRad = _degreesToRadians(kandangLat);
@@ -261,14 +248,6 @@ List<LatLng> calculateKRBBoundary(LatLng center, double radius) {
   return boundary;
 }
 
-// void downloadDataInKRB() {
-//   // Dapatkan data yang hanya masuk ke dalam wilayah KRB
-//   List<KandangModel> kandangInKRB = getKandangInKRB();
-
-//   // Lakukan logika atau panggil fungsi pengunduhan data di sini
-//   // Contoh:
-//   // downloadData(kandangInKRB);
-// }
 List<KandangModel> getKandangInKRB() {
   List<KandangModel> kandangInKRB = [];
 
@@ -288,89 +267,152 @@ List<KandangModel> getKandangInKRB() {
 
   return kandangInKRB;
 }
+void pickSaveLocation() async {
+  Directory? selectedDirectory = await getDirectory();
 
- // Fungsi untuk memilih lokasi penyimpanan
-  Future<void> pickSaveLocation() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx'], // Sesuaikan dengan ekstensi file Excel yang dihasilkan
-      withData: false,
+  if (selectedDirectory != null) {
+    // Ganti tipe data dari String ke Directory
+    Directory? savePath = Directory(selectedDirectory.path);
+
+    // Tampilkan dialog konfirmasi
+    showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Lokasi penyimpanan terpilih'),
+          content: Text('File akan disimpan di: ${savePath.path}'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop(); // Tutup dialog
+                downloadDataInKRB(savePath); // Panggil fungsi download setelah pemilihan lokasi
+              },
+              child: Text('Selesai'),
+            ),
+          ],
+        );
+      },
     );
-
-    if (result != null) {
-      String? savePath = result.files.single.path;
-      print('File akan disimpan di: $savePath');
-      // Lakukan pengolahan lebih lanjut sesuai kebutuhan, seperti menyimpan ke lokasi yang dipilih.
-    } else {
-      // Pengguna membatalkan pemilihan lokasi penyimpanan
-      print('Batal memilih lokasi penyimpanan');
-    }
+  } else {
+    print('Batal memilih lokasi penyimpanan');
   }
-
-void downloadDataInKRB() async {
+}
+void downloadDataInKRB(Directory? savePath) async {
   // Dapatkan data yang hanya masuk ke dalam wilayah KRB
   List<KandangModel> kandangInKRB = getKandangInKRB();
 
-  // Cek apakah ada data yang akan diunduh
-  if (kandangInKRB.isEmpty) {
-    print("Tidak ada data Kandang dalam wilayah KRB.");
-    return;
+  // Cek izin penyimpanan sebelum menyimpan file
+  PermissionStatus storagePermission = await Permission.storage.status;
+  if (storagePermission.isGranted) {
+    // Izin diberikan, lanjutkan dengan operasi penyimpanan
+    saveDataToExcel(kandangInKRB, savePath);
+  } else {
+    // Izin tidak diberikan, minta izin kepada pengguna
+    await requestStoragePermission();
   }
-
-  // Simpan data ke dalam file Excel
-  await saveDataToExcel(kandangInKRB);
 }
 
-Future<void> saveDataToExcel(List<KandangModel> kandangList) async {
-  // Dapatkan direktori penyimpanan lokal
-  Directory? appDocDir = await getApplicationDocumentsDirectory();
 
-  // Tampilkan dialog pemilihan direktori penyimpanan
-  Directory? selectedDirectory = await getDirectory();
 
-  // Periksa apakah pengguna telah memilih direktori atau membatalkan pemilihan
-  if (selectedDirectory == null) {
-    print("Batal memilih direktori penyimpanan.");
-    return;
-  }
-
-  // Tentukan nama file Excel
-  String excelFileName = "data_kandang_krb.xlsx";
-
+Future<void> saveDataToExcel(List<KandangModel> kandangList, Directory? savePath) async {
   // Buat objek Excel
   var excelFile = excel.Excel.createExcel();
 
-  // Tambahkan sheet ke file Excel
-  var sheet = excelFile['Sheet1'];
+  // Buat worksheet dan atur kolom-kolom
+  var sheet = excelFile[excelFile.tables.keys.first]!;
+  sheet.appendRow(['Header1', 'Header2', 'Header3']); // Gantilah dengan header yang sesuai
 
-  // Tambahkan header ke sheet
-  sheet.appendRow(["ID Kandang", "Latitude", "Longitude", /*Tambahkan kolom lain sesuai kebutuhan*/]);
+  // Tambahkan data kandang ke dalam worksheet
+  for (var kandang in kandangList) {
+    sheet.appendRow([kandang.idKandang, kandang.idPeternak, kandang.alamat]); // Gantilah dengan data yang sesuai
+  }
 
-  // Tambahkan data kandang ke sheet
-  kandangList.forEach((kandang) {
-    sheet.appendRow([kandang.idKandang, kandang.latitude, kandang.longitude, /*Tambahkan data lain sesuai kebutuhan*/]);
-  });
-
-  // Simpan file Excel di direktori yang dipilih oleh pengguna
-  var excelFilePath = '${selectedDirectory.path}/$excelFileName';
-  await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
-
-  // Tampilkan lokasi file yang telah disimpan
-  print("File Excel disimpan di: $excelFilePath");
+  // Pastikan direktori sudah ada atau buat jika belum
+if (!savePath!.existsSync()) {
+  savePath.createSync(recursive: true);
 }
 
-// Fungsi untuk menampilkan dialog pemilihan direktori penyimpanan
+  // Simpan file Excel di direktori yang dipilih oleh pengguna
+  var excelFilePath = '${savePath?.path}/data_kandang_krb.xlsx';
+  await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
+}
+
+
 Future<Directory?> getDirectory() async {
   Directory? appDocDir = await getApplicationDocumentsDirectory();
   String initialDirectory = appDocDir.path;
 
-  Directory? selectedDirectory = (await FilePicker.platform.getDirectoryPath(
-    initialDirectory: initialDirectory,
-  )) as Directory?;
+  try {
+    // Menggunakan FilePicker untuk memilih direktori
+    String? directoryPath = await FilePicker.platform.getDirectoryPath(
+      initialDirectory: initialDirectory,
+    );
 
-  return selectedDirectory;
+    // Periksa apakah direktori telah dipilih
+    if (directoryPath != null) {
+      Directory selectedDirectory = Directory(directoryPath);
+      return selectedDirectory;
+    } else {
+      print('Batal memilih lokasi penyimpanan');
+      return null;
+    }
+  } catch (e) {
+    print('Error saat memilih lokasi penyimpanan: $e');
+    return null;
+  }
 }
+
+Future<void> requestStoragePermission() async {
+  PermissionStatus status = await Permission.storage.request();
+  if (status.isGranted) {
+    // Izin diberikan, lanjutkan dengan operasi penyimpanan
+     //saveDataToExcel(kandangInKRB, savePath);
+  } else {
+    // Izin tidak diberikan, beri tahu pengguna atau ambil tindakan yang sesuai
+  }
 }
+
+
+}
+
+
+// Future<void> saveDataToExcel(List<KandangModel> kandangList) async {
+//   // Dapatkan direktori penyimpanan lokal
+//   Directory? appDocDir = await getApplicationDocumentsDirectory();
+
+//   // Tampilkan dialog pemilihan direktori penyimpanan
+//   Directory? selectedDirectory = await getDirectory();
+
+//   // Periksa apakah pengguna telah memilih direktori atau membatalkan pemilihan
+//   if (selectedDirectory == null) {
+//     print("Batal memilih direktori penyimpanan.");
+//     return;
+//   }
+
+//   // Tentukan nama file Excel
+//   String excelFileName = "data_kandang_krb.xlsx";
+
+//   // Buat objek Excel
+//   var excelFile = excel.Excel.createExcel();
+
+//   // Tambahkan sheet ke file Excel
+//   var sheet = excelFile['Sheet1'];
+
+//   // Tambahkan header ke sheet
+//   sheet.appendRow(["ID Kandang", "Latitude", "Longitude", /*Tambahkan kolom lain sesuai kebutuhan*/]);
+
+//   // Tambahkan data kandang ke sheet
+//   kandangList.forEach((kandang) {
+//     sheet.appendRow([kandang.idKandang, kandang.latitude, kandang.longitude, /*Tambahkan data lain sesuai kebutuhan*/]);
+//   });
+
+//   // Simpan file Excel di direktori yang dipilih oleh pengguna
+//   var excelFilePath = '${selectedDirectory.path}/$excelFileName';
+//   await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
+
+//   // Tampilkan lokasi file yang telah disimpan
+//   print("File Excel disimpan di: $excelFilePath");
+// }
 
 // void checkKandangInKRB() {
 //   // Iterate through the list of kandang

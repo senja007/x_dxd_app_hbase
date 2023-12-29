@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
@@ -251,15 +253,23 @@ class HomeView extends GetView<HomeController> {
                       ],
                     )
                     ),
-                    ElevatedButton(
-    onPressed: () async {
-      // Panggil fungsi untuk mengunduh data yang masuk ke dalam wilayah KRB
-      controller.downloadDataInKRB();
-      // Setelah unduhan selesai, tampilkan popup untuk memilih lokasi penyimpanan
-      await controller.pickSaveLocation();
-    },
-    child: Text('Download Data KRB'),
-  ),
+     ElevatedButton(
+  onPressed: () async {
+    // Ganti cara pemanggilan fungsi agar lebih sesuai dengan logika
+    Directory? selectedDirectory = await controller.getDirectory();
+
+    if (selectedDirectory != null) {
+      // Perbarui nilai Rx<Directory?>
+      controller.savePath.value = selectedDirectory;
+
+      // Perbarui cara mengakses nilai Rx<Directory?>
+      controller.downloadDataInKRB(controller.savePath.value);
+    }
+  },
+  child: Text("Download Data KRB"),
+),
+
+
                 SizedBox(height: 7),
                 Padding(
                     padding: EdgeInsets.all(5),
