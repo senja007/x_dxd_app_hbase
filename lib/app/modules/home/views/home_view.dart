@@ -2,9 +2,11 @@ import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
+import 'package:excel/excel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
@@ -200,13 +202,14 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           TileLayer(
                             urlTemplate:
-                                'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+                                'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
                             subdomains: ['a', 'b', 'c'],
+                            
                           ),
                           if (controller.krbBoundary != null)
                             PolygonLayer(
                               polygons: [
-                                Polygon(
+                                Polygon(  
                                   points: controller.krbBoundary!,
                                   color: Color.fromARGB(255, 255, 0, 0),
                                   borderColor: Color.fromARGB(255, 255, 21, 21),

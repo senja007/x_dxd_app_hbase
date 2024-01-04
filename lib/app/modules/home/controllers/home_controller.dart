@@ -1,6 +1,9 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:excel/excel.dart' as excel;
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'dart:math' show cos, sin, sqrt, atan2, pi;
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -169,6 +172,16 @@ Rx<Directory?> savePath = Rx<Directory?>(null);
   }
 }
 
+
+
+
+
+Future<List<dynamic>> loadGeoJsonFromAsset() async {
+    final String jsonString = await rootBundle.loadString('assets/geojson/KRB_Semeru.json');
+    final List<dynamic> geoJson = json.decode(jsonString);
+    return geoJson;
+  }
+
 bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat, double krbLon, double radiusKRB) {
   // Convert latitude and longitude from degrees to radians
   final kandangLatRad = _degreesToRadians(kandangLat);
@@ -300,10 +313,11 @@ void pickSaveLocation() async {
 void downloadDataInKRB(Directory? savePath) async {
   // Dapatkan data yang hanya masuk ke dalam wilayah KRB
   List<KandangModel> kandangInKRB = getKandangInKRB();
-
+WidgetsFlutterBinding.ensureInitialized();
   // Cek izin penyimpanan sebelum menyimpan file
-  PermissionStatus storagePermission = await Permission.storage.status;
+  PermissionStatus storagePermission = await Permission.storage.request();
   if (storagePermission.isGranted) {
+    await Permission.storage.request();
     // Izin diberikan, lanjutkan dengan operasi penyimpanan
     saveDataToExcel(kandangInKRB, savePath);
   } else {
@@ -320,11 +334,11 @@ Future<void> saveDataToExcel(List<KandangModel> kandangList, Directory? savePath
 
   // Buat worksheet dan atur kolom-kolom
   var sheet = excelFile[excelFile.tables.keys.first]!;
-  sheet.appendRow(['Header1', 'Header2', 'Header3']); // Gantilah dengan header yang sesuai
+  sheet.appendRow(['idKandang', 'idPeternak', 'luas','kapasitas','nilaiBangunan', 'kecamatan', 'desa', 'alamat', 'fotoKandang']); // Gantilah dengan header yang sesuai
 
   // Tambahkan data kandang ke dalam worksheet
   for (var kandang in kandangList) {
-    sheet.appendRow([kandang.idKandang, kandang.idPeternak, kandang.alamat]); // Gantilah dengan data yang sesuai
+    sheet.appendRow([kandang.idKandang, kandang.idPeternak!.idPeternak, kandang.luas, kandang.kapasitas, kandang.nilaiBangunan, kandang.kecamatan, kandang.desa, kandang.alamat, kandang.fotoKandang]); // Gantilah dengan data yang sesuai
   }
 
   // Pastikan direktori sudah ada atau buat jika belum
@@ -365,10 +379,9 @@ Future<Directory?> getDirectory() async {
 Future<void> requestStoragePermission() async {
   PermissionStatus status = await Permission.storage.request();
   if (status.isGranted) {
-    // Izin diberikan, lanjutkan dengan operasi penyimpanan
-     //saveDataToExcel(kandangInKRB, savePath);
+
   } else {
-    // Izin tidak diberikan, beri tahu pengguna atau ambil tindakan yang sesuai
+    
   }
 }
 
