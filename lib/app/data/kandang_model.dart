@@ -36,24 +36,24 @@ class KandangModel {
 
   factory KandangModel.fromJson(Map<String, dynamic> jsonData) {
     return KandangModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idKandang: jsonData['idKandang'] != null ? jsonData['idKandang'] : "",
+      status: jsonData['status'] ?? 0,
+      idKandang: jsonData['idKandang'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
           ? PeternakModel.fromJson(jsonData['idPeternak'])
           : null,
-      luas: jsonData['luas'] != null ? jsonData['luas'] : "",
-      kapasitas: jsonData['kapasitas'] != null ? jsonData['kapasitas'] : "",
+      luas: jsonData['luas'] ?? "",
+      kapasitas: jsonData['kapasitas'] ?? "",
       nilaiBangunan:
-          jsonData['nilaiBangunan'] != null ? jsonData['nilaiBangunan'] : "",
-      alamat: jsonData['alamat'] != null ? jsonData['alamat'] : "",
-      desa: jsonData['desa'] != null ? jsonData['desa'] : "",
-      kecamatan: jsonData['kecamatan'] != null ? jsonData['kecamatan'] : "",
-      kabupaten: jsonData['kabupaten'] != null ? jsonData['kabupaten'] : "",
-      provinsi: jsonData['provinsi'] != null ? jsonData['provinsi'] : "",
+          jsonData['nilaiBangunan'] ?? "",
+      alamat: jsonData['alamat'] ?? "",
+      desa: jsonData['desa'] ?? "",
+      kecamatan: jsonData['kecamatan'] ?? "",
+      kabupaten: jsonData['kabupaten'] ?? "",
+      provinsi: jsonData['provinsi'] ?? "",
       fotoKandang:
-          jsonData['fotoKandang'] != null ? jsonData['fotoKandang'] : "",
-      latitude: jsonData['latitude'] != null ? jsonData['latitude'] : "",
-      longitude: jsonData['longitude'] != null ? jsonData['longitude'] : "",
+          jsonData['fotoKandang'] ?? "",
+      latitude: jsonData['latitude'] ?? "",
+      longitude: jsonData['longitude'] ?? "",
     );
   }
 }

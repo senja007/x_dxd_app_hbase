@@ -13,7 +13,7 @@ class KandangApi extends SharedApi {
   Future<KandangListModel> loadKandangApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/kandang'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/kandang'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -126,7 +126,7 @@ class KandangApi extends SharedApi {
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse(baseUrl + '/kandang'),
+        Uri.parse('$baseUrl/kandang'),
       );
 
       request.fields.addAll({
@@ -215,7 +215,7 @@ Future<KandangModel?> editKandangApi(
 
     var request = http.MultipartRequest(
       'PUT',
-      Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
+      Uri.parse('$baseUrl/kandang/$idKandang'),
     );
 
     request.fields.addAll({
@@ -377,7 +377,7 @@ Future<KandangModel?> editKandangApi(
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/kandang/' + idKandang.toString()),
+        Uri.parse('$baseUrl/kandang/$idKandang'),
         headers: getToken(),
       );
       stopLoading();

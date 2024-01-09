@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart'; // Diperlukan jika menggunakan Google Fonts.
 
 class EmptyView extends StatelessWidget {
+  const EmptyView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,7 +20,7 @@ class EmptyView extends StatelessWidget {
             height: 180,
             width: 180,
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Text(
@@ -26,23 +28,23 @@ class EmptyView extends StatelessWidget {
             style: GoogleFonts.tajawal(
                 fontSize: 24,
                 fontWeight: FontWeight.w500,
-                color: Color(0xffffca54)),
+                color: const Color(0xffffca54)),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Container(
-            margin: EdgeInsets.fromLTRB(20, 0, 20, 0),
+            margin: const EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Text(
               "Klik Tombol plus (+) dibawah untuk tambah data",
               style: GoogleFonts.cairo(
                 fontSize: 16,
-                color: Color(0xff777777),
+                color: const Color(0xff777777),
               ),
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
         ],

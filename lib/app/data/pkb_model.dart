@@ -1,4 +1,3 @@
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
 
 class PKBModel {
   final int? status;
@@ -30,23 +29,19 @@ class PKBModel {
 
   factory PKBModel.fromJson(Map<String, dynamic> jsonData) {
     return PKBModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idKejadian: jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
-      tanggalPkb: jsonData['tanggalPkb'] != null ? jsonData['tanggalPkb'] : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      status: jsonData['status'] ?? 0,
+      idKejadian: jsonData['idKejadian'] ?? "",
+      tanggalPkb: jsonData['tanggalPkb'] ?? "",
+      lokasi: jsonData['lokasi'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
           ? IdPeternak.fromJson(jsonData['idPeternak'])
           : null,
-      idHewan: jsonData['idHewan'] != null ? jsonData['idHewan'] : "",
-      spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
-      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
-      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
-      umurKebuntingan: jsonData['umurKebuntingan'] != null
-          ? jsonData['umurKebuntingan']
-          : "",
-      pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] != null
-          ? jsonData['pemeriksaKebuntingan']
-          : "",
+      idHewan: jsonData['idHewan'] ?? "",
+      spesies: jsonData['spesies'] ?? "",
+      kategori: jsonData['kategori'] ?? "",
+      jumlah: jsonData['jumlah'] ?? "",
+      umurKebuntingan: jsonData['umurKebuntingan'] ?? "",
+      pemeriksaKebuntingan: jsonData['pemeriksaKebuntingan'] ?? "",
     );
   }
 }

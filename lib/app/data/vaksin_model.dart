@@ -40,28 +40,28 @@ class VaksinModel {
 
   factory VaksinModel.fromJson(Map<String, dynamic> jsonData) {
     return VaksinModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idVaksin: jsonData['idVaksin'] != null ? jsonData['idVaksin'] : "",
-      tanggalIB: jsonData['tanggalIB'] != null ? jsonData['tanggalIB'] : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+      status: jsonData['status'] ?? 0,
+      idVaksin: jsonData['idVaksin'] ?? "",
+      tanggalIB: jsonData['tanggalIB'] ?? "",
+      lokasi: jsonData['lokasi'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
           ? PeternakModel.fromJson(jsonData['idPeternak'])
           : null,
       kodeEartagNasional: jsonData['kodeEartagNasional'] != null
           ? HewanModel.fromJson(jsonData['kodeEartagNasional'])
           : null,
-      ib1: jsonData['ib1'] != null ? jsonData['ib1'] : "",
-      ib2: jsonData['ib2'] != null ? jsonData['ib2'] : "",
-      ib3: jsonData['ib3'] != null ? jsonData['ib3'] : "",
-      ibLain: jsonData['ibLain'] != null ? jsonData['ibLain'] : "",
-      idPejantan: jsonData['idPejantan'] != null ? jsonData['idPejantan'] : "",
+      ib1: jsonData['ib1'] ?? "",
+      ib2: jsonData['ib2'] ?? "",
+      ib3: jsonData['ib3'] ?? "",
+      ibLain: jsonData['ibLain'] ?? "",
+      idPejantan: jsonData['idPejantan'] ?? "",
       idPembuatan:
-          jsonData['idPembuatan'] != null ? jsonData['idPembuatan'] : "",
+          jsonData['idPembuatan'] ?? "",
       bangsaPejantan:
-          jsonData['bangsaPejantan'] != null ? jsonData['bangsaPejantan'] : "",
-      produsen: jsonData['produsen'] != null ? jsonData['produsen'] : "",
+          jsonData['bangsaPejantan'] ?? "",
+      produsen: jsonData['produsen'] ?? "",
       inseminator:
-          jsonData['inseminator'] != null ? jsonData['inseminator'] : "",
+          jsonData['inseminator'] ?? "",
     );
   }
 }

@@ -50,37 +50,29 @@ class HewanModel {
 
   factory HewanModel.fromJson(Map<String, dynamic> jsonData) {
     return HewanModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      kodeEartagNasional: jsonData['kodeEartagNasional'] != null
-          ? jsonData['kodeEartagNasional']
-          : "",
+      status: jsonData['status'] ?? 0,
+      kodeEartagNasional: jsonData['kodeEartagNasional'] ?? "",
       noKartuTernak:
-          jsonData['noKartuTernak'] != null ? jsonData['noKartuTernak'] : "",
-      provinsi: jsonData['provinsi'] != null ? jsonData['provinsi'] : "",
-      kabupaten: jsonData['kabupaten'] != null ? jsonData['kabupaten'] : "",
-      kecamatan: jsonData['kecamatan'] != null ? jsonData['kecamatan'] : "",
-      desa: jsonData['desa'] != null ? jsonData['desa'] : "",
+          jsonData['noKartuTernak'] ?? "",
+      provinsi: jsonData['provinsi'] ?? "",
+      kabupaten: jsonData['kabupaten'] ?? "",
+      kecamatan: jsonData['kecamatan'] ?? "",
+      desa: jsonData['desa'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
           ? PeternakModel.fromJson(jsonData['idPeternak'])
           : null,
       idKandang: jsonData['idKandang'] != null
           ? KandangModel.fromJson(jsonData['idKandang'])
           : null,
-      spesies: jsonData['spesies'] != null ? jsonData['spesies'] : "",
-      sex: jsonData['sex'] != null ? jsonData['sex'] : "",
-      umur: jsonData['umur'] != null ? jsonData['umur'] : "",
-      identifikasiHewan: jsonData['identifikasiHewan'] != null
-          ? jsonData['identifikasiHewan']
-          : "",
-      petugasPendaftar: jsonData['petugasPendaftar'] != null
-          ? jsonData['petugasPendaftar']
-          : "",
-      tanggalTerdaftar: jsonData['tanggalTerdaftar'] != null
-          ? jsonData['tanggalTerdaftar']
-          : "",
-      fotoHewan: jsonData['fotoHewan'] != null ? jsonData['fotoHewan'] : "",
-      latitude: jsonData['latitude'] != null ? jsonData['latitude'] : "",
-      longitude: jsonData['longitude'] != null ? jsonData['longitude'] : "",
+      spesies: jsonData['spesies'] ?? "",
+      sex: jsonData['sex'] ?? "",
+      umur: jsonData['umur'] ?? "",
+      identifikasiHewan: jsonData['identifikasiHewan'] ?? "",
+      petugasPendaftar: jsonData['petugasPendaftar'] ?? "",
+      tanggalTerdaftar: jsonData['tanggalTerdaftar'] ?? "",
+      fotoHewan: jsonData['fotoHewan'] ?? "",
+      latitude: jsonData['latitude'] ?? "",
+      longitude: jsonData['longitude'] ?? "",
     );
   }
 }

@@ -1,22 +1,19 @@
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/detail_kelahiran_controller.dart';
 
 class DetailKelahiranView extends GetView<DetailKelahiranController> {
-  const DetailKelahiranView({Key? key}) : super(key: key);
+  const DetailKelahiranView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Kelahiran',
           style: TextStyle(
             color: Colors.white,
@@ -24,7 +21,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -45,11 +42,11 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -59,14 +56,14 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
       ),
       body: ListView(
           shrinkWrap: true,
-          physics: BouncingScrollPhysics(),
-          padding: EdgeInsets.all(20),
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(20),
           children: [
             Obx(() {
               return Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -77,7 +74,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -105,8 +102,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
             }),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -117,7 +114,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -147,8 +144,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -159,7 +156,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -189,8 +186,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -201,7 +198,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -231,8 +228,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -243,7 +240,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -273,8 +270,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -285,7 +282,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -315,8 +312,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -327,7 +324,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -357,8 +354,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -369,7 +366,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -399,8 +396,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -411,7 +408,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -441,8 +438,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -453,7 +450,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -483,8 +480,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -495,7 +492,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -525,8 +522,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -537,7 +534,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -567,8 +564,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -579,7 +576,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -609,8 +606,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -621,7 +618,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -651,8 +648,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -663,7 +660,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -693,8 +690,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -705,7 +702,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -735,8 +732,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -747,7 +744,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -777,8 +774,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -789,7 +786,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -819,8 +816,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -831,7 +828,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -861,8 +858,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -873,7 +870,7 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextFormField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 18,
                         fontFamily: 'poppins',
                         color: Colors.black),
@@ -903,8 +900,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -915,13 +912,13 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'poppins',
                         color: Colors.black),
                     maxLines: 1,
                     controller: controller.tanggalLahirC,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       icon: Icon(Icons.calendar_today),
                       labelText: "Tanggal Lahir",
@@ -932,8 +929,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                 )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: controller.isEditing.value
                         ? Colors.white
@@ -944,13 +941,13 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                   ),
                   child: TextField(
                     enabled: controller.isEditing.value,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontSize: 14,
                         fontFamily: 'poppins',
                         color: Colors.black),
                     maxLines: 1,
                     controller: controller.tanggalLaporanC,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       border: InputBorder.none,
                       icon: Icon(Icons.calendar_today),
                       labelText: "Tanggal Laporan",
@@ -969,21 +966,21 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                         onPressed: () {
                           controller.editKelahiran();
                         },
-                        child: Text(
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(120, 55),
+                          backgroundColor: const Color(0xff132137),
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: const Text(
                           'Edit post',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'poppins',
                             color: Colors.white,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(120, 55),
-                          backgroundColor: Color(0xff132137),
-                          padding: EdgeInsets.symmetric(vertical: 18),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                         // ... Other button properties
@@ -993,21 +990,21 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                         onPressed: () {
                           controller.deleteKelahiran();
                         },
+                        style: ElevatedButton.styleFrom(
+                          fixedSize: const Size(120, 55),
+                          backgroundColor: const Color(0xff132137),
+                          padding: const EdgeInsets.symmetric(vertical: 18),
+                          elevation: 0,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
                         child: Text(
                           'Delete post',
                           style: TextStyle(
                             fontSize: 16,
                             fontFamily: 'poppins',
                             color: AppColor.primaryExtraSoft,
-                          ),
-                        ),
-                        style: ElevatedButton.styleFrom(
-                          fixedSize: Size(120, 55),
-                          backgroundColor: Color(0xff132137),
-                          padding: EdgeInsets.symmetric(vertical: 18),
-                          elevation: 0,
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(8),
                           ),
                         ),
                       ),

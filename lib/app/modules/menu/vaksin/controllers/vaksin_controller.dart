@@ -33,12 +33,12 @@ class VaksinController extends GetxController {
       filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 204) {
+    } else if (posts.value.status == 204) {
       print("Empty");
-    } else if (posts!.value.status == 404) {
+    } else if (posts.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 401) {
+    } else if (posts.value.status == 401) {
     } else {
       print("someting wrong 400");
     }

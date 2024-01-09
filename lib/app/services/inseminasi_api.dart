@@ -10,7 +10,7 @@ class InseminasiApi extends SharedApi {
   // Login API
   Future<InseminasiListModel> loadInseminasiAPI() async {
     try {
-      var data = await http.get(Uri.parse(baseUrl + '/inseminasi'),
+      var data = await http.get(Uri.parse('$baseUrl/inseminasi'),
           headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
@@ -76,7 +76,7 @@ class InseminasiApi extends SharedApi {
         'tanggalIB': tanggalIB,
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/inseminasi'),
+        Uri.parse('$baseUrl/inseminasi'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -158,7 +158,7 @@ class InseminasiApi extends SharedApi {
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/inseminasi/' + idInseminasi.toString()),
+        Uri.parse('$baseUrl/inseminasi/$idInseminasi'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -207,7 +207,7 @@ class InseminasiApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/inseminasi/' + idInseminasi.toString()),
+        Uri.parse('$baseUrl/inseminasi/$idInseminasi'),
         headers: getToken(),
       );
       stopLoading();

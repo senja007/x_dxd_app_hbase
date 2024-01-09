@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
@@ -13,28 +12,29 @@ import 'package:get/get.dart';
 import '../controllers/add_kandang_controller.dart';
 
 class AddKandangView extends GetView<AddKandangController> {
-  const AddKandangView({Key? key}) : super(key: key);
+  const AddKandangView({super.key});
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Kandang',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -44,20 +44,20 @@ class AddKandangView extends GetView<AddKandangController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idKandangC,
               keyboardType: TextInputType.text,
@@ -83,8 +83,8 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -94,7 +94,7 @@ class AddKandangView extends GetView<AddKandangController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Peternak",
                     style: TextStyle(
@@ -116,7 +116,7 @@ class AddKandangView extends GetView<AddKandangController> {
                     onChanged: (String? selectedId) {
                       controller.selectedPeternakId.value = selectedId ?? '';
                     },
-                    hint: Text('Pilih Peternak'),
+                    hint: const Text('Pilih Peternak'),
                   );
                 }),
               ],
@@ -124,15 +124,15 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.luasC,
               keyboardType: TextInputType.number,
@@ -154,7 +154,7 @@ class AddKandangView extends GetView<AddKandangController> {
                     color: AppColor.secondarySoft,
                   ),
                   suffixText: 'm²',
-                  suffixStyle: TextStyle(
+                  suffixStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'poppins',
                     fontSize: 15,
@@ -164,15 +164,15 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kapasitasC,
               keyboardType: TextInputType.text,
@@ -198,15 +198,15 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.nilaiBangunanC,
               keyboardType: TextInputType.number,
@@ -228,7 +228,7 @@ class AddKandangView extends GetView<AddKandangController> {
                     color: AppColor.secondarySoft,
                   ),
                   prefixText: "Rp. ",
-                  prefixStyle: TextStyle(
+                  prefixStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'poppins',
                     fontSize: 15,
@@ -238,8 +238,8 @@ class AddKandangView extends GetView<AddKandangController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(14),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(14),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -256,13 +256,13 @@ class AddKandangView extends GetView<AddKandangController> {
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Obx(
                           () => Column(
                             crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -277,12 +277,12 @@ class AddKandangView extends GetView<AddKandangController> {
                                       width: 100,
                                       fit: BoxFit.cover,
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     IconButton(
                                       onPressed: () {
                                         controller.removeImage();
                                       },
-                                      icon: Icon(Icons.delete),
+                                      icon: const Icon(Icons.delete),
                                       color: Colors.red,
                                     ),
                                   ],
@@ -299,22 +299,22 @@ class AddKandangView extends GetView<AddKandangController> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Pilih Sumber Gambar"),
+                              title: const Text("Pilih Sumber Gambar"),
                               content: SingleChildScrollView(
                                 child: ListBody(
                                   children: <Widget>[
                                     ListTile(
-                                      leading: Icon(Icons.camera),
-                                      title: Text("Kamera"),
+                                      leading: const Icon(Icons.camera),
+                                      title: const Text("Kamera"),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.pickImage(true);
                                       },
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     ListTile(
-                                      leading: Icon(Icons.photo_library),
-                                      title: Text("Galeri"),
+                                      leading: const Icon(Icons.photo_library),
+                                      title: const Text("Galeri"),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.pickImage(false);
@@ -327,15 +327,15 @@ class AddKandangView extends GetView<AddKandangController> {
                           },
                         );
                       },
-                      icon: Icon(Icons.add_a_photo),
-                      label: Text('Pilih Gambar'),
+                      icon: const Icon(Icons.add_a_photo),
+                      label: const Text('Pilih Gambar'),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Column(
@@ -439,7 +439,7 @@ class AddKandangView extends GetView<AddKandangController> {
                             : const Text('Tagging Lokasi'),
                       ),
 
-                      SizedBox(height: 32),
+                      const SizedBox(height: 32),
 
                       // Tombol Tambah Post
                       ElevatedButton(
@@ -460,17 +460,8 @@ class AddKandangView extends GetView<AddKandangController> {
                             }
                           }
                         },
-                        child: Text(
-                          (controller.loading.value)
-                              ? 'Loading...'
-                              : 'Tambah post',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'poppins',
-                          ),
-                        ),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff132137),
+                          backgroundColor: const Color(0xff132137),
                           padding: EdgeInsets.symmetric(
                             vertical: 18,
                             horizontal: MediaQuery.of(context).size.width * 0.3,
@@ -478,6 +469,15 @@ class AddKandangView extends GetView<AddKandangController> {
                           elevation: 0,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        child: Text(
+                          (controller.loading.value)
+                              ? 'Loading...'
+                              : 'Tambah post',
+                          style: const TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'poppins',
                           ),
                         ),
                       ),

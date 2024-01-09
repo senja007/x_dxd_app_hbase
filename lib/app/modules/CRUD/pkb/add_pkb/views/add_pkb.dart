@@ -1,6 +1,5 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -8,28 +7,29 @@ import 'package:get/get.dart';
 import '../controllers/add_pkb_controller.dart';
 
 class AddPkbView extends GetView<AddPkbController> {
-  const AddPkbView({Key? key}) : super(key: key);
+  const AddPkbView({super.key});
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Pkb',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -39,20 +39,20 @@ class AddPkbView extends GetView<AddPkbController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idKejadianC,
               keyboardType: TextInputType.text,
@@ -78,15 +78,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idHewanC,
               keyboardType: TextInputType.text,
@@ -180,8 +180,8 @@ class AddPkbView extends GetView<AddPkbController> {
           // ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -191,7 +191,7 @@ class AddPkbView extends GetView<AddPkbController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Peternak",
                     style: TextStyle(
@@ -213,7 +213,7 @@ class AddPkbView extends GetView<AddPkbController> {
                     onChanged: (String? selectedId) {
                       controller.selectedPeternakId.value = selectedId ?? '';
                     },
-                    hint: Text('Pilih Peternak'),
+                    hint: const Text('Pilih Peternak'),
                   );
                 }),
               ],
@@ -221,15 +221,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.jumlahC,
               keyboardType: TextInputType.number,
@@ -255,15 +255,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kategoriC,
               keyboardType: TextInputType.text,
@@ -289,15 +289,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.lokasiC,
               keyboardType: TextInputType.text,
@@ -323,8 +323,8 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -333,7 +333,7 @@ class AddPkbView extends GetView<AddPkbController> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Text(
                   "Spesies",
                   style: TextStyle(
@@ -344,7 +344,7 @@ class AddPkbView extends GetView<AddPkbController> {
               ),
               Obx(() =>
                  DropdownMenu<String>(
-                  inputDecorationTheme: InputDecorationTheme(
+                  inputDecorationTheme: const InputDecorationTheme(
                       filled: false, iconColor: Colors.amber),
                   initialSelection: controller.selectedSpesies.value,
                   onSelected: (String? value) {
@@ -361,15 +361,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.umurKebuntinganC,
               keyboardType: TextInputType.text,
@@ -395,15 +395,15 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.pemeriksaKebuntinganC,
               keyboardType: TextInputType.text,
@@ -429,19 +429,19 @@ class AddPkbView extends GetView<AddPkbController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller:
                   controller.tanggalPkbC, //editing controller of this TextField
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal Pkb" //label text of field
@@ -451,8 +451,8 @@ class AddPkbView extends GetView<AddPkbController> {
               onTap: () => controller.tanggalPkb(context),
             ),
           ),
-          SizedBox(height: 32),
-          Container(
+          const SizedBox(height: 32),
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
@@ -461,19 +461,19 @@ class AddPkbView extends GetView<AddPkbController> {
                     controller.addPKB(context);
                   }
                 },
-                child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
+                  backgroundColor: const Color(0xff132137),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
                   ),
                 ),
               ),

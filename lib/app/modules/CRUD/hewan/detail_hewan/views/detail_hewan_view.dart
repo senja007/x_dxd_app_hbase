@@ -13,14 +13,14 @@ import 'package:get/get.dart';
 import '../controllers/detail_hewan_controller.dart';
 
 class DetailHewanView extends GetView<DetailHewanController> {
-  const DetailHewanView({Key? key}) : super(key: key);
+  const DetailHewanView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Hewan',
           style: TextStyle(
             color: Colors.white,
@@ -28,7 +28,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -49,11 +49,11 @@ class DetailHewanView extends GetView<DetailHewanController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -63,13 +63,13 @@ class DetailHewanView extends GetView<DetailHewanController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -80,7 +80,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kodeEartagNasionalC,
@@ -108,8 +108,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
 
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -120,7 +120,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.noKartuTernakC,
@@ -147,8 +147,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -159,7 +159,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.provinsiC,
@@ -186,8 +186,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -198,7 +198,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kabupatenC,
@@ -225,8 +225,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -237,7 +237,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kecamatanC,
@@ -264,8 +264,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -276,7 +276,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.desaC,
@@ -344,8 +344,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -358,7 +358,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Id Peternak",
                           style: TextStyle(
@@ -369,7 +369,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedPeternakId.value}");
+                          print(controller.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -400,16 +400,16 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                   controller.namaPeternakC.text =
                                       selectedPeternak.namaPeternak ?? '';
                                 },
-                                hint: Text('Pilih Peternak'),
+                                hint: const Text('Pilih Peternak'),
                               )
                             : TextField(
                                 controller: controller.idPeternakC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -421,8 +421,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -435,7 +435,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "ID Kandang",
                           style: TextStyle(
@@ -446,7 +446,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedKandangId.value}");
+                          print(controller.selectedKandangId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -462,16 +462,16 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                   controller.selectedKandangId.value =
                                       selectedId ?? '';
                                 },
-                                hint: Text('Pilih Kandang'),
+                                hint: const Text('Pilih Kandang'),
                               )
                             : TextField(
                                 controller: controller.idKandagC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -482,8 +482,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -494,7 +494,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -524,8 +524,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -536,7 +536,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -567,8 +567,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -581,7 +581,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Spesies",
                           style: TextStyle(
@@ -592,7 +592,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedSpesies.value}");
+                          print(controller.selectedSpesies.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -608,16 +608,16 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                   controller.selectedSpesies.value =
                                       value ?? '';
                                 },
-                                hint: Text('Pilih Spesies'),
+                                hint: const Text('Pilih Spesies'),
                               )
                             : TextField(
                                 controller: controller.spesiesC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: InputBorder.none,
                                 ),
                                 readOnly: true,
@@ -676,8 +676,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -690,7 +690,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Sex",
                           style: TextStyle(
@@ -701,7 +701,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedGender.value}");
+                          print(controller.selectedGender.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -716,16 +716,16 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                 onChanged: (String? value) {
                                   controller.selectedGender.value = value ?? '';
                                 },
-                                hint: Text('Pilih Jenis Kelamin'),
+                                hint: const Text('Pilih Jenis Kelamin'),
                               )
                             : TextField(
                                 controller: controller.sexC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   border: InputBorder.none,
                                 ),
                                 readOnly: true,
@@ -735,8 +735,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -746,10 +746,10 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextField(
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.umurC,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Umur",
@@ -765,8 +765,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -777,7 +777,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.identifikasiHewanC,
@@ -805,8 +805,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -819,7 +819,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Nama Petugas",
                           style: TextStyle(
@@ -830,7 +830,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedPetugasId.value}");
+                          print(controller.selectedPetugasId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -846,16 +846,16 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                   controller.selectedPetugasId.value =
                                       selectedId ?? '';
                                 },
-                                hint: Text('Pilih Petugas'),
+                                hint: const Text('Pilih Petugas'),
                               )
                             : TextField(
                                 controller: controller.petugasPendaftarC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -866,8 +866,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -877,10 +877,10 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextField(
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.tanggalTerdaftarC,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Tanggal Terdaftar",
@@ -896,8 +896,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -938,7 +938,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                         bottom: 0,
                         right: 0,
                         child: IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit),
                           onPressed: () {
                             controller.pickImage(
                                 false); // Fungsi untuk memilih gambar
@@ -948,7 +948,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
                   ],
                 ),
               )),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Visibility(
@@ -1066,7 +1066,7 @@ class DetailHewanView extends GetView<DetailHewanController> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
 //AND DELETE
@@ -1079,21 +1079,21 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     onPressed: () {
                       controller.editHewan();
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       'Edit post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     // ... Other button properties
@@ -1103,21 +1103,21 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     onPressed: () {
                       controller.deleteHewan();
                     },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: Text(
                       'Delete post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: AppColor.primaryExtraSoft,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

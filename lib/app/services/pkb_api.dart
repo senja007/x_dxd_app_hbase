@@ -11,7 +11,7 @@ class PKBApi extends SharedApi {
   Future<PKBListModel> loadPKBAPI() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/pkb'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/pkb'), headers: getToken());
 
       ///print("hasil" + data.statusCode.toString());
       //print(json.decode(data.body));
@@ -66,7 +66,7 @@ class PKBApi extends SharedApi {
         'tanggalPkb': tanggalPkb,
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/pkb'),
+        Uri.parse('$baseUrl/pkb'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ class PKBApi extends SharedApi {
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/pkb/' + idKejadian.toString()),
+        Uri.parse('$baseUrl/pkb/$idKejadian'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -169,12 +169,12 @@ class PKBApi extends SharedApi {
   }
 
 //DELETE
-  Future<PKBModel?> deletePKBAPI(String id_kejadian) async {
+  Future<PKBModel?> deletePKBAPI(String idKejadian) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/pkb/' + id_kejadian.toString()),
+        Uri.parse('$baseUrl/pkb/$idKejadian'),
         headers: getToken(),
       );
       stopLoading();

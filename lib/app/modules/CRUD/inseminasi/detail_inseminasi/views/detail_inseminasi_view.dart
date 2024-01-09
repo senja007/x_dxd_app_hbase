@@ -6,20 +6,20 @@ import 'package:get/get.dart';
 import '../controllers/detail_inseminasi_controller.dart';
 
 class DetailInseminasiView extends GetView<DetailInseminasiController> {
-  const DetailInseminasiView({Key? key}) : super(key: key);
+  const DetailInseminasiView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Inseminasi',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
@@ -40,11 +40,11 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -54,13 +54,13 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -71,7 +71,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -102,8 +102,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // No Eartag Nasional
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -114,7 +114,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -145,8 +145,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Hewan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -157,7 +157,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -188,8 +188,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Pembuatan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -200,7 +200,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -231,8 +231,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Id Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -243,7 +243,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -274,8 +274,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // Bangsa Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -286,7 +286,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -317,8 +317,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // IB 1
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -329,7 +329,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -360,8 +360,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
           // IB 2
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -372,7 +372,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -402,8 +402,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -414,7 +414,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -444,8 +444,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -456,7 +456,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -486,8 +486,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -498,7 +498,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -528,8 +528,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -540,7 +540,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -570,8 +570,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -582,7 +582,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -612,8 +612,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -624,7 +624,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -654,8 +654,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -666,7 +666,7 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -696,8 +696,8 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -708,11 +708,11 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                 ),
                 child: TextField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalIBC,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Tanggal IB",
@@ -730,21 +730,21 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                     onPressed: () {
                       controller.editInseminasi();
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       'Edit post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     // ... Other button properties
@@ -754,21 +754,21 @@ class DetailInseminasiView extends GetView<DetailInseminasiController> {
                     onPressed: () {
                       controller.deleteInseminasi();
                     },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: Text(
                       'Delete post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: AppColor.primaryExtraSoft,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

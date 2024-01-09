@@ -1,7 +1,6 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_input.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -9,29 +8,30 @@ import 'package:get/get.dart';
 import '../controllers/add_kelahiran_controller.dart';
 
 class AddKelahiranView extends GetView<AddkelahiranController> {
-  const AddKelahiranView({Key? key}) : super(key: key);
+  const AddKelahiranView({super.key});
+  @override
   Widget build(BuildContext context) {
     var selectedGender;
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Kelahiran',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -41,20 +41,20 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idKejadianC,
               keyboardType: TextInputType.text,
@@ -80,15 +80,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.eartagIndukC,
               keyboardType: TextInputType.text,
@@ -114,15 +114,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.eartagAnakC,
               keyboardType: TextInputType.text,
@@ -148,15 +148,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idHewanIndukC,
               keyboardType: TextInputType.text,
@@ -182,15 +182,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idHewanAnakC,
               keyboardType: TextInputType.text,
@@ -216,15 +216,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idBatchStrawC,
               keyboardType: TextInputType.text,
@@ -250,15 +250,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idPejantanStrawC,
               keyboardType: TextInputType.text,
@@ -284,8 +284,8 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -293,7 +293,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             ),
             child: DropdownMenu<String>(
               inputDecorationTheme:
-                  InputDecorationTheme(filled: false, iconColor: Colors.amber),
+                  const InputDecorationTheme(filled: false, iconColor: Colors.amber),
               initialSelection: controller.genders.first,
               onSelected: (String? value) {
                 // This is called when the user selects an item.
@@ -341,15 +341,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           // ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.jumlahC,
               keyboardType: TextInputType.number,
@@ -375,15 +375,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.urutanIbC,
               keyboardType: TextInputType.text,
@@ -409,15 +409,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kartuTernakAnakC,
               keyboardType: TextInputType.text,
@@ -443,15 +443,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kartuTernakIndukC,
               keyboardType: TextInputType.text,
@@ -477,15 +477,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kategoriC,
               keyboardType: TextInputType.text,
@@ -511,15 +511,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.lokasiC,
               keyboardType: TextInputType.text,
@@ -579,8 +579,8 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           // ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -590,7 +590,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Peternak",
                     style: TextStyle(
@@ -612,7 +612,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                     onChanged: (String? selectedId) {
                       controller.selectedPeternakId.value = selectedId ?? '';
                     },
-                    hint: Text('Pilih Peternak'),
+                    hint: const Text('Pilih Peternak'),
                   );
                 }),
               ],
@@ -620,8 +620,8 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -631,7 +631,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Petugas Pelapor",
                     style: TextStyle(
@@ -654,7 +654,7 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                     onChanged: (String? selectedNik) {
                       controller.selectedPetugasId.value = selectedNik ?? '';
                     },
-                    hint: Text('Pilih Petugas'),
+                    hint: const Text('Pilih Petugas'),
                   );
                 }),
               ],
@@ -662,15 +662,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.produsenStrawC,
               keyboardType: TextInputType.text,
@@ -696,15 +696,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.spesiesIndukC,
               keyboardType: TextInputType.text,
@@ -730,15 +730,15 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.spesiesPejantanC,
               keyboardType: TextInputType.text,
@@ -764,17 +764,17 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child:TextField(
-               style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+               style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
                 controller: controller.tanggalLahirC, //editing controller of this TextField
-                decoration: InputDecoration( 
+                decoration: const InputDecoration( 
                   border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Lahir" //label text of field
@@ -785,18 +785,18 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.tanggalLaporanC, //editing controller of this TextField
-                decoration: InputDecoration( 
+                decoration: const InputDecoration( 
                   border: InputBorder.none,
                    icon: Icon(Icons.calendar_today), //icon of text field
                    labelText: "Tanggal Laporan" //label text of field
@@ -805,8 +805,8 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                 onTap: () => controller.tanggalLaporan(context),
              ),
           ),
-          SizedBox(height: 32),
-          Container(
+          const SizedBox(height: 32),
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
@@ -815,19 +815,19 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                     controller.addKelahiran(context);
                   }
                 },
-                child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
+                  backgroundColor: const Color(0xff132137),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
                   ),
                 ),
               ),

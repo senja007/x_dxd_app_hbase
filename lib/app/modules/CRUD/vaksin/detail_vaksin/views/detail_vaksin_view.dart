@@ -7,14 +7,14 @@ import 'package:get/get.dart';
 import '../controllers/detail_vaksin_controller.dart';
 
 class DetailVaksinView extends GetView<DetailVaksinController> {
-  const DetailVaksinView({Key? key}) : super(key: key);
+  const DetailVaksinView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.primary,
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Vaksin',
           style: TextStyle(
             color: Colors.white,
@@ -22,7 +22,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.of(context).pop();
           },
@@ -43,11 +43,11 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -57,14 +57,14 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           // Id vaksin
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -75,7 +75,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -107,8 +107,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -121,7 +121,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "No eartag Nasional",
                           style: TextStyle(
@@ -132,7 +132,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedHewanId.value}");
+                          print(controller.selectedHewanId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -161,16 +161,16 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                                   // controller.eartagC.text =
                                   //     selectedHewan.kodeEartagNasional ?? '';
                                 },
-                                hint: Text('Pilih Kode Eartag Nasional'),
+                                hint: const Text('Pilih Kode Eartag Nasional'),
                               )
                             : TextField(
                                 controller: controller.eartagC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -182,8 +182,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           // Id Pembuatan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -194,7 +194,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -225,8 +225,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           // Id Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -237,7 +237,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -268,8 +268,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           // Bangsa Pejantan
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -280,7 +280,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -311,8 +311,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           // IB 1
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -323,7 +323,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -354,8 +354,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           // IB 2
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -366,7 +366,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -398,8 +398,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
 
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -410,7 +410,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -440,8 +440,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -452,7 +452,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -482,8 +482,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -494,7 +494,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -525,8 +525,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -539,7 +539,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Id Peternak",
                           style: TextStyle(
@@ -550,7 +550,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedPeternakId.value}");
+                          print(controller.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -578,16 +578,16 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                                   controller.namaPeternakC.text =
                                       selectedPeternak.namaPeternak ?? '';
                                 },
-                                hint: Text('Pilih Peternak'),
+                                hint: const Text('Pilih Peternak'),
                               )
                             : TextField(
                                 controller: controller.idPeternakC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -598,8 +598,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -610,7 +610,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -640,8 +640,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -652,7 +652,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -682,8 +682,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 15, right: 15, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 15, right: 15, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -694,7 +694,7 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -724,8 +724,8 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -736,11 +736,11 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                 ),
                 child: TextField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalIBC,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Tanggal IB",
@@ -758,21 +758,21 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                     onPressed: () {
                       controller.editVaksin();
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       'Edit post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     // ... Other button properties
@@ -782,21 +782,21 @@ class DetailVaksinView extends GetView<DetailVaksinController> {
                     onPressed: () {
                       controller.deleteVaksin();
                     },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: Text(
                       'Delete post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: AppColor.primaryExtraSoft,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

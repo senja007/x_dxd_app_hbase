@@ -1,10 +1,8 @@
-import 'dart:convert';
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:http/http.dart' as http;
 
 class HewanController extends GetxController {
   var posts = HewanListModel().obs;
@@ -37,12 +35,12 @@ class HewanController extends GetxController {
       filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 204) {
+    } else if (posts.value.status == 204) {
       print("Empty");
-    } else if (posts!.value.status == 404) {
+    } else if (posts.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 401) {
+    } else if (posts.value.status == 401) {
     } else {
       print("someting wrong 400");
     }

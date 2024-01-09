@@ -28,18 +28,18 @@ class KelahiranController extends GetxController {
     posts.value = await KelahiranApi().loadKelahiranAPI();
     update();
     stopLoading();
-    if (posts?.value.status == 200) {
+    if (posts.value.status == 200) {
       final List<KelahiranModel> filteredList = posts.value.content!.toList();
 
       filteredPosts.assignAll(filteredList);
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 204) {
+    } else if (posts.value.status == 204) {
       print("Empty");
-    } else if (posts!.value.status == 404) {
+    } else if (posts.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 401) {
+    } else if (posts.value.status == 401) {
     } else {
       print("someting wrong 400");
     }

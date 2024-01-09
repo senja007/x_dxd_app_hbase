@@ -1,5 +1,4 @@
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
-import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
 import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
@@ -10,7 +9,7 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 
 class KelahiranView extends GetView<KelahiranController> {
-  const KelahiranView({Key? key}) : super(key: key);
+  const KelahiranView({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder<KelahiranController>(
@@ -24,13 +23,13 @@ class KelahiranView extends GetView<KelahiranController> {
               searchBackgroundColor: AppColor.secondary,
               elevation: 0,
               searchCursorColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.white),
-              searchClearIconTheme: IconThemeData(color: Colors.white),
-              searchBackIconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
+              searchClearIconTheme: const IconThemeData(color: Colors.white),
+              searchBackIconTheme: const IconThemeData(color: Colors.white),
               systemOverlayStyle: SystemUiOverlayStyle.light,
               searchHintText: 'Cari ID Kejadian',
-              searchTextStyle: TextStyle(color: Colors.white),
-              title: Text(
+              searchTextStyle: const TextStyle(color: Colors.white),
+              title: const Text(
                 'Data Kelahiran',
                 style: TextStyle(color: Colors.white),
               ),
@@ -38,15 +37,15 @@ class KelahiranView extends GetView<KelahiranController> {
               onSearch: (value) => controller.searchKelahiran(value)),
           body: Obx(
             () {
-              if (controller.posts?.value.status == 200) {
+              if (controller.posts.value.status == 200) {
                 if (controller.posts.value.content!.isEmpty) {
-                  return EmptyView();
+                  return const EmptyView();
                 } else {
                   return ListView.separated(
-                    itemCount: controller.filteredPosts!.value.length,
+                    itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    physics: const BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -97,8 +96,8 @@ class KelahiranView extends GetView<KelahiranController> {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 5),
-                                color: Color.fromARGB(255, 0, 47, 255)
+                                offset: const Offset(0, 5),
+                                color: const Color.fromARGB(255, 0, 47, 255)
                                     .withOpacity(.2),
                                 spreadRadius: 2,
                                 blurRadius: 10, // changes position of shadow
@@ -109,7 +108,7 @@ class KelahiranView extends GetView<KelahiranController> {
                             border: Border.all(
                                 width: 1, color: AppColor.primaryExtraSoft),
                           ),
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 20, top: 15, right: 29, bottom: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -121,7 +120,7 @@ class KelahiranView extends GetView<KelahiranController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "ID Kejadian: ${postData.idKejadian}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -129,11 +128,11 @@ class KelahiranView extends GetView<KelahiranController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "Nama Peternak: ${postData.idPeternak?.namaPeternak}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
                                   Text(
@@ -141,7 +140,7 @@ class KelahiranView extends GetView<KelahiranController> {
                                         ? "-"
                                         : "Spesies Pejantan: "
                                             "${postData.spesiesPejantan}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal),
                                   ),
@@ -155,7 +154,7 @@ class KelahiranView extends GetView<KelahiranController> {
                   );
                 }
               } else {
-                return NoData();
+                return const NoData();
               }
             },
           ),
@@ -165,8 +164,8 @@ class KelahiranView extends GetView<KelahiranController> {
               onPressed: () {
                 Get.toNamed(Routes.ADDKELAHIRAN);
               },
-              child: Icon(Icons.add),
-              backgroundColor: Color(0xff132137),
+              backgroundColor: const Color(0xff132137),
+              child: const Icon(Icons.add),
             ),
           ),
           floatingActionButtonLocation:

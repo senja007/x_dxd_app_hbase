@@ -10,7 +10,7 @@ class PengobatanApi extends SharedApi {
   // Login API
   Future<PengobatanListModel> loadPengobatanAPI() async {
     try {
-      var data = await http.get(Uri.parse(baseUrl + '/pengobatan'),
+      var data = await http.get(Uri.parse('$baseUrl/pengobatan'),
           headers: getToken());
       //print("hasil" + data.statusCode.toString());
       //print(json.decode(data.body));
@@ -64,7 +64,7 @@ class PengobatanApi extends SharedApi {
         'diagnosaBanding': dignosaBanding,
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/pengobatan'),
+        Uri.parse('$baseUrl/pengobatan'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -124,7 +124,7 @@ class PengobatanApi extends SharedApi {
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/pengobatan/' + idKasus.toString()),
+        Uri.parse('$baseUrl/pengobatan/$idKasus'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -161,7 +161,7 @@ class PengobatanApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/pengobatan/' + idKasus.toString()),
+        Uri.parse('$baseUrl/pengobatan/$idKasus'),
         headers: getToken(),
       );
       stopLoading();

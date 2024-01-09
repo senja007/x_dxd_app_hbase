@@ -1,6 +1,5 @@
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
-import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
@@ -11,7 +10,7 @@ class KelahiranApi extends SharedApi {
   // Login API
   Future<KelahiranListModel> loadKelahiranAPI() async {
     try {
-      var data = await http.get(Uri.parse(baseUrl + '/kelahiran'),
+      var data = await http.get(Uri.parse('$baseUrl/kelahiran'),
           headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
@@ -91,7 +90,7 @@ class KelahiranApi extends SharedApi {
         'urutanIb': urutanIb,
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/kelahiran'),
+        Uri.parse('$baseUrl/kelahiran'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -190,7 +189,7 @@ class KelahiranApi extends SharedApi {
         'urutanIb': urutanIb,
       };
       var data = await http.put(
-        Uri.parse(baseUrl + '/kelahiran/' + idKejadian.toString()),
+        Uri.parse('$baseUrl/kelahiran/$idKejadian'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -236,12 +235,12 @@ class KelahiranApi extends SharedApi {
   }
 
 //DELETE
-  Future<KelahiranModel?> deleteKelahiranAPI(String id_kejadian_detail) async {
+  Future<KelahiranModel?> deleteKelahiranAPI(String idKejadianDetail) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/kelahiran/' + id_kejadian_detail.toString()),
+        Uri.parse('$baseUrl/kelahiran/$idKejadianDetail'),
         headers: getToken(),
       );
       stopLoading();

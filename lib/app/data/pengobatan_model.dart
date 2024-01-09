@@ -26,24 +26,18 @@ class PengobatanModel {
 
   factory PengobatanModel.fromJson(Map<String, dynamic> jsonData) {
     return PengobatanModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idKasus: jsonData['idKasus'] != null ? jsonData['idKasus'] : "",
-      tanggalPengobatan: jsonData['tanggalPengobatan'] != null
-          ? jsonData['tanggalPengobatan']
-          : "",
+      status: jsonData['status'] ?? 0,
+      idKasus: jsonData['idKasus'] ?? "",
+      tanggalPengobatan: jsonData['tanggalPengobatan'] ?? "",
       tanggalKasus:
-          jsonData['tanggalKasus'] != null ? jsonData['tanggalKasus'] : "",
+          jsonData['tanggalKasus'] ?? "",
       namaPetugas:
-          jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      namaInfrastruktur: jsonData['namaInfrastruktur'] != null
-          ? jsonData['namaInfrastruktur']
-          : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      dosis: jsonData['dosis'] != null ? jsonData['dosis'] : "",
-      sindrom: jsonData['sindrom'] != null ? jsonData['sindrom'] : "",
-      diagnosaBanding: jsonData['diagnosaBanding'] != null
-          ? jsonData['diagnosaBanding']
-          : "",
+          jsonData['namaPetugas'] ?? "",
+      namaInfrastruktur: jsonData['namaInfrastruktur'] ?? "",
+      lokasi: jsonData['lokasi'] ?? "",
+      dosis: jsonData['dosis'] ?? "",
+      sindrom: jsonData['sindrom'] ?? "",
+      diagnosaBanding: jsonData['diagnosaBanding'] ?? "",
     );
   }
 }

@@ -8,28 +8,29 @@ import 'package:get/get.dart';
 import '../controllers/add_vaksin_controller.dart';
 
 class AddVaksinView extends GetView<AddVaksinController> {
-  const AddVaksinView({Key? key}) : super(key: key);
+  const AddVaksinView({super.key});
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Vaksin',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -39,20 +40,20 @@ class AddVaksinView extends GetView<AddVaksinController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idVaksinC,
               keyboardType: TextInputType.text,
@@ -78,8 +79,8 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -90,7 +91,7 @@ class AddVaksinView extends GetView<AddVaksinController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Text(
                         "Kode Eartag Nasional",
                         style: TextStyle(
@@ -105,28 +106,29 @@ class AddVaksinView extends GetView<AddVaksinController> {
                         items: controller.hewanList.map((HewanModel hewan) {
                           return DropdownMenuItem<String>(
                             value: hewan.kodeEartagNasional ?? '',
-                            child: Text(hewan.kodeEartagNasional ?? ''),
+                            child: Text('${hewan.kodeEartagNasional ?? ''}' '    ${hewan.idPeternak!.namaPeternak ?? ''}'),
                           );
                         }).toList(),
                         onChanged: (String? selectedEartag) {
                           controller.selectedHewanEartag.value =
                               selectedEartag ?? '';
                         },
-                        hint: Text('Pilih Kode Eartag Nasional'),
+                        hint: const Text('Pilih Kode Eartag Nasional'),
+                        isExpanded: true,
                       );
                     })
                   ])),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idPembuatanC,
               keyboardType: TextInputType.text,
@@ -152,15 +154,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idPejantanC,
               keyboardType: TextInputType.text,
@@ -186,15 +188,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.bangsaPejantanC,
               keyboardType: TextInputType.text,
@@ -220,15 +222,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.ib1C,
               keyboardType: TextInputType.text,
@@ -254,15 +256,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.ib2C,
               keyboardType: TextInputType.text,
@@ -288,15 +290,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.ib3C,
               keyboardType: TextInputType.text,
@@ -322,15 +324,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.ibLainC,
               keyboardType: TextInputType.text,
@@ -356,15 +358,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.produsenC,
               keyboardType: TextInputType.text,
@@ -424,8 +426,8 @@ class AddVaksinView extends GetView<AddVaksinController> {
           // ),
           Container(
               width: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: const EdgeInsets.only(bottom: 16),
               decoration: BoxDecoration(
                 color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
@@ -436,7 +438,7 @@ class AddVaksinView extends GetView<AddVaksinController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Text(
                         "Nama Peternak",
                         style: TextStyle(
@@ -452,14 +454,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
                             .map((PeternakModel peternak) {
                           return DropdownMenuItem<String>(
                             value: peternak.idPeternak ?? '',
-                            child: Text(peternak.namaPeternak ?? ''),
+                            child: Text('${peternak.namaPeternak ?? ''}  ' '${peternak.nikPeternak ?? ''}'),
                           );
                         }).toList(),
                         onChanged: (String? selectedId) {
                           controller.selectedPeternakId.value =
                               selectedId ?? '';
                         },
-                        hint: Text('Pilih Peternak'),
+                        hint: const Text('Pilih Peternak'),
+                        isExpanded: true,
                       );
                     })
                   ])),
@@ -499,15 +502,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           // ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.lokasiC,
               keyboardType: TextInputType.text,
@@ -533,15 +536,15 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.inseminatorC,
               keyboardType: TextInputType.text,
@@ -567,19 +570,19 @@ class AddVaksinView extends GetView<AddVaksinController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller:
                   controller.tanggalIBC, //editing controller of this TextField
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal IB" //label text of field
@@ -589,8 +592,8 @@ class AddVaksinView extends GetView<AddVaksinController> {
               onTap: () => controller.tanggalIB(context),
             ),
           ),
-          SizedBox(height: 32),
-          Container(
+          const SizedBox(height: 32),
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
@@ -599,19 +602,19 @@ class AddVaksinView extends GetView<AddVaksinController> {
                     controller.addPost(context);
                   }
                 },
-                child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
+                  backgroundColor: const Color(0xff132137),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
                   ),
                 ),
               ),

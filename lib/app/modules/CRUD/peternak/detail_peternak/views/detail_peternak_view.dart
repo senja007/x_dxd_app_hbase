@@ -7,20 +7,20 @@ import 'package:get/get.dart';
 import '../controllers/detail_peternak_controller.dart';
 
 class DetailPeternakView extends GetView<DetailPeternakController> {
-  const DetailPeternakView({Key? key}) : super(key: key);
+  const DetailPeternakView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Peternak',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
@@ -41,11 +41,11 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -55,13 +55,13 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -72,7 +72,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.idPeternakC,
@@ -99,8 +99,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -111,7 +111,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.idISIKHNASC,
@@ -138,8 +138,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -150,7 +150,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.nikPeternakC,
@@ -177,8 +177,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -189,7 +189,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.namaPeternakC,
@@ -216,8 +216,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -228,7 +228,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.lokasiC,
@@ -256,8 +256,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -270,7 +270,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Nama Petugas",
                           style: TextStyle(
@@ -281,7 +281,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedPetugas.value}");
+                          print(controller.selectedPetugas.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -297,16 +297,16 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                                   controller.selectedPetugas.value =
                                       selectedId ?? '';
                                 },
-                                hint: Text('Pilih Petugas'),
+                                hint: const Text('Pilih Petugas'),
                               )
                             : TextField(
                                 controller: controller.petugasPendaftarC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -317,8 +317,8 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -329,11 +329,11 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                 ),
                 child: TextField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 14, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.tanggalPendaftaranC,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                     icon: Icon(Icons.calendar_today),
                     labelText: "Tanggal Pendaftaran",
@@ -351,21 +351,21 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                     onPressed: () {
                       controller.editPeternak();
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       'Edit post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     // ... Other button properties
@@ -375,21 +375,21 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                     onPressed: () {
                       controller.deletePeternak();
                     },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: Text(
                       'Delete post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: AppColor.primaryExtraSoft,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

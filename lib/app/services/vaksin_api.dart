@@ -11,7 +11,7 @@ class VaksinApi extends SharedApi {
   Future<VaksinListModel> loadVaksinAPI() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/vaksin'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/vaksin'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       //print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -73,7 +73,7 @@ class VaksinApi extends SharedApi {
         'tanggalIB': tanggalIB
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/vaksin'),
+        Uri.parse('$baseUrl/vaksin'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -151,7 +151,7 @@ class VaksinApi extends SharedApi {
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/vaksin/' + idVaksin.toString()),
+        Uri.parse('$baseUrl/vaksin/$idVaksin'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -194,7 +194,7 @@ class VaksinApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/vaksin/' + idVaksin.toString()),
+        Uri.parse('$baseUrl/vaksin/$idVaksin'),
         headers: getToken(),
       );
       stopLoading();

@@ -1,8 +1,6 @@
-import 'package:crud_flutter_api/app/data/user_model.dart';
 import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../controllers/user_controller.dart';
@@ -10,20 +8,22 @@ import '../controllers/user_controller.dart';
 class UserView extends StatelessWidget {
   static String routeName = "/profile";
 
+  const UserView({super.key});
+
   @override
   Widget build(BuildContext context) {
     UserController userController = Get.find<UserController>();
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(
-        backgroundColor: Color(0xffF7EBE1),
+        backgroundColor: const Color(0xffF7EBE1),
         appBar: AppBar(
-          title: Text(
+          title: const Text(
             'My Profile',
             style: TextStyle(color: Color.fromARGB(255, 255, 255, 255)),
             textAlign: TextAlign.center,
           ),
           automaticallyImplyLeading: false,
-          backgroundColor: Color.fromARGB(255, 19, 33, 55),
+          backgroundColor: const Color.fromARGB(255, 19, 33, 55),
           elevation: 0.0,
         ),
         body: Container(
@@ -32,7 +32,7 @@ class UserView extends StatelessWidget {
             child: Column(
               children: [
                 const SizedBox(height: 40),
-                CircleAvatar(
+                const CircleAvatar(
                   radius: 70,
                 ),
                 const SizedBox(height: 20),
@@ -80,8 +80,8 @@ class UserView extends StatelessWidget {
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
           BoxShadow(
-            offset: Offset(0, 5),
-            color: Color.fromARGB(255, 0, 47, 255).withOpacity(.2),
+            offset: const Offset(0, 5),
+            color: const Color.fromARGB(255, 0, 47, 255).withOpacity(.2),
             spreadRadius: 2,
             blurRadius: 10,
           )

@@ -51,49 +51,39 @@ class KelahiranModel {
 
   factory KelahiranModel.fromJson(Map<String, dynamic> jsonData) {
     return KelahiranModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idKejadian: jsonData['idKejadian'] != null ? jsonData['idKejadian'] : "",
+      status: jsonData['status'] ?? 0,
+      idKejadian: jsonData['idKejadian'] ?? "",
       tanggalLaporan:
-          jsonData['tanggalLaporan'] != null ? jsonData['tanggalLaporan'] : "",
+          jsonData['tanggalLaporan'] ?? "",
       tanggalLahir:
-          jsonData['tanggalLahir'] != null ? jsonData['tanggalLahir'] : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
+          jsonData['tanggalLahir'] ?? "",
+      lokasi: jsonData['lokasi'] ?? "",
       namaPeternak:
-          jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
+          jsonData['namaPeternak'] ?? "",
       idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
-      kartuTernakInduk: jsonData['kartuTernakInduk'] != null
-          ? jsonData['kartuTernakInduk']
-          : "",
+      kartuTernakInduk: jsonData['kartuTernakInduk'] ?? "",
       eartagInduk:
-          jsonData['eartagInduk'] != null ? jsonData['eartagInduk'] : "",
+          jsonData['eartagInduk'] ?? "",
       idHewanInduk:
-          jsonData['idHewanInduk'] != null ? jsonData['idHewanInduk'] : "",
+          jsonData['idHewanInduk'] ?? "",
       spesiesInduk:
-          jsonData['spesiesInduk'] != null ? jsonData['spesiesInduk'] : "",
-      idPejantanStraw: jsonData['idPejantanStraw'] != null
-          ? jsonData['idPejantanStraw']
-          : "",
+          jsonData['spesiesInduk'] ?? "",
+      idPejantanStraw: jsonData['idPejantanStraw'] ?? "",
       idBatchStraw:
-          jsonData['idBatchStraw'] != null ? jsonData['idBatchStraw'] : "",
+          jsonData['idBatchStraw'] ?? "",
       produsenStraw:
-          jsonData['produsenStraw'] != null ? jsonData['produsenStraw'] : "",
-      spesiesPejantan: jsonData['spesiesPejantan'] != null
-          ? jsonData['spesiesPejantan']
-          : "",
-      jumlah: jsonData['jumlah'] != null ? jsonData['jumlah'] : "",
-      kartuTernakAnak: jsonData['kartuTernakAnak'] != null
-          ? jsonData['kartuTernakAnak']
-          : "",
-      eartagAnak: jsonData['eartagAnak'] != null ? jsonData['eartagAnak'] : "",
+          jsonData['produsenStraw'] ?? "",
+      spesiesPejantan: jsonData['spesiesPejantan'] ?? "",
+      jumlah: jsonData['jumlah'] ?? "",
+      kartuTernakAnak: jsonData['kartuTernakAnak'] ?? "",
+      eartagAnak: jsonData['eartagAnak'] ?? "",
       idHewanAnak:
-          jsonData['idHewanAnak'] != null ? jsonData['idHewanAnak'] : "",
-      jenisKelaminAnak: jsonData['jenisKelaminAnak'] != null
-          ? jsonData['jenisKelaminAnak']
-          : "",
-      kategori: jsonData['kategori'] != null ? jsonData['kategori'] : "",
+          jsonData['idHewanAnak'] ?? "",
+      jenisKelaminAnak: jsonData['jenisKelaminAnak'] ?? "",
+      kategori: jsonData['kategori'] ?? "",
       petugasPelapor:
-          jsonData['petugasPelapor'] != null ? jsonData['petugasPelapor'] : "",
-      urutanIb: jsonData['urutanIb'] != null ? jsonData['urutanIb'] : "",
+          jsonData['petugasPelapor'] ?? "",
+      urutanIb: jsonData['urutanIb'] ?? "",
     );
   }
 }

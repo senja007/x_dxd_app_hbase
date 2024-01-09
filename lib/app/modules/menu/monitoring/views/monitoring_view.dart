@@ -2,12 +2,11 @@ import 'package:chewie/chewie.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:video_player/video_player.dart';
 
 import '../controllers/monitoring_controller.dart';
 
 class MonitoringView extends GetView<MonitoringController> {
-  const MonitoringView({Key? key}) : super(key: key);
+  const MonitoringView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -78,8 +77,7 @@ class DataWidget extends StatelessWidget {
   final String label;
   final String value;
 
-  const DataWidget({Key? key, required this.label, required this.value})
-      : super(key: key);
+  const DataWidget({super.key, required this.label, required this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -95,11 +93,11 @@ class DataWidget extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(color: Colors.white),
+            style: const TextStyle(color: Colors.white),
           ),
           Text(
             value,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
           ),
         ],
       ),

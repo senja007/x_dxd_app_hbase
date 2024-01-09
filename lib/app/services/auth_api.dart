@@ -14,7 +14,7 @@ class AuthApi extends SharedApi {
     try {
       var jsonData;
       var data = await http.post(
-        Uri.parse(baseUrl + "/auth" + "/signin"),
+        Uri.parse("$baseUrl/auth/signin"),
         headers: {
           'Content-Type': 'application/json',
         },
@@ -55,11 +55,11 @@ class AuthApi extends SharedApi {
   Future<UserModel?> checkTokenApi(String token) async {
     try {
       var headers = {
-        "Authorization": "Bearer " + token,
+        "Authorization": "Bearer $token",
       };
       var jsonData;
       showLoading();
-      var data = await http.get(Uri.parse(baseUrl + '/user' + '/me'),
+      var data = await http.get(Uri.parse('$baseUrl/user/me'),
           headers: headers);
       stopLoading();
       jsonData = json.decode(data.body);
@@ -92,7 +92,7 @@ class AuthApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.post(
-        Uri.parse(baseUrl + '/auth' + '/signup'),
+        Uri.parse('$baseUrl/auth/signup'),
         body: {'name': name, 'email': email, 'password': password},
       );
       stopLoading();

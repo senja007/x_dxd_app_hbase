@@ -7,28 +7,29 @@ import 'package:get/get.dart';
 import '../controllers/add_peternak_controller.dart';
 
 class AddPeternakView extends GetView<AddPeternakController> {
-  const AddPeternakView({Key? key}) : super(key: key);
+  const AddPeternakView({super.key});
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Peternak',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -38,20 +39,20 @@ class AddPeternakView extends GetView<AddPeternakController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idPeternakC,
               keyboardType: TextInputType.text,
@@ -77,15 +78,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.nikPeternakC,
               keyboardType: TextInputType.number,
@@ -111,15 +112,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.namaPeternakC,
               keyboardType: TextInputType.text,
@@ -145,15 +146,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.idISIKHNASC,
               keyboardType: TextInputType.text,
@@ -179,15 +180,15 @@ class AddPeternakView extends GetView<AddPeternakController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.lokasiC,
               keyboardType: TextInputType.text,
@@ -213,8 +214,8 @@ class AddPeternakView extends GetView<AddPeternakController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -224,7 +225,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Petugas Pendaftar",
                     style: TextStyle(
@@ -245,7 +246,7 @@ class AddPeternakView extends GetView<AddPeternakController> {
                     onChanged: (String? selectedNama) {
                       controller.selectedPetugas.value = selectedNama ?? '';
                     },
-                    hint: Text('Pilih Petugas'),
+                    hint: const Text('Pilih Petugas'),
                   );
                 }),
               ],
@@ -287,19 +288,19 @@ class AddPeternakView extends GetView<AddPeternakController> {
           // ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller
                   .tanggalPendaftaranC, //editing controller of this TextField
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal Pendaftaran" //label text of field
@@ -309,8 +310,8 @@ class AddPeternakView extends GetView<AddPeternakController> {
               onTap: () => controller.tanggalPendaftaran(context),
             ),
           ),
-          SizedBox(height: 32),
-          Container(
+          const SizedBox(height: 32),
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
@@ -319,19 +320,19 @@ class AddPeternakView extends GetView<AddPeternakController> {
                     controller.addPeternak(context);
                   }
                 },
-                child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
+                  backgroundColor: const Color(0xff132137),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
                   ),
                 ),
               ),

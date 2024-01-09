@@ -1,11 +1,8 @@
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -14,7 +11,7 @@ class PetugasApi extends SharedApi {
   Future<PetugasListModel> loadPetugasApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/petugas'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/petugas'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -81,7 +78,7 @@ class PetugasApi extends SharedApi {
         'email': email
       };
       var data = await http.post(
-        Uri.parse(baseUrl + "/petugas"),
+        Uri.parse("$baseUrl/petugas"),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -110,20 +107,20 @@ class PetugasApi extends SharedApi {
   }
 
 //EDIT
-  Future<PetugasModel?> editPetugasApi(String nik_petugas, String nama_petugas,
-      String no_telp, String email) async {
+  Future<PetugasModel?> editPetugasApi(String nikPetugas, String namaPetugas,
+      String noTelp, String email) async {
     try {
       var jsonData;
       showLoading();
       var bodyDataedit = {
-        'nikPetugas': nik_petugas,
-        'namaPetugas': nama_petugas,
-        'noTelp': no_telp,
+        'nikPetugas': nikPetugas,
+        'namaPetugas': namaPetugas,
+        'noTelp': noTelp,
         'email': email
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/petugas/' + nik_petugas.toString()),
+        Uri.parse('$baseUrl/petugas/$nikPetugas'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -153,7 +150,7 @@ class PetugasApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/petugas/' + nikPetugas.toString()),
+        Uri.parse('$baseUrl/petugas/$nikPetugas'),
         headers: getToken(),
       );
       stopLoading();

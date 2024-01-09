@@ -9,7 +9,7 @@ import 'package:get/get.dart';
 import '../controllers/ternak_saya_controller.dart';
 
 class TernakSayaView extends GetView<TernakSayaController> {
-  const TernakSayaView({Key? key}) : super(key: key);
+  const TernakSayaView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +24,13 @@ class TernakSayaView extends GetView<TernakSayaController> {
               searchBackgroundColor: AppColor.secondary,
               elevation: 0,
               searchCursorColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.white),
-              searchClearIconTheme: IconThemeData(color: Colors.white),
-              searchBackIconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
+              searchClearIconTheme: const IconThemeData(color: Colors.white),
+              searchBackIconTheme: const IconThemeData(color: Colors.white),
               systemOverlayStyle: SystemUiOverlayStyle.light,
               searchHintText: 'Cari Data NIK Petugas',
-              searchTextStyle: TextStyle(color: Colors.white),
-              title: Text(
+              searchTextStyle: const TextStyle(color: Colors.white),
+              title: const Text(
                 'Ternak Saya',
                 style: TextStyle(color: Colors.white),
               ),
@@ -38,15 +38,15 @@ class TernakSayaView extends GetView<TernakSayaController> {
               onSearch: (value) => controller.searchPetugas(value)),
           body: Obx(
             () {
-              if (controller.posts?.value.status == 200) {
+              if (controller.posts.value.status == 200) {
                 if (controller.posts.value.content!.isEmpty) {
-                  return EmptyView();
+                  return const EmptyView();
                 } else {
                   return ListView.separated(
-                    itemCount: controller.filteredPosts!.value.length,
+                    itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    physics: const BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -67,8 +67,8 @@ class TernakSayaView extends GetView<TernakSayaController> {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 5),
-                                color: Color.fromARGB(255, 0, 47, 255)
+                                offset: const Offset(0, 5),
+                                color: const Color.fromARGB(255, 0, 47, 255)
                                     .withOpacity(.2),
                                 spreadRadius: 2,
                                 blurRadius: 10, // changes position of shadow
@@ -79,7 +79,7 @@ class TernakSayaView extends GetView<TernakSayaController> {
                             border: Border.all(
                                 width: 1, color: AppColor.primaryExtraSoft),
                           ),
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 20, top: 15, right: 29, bottom: 15),
                           child: Wrap(
                             // Gunakan Wrap di sini
@@ -92,7 +92,7 @@ class TernakSayaView extends GetView<TernakSayaController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "Nik Petugas: ${postData.nikPetugas}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -100,11 +100,11 @@ class TernakSayaView extends GetView<TernakSayaController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "Nama Petugas: ${postData.namaPetugas}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
                                   Text(
@@ -112,7 +112,7 @@ class TernakSayaView extends GetView<TernakSayaController> {
                                         ? "-"
                                         : "Email Petugas: "
                                             "${postData.email}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal),
                                   ),
@@ -126,7 +126,7 @@ class TernakSayaView extends GetView<TernakSayaController> {
                   );
                 }
               } else {
-                return NoData();
+                return const NoData();
               }
             },
           ),
@@ -136,8 +136,8 @@ class TernakSayaView extends GetView<TernakSayaController> {
               onPressed: () {
                 Get.toNamed(Routes.ADDPETUGAS);
               },
-              child: Icon(Icons.add),
-              backgroundColor: Color(0xff132137),
+              backgroundColor: const Color(0xff132137),
+              child: const Icon(Icons.add),
             ),
           ),
           floatingActionButtonLocation:

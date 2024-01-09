@@ -17,11 +17,11 @@ class PetugasModel {
 
   factory PetugasModel.fromJson(Map<String, dynamic> jsonData) {
     return PetugasModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      nikPetugas: jsonData['nikPetugas'] != null ? jsonData['nikPetugas'] : "",
-      namaPetugas: jsonData['namaPetugas'] != null ? jsonData['namaPetugas'] : "",
-      noTelp: jsonData['noTelp'] != null ? jsonData['noTelp'] : "",
-      email: jsonData['email'] != null ? jsonData['email'] : "",
+      status: jsonData['status'] ?? 0,
+      nikPetugas: jsonData['nikPetugas'] ?? "",
+      namaPetugas: jsonData['namaPetugas'] ?? "",
+      noTelp: jsonData['noTelp'] ?? "",
+      email: jsonData['email'] ?? "",
       //id: jsonData['id'] != null ? jsonData['id'] : 0,
     );
   }

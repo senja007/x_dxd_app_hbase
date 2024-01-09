@@ -3,7 +3,6 @@ import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 
 import '../../../../menu/petugas/controllers/petugas_controller.dart';
@@ -58,11 +57,11 @@ class AddPetugasController extends GetxController {
         context: context, // Gunakan context yang diberikan sebagai parameter.
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text("Kesalahan"),
+            title: const Text("Kesalahan"),
             content: Text(e.toString()),
             actions: [
               CupertinoDialogAction(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.pop(context);
                 },

@@ -1,47 +1,46 @@
 import 'dart:io';
 
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
-import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
-import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
 //import 'package:dropdown_search/dropdown_search.dart';
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../controllers/add_hewan_controller.dart';
 
 class AddHewanView extends GetView<AddHewanController> {
+  const AddHewanView({super.key});
+
   // const AddHewanView({Key? key}) : super(key: key);
   // String selected;
 
+  @override
   Widget build(BuildContext context) {
     var selectedGender;
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Tambah Data Hewan',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
         ),
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -51,20 +50,20 @@ class AddHewanView extends GetView<AddHewanController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.kodeEartagNasionalC,
               keyboardType: TextInputType.text,
@@ -88,44 +87,46 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.noKartuTernakC,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                label: Text(
-                  "Nomor Kartu Ternak",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+          
+             Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: TextField(
+                style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
+                maxLines: 1,
+                controller: controller.noKartuTernakC,
+                keyboardType: TextInputType.number,
+                decoration: InputDecoration(
+                  label: Text(
+                    "Nomor Kartu Ternak",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 14,
+                    ),
                   ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Nomor Kartu Ternak",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
+                  floatingLabelBehavior: FloatingLabelBehavior.always,
+                  border: InputBorder.none,
+                  hintText: "Nomor Kartu Ternak",
+                  hintStyle: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'poppins',
+                    fontWeight: FontWeight.w500,
+                    color: AppColor.secondarySoft,
+                  ),
                 ),
               ),
             ),
-          ),
-          Container(
+          
+         Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -135,7 +136,7 @@ class AddHewanView extends GetView<AddHewanController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Peternak",
                     style: TextStyle(
@@ -151,13 +152,14 @@ class AddHewanView extends GetView<AddHewanController> {
                         controller.peternakList.map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
-                        child: Text(peternak.namaPeternak ?? ''),
+                        child: Text(overflow: TextOverflow.ellipsis,'${peternak.namaPeternak ?? ''}  ' ' ${peternak.nikPeternak ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
                       controller.selectedPeternakId.value = selectedId ?? '';
                     },
-                    hint: Text('Pilih Peternak'),
+                    hint: const Text('Pilih Peternak'),
+                    isExpanded: true,
                   );
                 }),
               ],
@@ -165,8 +167,8 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -176,7 +178,7 @@ class AddHewanView extends GetView<AddHewanController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Kandang",
                     style: TextStyle(
@@ -193,13 +195,13 @@ class AddHewanView extends GetView<AddHewanController> {
                         controller.kandangList.map((KandangModel kandang) {
                       return DropdownMenuItem<String>(
                         value: kandang.idKandang ?? '',
-                        child: Text(kandang.desa ?? ''),
+                        child: Text('${kandang.idPeternak!.namaPeternak ?? ''} ' '${kandang.desa ?? ''}' ' ${kandang.luas??''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedNik) {
                       controller.selectedKandangId.value = selectedNik ?? '';
                     },
-                    hint: Text('Pilih Kandang'),
+                    hint: const Text('Pilih Kandang'),
                   );
                 }),
               ],
@@ -207,8 +209,8 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -217,7 +219,7 @@ class AddHewanView extends GetView<AddHewanController> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Text(
                   "Spesies",
                   style: TextStyle(
@@ -228,7 +230,7 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
               Obx(() =>
                  DropdownMenu<String>(
-                  inputDecorationTheme: InputDecorationTheme(
+                  inputDecorationTheme: const InputDecorationTheme(
                       filled: false, iconColor: Colors.amber),
                   initialSelection: controller.selectedSpesies.value,
                   onSelected: (String? value) {
@@ -245,8 +247,8 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -255,7 +257,7 @@ class AddHewanView extends GetView<AddHewanController> {
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: 0),
+                padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Text(
                   "Jenis Kelamin",
                   style: TextStyle(
@@ -265,7 +267,7 @@ class AddHewanView extends GetView<AddHewanController> {
                 ),
               ),
               DropdownMenu<String>(
-                inputDecorationTheme: InputDecorationTheme(
+                inputDecorationTheme: const InputDecorationTheme(
                     filled: false, iconColor: Colors.amber),
                 initialSelection: controller.genders.first,
                 onSelected: (String? value) {
@@ -281,19 +283,19 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller
                   .umurC, //editing controller of this TextField
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Umur" //label text of field
@@ -305,15 +307,15 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller.identifikasiHewanC,
               keyboardType: TextInputType.text,
@@ -339,8 +341,8 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
          Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -350,7 +352,7 @@ class AddHewanView extends GetView<AddHewanController> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
                   child: Text(
                     "Nama Petugas",
                     style: TextStyle(
@@ -373,7 +375,7 @@ class AddHewanView extends GetView<AddHewanController> {
                     onChanged: (String? selectedNik) {
                       controller.selectedPetugasId.value = selectedNik ?? '';
                     },
-                    hint: Text('Pilih Petugas'),
+                    hint: const Text('Pilih Petugas'),
                   );
                 }),
               ],
@@ -381,19 +383,19 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: TextField(
-              style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
               controller: controller
                   .tanggalTerdaftarC, //editing controller of this TextField
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal Terdaftar" //label text of field
@@ -405,8 +407,8 @@ class AddHewanView extends GetView<AddHewanController> {
           ),
           Container(
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.all(14),
-            margin: EdgeInsets.only(bottom: 16),
+            padding: const EdgeInsets.all(14),
+            margin: const EdgeInsets.only(bottom: 16),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8),
@@ -423,16 +425,16 @@ class AddHewanView extends GetView<AddHewanController> {
                     fontSize: 12,
                   ),
                 ),
-                SizedBox(height: 8),
+                const SizedBox(height: 8),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(vertical: 8),
+                    Expanded(child:
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Obx(
                           () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            crossAxisAlignment: CrossAxisAlignment.stretch, 
                             children: [
                               if (controller.fotoHewan.value != null)
                                 Column(
@@ -444,17 +446,20 @@ class AddHewanView extends GetView<AddHewanController> {
                                       width: 100,
                                       fit: BoxFit.cover,
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     IconButton(
                                       onPressed: () {
                                         controller.removeImage();
                                       },
-                                      icon: Icon(Icons.delete),
+                                      icon: const Icon(Icons.delete),
                                       color: Colors.red,
+                                      
                                     ),
+                                    
                                   ],
+                                  
                                 ),
-                            ],
+                            ]
                           ),
                         ),
                       ),
@@ -466,22 +471,22 @@ class AddHewanView extends GetView<AddHewanController> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: Text("Pilih Sumber Gambar"),
+                              title: const Text("Pilih Sumber Gambar"),
                               content: SingleChildScrollView(
                                 child: ListBody(
                                   children: <Widget>[
                                     ListTile(
-                                      leading: Icon(Icons.camera),
-                                      title: Text("Kamera"),
+                                      leading: const Icon(Icons.camera),
+                                      title: const Text("Kamera"),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.pickImage(true);
                                       },
                                     ),
-                                    SizedBox(height: 8),
+                                    const SizedBox(height: 8),
                                     ListTile(
-                                      leading: Icon(Icons.photo_library),
-                                      title: Text("Galeri"),
+                                      leading: const Icon(Icons.photo_library),
+                                      title: const Text("Galeri"),
                                       onTap: () {
                                         Navigator.of(context).pop();
                                         controller.pickImage(false);
@@ -494,15 +499,15 @@ class AddHewanView extends GetView<AddHewanController> {
                           },
                         );
                       },
-                      icon: Icon(Icons.add_a_photo),
-                      label: Text('Pilih Gambar'),
+                      icon: const Icon(Icons.add_a_photo),
+                      label: const Text('Pilih Gambar'),
                     ),
                   ],
                 ),
               ],
             ),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Column(
@@ -608,8 +613,8 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-          SizedBox(height: 32),
-          Container(
+          const SizedBox(height: 32),
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => ElevatedButton(
@@ -620,19 +625,19 @@ class AddHewanView extends GetView<AddHewanController> {
                     await controller.addHewan(context); // Memanggil addHewan
                   }
                 },
-                child: Text(
-                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontFamily: 'poppins',
-                  ),
-                ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xff132137),
-                  padding: EdgeInsets.symmetric(vertical: 18),
+                  backgroundColor: const Color(0xff132137),
+                  padding: const EdgeInsets.symmetric(vertical: 18),
                   elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: Text(
+                  (controller.isLoading.isFalse) ? 'Tambah post' : 'Loading...',
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontFamily: 'poppins',
                   ),
                 ),
               ),

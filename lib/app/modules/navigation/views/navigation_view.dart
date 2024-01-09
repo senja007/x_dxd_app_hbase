@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends StatelessWidget {
+  const NavigationView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<NavigationController>(builder: (controller) {
@@ -17,23 +19,23 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            MainMenuView(),
-            UserView(),
+            const MainMenuView(),
+            const UserView(),
           ],
         )),
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: Color.fromARGB(
+          backgroundColor: const Color.fromARGB(
               255, 19, 33, 55), // Set your desired background color here
-          selectedItemColor: Color.fromARGB(
+          selectedItemColor: const Color.fromARGB(
               255, 80, 147, 255), // Set the selected item color to white
-          unselectedItemColor: Color.fromARGB(
+          unselectedItemColor: const Color.fromARGB(
               255, 255, 255, 255), // Set the unselected item color to white
           onTap: controller.changeTabIndex,
           currentIndex: controller.tabIndex,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           type: BottomNavigationBarType.fixed,
-          items: [
+          items: const [
             BottomNavigationBarItem(
               icon: IconTheme(
                 data: IconThemeData(

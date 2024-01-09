@@ -5,27 +5,26 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:image_picker/image_picker.dart';
 
 import 'package:get/get.dart';
 
 import '../controllers/detail_kandang_controller.dart';
 
 class DetailKandangView extends GetView<DetailKandangController> {
-  const DetailKandangView({Key? key}) : super(key: key);
+  const DetailKandangView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffF7EBE1),
+      backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
-        title: Text(
+        title: const Text(
           'Detail Data Kandang',
           style: TextStyle(
             color: Colors.white,
           ),
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back), // Ikon panah kembali
+          icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
             Navigator.of(context).pop(); // Aksi saat tombol diklik
           },
@@ -46,11 +45,11 @@ class DetailKandangView extends GetView<DetailKandangController> {
             }),
           ),
         ],
-        backgroundColor: Color(0xff132137),
+        backgroundColor: const Color(0xff132137),
         elevation: 0,
         centerTitle: true,
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1),
+          preferredSize: const Size.fromHeight(1),
           child: Container(
             width: MediaQuery.of(context).size.width,
             height: 1,
@@ -60,13 +59,13 @@ class DetailKandangView extends GetView<DetailKandangController> {
       ),
       body: ListView(
         shrinkWrap: true,
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(20),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(20),
         children: [
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -77,7 +76,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.idKandangC,
@@ -105,8 +104,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
           Obx(
             () => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -119,7 +118,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 0),
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
                         child: Text(
                           "Id Peternak",
                           style: TextStyle(
@@ -130,7 +129,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print("${controller.selectedPeternakId.value}");
+                          print(controller.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
@@ -160,16 +159,16 @@ class DetailKandangView extends GetView<DetailKandangController> {
                                   controller.idPeternakC.text =
                                       selectedPeternak.idPeternak ?? '';
                                 },
-                                hint: Text('Pilih Peternak'),
+                                hint: const Text('Pilih Peternak'),
                               )
                             : TextField(
                                 controller: controller.namaPeternakC,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   fontSize: 18,
                                   fontFamily: 'poppins',
                                   color: Colors.black,
                                 ),
-                                decoration: InputDecoration(
+                                decoration: const InputDecoration(
                                   // labelText: 'ID Peternak',
                                   border: InputBorder.none,
                                 ),
@@ -180,8 +179,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
           ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.grey[200]
@@ -192,7 +191,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: false,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontFamily: 'poppins',
                     color: Colors.black,
@@ -222,8 +221,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -234,7 +233,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.luasC,
@@ -257,7 +256,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                       color: AppColor.secondarySoft,
                     ),
                     suffixText: 'm²',
-                    suffixStyle: TextStyle(
+                    suffixStyle: const TextStyle(
                       color: Colors.black,
                       fontFamily: 'poppins',
                       fontSize: 16,
@@ -268,8 +267,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -280,7 +279,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kapasitasC,
@@ -307,8 +306,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -319,7 +318,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.nilaiBangunanC,
@@ -342,7 +341,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                         color: AppColor.secondarySoft,
                       ),
                       prefixText: "Rp. ",
-                      prefixStyle: TextStyle(
+                      prefixStyle: const TextStyle(
                         color: Colors.black,
                         fontFamily: 'poppins',
                         fontSize: 15,
@@ -352,8 +351,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -364,7 +363,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.alamatC,
@@ -391,8 +390,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -403,7 +402,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.desaC,
@@ -430,8 +429,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -442,7 +441,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kecamatanC,
@@ -469,8 +468,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -481,7 +480,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.kabupatenC,
@@ -508,8 +507,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -520,7 +519,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                 ),
                 child: TextFormField(
                   enabled: controller.isEditing.value,
-                  style: TextStyle(
+                  style: const TextStyle(
                       fontSize: 18, fontFamily: 'poppins', color: Colors.black),
                   maxLines: 1,
                   controller: controller.provinsiC,
@@ -547,8 +546,8 @@ class DetailKandangView extends GetView<DetailKandangController> {
               )),
   Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                margin: EdgeInsets.only(bottom: 16),
+                padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                margin: const EdgeInsets.only(bottom: 16),
                 decoration: BoxDecoration(
                   color: controller.isEditing.value
                       ? Colors.white
@@ -589,7 +588,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                         bottom: 0,
                         right: 0,
                         child: IconButton(
-                          icon: Icon(Icons.edit),
+                          icon: const Icon(Icons.edit),
                           onPressed: () {
                             controller.pickImage(
                                 false); // Fungsi untuk memilih gambar
@@ -599,7 +598,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ],
                 ),
               )),
-           Container(
+           SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Visibility(
@@ -716,7 +715,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
 //AND DELETE
@@ -729,21 +728,21 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     onPressed: () {
                       controller.editKandang();
                     },
-                    child: Text(
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    child: const Text(
                       'Edit post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: Colors.white,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                     // ... Other button properties
@@ -753,21 +752,21 @@ class DetailKandangView extends GetView<DetailKandangController> {
                     onPressed: () {
                       controller.deleteKandang();
                     },
+                    style: ElevatedButton.styleFrom(
+                      fixedSize: const Size(120, 55),
+                      backgroundColor: const Color(0xff132137),
+                      padding: const EdgeInsets.symmetric(vertical: 18),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                     child: Text(
                       'Delete post',
                       style: TextStyle(
                         fontSize: 16,
                         fontFamily: 'poppins',
                         color: AppColor.primaryExtraSoft,
-                      ),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      fixedSize: Size(120, 55),
-                      backgroundColor: Color(0xff132137),
-                      padding: EdgeInsets.symmetric(vertical: 18),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
                   ),

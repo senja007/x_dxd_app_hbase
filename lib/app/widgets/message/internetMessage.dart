@@ -12,7 +12,7 @@ showInternetMessage(String message) {
           alignment: Alignment.center,
           child: Container(
             width: 300,
-            margin: EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
             decoration: BoxDecoration(
               color: Colors.white,
               borderRadius: BorderRadius.circular(8.0),
@@ -21,7 +21,7 @@ showInternetMessage(String message) {
                   color: Colors.grey.withOpacity(0.5),
                   spreadRadius: 5,
                   blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                  offset: const Offset(0, 3), // changes position of shadow
                 ),
               ],
             ),
@@ -32,21 +32,21 @@ showInternetMessage(String message) {
                 Container(
                   height: 70,
                   width: double.infinity,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Color(0xffFCCA3D),
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(8.0),
                         topRight: Radius.circular(8.0)),
                   ),
                   alignment: Alignment.center,
-                  padding: EdgeInsets.all(6),
+                  padding: const EdgeInsets.all(6),
                   child: Image.asset('assets/images/internet.png'),
                 ),
                 // Title
                 Container(
                   height: 56,
                   alignment: Alignment.center,
-                  child: Text(
+                  child: const Text(
                     "Gagal",
                     style: TextStyle(
                       fontFamily: 'Droid',
@@ -58,11 +58,11 @@ showInternetMessage(String message) {
                 ),
                 // Message
                 Container(
-                  margin: EdgeInsets.fromLTRB(10, 8, 10, 10),
+                  margin: const EdgeInsets.fromLTRB(10, 8, 10, 10),
                   width: double.infinity,
                   child: Text(
                     message,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontFamily: 'Droid',
                       fontSize: 15,
                     ),
@@ -73,10 +73,10 @@ showInternetMessage(String message) {
                 Container(
                   height: 44,
                   width: double.infinity,
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: OutlinedButton(
                     onPressed: close,
-                    child: Text(
+                    child: const Text(
                       "Oke",
                       style: TextStyle(
                           fontFamily: 'Droid',

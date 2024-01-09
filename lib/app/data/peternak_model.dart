@@ -1,4 +1,3 @@
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
 
 class PeternakModel {
   
@@ -26,14 +25,14 @@ class PeternakModel {
 
   factory PeternakModel.fromJson(Map<String, dynamic> jsonData) {
     return PeternakModel(
-      status: jsonData['status'] != null ? jsonData['status'] : 0,
-      idPeternak: jsonData['idPeternak'] != null ? jsonData['idPeternak'] : "",
-      nikPeternak: jsonData['nikPeternak'] != null ? jsonData['nikPeternak'] : "",
-      namaPeternak: jsonData['namaPeternak'] != null ? jsonData['namaPeternak'] : "",
-      idISIKHNAS: jsonData['idISIKHNAS'] != null ? jsonData['idISIKHNAS'] : "",
-      lokasi: jsonData['lokasi'] != null ? jsonData['lokasi'] : "",
-      petugasPendaftar: jsonData['petugasPendaftar'] != null ? jsonData['petugasPendaftar'] : "",
-      tanggalPendaftaran: jsonData['tanggalPendaftaran'] != null ? jsonData['tanggalPendaftaran'] : "",
+      status: jsonData['status'] ?? 0,
+      idPeternak: jsonData['idPeternak'] ?? "",
+      nikPeternak: jsonData['nikPeternak'] ?? "",
+      namaPeternak: jsonData['namaPeternak'] ?? "",
+      idISIKHNAS: jsonData['idISIKHNAS'] ?? "",
+      lokasi: jsonData['lokasi'] ?? "",
+      petugasPendaftar: jsonData['petugasPendaftar'] ?? "",
+      tanggalPendaftaran: jsonData['tanggalPendaftaran'] ?? "",
     );
   }
 }

@@ -13,7 +13,7 @@ class CustomInput extends StatefulWidget {
   final bool isDate;
   final bool isNumber;
   final bool isClickEmpty;
-  CustomInput({
+  const CustomInput({super.key, 
     required this.controller,
     required this.label,
     required this.hint,
@@ -36,10 +36,10 @@ class _CustomInputState extends State<CustomInput> {
   Widget build(BuildContext context) {
     print("builded");
     return Material(
-      color: Color(0xffF7EBE1),
+      color: const Color(0xffF7EBE1),
       child: Container(
         width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+        padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
         margin: widget.margin,
         decoration: BoxDecoration(
           color: (widget.disabled == false)
@@ -51,7 +51,7 @@ class _CustomInputState extends State<CustomInput> {
         child: TextField(
           readOnly: widget.disabled,
           obscureText: widget.obsecureText,
-          style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
           maxLines: 1,
           controller: widget.controller,
           keyboardType:
@@ -89,7 +89,7 @@ class _CustomInputState extends State<CustomInput> {
             }
           },
           decoration: InputDecoration(
-            suffixIcon: widget.suffixIcon ?? SizedBox(),
+            suffixIcon: widget.suffixIcon ?? const SizedBox(),
             label: Text(
               widget.label,
               style: TextStyle(

@@ -11,13 +11,14 @@ class SharedApi {
   Map<String, String> getToken() {
     final box = GetStorage();
     String? token = box.read("token");
-    if (token != null)
+    if (token != null) {
       return {
-        "Authorization": "Bearer " + token,
+        "Authorization": "Bearer $token",
       };
+    }
 
     return {
-      "Authorization": "Bearer " + "BadToken",
+      "Authorization": "Bearer " "BadToken",
     };
   }
 }

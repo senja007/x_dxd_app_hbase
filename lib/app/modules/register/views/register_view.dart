@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:get/get.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 
 import '../controllers/register_controller.dart';
 
 class RegisterView extends GetView<RegisterController> {
-  const RegisterView({Key? key}) : super(key: key);
+  const RegisterView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,7 +16,7 @@ class RegisterView extends GetView<RegisterController> {
         elevation: 0.0,
         titleSpacing: 10.0,
         centerTitle: true,
-        title: Text("Pendaftaran"),
+        title: const Text("Pendaftaran"),
         leading: IconButton(
           icon: SvgPicture.asset(
             'assets/icons/arrow-left.svg',
@@ -34,15 +33,15 @@ class RegisterView extends GetView<RegisterController> {
           Container(
             height: MediaQuery.of(context).size.height * 25 / 100,
             width: MediaQuery.of(context).size.width,
-            padding: EdgeInsets.only(left: 32),
+            padding: const EdgeInsets.only(left: 32),
             decoration: BoxDecoration(
               gradient: AppColor.primaryGradient,
-              image: DecorationImage(
+              image: const DecorationImage(
                 image: AssetImage('assets/images/background.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
-            child: Column(
+            child: const Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -68,14 +67,14 @@ class RegisterView extends GetView<RegisterController> {
             height: MediaQuery.of(context).size.height * 70 / 100,
             width: MediaQuery.of(context).size.width,
             color: Colors.white,
-            padding: EdgeInsets.only(left: 20, right: 20, top: 36, bottom: 84),
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 36, bottom: 84),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.only(bottom: 24),
-                  child: Column(
+                  margin: const EdgeInsets.only(bottom: 24),
+                  child: const Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
@@ -91,8 +90,8 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -100,7 +99,7 @@ class RegisterView extends GetView<RegisterController> {
                         width: 1, color: AppColor.secondaryExtraSoft),
                   ),
                   child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+                    style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
                     maxLines: 1,
                     controller: controller.nameC,
                     decoration: InputDecoration(
@@ -125,8 +124,8 @@ class RegisterView extends GetView<RegisterController> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: EdgeInsets.only(bottom: 16),
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(8),
@@ -134,7 +133,7 @@ class RegisterView extends GetView<RegisterController> {
                         width: 1, color: AppColor.secondaryExtraSoft),
                   ),
                   child: TextField(
-                    style: TextStyle(fontSize: 14, fontFamily: 'poppins'),
+                    style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
                     maxLines: 1,
                     controller: controller.emailC,
                     decoration: InputDecoration(
@@ -158,14 +157,14 @@ class RegisterView extends GetView<RegisterController> {
                   ),
                 ),
                 Container(
-                  margin: EdgeInsets.only(bottom: 24),
+                  margin: const EdgeInsets.only(bottom: 24),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Material(
                         child: Container(
                           width: MediaQuery.of(context).size.width,
-                          padding: EdgeInsets.only(left: 14, right: 14, top: 4),
+                          padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
                             border: Border.all(
@@ -173,7 +172,7 @@ class RegisterView extends GetView<RegisterController> {
                           ),
                           child: Obx(
                             () => TextField(
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontSize: 14, fontFamily: 'poppins'),
                               maxLines: 1,
                               controller: controller.passC,
@@ -223,7 +222,7 @@ class RegisterView extends GetView<RegisterController> {
                   ),
                 ),
                 Obx(
-                  () => Container(
+                  () => SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: ElevatedButton(
                       onPressed: () async {
@@ -231,22 +230,21 @@ class RegisterView extends GetView<RegisterController> {
                           await controller.registration();
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        padding: const EdgeInsets.symmetric(vertical: 18), backgroundColor: AppColor.primary,
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                      ),
                       child: Text(
                         (controller.isLoading.isFalse)
                             ? 'Daftar'
                             : 'Loading...',
-                        style: TextStyle(
+                        style: const TextStyle(
                           fontSize: 16,
                           fontFamily: 'poppins',
                           fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        padding: EdgeInsets.symmetric(vertical: 18),
-                        elevation: 0,
-                        primary: AppColor.primary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(8),
                         ),
                       ),
                     ),

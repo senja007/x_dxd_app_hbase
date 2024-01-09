@@ -23,7 +23,7 @@ class UserModel {
   });
 
   factory UserModel.fromJson(Map<String, dynamic> jsonData) {
-    if (jsonData != null && jsonData['userSummary'] != null) {
+    if (jsonData['userSummary'] != null) {
       return UserModel(
         status: jsonData['status'],
         id: jsonData['userSummary']['id'],

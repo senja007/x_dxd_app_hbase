@@ -12,7 +12,7 @@ class PeternakApi extends SharedApi {
   Future<PeternakListModel> loadPeternakApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/peternak'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/peternak'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -60,7 +60,7 @@ class PeternakApi extends SharedApi {
         'tanggalPendaftaran': tanggalPendaftaran
       };
       var data = await http.post(
-        Uri.parse(baseUrl + '/peternak'),
+        Uri.parse('$baseUrl/peternak'),
         headers: {
           ...getToken(),
           'Content-Type': 'application/json',
@@ -114,7 +114,7 @@ class PeternakApi extends SharedApi {
       };
 
       var data = await http.put(
-        Uri.parse(baseUrl + '/peternak/' + idPeternak.toString()),
+        Uri.parse('$baseUrl/peternak/$idPeternak'),
         headers: {...getToken(), 'Content-Type': 'application/json'},
         body: jsonEncode(bodyDataedit),
       );
@@ -149,7 +149,7 @@ class PeternakApi extends SharedApi {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/peternak/' + idPeternak.toString()),
+        Uri.parse('$baseUrl/peternak/$idPeternak'),
         headers: getToken(),
       );
       stopLoading();

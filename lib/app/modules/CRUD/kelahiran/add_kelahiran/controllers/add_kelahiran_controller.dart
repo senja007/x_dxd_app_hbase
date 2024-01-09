@@ -2,7 +2,6 @@ import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
@@ -10,7 +9,6 @@ import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
@@ -171,11 +169,11 @@ class AddkelahiranController extends GetxController {
         context: context, // Gunakan context yang diberikan sebagai parameter.
         builder: (context) {
           return CupertinoAlertDialog(
-            title: Text("Kesalahan"),
+            title: const Text("Kesalahan"),
             content: Text(e.toString()),
             actions: [
               CupertinoDialogAction(
-                child: Text("OK"),
+                child: const Text("OK"),
                 onPressed: () {
                   Navigator.pop(context);
                 },

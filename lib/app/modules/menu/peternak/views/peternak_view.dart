@@ -1,4 +1,3 @@
-import 'package:crud_flutter_api/app/widgets/message/auto_load.dart';
 import 'package:crud_flutter_api/app/widgets/message/empty.dart';
 import 'package:crud_flutter_api/app/widgets/message/no_data.dart';
 import 'package:easy_search_bar/easy_search_bar.dart';
@@ -9,11 +8,10 @@ import 'package:get/get.dart';
 
 import '../../../../routes/app_pages.dart';
 import '../../../../utils/app_color.dart';
-import '../../menu_view/views/menu_view.dart';
 import '../controllers/peternak_controller.dart';
 
 class PeternakView extends GetView<PeternakController> {
-  const PeternakView({Key? key}) : super(key: key);
+  const PeternakView({super.key});
   @override
   Widget build(BuildContext context) {
     return GetBuilder<PeternakController>(
@@ -27,13 +25,13 @@ class PeternakView extends GetView<PeternakController> {
               searchBackgroundColor: AppColor.secondary,
               elevation: 0,
               searchCursorColor: Colors.white,
-              iconTheme: IconThemeData(color: Colors.white),
-              searchClearIconTheme: IconThemeData(color: Colors.white),
-              searchBackIconTheme: IconThemeData(color: Colors.white),
+              iconTheme: const IconThemeData(color: Colors.white),
+              searchClearIconTheme: const IconThemeData(color: Colors.white),
+              searchBackIconTheme: const IconThemeData(color: Colors.white),
               systemOverlayStyle: SystemUiOverlayStyle.light,
               searchHintText: 'Cari Data ID Peternak',
-              searchTextStyle: TextStyle(color: Colors.white),
-              title: Text(
+              searchTextStyle: const TextStyle(color: Colors.white),
+              title: const Text(
                 'Data Peternak',
                 style: TextStyle(color: Colors.white),
               ),
@@ -41,15 +39,15 @@ class PeternakView extends GetView<PeternakController> {
               onSearch: (value) => controller.searchPeternak(value)),
           body: Obx(
             () {
-              if (controller.posts?.value.status == 200) {
+              if (controller.posts.value.status == 200) {
                 if (controller.posts.value.content!.isEmpty) {
-                  return EmptyView();
+                  return const EmptyView();
                 } else {
                   return ListView.separated(
-                    itemCount: controller.filteredPosts!.value.length,
+                    itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
-                    physics: BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => SizedBox(height: 8),
+                    physics: const BouncingScrollPhysics(),
+                    separatorBuilder: (context, index) => const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -75,8 +73,8 @@ class PeternakView extends GetView<PeternakController> {
                           decoration: BoxDecoration(
                             boxShadow: [
                               BoxShadow(
-                                offset: Offset(0, 5),
-                                color: Color.fromARGB(255, 0, 47, 255)
+                                offset: const Offset(0, 5),
+                                color: const Color.fromARGB(255, 0, 47, 255)
                                     .withOpacity(.2),
                                 spreadRadius: 2,
                                 blurRadius: 10, // changes position of shadow
@@ -87,7 +85,7 @@ class PeternakView extends GetView<PeternakController> {
                             border: Border.all(
                                 width: 1, color: AppColor.primaryExtraSoft),
                           ),
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               left: 20, top: 15, right: 29, bottom: 15),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -99,7 +97,7 @@ class PeternakView extends GetView<PeternakController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "ID Peternak: ${postData.idPeternak}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -107,11 +105,11 @@ class PeternakView extends GetView<PeternakController> {
                                     (postData.status == null)
                                         ? "-"
                                         : "Nik Peternak: ${postData.nikPeternak}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal),
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 2,
                                   ),
                                   Text(
@@ -119,7 +117,7 @@ class PeternakView extends GetView<PeternakController> {
                                         ? "-"
                                         : "Nama Peternak: "
                                             "${postData.namaPeternak}",
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 14,
                                         fontWeight: FontWeight.normal),
                                   ),
@@ -133,7 +131,7 @@ class PeternakView extends GetView<PeternakController> {
                   );
                 }
               } else {
-                return NoData();
+                return const NoData();
               }
             },
           ),
@@ -143,8 +141,8 @@ class PeternakView extends GetView<PeternakController> {
               onPressed: () {
                 Get.toNamed(Routes.ADDPETERNAK);
               },
-              child: Icon(Icons.add),
-              backgroundColor: Color(0xff132137),
+              backgroundColor: const Color(0xff132137),
+              child: const Icon(Icons.add),
             ),
           ),
           floatingActionButtonLocation:

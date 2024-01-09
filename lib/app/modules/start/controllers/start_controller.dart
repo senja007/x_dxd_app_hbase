@@ -1,8 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:crud_flutter_api/app/data/user_model.dart';
-import 'package:crud_flutter_api/app/services/auth_api.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:get_storage/get_storage.dart';
 
 class StartController extends GetxController with GetTickerProviderStateMixin {
@@ -15,7 +13,7 @@ class StartController extends GetxController with GetTickerProviderStateMixin {
   void onInit() {
     // TODO: implement onInit
     animationController =
-        AnimationController(vsync: this, duration: Duration(seconds: 8));
+        AnimationController(vsync: this, duration: const Duration(seconds: 8));
     animationController?.animateTo(0.0);
     super.onInit();
   }

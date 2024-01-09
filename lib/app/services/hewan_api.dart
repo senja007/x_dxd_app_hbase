@@ -5,9 +5,6 @@ import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/internetMessage.dart';
-import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
-import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
@@ -16,7 +13,7 @@ class HewanApi extends SharedApi {
   Future<HewanListModel> loadHewanApi() async {
     try {
       var data =
-          await http.get(Uri.parse(baseUrl + '/hewan'), headers: getToken());
+          await http.get(Uri.parse('$baseUrl/hewan'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -71,7 +68,7 @@ class HewanApi extends SharedApi {
 
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse(baseUrl + '/hewan'),
+        Uri.parse('$baseUrl/hewan'),
       );
 
       request.fields.addAll({
@@ -180,7 +177,7 @@ class HewanApi extends SharedApi {
 
       var request = http.MultipartRequest(
         'PUT',
-        Uri.parse(baseUrl + '/hewan/' + kodeEartagNasional.toString()),
+        Uri.parse('$baseUrl/hewan/$kodeEartagNasional'),
       );
 
       request.fields.addAll({
@@ -328,12 +325,12 @@ class HewanApi extends SharedApi {
   // }
 
   //DELETE
-  Future<HewanModel?> deleteHewanApi(String eartag_hewan_detail) async {
+  Future<HewanModel?> deleteHewanApi(String eartagHewanDetail) async {
     try {
       var jsonData;
       showLoading();
       var data = await http.delete(
-        Uri.parse(baseUrl + '/hewan/' + eartag_hewan_detail.toString()),
+        Uri.parse('$baseUrl/hewan/$eartagHewanDetail'),
         headers: getToken(),
       );
       stopLoading();

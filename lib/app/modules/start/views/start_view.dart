@@ -11,11 +11,13 @@ import './components/welcome_view.dart';
 import 'package:flutter/material.dart';
 
 class StartView extends GetView<StartController> {
+  const StartView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder<StartController>(
       builder: (controller) => Scaffold(
-        backgroundColor: Color(0xffF7EBE1),
+        backgroundColor: const Color(0xffF7EBE1),
         body: ClipRect(
           child: Stack(
             children: [
@@ -52,7 +54,7 @@ class StartView extends GetView<StartController> {
 
   void _onSkipClick() {
     controller.animationController
-        ?.animateTo(0.8, duration: Duration(milliseconds: 1200));
+        ?.animateTo(0.8, duration: const Duration(milliseconds: 1200));
   }
 
   void _onBackClick() {
