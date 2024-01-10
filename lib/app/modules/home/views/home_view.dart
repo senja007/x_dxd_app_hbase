@@ -198,12 +198,12 @@ class HomeView extends GetView<HomeController> {
                           PolygonLayer(
                             polygons: [
                               Polygon(
-                                points: controller.krbBoundary!,
-                                color: const Color.fromARGB(255, 255, 0, 0),
-                                borderColor:
-                                    const Color.fromARGB(255, 255, 21, 21),
-                                borderStrokeWidth: 2,
-                              ),
+                                  points: controller.krbBoundary!,
+                                  color: Color.fromARGB(17, 255, 251, 0),
+                                  borderColor:
+                                      Color.fromARGB(174, 172, 0, 0),
+                                  borderStrokeWidth: 2,
+                                  isFilled: true),
                             ],
                           ),
 
@@ -221,12 +221,48 @@ class HomeView extends GetView<HomeController> {
                                       ? [] // Tambahkan penanganan jika data kosong
                                       : snapshot.data!.map((polygonPoints) {
                                           return Polygon(
-                                            points: polygonPoints,
-                                            color: Color.fromARGB(34, 255, 0, 0),
-                                            borderColor: Colors.red,
-                                            borderStrokeWidth: 2,
-                                            isFilled: true
-                                          );
+                                              points: polygonPoints,
+                                              color:
+                                                  Color.fromARGB(123, 255, 0, 0),
+                                              borderColor: Colors.red,
+                                              borderStrokeWidth: 2,
+                                              isFilled: true);
+                                        }).toList(),
+                                );
+                              }
+                            } else if (snapshot.connectionState ==
+                                ConnectionState.waiting) {
+                              // Tampilkan loading indicator selama data dimuat
+                              return const CircularProgressIndicator();
+                            } else {
+                              // Tampilkan pesan default jika ada kesalahan lainnya
+                              return const Text('Data tidak dapat dimuat');
+                            }
+                          },
+                        ),
+
+
+
+                        FutureBuilder<List<List<LatLng>>>(
+                          future: controller.someFunction1(),
+                          builder: (context, snapshot) {
+                            if (snapshot.connectionState ==
+                                ConnectionState.done) {
+                              if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else {
+                                // Tampilkan PolygonLayer setelah mendapatkan data
+                                return PolygonLayer(
+                                  polygons: snapshot.data!.isEmpty
+                                      ? [] // Tambahkan penanganan jika data kosong
+                                      : snapshot.data!.map((polygonPoints) {
+                                          return Polygon(
+                                              points: polygonPoints,
+                                              color:
+                                                  Color.fromARGB(103, 255, 136, 0),
+                                              borderColor: Color.fromARGB(255, 255, 145, 0),
+                                              borderStrokeWidth: 2,
+                                              isFilled: true);
                                         }).toList(),
                                 );
                               }

@@ -182,6 +182,8 @@ class HomeController extends GetxController {
   }
 
 
+
+
   Future<List<List<LatLng>>> loadGeoJsonFromAsset() async {
   try {
     String jsonData = await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
@@ -203,7 +205,7 @@ class HomeController extends GetxController {
         List<dynamic> coordinates = geometry['coordinates'];
         LatLng pointCoordinate = LatLng(coordinates[1], coordinates[0]);
         result.add([pointCoordinate]);
-      } 
+      }
     }
 
     return result;
@@ -213,9 +215,55 @@ class HomeController extends GetxController {
   }
 }
 
+
+
 Future<List<List<LatLng>>> someFunction() async {
   List<List<LatLng>> geoJsonResult = await loadGeoJsonFromAsset();
   return geoJsonResult;
+}
+
+
+
+Future<List<List<LatLng>>> loadGeoJsonFromAsset1() async {
+  try {
+    String jsonData = await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
+    Map<String, dynamic> data = json.decode(jsonData);
+    List<dynamic> features = data['features'];
+
+    List<List<LatLng>> result1 = [];
+
+    for (dynamic feature in features) {
+      dynamic geometry = feature['geometry'];
+      String type = geometry['type'];
+
+      if (type == 'Polygon') {
+        List<dynamic> coordinates = geometry['coordinates'][0];
+        List<LatLng> polygonCoordinates = coordinates
+            .map((coord) => LatLng(coord[1], coord[0]))
+            .toList();
+        result1.add(polygonCoordinates);
+      } else if (type == 'MultiPolygon') {
+        List<dynamic> multiCoordinates = geometry['coordinates'];
+        for (dynamic coordinates in multiCoordinates) {
+          List<dynamic> polygonCoordinates = coordinates[0];
+          List<LatLng> convertedCoordinates = polygonCoordinates
+              .map((coord) => LatLng(coord[1], coord[0]))
+              .toList();
+          result1.add(convertedCoordinates);
+        }
+      }
+    }
+
+    return result1;
+  } catch (e) {
+    print('Error loading GeoJSON: $e');
+    return []; // Return an empty list or handle the error accordingly
+  }
+}
+
+Future<List<List<LatLng>>> someFunction1() async {
+  List<List<LatLng>> geoJsonResult1 = await loadGeoJsonFromAsset1();
+  return geoJsonResult1;
 }
 
 
