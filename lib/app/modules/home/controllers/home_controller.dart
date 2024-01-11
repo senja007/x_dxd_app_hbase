@@ -31,7 +31,7 @@ import 'package:permission_handler/permission_handler.dart';
 class HomeController extends GetxController {
   LatLng centerSemeru =
       LatLng(-8.1067727, 112.9209181); // Koordinat pusat Gunung Semeru
-  double radiusKRB = 20; // Radius wilayah KRB dalam meter
+  double radiusKRB = 20; // Radius wilayah KRB dalam kilometer
   List<LatLng>? krbBoundary;
   List<LatLng>? geoJsonResult = [];
   List<LatLng>? polygonCoordinates = [];
@@ -102,6 +102,28 @@ class HomeController extends GetxController {
       if (posts1.value.content!.isEmpty) {
         homeScreen = true;
         update();
+      }else {
+        // Mengambil data latitude dan longitude dari setiap Hewan
+        posts1.value.content!.forEach((hewani) {
+          double hewanLat = double.tryParse(hewani.latitude ?? '') ?? 0.0;
+          double hewanLon = double.tryParse(hewani.longitude ?? '') ?? 0.0;
+          print(hewani.latitude);
+          print(hewani.longitude);
+
+          // Check if the Hewan is in the KRB
+          if (isHewanInKRB(hewanLat, hewanLon, centerSemeru.latitude,
+              centerSemeru.longitude, radiusKRB)) {
+            // Hewan berada dalam wilayah KRB
+            // Lakukan tindakan atau logika yang sesuai di sini
+            print('Hewan ${hewani.kodeEartagNasional} berada dalam wilayah KRB');
+          } else {
+            // Hewan di luar wilayah KRB
+            print('Hewan ${hewani.kodeEartagNasional} di luar wilayah KRB');
+          }
+        });
+
+        // Panggil checkHewanInKRB setelah iterasi selesai
+        checkHewanInKRB();
       }
     } else if (posts1.value.status == 204) {
       print("Empty");
@@ -268,26 +290,6 @@ Future<List<List<LatLng>>> someFunction1() async {
 }
 
 
-// Future<List<LatLng>?> loadGeoJsonFromAsset() async {
-//   try {
-//     String jsonData = await rootBundle.loadString('assets/geojson/KRB_Semeru.json');
-//     Map<String, dynamic> data = json.decode(jsonData);
-//     List<dynamic> coordinatesz = data['features'][0]['geometry']['coordinates'][0];
-//     polygonCoordinates = coordinatesz.map((coord) => LatLng(coord[1], coord[0])).toList();
-//     return polygonCoordinates; // Add this line to return the list
-//   } catch (e) {
-//     // Handle errors, misconfigurations, or missing files
-//     print('Error loading GeoJSON: $e');
-//     return []; // Return an empty list or handle the error accordingly
-//   }
-// }
-
-
-// Future<List<LatLng>> someFunction() async {
-//   List<LatLng>? geoJsonResult = await loadGeoJsonFromAsset();
-//   return geoJsonResult ?? []; // Return an empty list if geoJsonResult is null
-// }
-
   bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat,
       double krbLon, double radiusKRB) {
     // Convert latitude and longitude from degrees to radians
@@ -301,6 +303,28 @@ Future<List<List<LatLng>>> someFunction1() async {
     final dLon = kandangLonRad - krbLonRad;
     final a = sin(dLat / 2) * sin(dLat / 2) +
         cos(krbLatRad) * cos(kandangLatRad) * sin(dLon / 2) * sin(dLon / 2);
+    final c = 2 * atan2(sqrt(a), sqrt(1 - a));
+
+    // Distance in meters (assuming Earth's radius is approximately 6371 km)
+    final distance = 5000 * c;
+
+    // Check if the distance is within the KRB radius
+    return distance <= radiusKRB;
+  }
+
+  bool isHewanInKRB(double hewanLat, double hewanLon, double krbLat,
+      double krbLon, double radiusKRB) {
+    // Convert latitude and longitude from degrees to radians
+    final hewanLatRad = _degreesToRadians(hewanLat);
+    final hewanLonRad = _degreesToRadians(hewanLon);
+    final krbLatRad = _degreesToRadians(krbLat);
+    final krbLonRad = _degreesToRadians(krbLon);
+
+    // Haversine formula
+    final dLat = hewanLatRad - krbLatRad;
+    final dLon = hewanLonRad - krbLonRad;
+    final a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(krbLatRad) * cos(hewanLatRad) * sin(dLon / 2) * sin(dLon / 2);
     final c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
     // Distance in meters (assuming Earth's radius is approximately 6371 km)
@@ -337,6 +361,34 @@ Future<List<List<LatLng>>> someFunction1() async {
   }
 
   double _degreesToRadians(double degrees) {
+    return degrees * pi / 180.0;
+  }
+
+  void checkHewanInKRB() {
+    List<LatLng> krbBoundary = calculateKRBBoundary(centerSemeru, radiusKRB);
+    print('KRB Boundary: $krbBoundary');
+    countHewanInKRB.value = 0;
+    // Iterate through the list of hewan
+    posts1.value.content!.forEach((hewani) {
+      double hewanLat = double.tryParse(hewani.latitude ?? '') ?? 0.0;
+      double hewanLon = double.tryParse(hewani.longitude ?? '') ?? 0.0;
+      // Check if the hewan is in the KRB
+      if (isHewanInKRB(hewanLat, hewanLon, centerSemeru.latitude,
+          centerSemeru.longitude, radiusKRB)) {
+        // hewan berada dalam wilayah KRB
+        print('Hewan ${hewani.kodeEartagNasional} berada dalam wilayah KRB');
+        countHewanInKRB++;
+      } else {
+        // Hewan di luar wilayah KRB
+        print('Hewan ${hewani.kodeEartagNasional} di luar wilayah KRB');
+      }
+    });
+
+    // Cetak atau gunakan nilai countHewanInKRB di sini
+    print('Jumlah Hewan dalam wilayah KRB: ${countHewanInKRB.value}');
+  }
+
+  double _degreesToRadians1(double degrees) {
     return degrees * pi / 180.0;
   }
 
