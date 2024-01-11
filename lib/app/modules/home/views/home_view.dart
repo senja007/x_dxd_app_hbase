@@ -330,17 +330,9 @@ class HomeView extends GetView<HomeController> {
                         _buildMiniCardWidget(
                             //"assets/images/cow.png",
                             "${controller.countKandangInKRB.value}",
-                            "KRB 1"),
+                            "Kawasan Rawan Bencana"),
                         const SizedBox(width: 3),
-                        _buildMiniCardWidget(
-                            // "assets/images/man.png",
-                            "${0}",
-                            "KRB 2"),
-                        const SizedBox(width: 3),
-                        _buildMiniCardWidget(
-                            // "assets/images/man.png",
-                            "${0}",
-                            "KRB 3"),
+                        
                       ],
                     )),
                 ElevatedButton(
@@ -436,7 +428,7 @@ class HomeView extends GetView<HomeController> {
 
   Widget _buildMiniCardWidget(String count, String label) {
     return SizedBox(
-      width: 120.0,
+      width: 300.0,
       height: 60.0,
       child: Card(
         color: const Color(0xff132137),

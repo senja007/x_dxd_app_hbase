@@ -40,6 +40,7 @@ class HomeController extends GetxController {
   String jsonKRB = "assets/geojson/KRB_Semeru.json";
 
   RxInt countKandangInKRB = 0.obs;
+  RxInt countHewanInKRB = 0.obs;
   Rx<Directory?> savePath = Rx<Directory?>(null);
 
   Rx<PetugasListModel> posts = PetugasListModel().obs;
