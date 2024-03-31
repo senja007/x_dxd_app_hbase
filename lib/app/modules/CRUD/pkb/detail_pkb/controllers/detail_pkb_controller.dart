@@ -1,5 +1,10 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
+import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -9,14 +14,38 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailPkbController extends GetxController {
+  final PKBController pkbController = Get.put(PKBController());
   final Map<String, dynamic> argsData = Get.arguments;
   PKBModel? pkbModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
 
+  RxString selectedHewanId = ''.obs;
+  RxList<HewanModel> hewanList = <HewanModel>[].obs;
+
+  RxString selectedPeternakId = ''.obs;
+  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxString selectedPeternakIdInEditMode = ''.obs;
+  RxString selectedSpesies = ''.obs;
+  List<String> genders = ["Jantan", "Betina"];
+  List<String> spesies = [
+    "Banteng",
+    "Domba",
+    "Kambing",
+    "Sapi",
+    "Sapi Brahman",
+    "Sapi Brangus",
+    "Sapi Limosin",
+    "Sapi fh",
+    "Sapi Perah",
+    "Sapi PO",
+    "Sapi Simental"
+  ];
+
   TextEditingController idKejadianC = TextEditingController();
-  TextEditingController idHewanC = TextEditingController();
+  TextEditingController kodeEartagNasionalC = TextEditingController();
+  //TextEditingController idHewanC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
   TextEditingController namaPeternakC = TextEditingController();
@@ -29,6 +58,7 @@ class DetailPkbController extends GetxController {
   TextEditingController tanggalPkbC = TextEditingController();
 
   String originalIdKejadian = "";
+  String originalKodeEartagNasional = "";
   String originalIdHewan = "";
   String originalIdPeternak = "";
   String originalNikPeternak = "";
@@ -44,7 +74,8 @@ class DetailPkbController extends GetxController {
   @override
   onClose() {
     idKejadianC.dispose();
-    idHewanC.dispose();
+    kodeEartagNasionalC.dispose();
+    // idHewanC.dispose();
     idPeternakC.dispose();
     nikPeternakC.dispose();
     namaPeternakC.dispose();
@@ -60,9 +91,15 @@ class DetailPkbController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchPeternaks();
+    fetchHewans();
+
+    selectedSpesies(argsData["spesies"]);
+    isEditing.value = false;
 
     idKejadianC.text = argsData["id_kejadian"];
-    idHewanC.text = argsData["id_hewan"];
+    kodeEartagNasionalC.text = argsData["kodeEartagNasional"];
+    //idHewanC.text = argsData["id_hewan"];
     idPeternakC.text = argsData["id_peternak"];
     nikPeternakC.text = argsData["nik"];
     namaPeternakC.text = argsData["nama"];
@@ -74,22 +111,81 @@ class DetailPkbController extends GetxController {
     pemeriksaKebuntinganC.text = argsData["pemeriksa"];
     tanggalPkbC.text = argsData["tanggal"];
 
+    ever(selectedPeternakId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PeternakModel? selectedPeternak = peternakList.firstWhere(
+          (peternak) => peternak.idPeternak == selectedId,
+          orElse: () => PeternakModel());
+      nikPeternakC.text =
+          selectedPeternak.nikPeternak ?? argsData["nik_hewan_detail"];
+      namaPeternakC.text = selectedPeternak.namaPeternak ??
+          argsData["nama_peternak_hewan_detail"];
+      update();
+    });
+
+    ever(selectedHewanId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      HewanModel? selectedHewan = hewanList.firstWhere(
+          (peternak) => peternak.kodeEartagNasional == selectedId,
+          orElse: () => HewanModel());
+      kodeEartagNasionalC.text =
+          selectedHewan.kodeEartagNasional ?? argsData["kodeEartagNasional"];
+      update();
+    });
+
     originalIdKejadian = argsData["id_kejadian"];
-    originalIdHewan = argsData["id_hewan"];
+    originalKodeEartagNasional = argsData["kodeEartagNasional"];
+    //originalIdHewan = argsData["id_hewan"];
     originalIdPeternak = argsData["id_peternak"];
     originalNikPeternak = argsData["nik"];
     originalNamapeternak = argsData["nama"];
     originalJumlah = argsData["jumlah"];
     originalKategori = argsData["kategori"];
     originalLokasi = argsData["lokasi"];
-    originalLokasi = argsData["spesies"];
+    originalSpesies = argsData["spesies"];
     originalUmurKebuntingan = argsData["umur"];
     originalPemeriksaKebuntingan = argsData["pemeriksa"];
     originalTanggalPkb = argsData["tanggal"];
   }
 
+  Future<List<HewanModel>> fetchHewans() async {
+    try {
+      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
+      final List<HewanModel> hewans = hewanListModel.content ?? [];
+      if (hewans.isNotEmpty) {
+        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
+      }
+      hewanList.assignAll(hewans);
+      print(selectedHewanId.value);
+      return hewans;
+    } catch (e) {
+      // print('Error fetching peternaks: $e');
+      // showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
+  Future<List<PeternakModel>> fetchPeternaks() async {
+    try {
+      final PeternakListModel peternakListModel =
+          await PeternakApi().loadPeternakApi();
+      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
+      if (peternaks.isNotEmpty) {
+        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
+      }
+      peternakList.assignAll(peternaks);
+      print(selectedPeternakId.value);
+      return peternaks;
+    } catch (e) {
+      // print('Error fetching peternaks: $e');
+      // showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
+  }
+
   Future<void> tombolEdit() async {
     isEditing.value = true;
+    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
     update();
   }
 
@@ -103,7 +199,9 @@ class DetailPkbController extends GetxController {
         update();
         // Reset data ke yang sebelumnya
         idKejadianC.text = originalIdKejadian;
-        idHewanC.text = originalIdHewan;
+        kodeEartagNasionalC.text = originalKodeEartagNasional;
+        //idHewanC.text = originalIdHewan;
+        selectedPeternakId.value = originalIdPeternak;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         namaPeternakC.text = originalNamapeternak;
@@ -152,14 +250,15 @@ class DetailPkbController extends GetxController {
       onConfirm: () async {
         pkbModel = await PKBApi().editPKBApi(
             idKejadianC.text,
-            idHewanC.text,
-            idPeternakC.text,
+            //idHewanC.text,
+            selectedHewanId.value,
+            selectedPeternakId.value,
             nikPeternakC.text,
             namaPeternakC.text,
             jumlahC.text,
             kategoriC.text,
             lokasiC.text,
-            spesiesC.text,
+            selectedSpesies.value,
             umurKebuntinganC.text,
             pemeriksaKebuntinganC.text,
             tanggalPkbC.text);

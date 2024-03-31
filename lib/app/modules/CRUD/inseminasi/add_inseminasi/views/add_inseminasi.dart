@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
@@ -85,65 +86,75 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.eartagC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "No Eartag Nasional",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "kode Eartag Nasional",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "No Eartag Nasional",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.selectedHewanId.value,
+                    items: controller.hewanList.map((HewanModel hewan) {
+                      return DropdownMenuItem<String>(
+                        value: hewan.kodeEartagNasional ?? '',
+                        child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            '${hewan.noKartuTernak ?? ''}  '
+                            ' ${hewan.idPeternak!.namaPeternak ?? ''}'),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedId) {
+                      controller.selectedHewanId.value = selectedId ?? '';
+                    },
+                    hint: const Text('Pilih kode eartag'),
+                    isExpanded: true,
+                  );
+                }),
+              ],
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.idHewanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Id Hewan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Id Hewan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: const EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: TextField(
+          //     style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          //     maxLines: 1,
+          //     controller: controller.idHewanC,
+          //     keyboardType: TextInputType.text,
+          //     decoration: InputDecoration(
+          //       label: Text(
+          //         "Id Hewan",
+          //         style: TextStyle(
+          //           color: AppColor.secondarySoft,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //       floatingLabelBehavior: FloatingLabelBehavior.always,
+          //       border: InputBorder.none,
+          //       hintText: "Id Hewan",
+          //       hintStyle: TextStyle(
+          //         fontSize: 14,
+          //         fontFamily: 'poppins',
+          //         fontWeight: FontWeight.w500,
+          //         color: AppColor.secondarySoft,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -187,64 +198,35 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.idPejantanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Id Pejantan",
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Text(
+                  "ID Pejantan",
                   style: TextStyle(
                     color: AppColor.secondarySoft,
-                    fontSize: 14,
+                    fontSize: 12,
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Id Pejantan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
+              ),
+              Obx(
+                () => DropdownMenu<String>(
+                  inputDecorationTheme: const InputDecorationTheme(
+                      filled: false, iconColor: Colors.amber),
+                  initialSelection: controller.selectedSpesies.value,
+                  onSelected: (String? value) {
+                    // This is called when the user selects an item.
+                    controller.selectedSpesies.value = value!;
+                  },
+                  dropdownMenuEntries: controller.spesies
+                      .map<DropdownMenuEntry<String>>((String value) {
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
+                  }).toList(),
                 ),
               ),
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.bangsaPejantanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Bangsa Pejantan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Bangsa Pejantan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
+            ]),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -479,8 +461,8 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
                         controller.peternakList.map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
-                        child: Text('${peternak.namaPeternak ?? ''}' '   ${peternak.nikPeternak ?? ''}' ),
-                        
+                        child: Text('${peternak.namaPeternak ?? ''}'
+                            '   ${peternak.nikPeternak ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {

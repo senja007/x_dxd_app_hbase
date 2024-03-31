@@ -47,7 +47,8 @@ class InseminasiView extends GetView<InseminasiController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -62,8 +63,9 @@ class InseminasiView extends GetView<InseminasiController> {
                                   "${postData.idPeternak?.namaPeternak}",
                               "idPeternak":
                                   "${postData.idPeternak?.idPeternak}",
-                              "idHewan": "${postData.idHewan}",
-                              "eartag": "${postData.eartag}",
+                              //"idHewan": "${postData.idHewan}",
+                              "kodeEartagNasional":
+                                  "${postData.kodeEartagNasional?.kodeEartagNasional}",
                               "ib1": "${postData.ib1}",
                               "ib2": "${postData.ib2}",
                               "ib3": "${postData.ib3}",

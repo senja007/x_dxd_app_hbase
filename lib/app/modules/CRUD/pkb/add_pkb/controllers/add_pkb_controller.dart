@@ -1,6 +1,8 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -16,6 +18,8 @@ class AddPkbController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   RxString selectedPeternakId = ''.obs;
+  RxString selectedHewanEartag = ''.obs;
+  RxList<HewanModel> hewanList = <HewanModel>[].obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedSpesies = 'Sapi'.obs;
   List<String> spesies = [
@@ -33,7 +37,7 @@ class AddPkbController extends GetxController {
   ];
 
   TextEditingController idKejadianC = TextEditingController();
-  TextEditingController idHewanC = TextEditingController();
+  //TextEditingController idHewanC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
@@ -45,7 +49,7 @@ class AddPkbController extends GetxController {
   @override
   onClose() {
     idKejadianC.dispose();
-    idHewanC.dispose();
+    // idHewanC.dispose();
     idPeternakC.dispose();
     jumlahC.dispose();
     kategoriC.dispose();
@@ -60,6 +64,23 @@ class AddPkbController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
+    fetchHewan();
+  }
+
+  Future<List<HewanModel>> fetchHewan() async {
+    try {
+      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
+      final List<HewanModel> hewan = hewanListModel.content ?? [];
+      if (hewan.isNotEmpty) {
+        selectedHewanEartag.value = hewan.first.kodeEartagNasional ?? '';
+      }
+      hewanList.assignAll(hewan);
+      return hewan;
+    } catch (e) {
+      print('Error fetching hewan: $e');
+      showErrorMessage("Error fetching hewan: $e");
+      return [];
+    }
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -84,7 +105,8 @@ class AddPkbController extends GetxController {
       isLoading.value = true;
       pkbModel = await PKBApi().addPKBAPI(
           idKejadianC.text,
-          idHewanC.text,
+          // idHewanC.text,
+          selectedHewanEartag.value,
           selectedPeternakId.value,
           jumlahC.text,
           kategoriC.text,

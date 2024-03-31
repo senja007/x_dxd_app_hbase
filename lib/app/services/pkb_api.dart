@@ -10,8 +10,7 @@ class PKBApi extends SharedApi {
   // Login API
   Future<PKBListModel> loadPKBAPI() async {
     try {
-      var data =
-          await http.get(Uri.parse('$baseUrl/pkb'), headers: getToken());
+      var data = await http.get(Uri.parse('$baseUrl/pkb'), headers: getToken());
 
       ///print("hasil" + data.statusCode.toString());
       //print(json.decode(data.body));
@@ -40,7 +39,8 @@ class PKBApi extends SharedApi {
 //ADD
   Future<PKBModel?> addPKBAPI(
       String idKejadian,
-      String idHewan,
+      // String idHewan,
+      String kodeEartagNasional,
       String idPeternak,
       String jumlah,
       String kategori,
@@ -55,7 +55,8 @@ class PKBApi extends SharedApi {
 
       var bodyData = {
         'idKejadian': idKejadian,
-        'idHewan': idHewan,
+        //'idHewan': idHewan,
+        'kodeEartagNasional': kodeEartagNasional,
         'idPeternak': idPeternak,
         'jumlah': jumlah,
         'kategori': kategori,
@@ -79,7 +80,8 @@ class PKBApi extends SharedApi {
         return PKBModel.fromJson({
           "status": 201,
           "idKejadian": jsonData['idKejadian'],
-          "idHewan": jsonData['idHewan'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
+          // "idHewan": jsonData['idHewan'],
           "idPeternak": jsonData['idPeternak'],
           "jumlah": jsonData['jumlah'],
           "kategori": jsonData['kategori'],
@@ -103,7 +105,8 @@ class PKBApi extends SharedApi {
 //EDIT
   Future<PKBModel?> editPKBApi(
       String idKejadian,
-      String idHewan,
+      // String idHewan,
+      String kodeEartagNasional,
       String idPeternak,
       String nikPeternak,
       String namaPeternak,
@@ -119,7 +122,8 @@ class PKBApi extends SharedApi {
       showLoading();
       var bodyDataedit = {
         'idKejadian': idKejadian,
-        'idHewan': idHewan,
+        'kodeEartagNasional': kodeEartagNasional,
+        //'idHewan': idHewan,
         'idPeternak': idPeternak,
         'nikPeternak': nikPeternak,
         'namaPeternak': namaPeternak,
@@ -145,7 +149,8 @@ class PKBApi extends SharedApi {
         return PKBModel.fromJson({
           "status": 201,
           "idKejadian": jsonData['idKejadian'],
-          "idHewan": jsonData['idHewan'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
+          // "idHewan": jsonData['idHewan'],
           "idPeternak": jsonData['idPeternak'],
           "nikPeternak": jsonData['nikPeternak'],
           "namaPeternak": jsonData['namaPeternak'],

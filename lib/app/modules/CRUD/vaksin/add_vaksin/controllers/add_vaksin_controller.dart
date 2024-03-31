@@ -23,7 +23,7 @@ class AddVaksinController extends GetxController {
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   TextEditingController idVaksinC = TextEditingController();
   TextEditingController eartagC = TextEditingController();
-  TextEditingController idHewanC = TextEditingController();
+  //TextEditingController idHewanC = TextEditingController();
   TextEditingController idPembuatanC = TextEditingController();
   TextEditingController idPejantanC = TextEditingController();
   TextEditingController bangsaPejantanC = TextEditingController();
@@ -50,7 +50,7 @@ class AddVaksinController extends GetxController {
     ib2C.dispose();
     idPejantanC.dispose();
     bangsaPejantanC.dispose();
-    idHewanC.dispose();
+    //idHewanC.dispose();
     idPembuatanC.dispose();
     idVaksinC.dispose();
     eartagC.dispose();

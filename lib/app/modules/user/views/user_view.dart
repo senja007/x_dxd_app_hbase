@@ -12,6 +12,7 @@ class UserView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(UserController());
     UserController userController = Get.find<UserController>();
     return GetBuilder<UserController>(builder: (controller) {
       return Scaffold(

@@ -10,8 +10,8 @@ class InseminasiApi extends SharedApi {
   // Login API
   Future<InseminasiListModel> loadInseminasiAPI() async {
     try {
-      var data = await http.get(Uri.parse('$baseUrl/inseminasi'),
-          headers: getToken());
+      var data =
+          await http.get(Uri.parse('$baseUrl/inseminasi'), headers: getToken());
       // print("hasil" + data.statusCode.toString());
       // print(json.decode(data.body));
       if (data.statusCode == 200) {
@@ -39,8 +39,8 @@ class InseminasiApi extends SharedApi {
 //ADD
   Future<InseminasiModel?> addInseminasiAPI(
     String idInseminasi,
-    String eartag,
-    String idHewan,
+    String kodeEartagNasional,
+    // String idHewan,
     String idPembuatan,
     String idPejantan,
     String bangsaPejantan,
@@ -60,8 +60,8 @@ class InseminasiApi extends SharedApi {
 
       var bodyData = {
         'idInseminasi': idInseminasi,
-        'eartag': eartag,
-        'idHewan': idHewan,
+        'kodeEartagNasional': kodeEartagNasional,
+        // 'idHewan': idHewan,
         'idPembuatan': idPembuatan,
         'idPejantan': idPejantan,
         'bangsaPejantan': bangsaPejantan,
@@ -89,8 +89,8 @@ class InseminasiApi extends SharedApi {
         return InseminasiModel.fromJson({
           "status": 201,
           "idInseminasi": jsonData['idInseminasi'],
-          "eartag": jsonData['eartag'],
-          "idHewan": jsonData['idHewan'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
+          // "idHewan": jsonData['idHewan'],
           "idPembuatan": jsonData['idPembuatan'],
           "idPejantan": jsonData['idPejantan'],
           "bangsaPejantan": jsonData['bangsaPejantan'],
@@ -100,7 +100,7 @@ class InseminasiApi extends SharedApi {
           "ibLain": jsonData['ibLain'],
           "produsen": jsonData['produsen'],
           "idPeternak": jsonData['idPeternak'],
-          "namaPeternak": jsonData['namaPeternak'],
+          //"namaPeternak": jsonData['namaPeternak'],
           "lokasi": jsonData['lokasi'],
           "inseminator": jsonData['inseminator'],
           "tanggalIB": jsonData['tanggalIB'],
@@ -120,9 +120,9 @@ class InseminasiApi extends SharedApi {
   Future<InseminasiModel?> editInseminasiApi(
     String idInseminasi,
     String eartag,
-    String idHewan,
+    //String idHewan,
     String idPembuatan,
-    String idPejantan,
+    // String idPejantan,
     String bangsaPejantan,
     String ib1,
     String ib2,
@@ -141,9 +141,9 @@ class InseminasiApi extends SharedApi {
       var bodyDataedit = {
         'idInseminasi': idInseminasi,
         'eartag': eartag,
-        'idHewan': idHewan,
+        //'idHewan': idHewan,
         'idPembuatan': idPembuatan,
-        'idPejantan': idPejantan,
+        // 'idPejantan': idPejantan,
         'bangsaPejantan': bangsaPejantan,
         'ib1': ib1,
         'ib2': ib2,
@@ -175,9 +175,9 @@ class InseminasiApi extends SharedApi {
           "status": 201,
           "idInseminasi": jsonData['idInseminasi'],
           "eartag": jsonData['eartag'],
-          "idHewan": jsonData['idHewan'],
+          //"idHewan": jsonData['idHewan'],
           "idPembuatan": jsonData['idPembuatan'],
-          "idPejantan": jsonData['idPejantan'],
+          // "idPejantan": jsonData['idPejantan'],
           "bangsaPejantan": jsonData['bangsaPejantan'],
           "ib1": jsonData['ib1'],
           "ib2": jsonData['ib2'],

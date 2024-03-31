@@ -1,12 +1,13 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
 
 class InseminasiModel {
   final String? idInseminasi;
   final String? tanggalIB;
   final String? lokasi;
-  final IdPeternak? idPeternak;
-  final String? idHewan;
-  final HewanModel? eartag;
+  final PeternakModel? idPeternak;
+  //final String? idHewan;
+  final HewanModel? kodeEartagNasional;
   final String? ib1;
   final String? ib2;
   final String? ib3;
@@ -22,8 +23,8 @@ class InseminasiModel {
   InseminasiModel({
     this.status,
     this.idInseminasi,
-    this.eartag,
-    this.idHewan,
+    this.kodeEartagNasional,
+    //this.idHewan,
     this.idPembuatan,
     this.idPejantan,
     this.bangsaPejantan,
@@ -41,28 +42,24 @@ class InseminasiModel {
   factory InseminasiModel.fromJson(Map<String, dynamic> jsonData) {
     return InseminasiModel(
       status: jsonData['status'] ?? 0,
-      idInseminasi:
-          jsonData['idInseminasi'] ?? "",
-      eartag: jsonData['eartag'] != null
-          ? HewanModel.fromJson(jsonData['eartag'])
+      idInseminasi: jsonData['idInseminasi'] ?? "",
+      kodeEartagNasional: jsonData['kodeEartagNasional'] != null
+          ? HewanModel.fromJson(jsonData['kodeEartagNasional'])
           : null,
-      idHewan: jsonData['idHewan'] ?? "",
-      idPembuatan:
-          jsonData['idPembuatan'] ?? "",
+      // idHewan: jsonData['idHewan'] ?? "",
+      idPembuatan: jsonData['idPembuatan'] ?? "",
       idPejantan: jsonData['idPejantan'] ?? "",
-      bangsaPejantan:
-          jsonData['bangsaPejantan'] ?? "",
+      bangsaPejantan: jsonData['bangsaPejantan'] ?? "",
       ib1: jsonData['ib1'] ?? "",
       ib2: jsonData['ib2'] ?? "",
       ib3: jsonData['ib3'] ?? "",
       ibLain: jsonData['ibLain'] ?? "",
       produsen: jsonData['produsen'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
-          ? IdPeternak.fromJson(jsonData['idPeternak'])
+          ? PeternakModel.fromJson(jsonData['idPeternak'])
           : null,
       lokasi: jsonData['lokasi'] ?? "",
-      inseminator:
-          jsonData['inseminator'] ?? "",
+      inseminator: jsonData['inseminator'] ?? "",
       tanggalIB: jsonData['tanggalIB'] ?? "",
     );
   }
@@ -93,60 +90,4 @@ class InseminasiListModel {
         totalElements: jsonData['totalElements'],
         totalPages: jsonData['totalPages']);
   }
-}
-
-class IdPeternak {
-  DateTime createdAt;
-  DateTime updatedAt;
-  int createdBy;
-  int updatedBy;
-  String idPeternak;
-  String nikPeternak;
-  String namaPeternak;
-  String idIsikhnas;
-  String lokasi;
-  String petugasPendaftar;
-  String tanggalPendaftaran;
-
-  IdPeternak({
-    required this.createdAt,
-    required this.updatedAt,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.idPeternak,
-    required this.nikPeternak,
-    required this.namaPeternak,
-    required this.idIsikhnas,
-    required this.lokasi,
-    required this.petugasPendaftar,
-    required this.tanggalPendaftaran,
-  });
-
-  factory IdPeternak.fromJson(Map<String, dynamic> json) => IdPeternak(
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        createdBy: json["createdBy"],
-        updatedBy: json["updatedBy"],
-        idPeternak: json["idPeternak"],
-        nikPeternak: json["nikPeternak"],
-        namaPeternak: json["namaPeternak"],
-        idIsikhnas: json["idISIKHNAS"],
-        lokasi: json["lokasi"],
-        petugasPendaftar: json["petugasPendaftar"],
-        tanggalPendaftaran: json["tanggalPendaftaran"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "createdBy": createdBy,
-        "updatedBy": updatedBy,
-        "idPeternak": idPeternak,
-        "nikPeternak": nikPeternak,
-        "namaPeternak": namaPeternak,
-        "idISIKHNAS": idIsikhnas,
-        "lokasi": lokasi,
-        "petugasPendaftar": petugasPendaftar,
-        "tanggalPendaftaran": tanggalPendaftaran,
-      };
 }

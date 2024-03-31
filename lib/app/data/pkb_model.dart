@@ -1,12 +1,13 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 
 class PKBModel {
   final int? status;
-
   final String? idKejadian;
+  final HewanModel? kodeEartagNasional;
   final String? tanggalPkb;
   final String? lokasi;
   final IdPeternak? idPeternak;
-  final String? idHewan;
+  // final String? idHewan;
   final String? spesies;
   final String? kategori;
   final String? jumlah;
@@ -16,10 +17,11 @@ class PKBModel {
   PKBModel({
     this.status,
     this.idKejadian,
+    this.kodeEartagNasional,
     this.tanggalPkb,
     this.lokasi,
     this.idPeternak,
-    this.idHewan,
+    // this.idHewan,
     this.spesies,
     this.kategori,
     this.jumlah,
@@ -31,12 +33,15 @@ class PKBModel {
     return PKBModel(
       status: jsonData['status'] ?? 0,
       idKejadian: jsonData['idKejadian'] ?? "",
+      kodeEartagNasional: jsonData['kodeEartagNasional'] != null
+          ? HewanModel.fromJson(jsonData['kodeEartagNasional'])
+          : null,
       tanggalPkb: jsonData['tanggalPkb'] ?? "",
       lokasi: jsonData['lokasi'] ?? "",
       idPeternak: jsonData['idPeternak'] != null
           ? IdPeternak.fromJson(jsonData['idPeternak'])
           : null,
-      idHewan: jsonData['idHewan'] ?? "",
+      //idHewan: jsonData['idHewan'] ?? "",
       spesies: jsonData['spesies'] ?? "",
       kategori: jsonData['kategori'] ?? "",
       jumlah: jsonData['jumlah'] ?? "",

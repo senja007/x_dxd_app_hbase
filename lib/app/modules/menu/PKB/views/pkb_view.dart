@@ -46,7 +46,8 @@ class PKBView extends GetView<PKBController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -55,7 +56,9 @@ class PKBView extends GetView<PKBController> {
                             Routes.DETAILPKB,
                             arguments: {
                               "id_kejadian": "${postData.idKejadian}",
-                              "id_hewan": "${postData.idHewan}",
+                              "kodeEartagNasional":
+                                  "${postData.kodeEartagNasional?.kodeEartagNasional}",
+                              //"id_hewan": "${postData.idHewan}",
                               "id_peternak":
                                   "${postData.idPeternak?.idPeternak}",
                               "nik": "${postData.idPeternak?.nikPeternak}",

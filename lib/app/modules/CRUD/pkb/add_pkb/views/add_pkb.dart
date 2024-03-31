@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
@@ -76,40 +77,40 @@ class AddPkbView extends GetView<AddPkbController> {
               ),
             ),
           ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-            margin: const EdgeInsets.only(bottom: 16),
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(8),
-              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-            ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.idHewanC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Id Hewan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
-                  ),
-                ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Id Hewan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
-            ),
-          ),
+          // Container(
+          //   width: MediaQuery.of(context).size.width,
+          //   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+          //   margin: const EdgeInsets.only(bottom: 16),
+          //   decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.circular(8),
+          //     border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+          //   ),
+          //   child: TextField(
+          //     style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
+          //     maxLines: 1,
+          //     controller: controller.idHewanC,
+          //     keyboardType: TextInputType.text,
+          //     decoration: InputDecoration(
+          //       label: Text(
+          //         "Id Hewan",
+          //         style: TextStyle(
+          //           color: AppColor.secondarySoft,
+          //           fontSize: 14,
+          //         ),
+          //       ),
+          //       floatingLabelBehavior: FloatingLabelBehavior.always,
+          //       border: InputBorder.none,
+          //       hintText: "Id Hewan",
+          //       hintStyle: TextStyle(
+          //         fontSize: 14,
+          //         fontFamily: 'poppins',
+          //         fontWeight: FontWeight.w500,
+          //         color: AppColor.secondarySoft,
+          //       ),
+          //     ),
+          //   ),
+          // ),
           // Container(
           //   width: MediaQuery.of(context).size.width,
           //   padding: EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -178,6 +179,49 @@ class AddPkbView extends GetView<AddPkbController> {
           //     ),
           //   ),
           // ),
+
+          Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: Text(
+                        "Kode Eartag Nasional",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Obx(() {
+                      return DropdownButton<String>(
+                        value: controller.selectedHewanEartag.value,
+                        items: controller.hewanList.map((HewanModel hewan) {
+                          return DropdownMenuItem<String>(
+                            value: hewan.kodeEartagNasional ?? '',
+                            child: Text('${hewan.kodeEartagNasional ?? ''}'
+                                '    ${hewan.idPeternak!.namaPeternak ?? ''}'),
+                          );
+                        }).toList(),
+                        onChanged: (String? selectedEartag) {
+                          controller.selectedHewanEartag.value =
+                              selectedEartag ?? '';
+                        },
+                        hint: const Text('Pilih Kode Eartag Nasional'),
+                        isExpanded: true,
+                      );
+                    })
+                  ])),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -342,8 +386,8 @@ class AddPkbView extends GetView<AddPkbController> {
                   ),
                 ),
               ),
-              Obx(() =>
-                 DropdownMenu<String>(
+              Obx(
+                () => DropdownMenu<String>(
                   inputDecorationTheme: const InputDecorationTheme(
                       filled: false, iconColor: Colors.amber),
                   initialSelection: controller.selectedSpesies.value,
@@ -353,7 +397,8 @@ class AddPkbView extends GetView<AddPkbController> {
                   },
                   dropdownMenuEntries: controller.spesies
                       .map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(value: value, label: value);
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
                   }).toList(),
                 ),
               ),

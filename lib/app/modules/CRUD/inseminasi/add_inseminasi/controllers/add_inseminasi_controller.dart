@@ -1,12 +1,15 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/inseminasi_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/inseminasi_controller.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import '../../../../../services/inseminasi_api.dart';
 
@@ -16,11 +19,29 @@ class AddInseminasiController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   RxString selectedPeternakId = ''.obs;
+  RxString selectedHewanId = ''.obs;
   RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  RxList<HewanModel> hewanList = <HewanModel>[].obs;
+
+  RxString selectedSpesies = 'Sapi'.obs;
+  List<String> genders = ["Jantan", "Betina"];
+  List<String> spesies = [
+    "Banteng",
+    "Domba",
+    "Kambing",
+    "Sapi",
+    "Sapi Brahman",
+    "Sapi Brangus",
+    "Sapi Limosin",
+    "Sapi fh",
+    "Sapi Perah",
+    "Sapi PO",
+    "Sapi Simental"
+  ];
 
   TextEditingController idInseminasiC = TextEditingController();
-  TextEditingController eartagC = TextEditingController();
-  TextEditingController idHewanC = TextEditingController();
+  //TextEditingController kodeEartagNasionalC = TextEditingController();
+  // TextEditingController idHewanC = TextEditingController();
   TextEditingController idPembuatanC = TextEditingController();
   TextEditingController idPejantanC = TextEditingController();
   TextEditingController bangsaPejantanC = TextEditingController();
@@ -36,8 +57,8 @@ class AddInseminasiController extends GetxController {
   @override
   onClose() {
     idInseminasiC.dispose();
-    eartagC.dispose();
-    idHewanC.dispose();
+    //kodeEartagNasionalC.dispose();
+    //idHewanC.dispose();
     idPembuatanC.dispose();
     idPejantanC.dispose();
     bangsaPejantanC.dispose();
@@ -56,6 +77,24 @@ class AddInseminasiController extends GetxController {
   void onInit() {
     super.onInit();
     fetchPeternaks();
+    fetchHewans();
+  }
+
+  //GET DATA PETERNAK
+  Future<List<HewanModel>> fetchHewans() async {
+    try {
+      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
+      final List<HewanModel> hewans = hewanListModel.content ?? [];
+      if (hewans.isNotEmpty) {
+        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
+      }
+      hewanList.assignAll(hewans);
+      return hewans;
+    } catch (e) {
+      print('Error fetching peternaks: $e');
+      showErrorMessage("Error fetching peternaks: $e");
+      return [];
+    }
   }
 
   Future<List<PeternakModel>> fetchPeternaks() async {
@@ -80,11 +119,12 @@ class AddInseminasiController extends GetxController {
       isLoading.value = true;
       inseminasiModel = await InseminasiApi().addInseminasiAPI(
           idInseminasiC.text,
-          eartagC.text,
-          idHewanC.text,
+          //kodeEartagNasionalC.text,
+          selectedHewanId.value,
+          // idHewanC.text,
           idPembuatanC.text,
-          idPejantanC.text,
           bangsaPejantanC.text,
+          selectedSpesies.value,
           ib1C.text,
           ib2C.text,
           ib3C.text,

@@ -746,7 +746,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextField(
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.umurC,
                   decoration: const InputDecoration(
@@ -877,7 +878,8 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
                 child: TextField(
-                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 16, fontWeight: FontWeight.bold),
                   maxLines: 1,
                   controller: controller.tanggalTerdaftarC,
                   decoration: const InputDecoration(
@@ -929,6 +931,13 @@ class DetailHewanView extends GetView<DetailHewanController> {
                           return Image.network(
                             '${controller.sharedApi.imageUrl}${controller.argsData["foto_hewan_detail"]}',
                             fit: BoxFit.fill,
+                            errorBuilder: (context, error, stackTrace) {
+                              return Placeholder(
+                                // Placeholder image or widget to show on error
+                                fallbackHeight: 100,
+                                fallbackWidth: 100,
+                              );
+                            },
                           );
                         }
                       }),
