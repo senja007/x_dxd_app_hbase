@@ -1,5 +1,6 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -205,8 +206,10 @@ class AddPkbView extends GetView<AddPkbController> {
                     ),
                     Obx(() {
                       return DropdownButton<String>(
-                        value: controller.selectedHewanEartag.value,
-                        items: controller.hewanList.map((HewanModel hewan) {
+                        value:
+                            controller.fecthaddData.selectedHewanEartag.value,
+                        items: controller.fecthaddData.hewanList
+                            .map((HewanModel hewan) {
                           return DropdownMenuItem<String>(
                             value: hewan.kodeEartagNasional ?? '',
                             child: Text('${hewan.kodeEartagNasional ?? ''}'
@@ -214,7 +217,7 @@ class AddPkbView extends GetView<AddPkbController> {
                           );
                         }).toList(),
                         onChanged: (String? selectedEartag) {
-                          controller.selectedHewanEartag.value =
+                          controller.fecthaddData.selectedHewanEartag.value =
                               selectedEartag ?? '';
                         },
                         hint: const Text('Pilih Kode Eartag Nasional'),
@@ -246,16 +249,17 @@ class AddPkbView extends GetView<AddPkbController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPeternakId.value,
-                    items:
-                        controller.peternakList.map((PeternakModel peternak) {
+                    value: controller.fecthaddData.selectedPeternakId.value,
+                    items: controller.fecthaddData.peternakList
+                        .map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
                         child: Text(peternak.namaPeternak ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedPeternakId.value = selectedId ?? '';
+                      controller.fecthaddData.selectedPeternakId.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih Peternak'),
                   );
@@ -447,29 +451,38 @@ class AddPkbView extends GetView<AddPkbController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.pemeriksaKebuntinganC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Pemeriksa Kebuntingan",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Pemeriksa Kebuntingan",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Pemeriksa Kebuntingan",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.fecthaddData.selectedPetugasId.value,
+                    items: controller.fecthaddData.petugasList
+                        .map((PetugasModel petugas) {
+                      print(controller.fecthaddData.selectedPetugasId.value);
+                      return DropdownMenuItem<String>(
+                        value: petugas.nikPetugas ?? '',
+                        child: Text(petugas.namaPetugas ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNik) {
+                      controller.fecthaddData.selectedPetugasId.value =
+                          selectedNik ?? '';
+                    },
+                    hint: const Text('Pemeriksa Kebuntingan'),
+                  );
+                }),
+              ],
             ),
           ),
           Container(

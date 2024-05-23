@@ -1,9 +1,12 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/inseminasi_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/inseminasi/controllers/inseminasi_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
@@ -14,14 +17,12 @@ import 'package:intl/intl.dart';
 import '../../../../../services/inseminasi_api.dart';
 
 class AddInseminasiController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   InseminasiModel? inseminasiModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
-  RxString selectedPeternakId = ''.obs;
-  RxString selectedHewanId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxList<HewanModel> hewanList = <HewanModel>[].obs;
 
   RxString selectedSpesies = 'Sapi'.obs;
   List<String> genders = ["Jantan", "Betina"];
@@ -40,8 +41,6 @@ class AddInseminasiController extends GetxController {
   ];
 
   TextEditingController idInseminasiC = TextEditingController();
-  //TextEditingController kodeEartagNasionalC = TextEditingController();
-  // TextEditingController idHewanC = TextEditingController();
   TextEditingController idPembuatanC = TextEditingController();
   TextEditingController idPejantanC = TextEditingController();
   TextEditingController bangsaPejantanC = TextEditingController();
@@ -52,13 +51,10 @@ class AddInseminasiController extends GetxController {
   TextEditingController produsenC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController inseminatorC = TextEditingController();
   TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
     idInseminasiC.dispose();
-    //kodeEartagNasionalC.dispose();
-    //idHewanC.dispose();
     idPembuatanC.dispose();
     idPejantanC.dispose();
     bangsaPejantanC.dispose();
@@ -69,59 +65,24 @@ class AddInseminasiController extends GetxController {
     produsenC.dispose();
     idPeternakC.dispose();
     lokasiC.dispose();
-    inseminatorC.dispose();
     tanggalIBC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchHewans();
+    fetchdata.fetchPeternaks();
+    fetchdata.fetchHewan();
+    fetchdata.fetchPetugas();
   }
 
-  //GET DATA PETERNAK
-  Future<List<HewanModel>> fetchHewans() async {
-    try {
-      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
-      final List<HewanModel> hewans = hewanListModel.content ?? [];
-      if (hewans.isNotEmpty) {
-        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
-      }
-      hewanList.assignAll(hewans);
-      return hewans;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
+//ADD INSEMINASI
   Future addInseminasi(BuildContext context) async {
     try {
       isLoading.value = true;
       inseminasiModel = await InseminasiApi().addInseminasiAPI(
           idInseminasiC.text,
-          //kodeEartagNasionalC.text,
-          selectedHewanId.value,
-          // idHewanC.text,
+          fetchdata.selectedHewanEartag.value,
           idPembuatanC.text,
           bangsaPejantanC.text,
           selectedSpesies.value,
@@ -130,9 +91,9 @@ class AddInseminasiController extends GetxController {
           ib3C.text,
           ibLainC.text,
           produsenC.text,
-          selectedPeternakId.value,
+          fetchdata.selectedPeternakId.value,
           lokasiC.text,
-          inseminatorC.text,
+          fetchdata.selectedPetugasId.value,
           tanggalIBC.text);
 
       if (inseminasiModel != null) {
@@ -149,7 +110,7 @@ class AddInseminasiController extends GetxController {
       }
     } catch (e) {
       showCupertinoDialog(
-        context: context, // Gunakan context yang diberikan sebagai parameter.
+        context: context, // context yang diberikan sebagai parameter.
         builder: (context) {
           return CupertinoAlertDialog(
             title: const Text("Kesalahan"),

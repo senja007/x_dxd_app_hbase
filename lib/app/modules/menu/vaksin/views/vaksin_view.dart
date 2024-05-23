@@ -47,7 +47,8 @@ class VaksinView extends GetView<VaksinController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -72,7 +73,8 @@ class VaksinView extends GetView<VaksinController> {
                               "idPembuatan": "${postData.idPembuatan}",
                               "bangsaPejantan": "${postData.bangsaPejantan}",
                               "produsen": "${postData.produsen}",
-                              "inseminator": "${postData.inseminator}",
+                              "inseminator":
+                                  "${postData.inseminator?.namaPetugas}",
                             },
                           ),
                         },

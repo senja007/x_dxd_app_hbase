@@ -1,3 +1,4 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
@@ -112,6 +113,49 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               ),
             ),
           ),
+          Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+              margin: const EdgeInsets.only(bottom: 16),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                border:
+                    Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
+                      child: Text(
+                        "Kode Eartag Nasional",
+                        style: TextStyle(
+                          color: AppColor.secondarySoft,
+                          fontSize: 12,
+                        ),
+                      ),
+                    ),
+                    Obx(() {
+                      return DropdownButton<String>(
+                        value: controller.fetchdata.selectedHewanEartag.value,
+                        items: controller.fetchdata.hewanList
+                            .map((HewanModel hewan) {
+                          return DropdownMenuItem<String>(
+                            value: hewan.kodeEartagNasional ?? '',
+                            child: Text('${hewan.kodeEartagNasional ?? ''}'
+                                '    ${hewan.idPeternak!.namaPeternak ?? ''}'),
+                          );
+                        }).toList(),
+                        onChanged: (String? selectedEartag) {
+                          controller.fetchdata.selectedHewanEartag.value =
+                              selectedEartag ?? '';
+                        },
+                        hint: const Text('Pilih Kode Eartag Nasional'),
+                        isExpanded: true,
+                      );
+                    })
+                  ])),
           Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -292,12 +336,13 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
             child: DropdownMenu<String>(
-              inputDecorationTheme:
-                  const InputDecorationTheme(filled: false, iconColor: Colors.amber),
+              inputDecorationTheme: const InputDecorationTheme(
+                  filled: false, iconColor: Colors.amber),
               initialSelection: controller.genders.first,
               onSelected: (String? value) {
                 // This is called when the user selects an item.
                 controller.selectedGender.value = value!;
+                //Text("${controller.selectedGender ?? ''}");
               },
               dropdownMenuEntries: controller.genders
                   .map<DropdownMenuEntry<String>>((String value) {
@@ -601,16 +646,17 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPeternakId.value,
-                    items:
-                        controller.peternakList.map((PeternakModel peternak) {
+                    value: controller.fetchdata.selectedPeternakId.value,
+                    items: controller.fetchdata.peternakList
+                        .map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
                         child: Text(peternak.namaPeternak ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedPeternakId.value = selectedId ?? '';
+                      controller.fetchdata.selectedPeternakId.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih Peternak'),
                   );
@@ -642,17 +688,17 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    
-                    value: controller.selectedPetugasId.value,
-                    items:
-                        controller.petugasList.map((PetugasModel petugas) {
+                    value: controller.fetchdata.selectedPetugasId.value,
+                    items: controller.fetchdata.petugasList
+                        .map((PetugasModel petugas) {
                       return DropdownMenuItem<String>(
-                        value: petugas.namaPetugas ?? '',
+                        value: petugas.nikPetugas ?? '',
                         child: Text(petugas.namaPetugas ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedNik) {
-                      controller.selectedPetugasId.value = selectedNik ?? '';
+                      controller.fetchdata.selectedPetugasId.value =
+                          selectedNik ?? '';
                     },
                     hint: const Text('Pilih Petugas'),
                   );
@@ -771,17 +817,19 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child:TextField(
-               style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                controller: controller.tanggalLahirC, //editing controller of this TextField
-                decoration: const InputDecoration( 
+            child: TextField(
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              controller: controller
+                  .tanggalLahirC, //editing controller of this TextField
+              decoration: const InputDecoration(
                   border: InputBorder.none,
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Lahir" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalLahir(context),
-             ),
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Lahir" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalLahir(context),
+            ),
           ),
           Container(
             width: MediaQuery.of(context).size.width,
@@ -795,15 +843,17 @@ class AddKelahiranView extends GetView<AddkelahiranController> {
             child: TextField(
               style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller.tanggalLaporanC, //editing controller of this TextField
-                decoration: const InputDecoration( 
+              controller: controller
+                  .tanggalLaporanC, //editing controller of this TextField
+              decoration: const InputDecoration(
                   border: InputBorder.none,
-                   icon: Icon(Icons.calendar_today), //icon of text field
-                   labelText: "Tanggal Laporan" //label text of field
-                ),
-                readOnly: true,  //set it true, so that user will not able to edit text
-                onTap: () => controller.tanggalLaporan(context),
-             ),
+                  icon: Icon(Icons.calendar_today), //icon of text field
+                  labelText: "Tanggal Laporan" //label text of field
+                  ),
+              readOnly:
+                  true, //set it true, so that user will not able to edit text
+              onTap: () => controller.tanggalLaporan(context),
+            ),
           ),
           const SizedBox(height: 32),
           SizedBox(

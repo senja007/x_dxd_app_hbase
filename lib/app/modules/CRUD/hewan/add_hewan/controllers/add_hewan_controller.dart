@@ -2,14 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
-import 'package:crud_flutter_api/app/data/kandang_model.dart';
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
-import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/kandang_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +17,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AddHewanController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   HewanModel? hewanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
@@ -30,12 +27,6 @@ class AddHewanController extends GetxController {
   RxString alamat = ''.obs;
   RxString selectedGender = 'Jantan'.obs;
   RxString selectedSpesies = 'Sapi'.obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxString selectedPetugasId = ''.obs;
-  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
-    RxString selectedKandangId = ''.obs;
-  RxList<KandangModel> kandangList = <KandangModel>[].obs;
   Rx<File?> fotoHewan = Rx<File?>(null);
 
   List<String> genders = ["Jantan", "Betina"];
@@ -66,12 +57,8 @@ class AddHewanController extends GetxController {
   TextEditingController kabupatenC = TextEditingController();
   TextEditingController kecamatanC = TextEditingController();
   TextEditingController desaC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
-  TextEditingController nikPeternakC = TextEditingController();
   TextEditingController umurC = TextEditingController();
   TextEditingController identifikasiHewanC = TextEditingController();
-  TextEditingController petugasPendaftarC = TextEditingController();
   TextEditingController tanggalTerdaftarC = TextEditingController();
 
   @override
@@ -82,13 +69,8 @@ class AddHewanController extends GetxController {
     kabupatenC.dispose();
     kecamatanC.dispose();
     desaC.dispose();
-    namaPeternakC.dispose();
-    idPeternakC.dispose();
-    nikPeternakC.dispose();
-   
     umurC.dispose();
     identifikasiHewanC.dispose();
-    petugasPendaftarC.dispose();
     tanggalTerdaftarC.dispose();
     ever<File?>(fotoHewan, (_) {
       update();
@@ -98,66 +80,10 @@ class AddHewanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchPetugas();
-    fetchKandangs();
+    fetchdata.fetchPeternaks();
+    fetchdata.fetchPetugas();
+    fetchdata.fetchKandangs();
   }
-//GET DATA PETERNAK
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-//GET DATA PETUGAS
-  Future<List<PetugasModel>> fetchPetugas() async {
-    try {
-      final PetugasListModel petugasListModel =
-          await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugass = petugasListModel.content ?? [];
-      if (petugass.isNotEmpty) {
-        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
-      }
-      petugasList.assignAll(petugass);
-      return petugass;
-    } catch (e) {
-      print('Error fetching Petugas: $e');
-      showErrorMessage("Error fetching Petugas: $e");
-      return [];
-    }
-  }
-
-//GET DATA PETERNAK
-  Future<List<KandangModel>> fetchKandangs() async {
-    try {
-      final KandangListModel kandangListModel =
-          await KandangApi().loadKandangApi();
-      final List<KandangModel> kandangs = kandangListModel.content ?? [];
-      if (kandangs.isNotEmpty) {
-        selectedKandangId.value = kandangs.first.idKandang ?? '';
-      }
-      kandangList.assignAll(kandangs);
-      return kandangs;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
- 
-
-
 
 //GET LOCATION
   Future<Position> getGeoLocationPosition() async {
@@ -271,17 +197,6 @@ class AddHewanController extends GetxController {
     return compressedImageFile;
   }
 
-  // // Fungsi untuk memilih gambar dari galeri
-  // Future<void> pickImage() async {
-  //   final pickedFile =
-  //       await ImagePicker().pickImage(source: ImageSource.gallery);
-
-  //   if (pickedFile != null) {
-  //     fotoHewan.value = File(pickedFile.path);
-  //     update(); // Perbarui UI setelah memilih gambar
-  //   }
-  // }
-
   // Fungsi untuk menghapus gambar yang sudah dipilih
   void removeImage() {
     fotoHewan.value = null;
@@ -296,12 +211,12 @@ class AddHewanController extends GetxController {
         throw "Kode Eartag tidak boleh kosong.";
       }
 
-      if (selectedPeternakId.value.isEmpty) {
+      if (fetchdata.selectedPeternakId.value.isEmpty) {
         throw "Pilih Peternak terlebih dahulu.";
       }
 
-      if (selectedPetugasId.value.isEmpty) {
-        throw "Pilih Peternak terlebih dahulu.";
+      if (fetchdata.selectedPetugasId.value.isEmpty) {
+        throw "Pilih Petugas terlebih dahulu.";
       }
 
       File? fotoHewanFile = fotoHewan.value;
@@ -317,17 +232,14 @@ class AddHewanController extends GetxController {
         kabupatenC.text,
         kecamatanC.text,
         desaC.text,
-        alamat.value =strAlamat.value,
-        //namaPeternakC.text,
-        selectedPeternakId.value,
-        selectedKandangId.value,
-  
-       // nikPeternakC.text,
+        alamat.value = strAlamat.value,
+        fetchdata.selectedPeternakId.value,
+        fetchdata.selectedKandangId.value,
         selectedSpesies.value,
         selectedGender.value,
         umurC.text,
         identifikasiHewanC.text,
-        selectedPetugasId.value,
+        fetchdata.selectedPetugasId.value,
         tanggalTerdaftarC.text,
         fotoHewanFile,
         latitude: latitude.value,
@@ -379,7 +291,6 @@ class AddHewanController extends GetxController {
 
   late DateTime selectedDate = DateTime.now();
   late DateTime selectedDate1 = DateTime.now();
-  
 
   Future<void> tanggalTerdaftar(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -395,7 +306,7 @@ class AddHewanController extends GetxController {
     }
   }
 
-   Future<void> tanggalLahir(BuildContext context) async {
+  Future<void> tanggalLahir(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectedDate1,

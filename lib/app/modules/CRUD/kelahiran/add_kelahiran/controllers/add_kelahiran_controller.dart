@@ -1,7 +1,10 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
@@ -13,21 +16,18 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddkelahiranController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   KelahiranModel? kelahiranModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxString selectedGender = 'Jantan'.obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxString selectedPetugasId = ''.obs;
-  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
   List<String> genders = ["Jantan", "Betina"];
+
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
   TextEditingController kartuTernakIndukC = TextEditingController();
   TextEditingController eartagIndukC = TextEditingController();
   TextEditingController idHewanIndukC = TextEditingController();
@@ -41,7 +41,6 @@ class AddkelahiranController extends GetxController {
   TextEditingController eartagAnakC = TextEditingController();
   TextEditingController idHewanAnakC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
-  TextEditingController petugasPelaporC = TextEditingController();
   TextEditingController urutanIbC = TextEditingController();
 
   @override
@@ -50,8 +49,6 @@ class AddkelahiranController extends GetxController {
     tanggalLaporanC.dispose();
     tanggalLahirC.dispose();
     lokasiC.dispose();
-    namaPeternakC.dispose();
-    idPeternakC.dispose();
     kartuTernakIndukC.dispose();
     eartagIndukC.dispose();
     idHewanIndukC.dispose();
@@ -65,50 +62,15 @@ class AddkelahiranController extends GetxController {
     eartagAnakC.dispose();
     idHewanAnakC.dispose();
     kategoriC.dispose();
-    petugasPelaporC.dispose();
     urutanIbC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchPetugas();
-  }
-//GET DATA PETERNAK
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-//GET DATA PETUGAS
-  Future<List<PetugasModel>> fetchPetugas() async {
-    try {
-      final PetugasListModel petugasListModel =
-          await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugass = petugasListModel.content ?? [];
-      if (petugass.isNotEmpty) {
-        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
-      }
-      petugasList.assignAll(petugass);
-      return petugass;
-    } catch (e) {
-      print('Error fetching Petugas: $e');
-      showErrorMessage("Error fetching Petugas: $e");
-      return [];
-    }
+    fetchdata.fetchPeternaks();
+    fetchdata.fetchPetugas();
+    fetchdata.fetchHewan();
   }
 
   Future addKelahiran(BuildContext context) async {
@@ -118,24 +80,23 @@ class AddkelahiranController extends GetxController {
         throw "ID Kejadian tidak boleh kosong.";
       }
 
-      if (selectedPeternakId.value.isEmpty) {
+      if (fetchdata.selectedPeternakId.value.isEmpty) {
         throw "Pilih Peternak terlebih dahulu.";
       }
 
-      if (selectedPetugasId.value.isEmpty) {
-        throw "Pilih Peternak terlebih dahulu.";
+      if (fetchdata.selectedPetugasId.value.isEmpty) {
+        throw "Pilih Petugas terlebih dahulu.";
       }
-
 
       kelahiranModel = await KelahiranApi().addKelahiranAPI(
         idKejadianC.text,
         tanggalLaporanC.text,
         tanggalLahirC.text,
         lokasiC.text,
-        namaPeternakC.text,
-        selectedPeternakId.value,
+        fetchdata.selectedPeternakId.value,
         kartuTernakIndukC.text,
         eartagIndukC.text,
+        fetchdata.selectedHewanEartag.value,
         idHewanIndukC.text,
         spesiesIndukC.text,
         idPejantanStrawC.text,
@@ -148,7 +109,7 @@ class AddkelahiranController extends GetxController {
         idHewanAnakC.text,
         selectedGender.value,
         kategoriC.text,
-        selectedPetugasId.value,
+        fetchdata.selectedPetugasId.value,
         urutanIbC.text,
       );
 

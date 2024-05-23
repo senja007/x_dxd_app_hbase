@@ -1,5 +1,6 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 
 class InseminasiModel {
   final String? idInseminasi;
@@ -16,7 +17,7 @@ class InseminasiModel {
   final String? idPembuatan;
   final String? bangsaPejantan;
   final String? produsen;
-  final String? inseminator;
+  final PetugasModel? inseminator;
 
   final int? status;
 
@@ -59,7 +60,9 @@ class InseminasiModel {
           ? PeternakModel.fromJson(jsonData['idPeternak'])
           : null,
       lokasi: jsonData['lokasi'] ?? "",
-      inseminator: jsonData['inseminator'] ?? "",
+      inseminator: jsonData['inseminator'] != null
+          ? PetugasModel.fromJson(jsonData['inseminator'])
+          : null,
       tanggalIB: jsonData['tanggalIB'] ?? "",
     );
   }

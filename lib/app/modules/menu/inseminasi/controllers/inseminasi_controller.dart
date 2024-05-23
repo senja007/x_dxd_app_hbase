@@ -45,7 +45,7 @@ class InseminasiController extends GetxController {
     }
   }
 
-  void searchPetugas(String keyword) {
+  void searchInseminasi(String keyword) {
     final List<InseminasiModel> filteredList =
         posts.value.content!.where((inseminasi) {
       return inseminasi.idInseminasi!

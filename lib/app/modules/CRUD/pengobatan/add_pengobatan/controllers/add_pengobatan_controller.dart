@@ -1,5 +1,7 @@
+import 'package:crud_flutter_api/app/data/pengobatan_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -8,19 +10,17 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import '../../../../../data/pengobatan_model.dart';
 
 class AddPengobatanController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   PengobatanModel? pengobatanModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  RxString selectedPetugasId = ''.obs;
-  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
-  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+  final formattedDate = ''.obs;
   TextEditingController idKasusC = TextEditingController();
   TextEditingController tanggalPengobatanC = TextEditingController();
   TextEditingController tanggalKasusC = TextEditingController();
-  TextEditingController namaPetugasC = TextEditingController();
   TextEditingController namaInfrastrukturC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
   TextEditingController dosisC = TextEditingController();
@@ -32,7 +32,6 @@ class AddPengobatanController extends GetxController {
     idKasusC.dispose();
     tanggalPengobatanC.dispose();
     tanggalKasusC.dispose();
-    namaPetugasC.dispose();
     namaInfrastrukturC.dispose();
     lokasiC.dispose();
     dosisC.dispose();
@@ -43,34 +42,18 @@ class AddPengobatanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPetugas();
-  }
-//GET DATA PETUGAS
-  Future<List<PetugasModel>> fetchPetugas() async {
-    try {
-      final PetugasListModel petugasListModel =
-          await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugass = petugasListModel.content ?? [];
-      if (petugass.isNotEmpty) {
-        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
-      }
-      petugasList.assignAll(petugass);
-      return petugass;
-    } catch (e) {
-      print('Error fetching Petugas: $e');
-      showErrorMessage("Error fetching Petugas: $e");
-      return [];
-    }
+    fetchdata.fetchPetugas();
   }
 
   Future addPengobatan(BuildContext context) async {
     try {
+      print(fetchdata.selectedPetugasId.value);
       isLoading.value = true;
       pengobatanModel = await PengobatanApi().addPengobatanAPI(
         idKasusC.text,
         tanggalPengobatanC.text,
         tanggalKasusC.text,
-        selectedPetugasId.value,
+        fetchdata.selectedPetugasId.value,
         namaInfrastrukturC.text,
         lokasiC.text,
         dosisC.text,

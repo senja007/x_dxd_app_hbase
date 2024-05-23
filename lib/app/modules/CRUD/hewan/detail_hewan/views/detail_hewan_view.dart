@@ -369,12 +369,13 @@ class DetailHewanView extends GetView<DetailHewanController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedPeternakId.value);
+                          print(controller.fetchdata.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedPeternakId.value,
-                                items: controller.peternakList
+                                value: controller
+                                    .fetchdata.selectedPeternakId.value,
+                                items: controller.fetchdata.peternakList
                                     .map((PeternakModel peternak) {
                                   return DropdownMenuItem<String>(
                                     value: peternak.idPeternak ?? '',
@@ -383,12 +384,13 @@ class DetailHewanView extends GetView<DetailHewanController> {
                                 }).toList(),
                                 onChanged: (String? selectedId) {
                                   // Update selectedPeternakId
-                                  controller.selectedPeternakId.value =
-                                      selectedId ?? '';
+                                  controller.fetchdata.selectedPeternakId
+                                      .value = selectedId ?? '';
 
                                   // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                                  PeternakModel selectedPeternak =
-                                      controller.peternakList.firstWhere(
+                                  PeternakModel selectedPeternak = controller
+                                      .fetchdata.peternakList
+                                      .firstWhere(
                                     (peternak) =>
                                         peternak.idPeternak == selectedId,
                                     orElse: () =>
@@ -436,30 +438,52 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
-                        child: Text(
-                          "ID Kandang",
-                          style: TextStyle(
-                            color: AppColor.secondarySoft,
-                            fontSize: 12,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "ID Kandang ",
+                                style: TextStyle(
+                                  color: Colors.black, // Warna teks utama
+                                  fontSize: 12,
+                                ),
+                              ),
+                              TextSpan(
+                                text: "(klik edit untuk melihat kandang)",
+                                style: TextStyle(
+                                  color: Colors.red, // Warna teks miring
+                                  fontStyle:
+                                      FontStyle.italic, // Membuat teks miring
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedKandangId.value);
+                          print(controller.fetchdata.selectedKandangId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedKandangId.value,
-                                items: controller.kandangList
+                                value: controller
+                                    .fetchdata.selectedKandangId.value,
+                                items: controller.fetchdata.kandangList
                                     .map((KandangModel kandangss) {
                                   return DropdownMenuItem<String>(
                                     value: kandangss.idKandang ?? '',
-                                    child: Text(kandangss.desa ?? ''),
+                                    child: Text(
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        '${kandangss.desa ?? ''}  \n'
+                                        '${kandangss.idPeternak?.namaPeternak ?? ' '}    '
+                                        '${kandangss.luas ?? ''}'
+                                        " m2"),
                                   );
                                 }).toList(),
                                 onChanged: (String? selectedId) {
-                                  controller.selectedKandangId.value =
+                                  controller.fetchdata.selectedKandangId.value =
                                       selectedId ?? '';
                                 },
                                 hint: const Text('Pilih Kandang'),
@@ -821,30 +845,49 @@ class DetailHewanView extends GetView<DetailHewanController> {
                     children: [
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 0),
-                        child: Text(
-                          "Nama Petugas",
-                          style: TextStyle(
-                            color: AppColor.secondarySoft,
-                            fontSize: 12,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "Nama Petugas ",
+                                style: TextStyle(
+                                  color: Colors.black, // Warna teks utama
+                                  fontSize: 12,
+                                ),
+                              ),
+                              TextSpan(
+                                text:
+                                    "(klik edit untuk mengganti nama petugas)",
+                                style: TextStyle(
+                                  color: Colors.red, // Warna teks miring
+                                  fontStyle:
+                                      FontStyle.italic, // Membuat teks miring
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedPetugasId.value);
+                          print(controller.fetchdata.selectedPetugasId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedPetugasId.value,
-                                items: controller.petugasList
+                                value: controller
+                                    .fetchdata.selectedPetugasId.value,
+                                items: controller.fetchdata.petugasList
                                     .map((PetugasModel petugass) {
+                                  print(controller
+                                      .fetchdata.selectedPetugasId.value);
                                   return DropdownMenuItem<String>(
-                                    value: petugass.namaPetugas ?? '',
+                                    value: petugass.nikPetugas ?? '',
                                     child: Text(petugass.namaPetugas ?? ''),
                                   );
                                 }).toList(),
                                 onChanged: (String? selectedId) {
-                                  controller.selectedPetugasId.value =
+                                  controller.fetchdata.selectedPetugasId.value =
                                       selectedId ?? '';
                                 },
                                 hint: const Text('Pilih Petugas'),

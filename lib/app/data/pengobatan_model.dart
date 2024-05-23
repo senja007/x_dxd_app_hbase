@@ -1,10 +1,12 @@
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
+
 class PengobatanModel {
   final int? status;
 
   final String? idKasus;
   final String? tanggalPengobatan;
   final String? tanggalKasus;
-  final String? namaPetugas;
+  final PetugasModel? namaPetugas;
   final String? namaInfrastruktur;
   final String? lokasi;
   final String? dosis;
@@ -29,10 +31,10 @@ class PengobatanModel {
       status: jsonData['status'] ?? 0,
       idKasus: jsonData['idKasus'] ?? "",
       tanggalPengobatan: jsonData['tanggalPengobatan'] ?? "",
-      tanggalKasus:
-          jsonData['tanggalKasus'] ?? "",
-      namaPetugas:
-          jsonData['namaPetugas'] ?? "",
+      tanggalKasus: jsonData['tanggalKasus'] ?? "",
+      namaPetugas: jsonData['namaPetugas'] != null
+          ? PetugasModel.fromJson(jsonData['namaPetugas'])
+          : null,
       namaInfrastruktur: jsonData['namaInfrastruktur'] ?? "",
       lokasi: jsonData['lokasi'] ?? "",
       dosis: jsonData['dosis'] ?? "",

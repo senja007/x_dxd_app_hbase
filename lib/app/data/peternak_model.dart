@@ -1,18 +1,17 @@
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 
 class PeternakModel {
-  
   final String? idPeternak;
   final String? nikPeternak;
   final String? namaPeternak;
   final String? idISIKHNAS;
   final String? lokasi;
-  final String? petugasPendaftar;
+  final PetugasModel? petugasPendaftar;
   final String? tanggalPendaftaran;
 
   final int? status;
 
   PeternakModel({
-    
     this.status,
     this.idPeternak,
     this.nikPeternak,
@@ -31,7 +30,9 @@ class PeternakModel {
       namaPeternak: jsonData['namaPeternak'] ?? "",
       idISIKHNAS: jsonData['idISIKHNAS'] ?? "",
       lokasi: jsonData['lokasi'] ?? "",
-      petugasPendaftar: jsonData['petugasPendaftar'] ?? "",
+      petugasPendaftar: jsonData['petugasPendaftar'] != null
+          ? PetugasModel.fromJson(jsonData['petugasPendaftar'])
+          : null,
       tanggalPendaftaran: jsonData['tanggalPendaftaran'] ?? "",
     );
   }

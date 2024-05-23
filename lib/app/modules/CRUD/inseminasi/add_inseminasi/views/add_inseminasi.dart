@@ -1,5 +1,6 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -101,18 +102,21 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedHewanId.value,
-                    items: controller.hewanList.map((HewanModel hewan) {
+                    value: controller.fetchdata.selectedHewanEartag.value,
+                    items:
+                        controller.fetchdata.hewanList.map((HewanModel hewan) {
                       return DropdownMenuItem<String>(
                         value: hewan.kodeEartagNasional ?? '',
                         child: Text(
                             overflow: TextOverflow.ellipsis,
+                            maxLines: 1,
                             '${hewan.noKartuTernak ?? ''}  '
                             ' ${hewan.idPeternak!.namaPeternak ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedHewanId.value = selectedId ?? '';
+                      controller.fetchdata.selectedHewanEartag.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih kode eartag'),
                     isExpanded: true,
@@ -456,17 +460,19 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPeternakId.value,
-                    items:
-                        controller.peternakList.map((PeternakModel peternak) {
+                    value: controller.fetchdata.selectedPeternakId.value,
+                    items: controller.fetchdata.peternakList
+                        .map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
                         child: Text('${peternak.namaPeternak ?? ''}'
-                            '   ${peternak.nikPeternak ?? ''}'),
+                            '\n'
+                            '${peternak.nikPeternak ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedPeternakId.value = selectedId ?? '';
+                      controller.fetchdata.selectedPeternakId.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih Peternak'),
                   );
@@ -517,29 +523,37 @@ class AddInseminasiView extends GetView<AddInseminasiController> {
               borderRadius: BorderRadius.circular(8),
               border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
             ),
-            child: TextField(
-              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-              maxLines: 1,
-              controller: controller.inseminatorC,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                label: Text(
-                  "Inseminator",
-                  style: TextStyle(
-                    color: AppColor.secondarySoft,
-                    fontSize: 14,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 0),
+                  child: Text(
+                    "Inseminator",
+                    style: TextStyle(
+                      color: AppColor.secondarySoft,
+                      fontSize: 12,
+                    ),
                   ),
                 ),
-                floatingLabelBehavior: FloatingLabelBehavior.always,
-                border: InputBorder.none,
-                hintText: "Inseminator",
-                hintStyle: TextStyle(
-                  fontSize: 14,
-                  fontFamily: 'poppins',
-                  fontWeight: FontWeight.w500,
-                  color: AppColor.secondarySoft,
-                ),
-              ),
+                Obx(() {
+                  return DropdownButton<String>(
+                    value: controller.fetchdata.selectedPetugasId.value,
+                    items: controller.fetchdata.petugasList
+                        .map((PetugasModel petugas) {
+                      return DropdownMenuItem<String>(
+                        value: petugas.nikPetugas ?? '',
+                        child: Text(petugas.namaPetugas ?? ''),
+                      );
+                    }).toList(),
+                    onChanged: (String? selectedNama) {
+                      controller.fetchdata.selectedPetugasId.value =
+                          selectedNama ?? '';
+                    },
+                    hint: const Text('Pilih Inseminator'),
+                  );
+                }),
+              ],
             ),
           ),
           Container(

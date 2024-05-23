@@ -1,10 +1,11 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:crud_flutter_api/app/data/berita_model.dart';
+import 'package:crud_flutter_api/app/services/berita_api.dart';
+import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:excel/excel.dart' as excel;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_map/flutter_map.dart';
-import 'package:flutter_map_geojson/flutter_map_geojson.dart';
 import 'dart:math' show cos, sin, sqrt, atan2, pi;
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -22,8 +23,6 @@ import 'package:get_storage/get_storage.dart';
 import 'package:crud_flutter_api/app/widgets/message/loading.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/services/petugas_api.dart';
-import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
-import 'package:crud_flutter_api/app/routes/app_pages.dart';
 
 import 'package:latlong2/latlong.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -43,12 +42,14 @@ class HomeController extends GetxController {
   RxInt countHewanInKRB = 0.obs;
   Rx<Directory?> savePath = Rx<Directory?>(null);
 
+  Rx<BeritaListModel> beritaNews = BeritaListModel().obs;
   Rx<PetugasListModel> posts = PetugasListModel().obs;
   Rx<HewanListModel> posts1 = HewanListModel().obs;
   Rx<PeternakListModel> posts2 = PeternakListModel().obs;
   Rx<KandangListModel> posts3 = KandangListModel().obs;
 
   PopupController popupLayerController = PopupController();
+  SharedApi sharedApi = SharedApi();
 
   final box = GetStorage();
   bool homeScreen = false;
@@ -60,12 +61,36 @@ class HomeController extends GetxController {
     loadHewanData();
     loadPeternakData();
     loadKandangData();
+    loadBeritaData();
     geoJsonResult;
     coordinates;
-    
+
     loadGeoJsonFromAsset();
 
     super.onInit();
+  }
+
+  loadBeritaData() async {
+    homeScreen = false;
+    update();
+    showLoading();
+    beritaNews.value = await BeritaApi().loadBeritaApi();
+    stopLoading();
+    update();
+    if (beritaNews.value.status == 200) {
+      if (beritaNews.value.content!.isEmpty) {
+        homeScreen = true;
+        update();
+      }
+    } else if (beritaNews.value.status == 204) {
+      print("Empty");
+    } else if (beritaNews.value.status == 404) {
+      homeScreen = true;
+      update();
+    } else if (beritaNews.value.status == 401) {
+    } else {
+      print("someting wrong 400");
+    }
   }
 
   loadPetugasData() async {
@@ -80,12 +105,12 @@ class HomeController extends GetxController {
         homeScreen = true;
         update();
       }
-    } else if (posts!.value.status == 204) {
+    } else if (posts.value.status == 204) {
       print("Empty");
-    } else if (posts!.value.status == 404) {
+    } else if (posts.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts!.value.status == 401) {
+    } else if (posts.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
@@ -102,7 +127,7 @@ class HomeController extends GetxController {
       if (posts1.value.content!.isEmpty) {
         homeScreen = true;
         update();
-      }else {
+      } else {
         // Mengambil data latitude dan longitude dari setiap Hewan
         posts1.value.content!.forEach((hewani) {
           double hewanLat = double.tryParse(hewani.latitude ?? '') ?? 0.0;
@@ -115,7 +140,8 @@ class HomeController extends GetxController {
               centerSemeru.longitude, radiusKRB)) {
             // Hewan berada dalam wilayah KRB
             // Lakukan tindakan atau logika yang sesuai di sini
-            print('Hewan ${hewani.kodeEartagNasional} berada dalam wilayah KRB');
+            print(
+                'Hewan ${hewani.kodeEartagNasional} berada dalam wilayah KRB');
           } else {
             // Hewan di luar wilayah KRB
             print('Hewan ${hewani.kodeEartagNasional} di luar wilayah KRB');
@@ -148,12 +174,12 @@ class HomeController extends GetxController {
         homeScreen = true;
         update();
       }
-    } else if (posts2!.value.status == 204) {
+    } else if (posts2.value.status == 204) {
       print("Empty");
-    } else if (posts2!.value.status == 404) {
+    } else if (posts2.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts2!.value.status == 401) {
+    } else if (posts2.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
@@ -193,102 +219,96 @@ class HomeController extends GetxController {
         // Panggil checkKandangInKRB setelah iterasi selesai
         checkKandangInKRB();
       }
-    } else if (posts3!.value.status == 204) {
+    } else if (posts3.value.status == 204) {
       print("Empty");
-    } else if (posts3!.value.status == 404) {
+    } else if (posts3.value.status == 404) {
       homeScreen = true;
       update();
-    } else if (posts3!.value.status == 401) {
+    } else if (posts3.value.status == 401) {
     } else {
       print("someting wrong 400");
     }
   }
 
-
-
-
   Future<List<List<LatLng>>> loadGeoJsonFromAsset() async {
-  try {
-    String jsonData = await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
-    Map<String, dynamic> data = json.decode(jsonData);
-    List<dynamic> features = data['features'];
+    try {
+      String jsonData =
+          await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
+      Map<String, dynamic> data = json.decode(jsonData);
+      List<dynamic> features = data['features'];
 
-    List<List<LatLng>> result = [];
+      List<List<LatLng>> result = [];
 
-    for (dynamic feature in features) {
-      dynamic geometry = feature['geometry'];
-      dynamic properties = feature['properties'];
-      String type = geometry['type'];
+      for (dynamic feature in features) {
+        dynamic geometry = feature['geometry'];
+        //dynamic properties = feature['properties'];
+        String type = geometry['type'];
 
-      if (type == 'Polygon') {
-        List<dynamic> coordinates = geometry['coordinates'][0];
-        List<LatLng> polygonCoordinates = coordinates.map((coord) => LatLng(coord[1], coord[0])).toList();
-        result.add(polygonCoordinates);
-      } else if (type == 'Point') {
-        List<dynamic> coordinates = geometry['coordinates'];
-        LatLng pointCoordinate = LatLng(coordinates[1], coordinates[0]);
-        result.add([pointCoordinate]);
-      }
-    }
-
-    return result;
-  } catch (e) {
-    print('Error loading GeoJSON: $e');
-    return []; // Return an empty list or handle the error accordingly
-  }
-}
-
-
-
-Future<List<List<LatLng>>> someFunction() async {
-  List<List<LatLng>> geoJsonResult = await loadGeoJsonFromAsset();
-  return geoJsonResult;
-}
-
-
-
-Future<List<List<LatLng>>> loadGeoJsonFromAsset1() async {
-  try {
-    String jsonData = await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
-    Map<String, dynamic> data = json.decode(jsonData);
-    List<dynamic> features = data['features'];
-
-    List<List<LatLng>> result1 = [];
-
-    for (dynamic feature in features) {
-      dynamic geometry = feature['geometry'];
-      String type = geometry['type'];
-
-      if (type == 'Polygon') {
-        List<dynamic> coordinates = geometry['coordinates'][0];
-        List<LatLng> polygonCoordinates = coordinates
-            .map((coord) => LatLng(coord[1], coord[0]))
-            .toList();
-        result1.add(polygonCoordinates);
-      } else if (type == 'MultiPolygon') {
-        List<dynamic> multiCoordinates = geometry['coordinates'];
-        for (dynamic coordinates in multiCoordinates) {
-          List<dynamic> polygonCoordinates = coordinates[0];
-          List<LatLng> convertedCoordinates = polygonCoordinates
-              .map((coord) => LatLng(coord[1], coord[0]))
-              .toList();
-          result1.add(convertedCoordinates);
+        if (type == 'Polygon') {
+          List<dynamic> coordinates = geometry['coordinates'][0];
+          List<LatLng> polygonCoordinates =
+              coordinates.map((coord) => LatLng(coord[1], coord[0])).toList();
+          result.add(polygonCoordinates);
+        } else if (type == 'Point') {
+          List<dynamic> coordinates = geometry['coordinates'];
+          LatLng pointCoordinate = LatLng(coordinates[1], coordinates[0]);
+          result.add([pointCoordinate]);
         }
       }
+
+      return result;
+    } catch (e) {
+      print('Error loading GeoJSON: $e');
+      return []; // Return an empty list or handle the error accordingly
     }
-
-    return result1;
-  } catch (e) {
-    print('Error loading GeoJSON: $e');
-    return []; // Return an empty list or handle the error accordingly
   }
-}
 
-Future<List<List<LatLng>>> someFunction1() async {
-  List<List<LatLng>> geoJsonResult1 = await loadGeoJsonFromAsset1();
-  return geoJsonResult1;
-}
+  Future<List<List<LatLng>>> someFunction() async {
+    List<List<LatLng>> geoJsonResult = await loadGeoJsonFromAsset();
+    return geoJsonResult;
+  }
 
+  Future<List<List<LatLng>>> loadGeoJsonFromAsset1() async {
+    try {
+      String jsonData =
+          await rootBundle.loadString('assets/geojson/KRB_Semeru2.geojson');
+      Map<String, dynamic> data = json.decode(jsonData);
+      List<dynamic> features = data['features'];
+
+      List<List<LatLng>> result1 = [];
+
+      for (dynamic feature in features) {
+        dynamic geometry = feature['geometry'];
+        String type = geometry['type'];
+
+        if (type == 'Polygon') {
+          List<dynamic> coordinates = geometry['coordinates'][0];
+          List<LatLng> polygonCoordinates =
+              coordinates.map((coord) => LatLng(coord[1], coord[0])).toList();
+          result1.add(polygonCoordinates);
+        } else if (type == 'MultiPolygon') {
+          List<dynamic> multiCoordinates = geometry['coordinates'];
+          for (dynamic coordinates in multiCoordinates) {
+            List<dynamic> polygonCoordinates = coordinates[0];
+            List<LatLng> convertedCoordinates = polygonCoordinates
+                .map((coord) => LatLng(coord[1], coord[0]))
+                .toList();
+            result1.add(convertedCoordinates);
+          }
+        }
+      }
+
+      return result1;
+    } catch (e) {
+      print('Error loading GeoJSON: $e');
+      return []; // Return an empty list or handle the error accordingly
+    }
+  }
+
+  Future<List<List<LatLng>>> someFunction1() async {
+    List<List<LatLng>> geoJsonResult1 = await loadGeoJsonFromAsset1();
+    return geoJsonResult1;
+  }
 
   bool isKandangInKRB(double kandangLat, double kandangLon, double krbLat,
       double krbLon, double radiusKRB) {
@@ -525,8 +545,10 @@ Future<List<List<LatLng>>> someFunction1() async {
     }
 
     // Simpan file Excel di direktori yang dipilih oleh pengguna
-    var excelFilePath = '${savePath?.path}/data_kandang_krb.xlsx';
-    await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
+    // var excelFilePath = '${savePath?.path}/data_kandang_krb.xlsx';
+    // await File(excelFilePath).writeAsBytes(await excelFile.encode()!);
+    var excelFilePath = '${savePath.path}/data_kandang_krb.xlsx';
+    await File(excelFilePath).writeAsBytes(excelFile.encode()!);
   }
 
   Future<Directory?> getDirectory() async {

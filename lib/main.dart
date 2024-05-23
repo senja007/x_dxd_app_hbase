@@ -14,7 +14,7 @@ import 'app/routes/app_pages.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
- // unawaited(MobileAds.instance.initialize());
+  // unawaited(MobileAds.instance.initialize());
   await GetStorage.init();
   final box = GetStorage();
   Intl.defaultLocale = 'id_ID';
@@ -30,5 +30,6 @@ Future<void> main() async {
         navigatorObservers: [BotToastNavigatorObserver()],
       ),
     );
+    print(box.read("token"));
   });
 }

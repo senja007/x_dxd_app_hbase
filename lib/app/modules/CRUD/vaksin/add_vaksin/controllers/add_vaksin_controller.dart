@@ -1,9 +1,6 @@
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
-import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -13,17 +10,14 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddVaksinController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   VaksinModel? vaksinModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<HewanModel> hewanList = <HewanModel>[].obs;
-  RxString selectedHewanEartag = ''.obs;
-  final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
+  final formattedDate = ''.obs;
+
   TextEditingController idVaksinC = TextEditingController();
-  TextEditingController eartagC = TextEditingController();
-  //TextEditingController idHewanC = TextEditingController();
   TextEditingController idPembuatanC = TextEditingController();
   TextEditingController idPejantanC = TextEditingController();
   TextEditingController bangsaPejantanC = TextEditingController();
@@ -32,81 +26,42 @@ class AddVaksinController extends GetxController {
   TextEditingController ib3C = TextEditingController();
   TextEditingController ibLainC = TextEditingController();
   TextEditingController produsenC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
-  //TextEditingController namaPeternakC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController inseminatorC = TextEditingController();
   TextEditingController tanggalIBC = TextEditingController();
   @override
   onClose() {
-    inseminatorC.dispose();
     tanggalIBC.dispose();
     lokasiC.dispose();
     produsenC.dispose();
-    idPeternakC.dispose();
     ib3C.dispose();
     ibLainC.dispose();
     ib1C.dispose();
     ib2C.dispose();
     idPejantanC.dispose();
     bangsaPejantanC.dispose();
-    //idHewanC.dispose();
     idPembuatanC.dispose();
     idVaksinC.dispose();
-    eartagC.dispose();
   }
 
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchHewan();
-  }
-
-  Future<List<HewanModel>> fetchHewan() async {
-    try {
-      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
-      final List<HewanModel> hewan = hewanListModel.content ?? [];
-      if (hewan.isNotEmpty) {
-        selectedHewanEartag.value = hewan.first.kodeEartagNasional ?? '';
-      }
-      hewanList.assignAll(hewan);
-      return hewan;
-    } catch (e) {
-      print('Error fetching hewan: $e');
-      showErrorMessage("Error fetching hewan: $e");
-      return [];
-    }
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
+    fetchdata.fetchPeternaks();
+    fetchdata.fetchHewan();
+    fetchdata.fetchPetugas();
   }
 
   Future addPost(BuildContext context) async {
     try {
       isLoading.value = true;
 
-      if (selectedPeternakId.value.isEmpty) {
+      if (fetchdata.selectedPeternakId.value.isEmpty) {
         throw "Pilih Peternak terlebih dahulu.";
       }
 
       vaksinModel = await VaksinApi().addVaksinAPI(
           idVaksinC.text,
-          selectedHewanEartag.value,
+          fetchdata.selectedHewanEartag.value,
           idPembuatanC.text,
           idPejantanC.text,
           bangsaPejantanC.text,
@@ -116,9 +71,9 @@ class AddVaksinController extends GetxController {
           ibLainC.text,
           produsenC.text,
           //idPeternakC.text,
-          selectedPeternakId.value,
+          fetchdata.selectedPeternakId.value,
           lokasiC.text,
-          inseminatorC.text,
+          fetchdata.selectedPetugasId.value,
           tanggalIBC.text);
 
       if (vaksinModel != null) {

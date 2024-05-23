@@ -47,7 +47,8 @@ class HewanView extends GetView<HewanController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -77,7 +78,7 @@ class HewanView extends GetView<HewanController> {
                               "identifikasi_hewan_detail":
                                   "${postData.identifikasiHewan}",
                               "petugas_terdaftar_hewan_detail":
-                                  "${postData.petugasPendaftar}",
+                                  "${postData.petugasPendaftar?.nikPetugas}",
                               "tanggal_terdaftar_hewan_detail":
                                   "${postData.tanggalTerdaftar}",
                               "foto_hewan_detail": "${postData.fotoHewan}",

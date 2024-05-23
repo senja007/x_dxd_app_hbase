@@ -129,12 +129,13 @@ class DetailKandangView extends GetView<DetailKandangController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedPeternakId.value);
+                          print(controller.fetchdata.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedPeternakId.value,
-                                items: controller.peternakList
+                                value: controller
+                                    .fetchdata.selectedPeternakId.value,
+                                items: controller.fetchdata.peternakList
                                     .map((PeternakModel peternak) {
                                   return DropdownMenuItem<String>(
                                     value: peternak.idPeternak ?? '',
@@ -143,19 +144,19 @@ class DetailKandangView extends GetView<DetailKandangController> {
                                 }).toList(),
                                 onChanged: (String? selectedId) {
                                   // Update selectedPeternakId
-                                  controller.selectedPeternakId.value =
-                                      selectedId ?? '';
+                                  controller.fetchdata.selectedPeternakId
+                                      .value = selectedId ?? '';
 
                                   // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                                  PeternakModel selectedPeternak =
-                                      controller.peternakList.firstWhere(
+                                  PeternakModel selectedPeternak = controller
+                                      .fetchdata.peternakList
+                                      .firstWhere(
                                     (peternak) =>
                                         peternak.idPeternak == selectedId,
                                     orElse: () =>
                                         PeternakModel(), // Default value if not found
                                   );
 
-                                  
                                   controller.idPeternakC.text =
                                       selectedPeternak.idPeternak ?? '';
                                 },
@@ -544,7 +545,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ),
                 ),
               )),
-  Obx(() => Container(
+          Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: const EdgeInsets.only(bottom: 16),
@@ -598,7 +599,7 @@ class DetailKandangView extends GetView<DetailKandangController> {
                   ],
                 ),
               )),
-           SizedBox(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             child: Obx(
               () => Visibility(

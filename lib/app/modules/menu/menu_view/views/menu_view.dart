@@ -5,7 +5,8 @@ import 'package:crud_flutter_api/app/routes/app_pages.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 
 class MainMenuView extends GetView<MainMenuController> {
-  const MainMenuView({super.key});
+  final MainMenuController mainMenuController = Get.put(MainMenuController());
+  MainMenuView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,8 @@ class MainMenuView extends GetView<MainMenuController> {
         child: Center(
           child: SingleChildScrollView(
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 20), // Add padding to the bottom
+              padding: const EdgeInsets.only(
+                  bottom: 20), // Add padding to the bottom
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -205,7 +207,8 @@ class MainMenuView extends GetView<MainMenuController> {
             Get.toNamed(route);
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: const Color(0xff132137), // Warna latar belakang tombol
+            backgroundColor:
+                const Color(0xff132137), // Warna latar belakang tombol
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

@@ -68,7 +68,8 @@ class PKBView extends GetView<PKBController> {
                               "lokasi": "${postData.lokasi}",
                               "spesies": "${postData.spesies}",
                               "umur": "${postData.umurKebuntingan}",
-                              "pemeriksa": "${postData.pemeriksaKebuntingan}",
+                              "pemeriksa":
+                                  "${postData.pemeriksaKebuntingan?.namaPetugas}",
                               "tanggal": "${postData.tanggalPkb}"
                             },
                           ),

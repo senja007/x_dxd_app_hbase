@@ -36,7 +36,7 @@ class InseminasiView extends GetView<InseminasiController> {
                 style: TextStyle(color: Colors.white),
               ),
               backgroundColor: AppColor.secondary,
-              onSearch: (value) => controller.searchPetugas(value)),
+              onSearch: (value) => controller.searchInseminasi(value)),
           body: Obx(
             () {
               if (controller.posts.value.status == 200) {
@@ -74,7 +74,8 @@ class InseminasiView extends GetView<InseminasiController> {
                               "idPembuatan": "${postData.idPembuatan}",
                               "bangsaPejantan": "${postData.bangsaPejantan}",
                               "produsen": "${postData.produsen}",
-                              "inseminator": "${postData.inseminator}",
+                              "inseminator":
+                                  "${postData.inseminator?.nikPetugas}",
                             },
                           ),
                         },

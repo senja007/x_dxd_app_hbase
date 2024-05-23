@@ -26,7 +26,7 @@ class UserModel {
     if (jsonData['userSummary'] != null) {
       return UserModel(
         status: jsonData['status'],
-        id: jsonData['userSummary']['id'],
+        id: jsonData['userSummary']['_id'],
         username: jsonData['userSummary']['username'],
         name: jsonData['userSummary']['name'],
         role: jsonData['userSummary']['role'],

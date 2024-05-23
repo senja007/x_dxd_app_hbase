@@ -8,7 +8,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-
 class PengobatanView extends GetView<PengobatanController> {
   const PengobatanView({super.key});
   @override
@@ -35,7 +34,7 @@ class PengobatanView extends GetView<PengobatanController> {
                 style: TextStyle(color: Colors.white),
               ),
               backgroundColor: AppColor.secondary,
-              onSearch: (value) => controller.searchPetugas(value)),
+              onSearch: (value) => controller.searchPengobatan(value)),
           body: Obx(
             () {
               if (controller.posts.value.status == 200) {
@@ -46,7 +45,8 @@ class PengobatanView extends GetView<PengobatanController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -58,7 +58,8 @@ class PengobatanView extends GetView<PengobatanController> {
                               "tanggalPengobatan":
                                   "${postData.tanggalPengobatan}",
                               "tanggalKasus": "${postData.tanggalKasus}",
-                              "namaPetugas": "${postData.namaPetugas}",
+                              "namaPetugas":
+                                  "${postData.namaPetugas?.namaPetugas}",
                               "namaInfrastruktur":
                                   "${postData.namaInfrastruktur}",
                               "lokasi": "${postData.lokasi}",

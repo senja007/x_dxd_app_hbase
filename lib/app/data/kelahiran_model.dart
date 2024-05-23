@@ -1,13 +1,18 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
+
 class KelahiranModel {
   final int? status;
   final String? idKejadian;
   final String? tanggalLaporan;
   final String? tanggalLahir;
   final String? lokasi;
-  final String? namaPeternak;
-  final IdPeternak? idPeternak;
+  final PeternakModel? idPeternak;
+  //final String? namaPeternak;
   final String? kartuTernakInduk;
   final String? eartagInduk;
+  final HewanModel? kodeEartagNasional;
   final String? idHewanInduk;
   final String? spesiesInduk;
   final String? idPejantanStraw;
@@ -20,7 +25,7 @@ class KelahiranModel {
   final String? idHewanAnak;
   final String? jenisKelaminAnak;
   final String? kategori;
-  final String? petugasPelapor;
+  final PetugasModel? petugasPelapor;
   final String? urutanIb;
 
   KelahiranModel({
@@ -29,10 +34,11 @@ class KelahiranModel {
     this.tanggalLaporan,
     this.tanggalLahir,
     this.lokasi,
-    this.namaPeternak,
     this.idPeternak,
+    //this.namaPeternak,
     this.kartuTernakInduk,
     this.eartagInduk,
+    this.kodeEartagNasional,
     this.idHewanInduk,
     this.spesiesInduk,
     this.idPejantanStraw,
@@ -53,36 +59,33 @@ class KelahiranModel {
     return KelahiranModel(
       status: jsonData['status'] ?? 0,
       idKejadian: jsonData['idKejadian'] ?? "",
-      tanggalLaporan:
-          jsonData['tanggalLaporan'] ?? "",
-      tanggalLahir:
-          jsonData['tanggalLahir'] ?? "",
+      tanggalLaporan: jsonData['tanggalLaporan'] ?? "",
+      tanggalLahir: jsonData['tanggalLahir'] ?? "",
       lokasi: jsonData['lokasi'] ?? "",
-      namaPeternak:
-          jsonData['namaPeternak'] ?? "",
-      idPeternak: IdPeternak.fromJson(jsonData["idPeternak"]),
+      idPeternak: jsonData['idPeternak'] != null
+          ? PeternakModel.fromJson(jsonData['idPeternak'])
+          : null,
+      //namaPeternak: jsonData['namaPeternak'] ?? "",
       kartuTernakInduk: jsonData['kartuTernakInduk'] ?? "",
-      eartagInduk:
-          jsonData['eartagInduk'] ?? "",
-      idHewanInduk:
-          jsonData['idHewanInduk'] ?? "",
-      spesiesInduk:
-          jsonData['spesiesInduk'] ?? "",
+      eartagInduk: jsonData['eartagInduk'] ?? "",
+      kodeEartagNasional: jsonData['kodeEartagNasional'] != null
+          ? HewanModel.fromJson(jsonData['kodeEartagNasional'])
+          : null,
+      idHewanInduk: jsonData['idHewanInduk'] ?? "",
+      spesiesInduk: jsonData['spesiesInduk'] ?? "",
       idPejantanStraw: jsonData['idPejantanStraw'] ?? "",
-      idBatchStraw:
-          jsonData['idBatchStraw'] ?? "",
-      produsenStraw:
-          jsonData['produsenStraw'] ?? "",
+      idBatchStraw: jsonData['idBatchStraw'] ?? "",
+      produsenStraw: jsonData['produsenStraw'] ?? "",
       spesiesPejantan: jsonData['spesiesPejantan'] ?? "",
       jumlah: jsonData['jumlah'] ?? "",
       kartuTernakAnak: jsonData['kartuTernakAnak'] ?? "",
       eartagAnak: jsonData['eartagAnak'] ?? "",
-      idHewanAnak:
-          jsonData['idHewanAnak'] ?? "",
+      idHewanAnak: jsonData['idHewanAnak'] ?? "",
       jenisKelaminAnak: jsonData['jenisKelaminAnak'] ?? "",
       kategori: jsonData['kategori'] ?? "",
-      petugasPelapor:
-          jsonData['petugasPelapor'] ?? "",
+      petugasPelapor: jsonData['petugasPelapor'] != null
+          ? PetugasModel.fromJson(jsonData['petugasPelapor'])
+          : null,
       urutanIb: jsonData['urutanIb'] ?? "",
     );
   }
@@ -113,60 +116,4 @@ class KelahiranListModel {
         totalElements: jsonData['totalElements'],
         totalPages: jsonData['totalPages']);
   }
-}
-
-class IdPeternak {
-  DateTime createdAt;
-  DateTime updatedAt;
-  int createdBy;
-  int updatedBy;
-  String idPeternak;
-  String nikPeternak;
-  String namaPeternak;
-  String idIsikhnas;
-  String lokasi;
-  String petugasPendaftar;
-  String tanggalPendaftaran;
-
-  IdPeternak({
-    required this.createdAt,
-    required this.updatedAt,
-    required this.createdBy,
-    required this.updatedBy,
-    required this.idPeternak,
-    required this.nikPeternak,
-    required this.namaPeternak,
-    required this.idIsikhnas,
-    required this.lokasi,
-    required this.petugasPendaftar,
-    required this.tanggalPendaftaran,
-  });
-
-  factory IdPeternak.fromJson(Map<String, dynamic> json) => IdPeternak(
-        createdAt: DateTime.parse(json["createdAt"]),
-        updatedAt: DateTime.parse(json["updatedAt"]),
-        createdBy: json["createdBy"],
-        updatedBy: json["updatedBy"],
-        idPeternak: json["idPeternak"],
-        nikPeternak: json["nikPeternak"],
-        namaPeternak: json["namaPeternak"],
-        idIsikhnas: json["idISIKHNAS"],
-        lokasi: json["lokasi"],
-        petugasPendaftar: json["petugasPendaftar"],
-        tanggalPendaftaran: json["tanggalPendaftaran"],
-      );
-
-  Map<String, dynamic> toJson() => {
-        "createdAt": createdAt.toIso8601String(),
-        "updatedAt": updatedAt.toIso8601String(),
-        "createdBy": createdBy,
-        "updatedBy": updatedBy,
-        "idPeternak": idPeternak,
-        "nikPeternak": nikPeternak,
-        "namaPeternak": namaPeternak,
-        "idISIKHNAS": idIsikhnas,
-        "lokasi": lokasi,
-        "petugasPendaftar": petugasPendaftar,
-        "tanggalPendaftaran": tanggalPendaftaran,
-      };
 }

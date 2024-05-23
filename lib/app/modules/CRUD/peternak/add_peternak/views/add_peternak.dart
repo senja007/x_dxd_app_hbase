@@ -236,15 +236,17 @@ class AddPeternakView extends GetView<AddPeternakController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPetugas.value,
-                    items: controller.petugasList.map((PetugasModel petugas) {
+                    value: controller.fetchdata.selectedPetugasId.value,
+                    items: controller.fetchdata.petugasList
+                        .map((PetugasModel petugas) {
                       return DropdownMenuItem<String>(
-                        value: petugas.namaPetugas ?? '',
+                        value: petugas.nikPetugas ?? '',
                         child: Text(petugas.namaPetugas ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedNama) {
-                      controller.selectedPetugas.value = selectedNama ?? '';
+                      controller.fetchdata.selectedPetugasId.value =
+                          selectedNama ?? '';
                     },
                     hint: const Text('Pilih Petugas'),
                   );

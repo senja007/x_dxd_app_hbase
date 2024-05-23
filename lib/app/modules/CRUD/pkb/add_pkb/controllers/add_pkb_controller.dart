@@ -1,9 +1,6 @@
-import 'package:crud_flutter_api/app/data/hewan_model.dart';
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
-import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -13,14 +10,12 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class AddPkbController extends GetxController {
+  final FetchData fecthaddData = FetchData();
+
   PKBModel? pkbModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
-  RxString selectedPeternakId = ''.obs;
-  RxString selectedHewanEartag = ''.obs;
-  RxList<HewanModel> hewanList = <HewanModel>[].obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedSpesies = 'Sapi'.obs;
   List<String> spesies = [
     "Banteng",
@@ -37,24 +32,21 @@ class AddPkbController extends GetxController {
   ];
 
   TextEditingController idKejadianC = TextEditingController();
-  //TextEditingController idHewanC = TextEditingController();
+
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController jumlahC = TextEditingController();
   TextEditingController kategoriC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  //TextEditingController spesiesC = TextEditingController();
   TextEditingController umurKebuntinganC = TextEditingController();
   TextEditingController pemeriksaKebuntinganC = TextEditingController();
   TextEditingController tanggalPkbC = TextEditingController();
   @override
   onClose() {
     idKejadianC.dispose();
-    // idHewanC.dispose();
     idPeternakC.dispose();
     jumlahC.dispose();
     kategoriC.dispose();
     lokasiC.dispose();
-    //spesiesC.dispose();
     umurKebuntinganC.dispose();
     pemeriksaKebuntinganC.dispose();
     tanggalPkbC.dispose();
@@ -63,41 +55,10 @@ class AddPkbController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchHewan();
-  }
-
-  Future<List<HewanModel>> fetchHewan() async {
-    try {
-      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
-      final List<HewanModel> hewan = hewanListModel.content ?? [];
-      if (hewan.isNotEmpty) {
-        selectedHewanEartag.value = hewan.first.kodeEartagNasional ?? '';
-      }
-      hewanList.assignAll(hewan);
-      return hewan;
-    } catch (e) {
-      print('Error fetching hewan: $e');
-      showErrorMessage("Error fetching hewan: $e");
-      return [];
-    }
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
+    fecthaddData.fetchPeternaks();
+    fecthaddData.fetchHewan();
+    fecthaddData.fetchPetugas();
+    update();
   }
 
   Future addPKB(BuildContext context) async {
@@ -105,15 +66,14 @@ class AddPkbController extends GetxController {
       isLoading.value = true;
       pkbModel = await PKBApi().addPKBAPI(
           idKejadianC.text,
-          // idHewanC.text,
-          selectedHewanEartag.value,
-          selectedPeternakId.value,
+          fecthaddData.selectedHewanEartag.value,
+          fecthaddData.selectedPeternakId.value,
           jumlahC.text,
           kategoriC.text,
           lokasiC.text,
           selectedSpesies.value,
           umurKebuntinganC.text,
-          pemeriksaKebuntinganC.text,
+          fecthaddData.selectedPetugasId.value,
           tanggalPkbC.text);
 
       if (pkbModel != null) {

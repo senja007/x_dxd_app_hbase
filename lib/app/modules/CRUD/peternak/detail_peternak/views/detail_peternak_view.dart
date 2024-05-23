@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
+import 'package:crud_flutter_api/app/modules/menu/menu_view/controllers/menu_controller.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,9 @@ import 'package:get/get.dart';
 import '../controllers/detail_peternak_controller.dart';
 
 class DetailPeternakView extends GetView<DetailPeternakController> {
-  const DetailPeternakView({super.key});
+  final MainMenuController mainMenuController = Get.put(MainMenuController());
+
+  DetailPeternakView({super.key});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -281,20 +284,24 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedPetugas.value);
+                          print(controller.fetchdata.selectedPetugasId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedPetugas.value,
-                                items: controller.petugasList
+                                value: controller
+                                    .fetchdata.selectedPetugasId.value,
+                                items: controller.fetchdata.petugasList
                                     .map((PetugasModel petugass) {
                                   return DropdownMenuItem<String>(
-                                    value: petugass.namaPetugas ?? '',
-                                    child: Text(petugass.namaPetugas ?? ''),
-                                  );
+                                      value: petugass.nikPetugas ?? '',
+                                      child: Text(
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 2,
+                                          '${petugass.nikPetugas ?? ''}  \n'
+                                          '${petugass.namaPetugas ?? ''}'));
                                 }).toList(),
                                 onChanged: (String? selectedId) {
-                                  controller.selectedPetugas.value =
+                                  controller.fetchdata.selectedPetugasId.value =
                                       selectedId ?? '';
                                 },
                                 hint: const Text('Pilih Petugas'),

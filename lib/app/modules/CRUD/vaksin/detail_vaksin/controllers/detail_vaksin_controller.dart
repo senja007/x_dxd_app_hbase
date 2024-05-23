@@ -1,9 +1,12 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/vaksin_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/vaksin/controllers/vaksin_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/services/vaksin_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -13,16 +16,15 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailVaksinController extends GetxController {
+  final FetchData fetchData = FetchData();
+  final VaksinController vaksinController = Get.put(VaksinController());
+
   final Map<String, dynamic> argsData = Get.arguments;
   VaksinModel? vaksinModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
 
-  RxString selectedHewanId = ''.obs;
-  RxList<HewanModel> hewanList = <HewanModel>[].obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakIdInEditMode = ''.obs;
 
   TextEditingController idVaksinC = TextEditingController();
@@ -82,8 +84,9 @@ class DetailVaksinController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchHewans();
+    fetchData.fetchPeternaks();
+    fetchData.fetchHewan();
+    fetchData.fetchPetugas();
 
     idVaksinC.text = argsData["idVaksin"];
     tanggalIBC.text = argsData["tanggalIB"];
@@ -102,9 +105,9 @@ class DetailVaksinController extends GetxController {
     produsenC.text = argsData["produsen"];
     inseminatorC.text = argsData["inseminator"];
 
-    ever(selectedPeternakId, (String? selectedId) {
+    ever(fetchData.selectedPeternakId, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PeternakModel? selectedPeternak = peternakList.firstWhere(
+      PeternakModel? selectedPeternak = fetchData.peternakList.firstWhere(
           (peternak) => peternak.idPeternak == selectedId,
           orElse: () => PeternakModel());
       namaPeternakC.text =
@@ -112,13 +115,26 @@ class DetailVaksinController extends GetxController {
       update();
     });
 
-    ever(selectedHewanId, (String? selectedId) {
+    ever(fetchData.selectedHewanEartag, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      HewanModel? selectedHewan = hewanList.firstWhere(
+      HewanModel? selectedHewan = fetchData.hewanList.firstWhere(
           (peternak) => peternak.kodeEartagNasional == selectedId,
           orElse: () => HewanModel());
       eartagC.text =
           selectedHewan.kodeEartagNasional ?? argsData["kodeEartagNasional"];
+      update();
+    });
+
+    ever(fetchData.selectedPetugasId, (String? selectedName) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugassss = fetchData.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedName,
+          orElse: () => PetugasModel());
+      // selectedPetugasId.value = selectedPetugassss.nikPetugas ??
+      //     argsData["petugas_terdaftar_hewan_detail"];
+      inseminatorC.text =
+          selectedPetugassss.namaPetugas ?? argsData["inseminator"];
+      //print(selectedPetugasId.value);
       update();
     });
 
@@ -138,46 +154,14 @@ class DetailVaksinController extends GetxController {
     originalBangsaPejantan = argsData["bangsaPejantan"];
     originalProdusen = argsData["produsen"];
     originalInseminator = argsData["inseminator"];
-  }
-
-  Future<List<HewanModel>> fetchHewans() async {
-    try {
-      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
-      final List<HewanModel> hewans = hewanListModel.content ?? [];
-      if (hewans.isNotEmpty) {
-        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
-      }
-      hewanList.assignAll(hewans);
-      print(selectedHewanId.value);
-      return hewans;
-    } catch (e) {
-      // print('Error fetching peternaks: $e');
-      // showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      print(selectedPeternakId.value);
-      return peternaks;
-    } catch (e) {
-      // print('Error fetching peternaks: $e');
-      // showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
+    update();
   }
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
-    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
+    selectedPeternakIdInEditMode.value = fetchData.selectedPeternakId.value;
+    refresh();
+    update();
     update();
   }
 
@@ -244,7 +228,7 @@ class DetailVaksinController extends GetxController {
       onConfirm: () async {
         vaksinModel = await VaksinApi().editVaksinApi(
           idVaksinC.text,
-          selectedHewanId.value,
+          fetchData.selectedHewanEartag.value,
           // eartagC.text,
           //  idHewanC.text,
           idPembuatanC.text,
@@ -255,10 +239,10 @@ class DetailVaksinController extends GetxController {
           ib3C.text,
           ibLainC.text,
           produsenC.text,
-          selectedPeternakId.value,
+          fetchData.selectedPeternakId.value,
           namaPeternakC.text,
           lokasiC.text,
-          inseminatorC.text,
+          fetchData.selectedPetugasId.value,
           tanggalIBC.text,
         );
         isEditing.value = false;

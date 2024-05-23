@@ -47,7 +47,8 @@ class PeternakView extends GetView<PeternakController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -61,7 +62,9 @@ class PeternakView extends GetView<PeternakController> {
                               "namaPeternak": "${postData.namaPeternak}",
                               "lokasi": "${postData.lokasi}",
                               "petugasPendaftar":
-                                  "${postData.petugasPendaftar}",
+                                  "${postData.petugasPendaftar?.nikPetugas}",
+                              "namaPetugas":
+                                  "${postData.petugasPendaftar?.namaPetugas}",
                               "tanggalPendaftaran":
                                   "${postData.tanggalPendaftaran}",
                             },

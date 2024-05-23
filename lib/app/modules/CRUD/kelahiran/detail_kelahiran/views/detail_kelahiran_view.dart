@@ -1,3 +1,6 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -142,6 +145,85 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     ),
                   ),
                 )),
+            Obx(
+              () => Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: controller.isEditing.value
+                        ? Colors.white
+                        : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(
+                        width: 1, color: AppColor.secondaryExtraSoft),
+                  ),
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: Text(
+                            "No eartag Nasional",
+                            style: TextStyle(
+                              color: AppColor.secondarySoft,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            print(
+                                controller.fetchData.selectedHewanEartag.value);
+                          },
+                          child: controller.isEditing.value
+                              ? DropdownButton<String>(
+                                  value: controller
+                                      .fetchData.selectedHewanEartag.value,
+                                  items: controller.fetchData.hewanList
+                                      .map((HewanModel hewan) {
+                                    return DropdownMenuItem<String>(
+                                      value: hewan.kodeEartagNasional ?? '',
+                                      child:
+                                          Text(hewan.kodeEartagNasional ?? ''),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? selectedEartag) {
+                                    // Update selectedPeternakId
+                                    controller.fetchData.selectedHewanEartag
+                                        .value = selectedEartag ?? '';
+
+                                    // // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                    // HewanModel selectedHewan =
+                                    //     controller.hewanList.firstWhere(
+                                    //   (hewansssss) =>
+                                    //       hewansssss.kodeEartagNasional ==
+                                    //       selectedEartag,
+                                    //   orElse: () =>
+                                    //       HewanModel(), // Default value if not found
+                                    // );
+                                    // controller.eartagC.text =
+                                    //     selectedHewan.kodeEartagNasional ?? '';
+                                  },
+                                  hint:
+                                      const Text('Pilih Kode Eartag Nasional'),
+                                )
+                              : TextField(
+                                  controller: controller.kodeEartagNasionalC,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'poppins',
+                                    color: Colors.black,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    // labelText: 'ID Peternak',
+                                    border: InputBorder.none,
+                                  ),
+                                  readOnly: true,
+                                ),
+                        ),
+                      ])),
+            ),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -184,48 +266,48 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     ),
                   ),
                 )),
-            Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idHewanIndukC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Hewan Induk",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
-                        ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Hewan Induk",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
+            // Obx(() => Container(
+            //       width: MediaQuery.of(context).size.width,
+            //       padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            //       margin: const EdgeInsets.only(bottom: 16),
+            //       decoration: BoxDecoration(
+            //         color: controller.isEditing.value
+            //             ? Colors.white
+            //             : Colors.grey[200],
+            //         borderRadius: BorderRadius.circular(8),
+            //         border: Border.all(
+            //             width: 1, color: AppColor.secondaryExtraSoft),
+            //       ),
+            //       child: TextFormField(
+            //         enabled: controller.isEditing.value,
+            //         style: const TextStyle(
+            //             fontSize: 18,
+            //             fontFamily: 'poppins',
+            //             color: Colors.black),
+            //         maxLines: 1,
+            //         autofocus: true,
+            //         controller: controller.idHewanIndukC,
+            //         keyboardType: TextInputType.name,
+            //         decoration: InputDecoration(
+            //           label: Text(
+            //             "ID Hewan Induk",
+            //             style: TextStyle(
+            //               color: AppColor.secondarySoft,
+            //               fontSize: 15,
+            //             ),
+            //           ),
+            //           floatingLabelBehavior: FloatingLabelBehavior.always,
+            //           border: InputBorder.none,
+            //           hintText: "ID Hewan Induk",
+            //           hintStyle: TextStyle(
+            //             fontSize: 15,
+            //             fontFamily: 'poppins',
+            //             fontWeight: FontWeight.w500,
+            //             color: AppColor.secondarySoft,
+            //           ),
+            //         ),
+            //       ),
+            //     )),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -352,7 +434,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     ),
                   ),
                 )),
-            Obx(() => Container(
+            Obx(
+              () => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: const EdgeInsets.only(bottom: 16),
@@ -364,36 +447,55 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     border: Border.all(
                         width: 1, color: AppColor.secondaryExtraSoft),
                   ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.jenisKelaminAnakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Jenis Kelamin Anak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: Text(
+                            "Sex",
+                            style: TextStyle(
+                              color: AppColor.secondarySoft,
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Jenis Kelamin Anak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
+                        GestureDetector(
+                          onTap: () {
+                            print(controller.selectedGender.value);
+                          },
+                          child: controller.isEditing.value
+                              ? DropdownButton<String>(
+                                  value: controller.selectedGender.value ?? '',
+                                  items:
+                                      controller.genders.map((String? valll) {
+                                    print(valll);
+                                    return DropdownMenuItem<String>(
+                                      value: valll ?? '',
+                                      child: Text(valll! ?? ''),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? value) {
+                                    controller.selectedGender.value =
+                                        value ?? '';
+                                  },
+                                  hint: const Text('Pilih Jenis Kelamin anak'),
+                                )
+                              : TextField(
+                                  controller: controller.jenisKelaminAnakC,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'poppins',
+                                    color: Colors.black,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  readOnly: true,
+                                ),
+                        ),
+                      ])),
+            ),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
@@ -646,7 +748,8 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     ),
                   ),
                 )),
-            Obx(() => Container(
+            Obx(
+              () => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: const EdgeInsets.only(bottom: 16),
@@ -658,37 +761,72 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     border: Border.all(
                         width: 1, color: AppColor.secondaryExtraSoft),
                   ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.idPeternakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "ID Peternak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: Text(
+                            "Id Peternak",
+                            style: TextStyle(
+                              color: AppColor.secondarySoft,
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "ID Peternak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
-            Obx(() => Container(
+                        GestureDetector(
+                          onTap: () {
+                            print(
+                                controller.fetchData.selectedPeternakId.value);
+                          },
+                          child: controller.isEditing.value
+                              ? DropdownButton<String>(
+                                  value: controller
+                                      .fetchData.selectedPeternakId.value,
+                                  items: controller.fetchData.peternakList
+                                      .map((PeternakModel peternak) {
+                                    return DropdownMenuItem<String>(
+                                      value: peternak.idPeternak ?? '',
+                                      child: Text(peternak.idPeternak ?? ''),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? selectedId) {
+                                    // Update selectedPeternakId
+                                    controller.fetchData.selectedPeternakId
+                                        .value = selectedId ?? '';
+
+                                    // Update nikPeternakC and namaPeternakC based on selectedPeternakId
+                                    PeternakModel selectedPeternak = controller
+                                        .fetchData.peternakList
+                                        .firstWhere(
+                                      (peternak) =>
+                                          peternak.idPeternak == selectedId,
+                                      orElse: () =>
+                                          PeternakModel(), // Default value if not found
+                                    );
+                                    // controller.namaPeternakC.text =
+                                    //     selectedPeternak.namaPeternak ?? '';
+                                  },
+                                  hint: const Text('Pilih Peternak'),
+                                )
+                              : TextField(
+                                  controller: controller.idPeternakC,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'poppins',
+                                    color: Colors.black,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    // labelText: 'ID Peternak',
+                                    border: InputBorder.none,
+                                  ),
+                                  readOnly: true,
+                                ),
+                        ),
+                      ])),
+            ),
+            Obx(
+              () => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                   margin: const EdgeInsets.only(bottom: 16),
@@ -700,78 +838,61 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                     border: Border.all(
                         width: 1, color: AppColor.secondaryExtraSoft),
                   ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.namaPeternakC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Nama Peternak",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 0),
+                          child: Text(
+                            "Nama Petugas",
+                            style: TextStyle(
+                              color: AppColor.secondarySoft,
+                              fontSize: 12,
+                            ),
+                          ),
                         ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Nama Peternak",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
-            Obx(() => Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-                  margin: const EdgeInsets.only(bottom: 16),
-                  decoration: BoxDecoration(
-                    color: controller.isEditing.value
-                        ? Colors.white
-                        : Colors.grey[200],
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                        width: 1, color: AppColor.secondaryExtraSoft),
-                  ),
-                  child: TextFormField(
-                    enabled: controller.isEditing.value,
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: 'poppins',
-                        color: Colors.black),
-                    maxLines: 1,
-                    autofocus: true,
-                    controller: controller.petugasPelaporC,
-                    keyboardType: TextInputType.name,
-                    decoration: InputDecoration(
-                      label: Text(
-                        "Petugas Pelapor",
-                        style: TextStyle(
-                          color: AppColor.secondarySoft,
-                          fontSize: 15,
+                        GestureDetector(
+                          onTap: () {
+                            print(controller.fetchData.selectedPetugasId.value);
+                          },
+                          child: controller.isEditing.value
+                              ? DropdownButton<String>(
+                                  value: controller
+                                      .fetchData.selectedPetugasId.value,
+                                  items: controller.fetchData.petugasList
+                                      .map((PetugasModel petugass) {
+                                    return DropdownMenuItem<String>(
+                                      value: petugass.nikPetugas ?? '',
+                                      child: Text(
+                                        '${petugass.nikPetugas ?? ''}'
+                                        "\n"
+                                        '${petugass.namaPetugas ?? ''}',
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (String? selectedId) {
+                                    controller.fetchData.selectedPetugasId
+                                        .value = selectedId ?? '';
+                                  },
+                                  hint: const Text('Pilih Petugas'),
+                                )
+                              : TextField(
+                                  controller: controller.petugasPelaporC,
+                                  style: const TextStyle(
+                                    fontSize: 18,
+                                    fontFamily: 'poppins',
+                                    color: Colors.black,
+                                  ),
+                                  decoration: const InputDecoration(
+                                    // labelText: 'ID Peternak',
+                                    border: InputBorder.none,
+                                  ),
+                                  readOnly: true,
+                                ),
                         ),
-                      ),
-                      floatingLabelBehavior: FloatingLabelBehavior.always,
-                      border: InputBorder.none,
-                      hintText: "Petugas Pelapor",
-                      hintStyle: TextStyle(
-                        fontSize: 15,
-                        fontFamily: 'poppins',
-                        fontWeight: FontWeight.w500,
-                        color: AppColor.secondarySoft,
-                      ),
-                    ),
-                  ),
-                )),
+                      ])),
+            ),
             Obx(() => Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.only(left: 14, right: 14, top: 4),

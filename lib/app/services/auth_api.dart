@@ -25,7 +25,9 @@ class AuthApi extends SharedApi {
       );
 
       jsonData = json.decode(data.body);
+      print('Response from loginAPI: $jsonData');
 
+      print(data.body);
       if (data.statusCode == 200) {
         jsonData['status'] = 200;
         showSuccessMessage("login sukses");
@@ -59,8 +61,8 @@ class AuthApi extends SharedApi {
       };
       var jsonData;
       showLoading();
-      var data = await http.get(Uri.parse('$baseUrl/user/me'),
-          headers: headers);
+      var data =
+          await http.get(Uri.parse('$baseUrl/user/me'), headers: headers);
       stopLoading();
       jsonData = json.decode(data.body);
       print(data.body);
@@ -98,6 +100,7 @@ class AuthApi extends SharedApi {
       stopLoading();
       jsonData = json.decode(data.body);
       if (data.statusCode == 200) {
+        print(jsonData['data']);
         jsonData['data']['status'] = 200;
         jsonData['data']['access_token'] = jsonData['access_token'];
         jsonData['data']['token_type'] = jsonData['token_type'];

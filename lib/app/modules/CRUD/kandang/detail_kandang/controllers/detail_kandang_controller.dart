@@ -4,6 +4,7 @@ import 'dart:typed_data';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
@@ -19,6 +20,7 @@ import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class DetailKandangController extends GetxController {
+  final FetchData fetchdata = Get.put(FetchData());
   final KandangController kandangController = Get.put(KandangController());
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
@@ -29,8 +31,6 @@ class DetailKandangController extends GetxController {
   final formattedDate = ''.obs;
   SharedApi sharedApi = SharedApi();
   RxBool loading = false.obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakIdInEditMode = ''.obs;
 
   RxString strLatLong =
@@ -90,11 +90,11 @@ class DetailKandangController extends GetxController {
   void onInit() {
     super.onInit();
 
-    fetchPeternaks();
+    fetchdata.fetchPeternaks();
     isEditing.value = false;
 
     idKandangC.text = argsData["idKandang"];
-    selectedPeternakId.value = argsData["idPeternak"];
+    fetchdata.selectedPeternakId.value = argsData["idPeternak"];
     idPeternakC.text = argsData["idPeternak"];
     namaPeternakC.text = argsData["namaPeternak"];
     luasC.text = argsData["luas"];
@@ -107,7 +107,6 @@ class DetailKandangController extends GetxController {
     provinsiC.text = argsData["provinsi"];
     latitude.value = argsData["latitude"];
     longitude.value = argsData["longitude"];
-    
 
     // ever(selectedPeternakId, (String? selectedId) {
     //   // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
@@ -118,17 +117,17 @@ class DetailKandangController extends GetxController {
     //       selectedPeternak.namaPeternak ?? argsData["idPeternak"];
     //   update();
     // });
-ever(selectedPeternakId, (String? selectedId) {
+
+    ever(fetchdata.selectedPeternakId, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PeternakModel? selectedPeternak = peternakList.firstWhere(
+      PeternakModel? selectedPeternak = fetchdata.peternakList.firstWhere(
           (peternak) => peternak.idPeternak == selectedId,
           orElse: () => PeternakModel());
 
-      selectedPeternakId.value = selectedPeternak.idPeternak ??
-          argsData["idPeternak"];
+      fetchdata.selectedPeternakId.value =
+          selectedPeternak.idPeternak ?? argsData["idPeternak"];
       update();
     });
-
 
     print(argsData["fotoKandang"]);
 
@@ -147,24 +146,6 @@ ever(selectedPeternakId, (String? selectedId) {
     originalLatitude = argsData["latitude"];
     originalLongitude = argsData["longitude"];
   }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
 
   Future<Position> getGeoLocationPosition() async {
     bool serviceEnabled;
@@ -294,10 +275,9 @@ ever(selectedPeternakId, (String? selectedId) {
     update(); // Perbarui UI setelah menghapus gambar
   }
 
-
   Future<void> tombolEdit() async {
     isEditing.value = true;
-    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
+    selectedPeternakIdInEditMode.value = fetchdata.selectedPeternakId.value;
     update();
   }
 
@@ -311,7 +291,7 @@ ever(selectedPeternakId, (String? selectedId) {
         update();
         // Reset data ke yang sebelumnya
         idKandangC.text = originalIdKandang;
-        selectedPeternakId.value = originalIdPeternak;
+        fetchdata.selectedPeternakId.value = originalIdPeternak;
         namaPeternakC.text = originalNamaPeternak;
         luasC.text = originalLuas;
         kapasitasC.text = originalKapasitas;
@@ -363,8 +343,8 @@ ever(selectedPeternakId, (String? selectedId) {
         //print(kandangModel);
         kandangModel = await KandangApi().editKandangApi(
           idKandangC.text,
-          selectedPeternakId.value,
-          
+          fetchdata.selectedPeternakId.value,
+
           luasC.text,
           kapasitasC.text,
           nilaiBangunanC.text,
@@ -380,14 +360,13 @@ ever(selectedPeternakId, (String? selectedId) {
         );
 
         if (kandangModel != null && kandangModel!.status == 201) {
-        await updateAlamatInfo();
-        isEditing.value = false;
-            showSuccessMessage(
-                "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
-          } else {
-            showErrorMessage("Gagal mengedit Data Kandang ");
-          
-         }
+          await updateAlamatInfo();
+          isEditing.value = false;
+          showSuccessMessage(
+              "Berhasil mengedit Kandang dengan ID: ${idKandangC.text}");
+        } else {
+          showErrorMessage("Gagal mengedit Data Kandang ");
+        }
 
         kandangController.reInitialize();
 

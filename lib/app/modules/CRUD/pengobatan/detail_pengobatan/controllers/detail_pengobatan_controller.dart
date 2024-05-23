@@ -1,6 +1,9 @@
 import 'package:crud_flutter_api/app/data/pengobatan_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/pengobatan/controllers/pengobatan_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/pengobatan_api..dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -9,6 +12,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailPengobatanController extends GetxController {
+  final FetchData fetchData = FetchData();
+  final PengobatanController pengobatanController =
+      Get.put(PengobatanController());
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
   PengobatanModel? pengobatanModel;
@@ -52,6 +58,7 @@ class DetailPengobatanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchData.fetchPetugas();
 
     idKasusC.text = argsData["idKasus"];
     tanggalPengobatanC.text = argsData["tanggalPengobatan"];
@@ -62,6 +69,19 @@ class DetailPengobatanController extends GetxController {
     dosisC.text = argsData["dosis"];
     sindromC.text = argsData["sindrom"];
     diagnosaBandingC.text = argsData["diagnosaBanding"];
+
+    ever(fetchData.selectedPetugasId, (String? selectedName) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugassss = fetchData.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedName,
+          orElse: () => PetugasModel());
+      // selectedPetugasId.value = selectedPetugassss.nikPetugas ??
+      //     argsData["petugas_terdaftar_hewan_detail"];
+      namaPetugasC.text =
+          selectedPetugassss.namaPetugas ?? argsData["namaPetugas"];
+      //print(selectedPetugasId.value);
+      update();
+    });
 
     originalIdKasus = argsData["idKasus"];
     originalTanggalPengobatan = argsData["tanggalPengobatan"];
@@ -76,6 +96,8 @@ class DetailPengobatanController extends GetxController {
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
+    refresh();
+    update();
     update();
   }
 
@@ -146,7 +168,7 @@ class DetailPengobatanController extends GetxController {
           idKasusC.text,
           tanggalPengobatanC.text,
           tanggalKasusC.text,
-          namaPetugasC.text,
+          fetchData.selectedPetugasId.value,
           namaInfrastrukturC.text,
           lokasiC.text,
           dosisC.text,

@@ -1,4 +1,5 @@
 import 'package:crud_flutter_api/app/modules/home/views/home_view.dart';
+import 'package:crud_flutter_api/app/modules/menu/menu_view/controllers/menu_controller.dart';
 import 'package:crud_flutter_api/app/modules/menu/menu_view/views/menu_view.dart';
 import 'package:crud_flutter_api/app/modules/user/views/user_view.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,8 @@ import 'package:get/get.dart';
 import '../controllers/navigation_controller.dart';
 
 class NavigationView extends StatelessWidget {
-  const NavigationView({super.key});
+  final MainMenuController mainMenuController = Get.put(MainMenuController());
+  NavigationView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +21,7 @@ class NavigationView extends StatelessWidget {
           index: controller.tabIndex,
           children: [
             HomeView(),
-            const MainMenuView(),
+            MainMenuView(),
             const UserView(),
           ],
         )),

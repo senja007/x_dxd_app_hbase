@@ -6,10 +6,8 @@ import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/kandang_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -24,6 +22,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class DetailHewanController extends GetxController {
+  final FetchData fetchdata = FetchData();
   final HewanController hewanController = Get.put(HewanController());
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
@@ -36,12 +35,12 @@ class DetailHewanController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxString selectedGender = ''.obs;
   RxString selectedSpesies = ''.obs;
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
-  RxString selectedPetugasId = ''.obs;
-  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
-  RxString selectedKandangId = ''.obs;
-  RxList<KandangModel> kandangList = <KandangModel>[].obs;
+  // RxString selectedPeternakId = ''.obs;
+  // RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+  // RxString selectedPetugasId = ''.obs;
+  // RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
+  // RxString selectedKandangId = ''.obs;
+  // RxList<KandangModel> kandangList = <KandangModel>[].obs;
   SharedApi sharedApi = SharedApi();
   RxString selectedPeternakIdInEditMode = ''.obs;
 
@@ -134,9 +133,9 @@ class DetailHewanController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchPetugas();
-    fetchKandangs();
+    fetchdata.fetchPeternaks();
+    fetchdata.fetchPetugas();
+    fetchdata.fetchKandangs();
 
     selectedSpesies(argsData["spesies_hewan_detail"]);
     selectedGender(argsData["kelamin_hewan_detail"]);
@@ -159,15 +158,16 @@ class DetailHewanController extends GetxController {
     umurC.text = argsData["umur_hewan_detail"];
     identifikasiHewanC.text = argsData["identifikasi_hewan_detail"];
     petugasPendaftarC.text = argsData["petugas_terdaftar_hewan_detail"];
+    //selectedPetugasId.value = argsData["tanggal_terdaftar_hewan_detail"];
     tanggalTerdaftarC.text = argsData["tanggal_terdaftar_hewan_detail"];
     latitude.value = argsData["latitude_hewan_detail"];
     longitude.value = argsData["longitude_hewan_detail"];
     //fotoHewanC.text = argsData["foto_hewan_detail"];
     //fotoHewan.value = File(argsData["foto_hewan_detail"]);
     // Tambahkan listener untuk selectedPeternakId
-    ever(selectedPeternakId, (String? selectedId) {
+    ever(fetchdata.selectedPeternakId, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PeternakModel? selectedPeternak = peternakList.firstWhere(
+      PeternakModel? selectedPeternak = fetchdata.peternakList.firstWhere(
           (peternak) => peternak.idPeternak == selectedId,
           orElse: () => PeternakModel());
       nikPeternakC.text =
@@ -177,29 +177,29 @@ class DetailHewanController extends GetxController {
       update();
     });
 
-    ever(selectedPetugasId, (String? selectedName) {
+    ever(fetchdata.selectedPetugasId, (String? selectedName) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PetugasModel? selectedPetugassss = petugasList.firstWhere(
-          (petugas) => petugas.namaPetugas == selectedName,
+      PetugasModel? selectedPetugassss = fetchdata.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedName,
           orElse: () => PetugasModel());
-      selectedPetugasId.value = selectedPetugassss.namaPetugas ??
+      fetchdata.selectedPetugasId.value = selectedPetugassss.nikPetugas ??
           argsData["petugas_terdaftar_hewan_detail"];
-      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
-      //     argsData["nama_peternak_hewan_detail"];
-      print(selectedPetugasId.value);
+      // petugasPendaftarC.text = selectedPetugassss.namaPetugas ??
+      //     argsData["petugas_terdaftar_hewan_detail"];
+      // print(selectedPetugasId.value);
       update();
     });
 
-    ever(selectedKandangId, (String? selectedids) {
+    ever(fetchdata.selectedKandangId, (String? selectedids) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      KandangModel? selectedKandangsss = kandangList.firstWhere(
+      KandangModel? selectedKandangsss = fetchdata.kandangList.firstWhere(
           (kandang) => kandang.idKandang == selectedids,
           orElse: () => KandangModel());
-      selectedKandangId.value =
+      fetchdata.selectedKandangId.value =
           selectedKandangsss.idKandang ?? argsData["id_kandang_hewan_detail"];
       // namaPeternakC.text = selectedPetugassss.namaPetugas ??
       //     argsData["nama_peternak_hewan_detail"];
-      print(selectedKandangId.value);
+      // print(selectedKandangId.value);
       update();
     });
 
@@ -226,59 +226,7 @@ class DetailHewanController extends GetxController {
     originalfotoHewan = argsData["foto_hewan_detail"];
     originalLatitude = argsData["latitude_hewan_detail"];
     originalLongitude = argsData["longitude_hewan_detail"];
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      print(selectedPeternakId.value);
-      return peternaks;
-    } catch (e) {
-      // print('Error fetching peternaks: $e');
-      // showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-  Future<List<KandangModel>> fetchKandangs() async {
-    try {
-      final KandangListModel kandangListModel =
-          await KandangApi().loadKandangApi();
-      final List<KandangModel> kandangs = kandangListModel.content ?? [];
-      if (kandangs.isNotEmpty) {
-        selectedKandangId.value = kandangs.first.idKandang ?? '';
-      }
-      kandangList.assignAll(kandangs);
-      return kandangs;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-  //GET DATA PETUGAS
-  Future<List<PetugasModel>> fetchPetugas() async {
-    try {
-      final PetugasListModel petugasListModel =
-          await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugass = petugasListModel.content ?? [];
-      if (petugass.isNotEmpty) {
-        selectedPetugasId.value = petugass.first.namaPetugas ?? '';
-      }
-      petugasList.assignAll(petugass);
-      return petugass;
-    } catch (e) {
-      print('Error fetching Petugas: $e');
-      showErrorMessage("Error fetching Petugas: $e");
-      return [];
-    }
+    update();
   }
 
   Future<Position> getGeoLocationPosition() async {
@@ -447,7 +395,9 @@ class DetailHewanController extends GetxController {
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
-    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
+    selectedPeternakIdInEditMode.value = fetchdata.selectedPeternakId.value;
+    refresh();
+    update();
     update();
   }
 
@@ -468,7 +418,7 @@ class DetailHewanController extends GetxController {
         desaC.text = originalDesa;
         alamat.value = originalAlamat;
         namaPeternakC.text = originalNamaPeternak;
-        selectedPeternakId.value = originalIdPeternak;
+        //fetchdata.selectedPeternakId.value = originalIdPeternak;
         idKandagC.text = originalIdKandang;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
@@ -477,6 +427,7 @@ class DetailHewanController extends GetxController {
         umurC.text = originalUmur;
         identifikasiHewanC.text = originalIdentifikasi;
         petugasPendaftarC.text = originalPetugas;
+        //selectedPetugasId.value = originalPetugas;
         tanggalTerdaftarC.text = originalTanggal;
         fotoHewan.value = null;
         latitude.value = originalLatitude;
@@ -522,10 +473,10 @@ class DetailHewanController extends GetxController {
         print(kecamatanC);
         print(desaC);
         print(alamat);
-        print(selectedPeternakId);
-        print(selectedKandangId);
+        print(fetchdata.selectedPeternakId);
+        print(fetchdata.selectedKandangId);
         print(selectedSpesies);
-        print(selectedPetugasId);
+        print(fetchdata.selectedPetugasId);
 
         hewanModel = await HewanApi().editHewanApi(
           kodeEartagNasionalC.text,
@@ -536,15 +487,15 @@ class DetailHewanController extends GetxController {
           desaC.text,
           alamat.value = strAlamat.value,
           // namaPeternakC.text
-          selectedPeternakId.value,
-          selectedKandangId.value,
+          fetchdata.selectedPeternakId.value,
+          fetchdata.selectedKandangId.value,
           // nikPeternakC.text,
           selectedSpesies.value,
           selectedGender.value,
 
           umurC.text,
           identifikasiHewanC.text,
-          selectedPetugasId.value,
+          fetchdata.selectedPetugasId.value,
           tanggalTerdaftarC.text,
           fotoHewan.value,
           latitude: latitude.value,

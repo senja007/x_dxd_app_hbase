@@ -1,27 +1,44 @@
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/kelahiran_model.dart';
+import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kelahiran/controllers/kelahiran_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
+import 'package:crud_flutter_api/app/services/hewan_api.dart';
 import 'package:crud_flutter_api/app/services/kelahiran_api.dart';
+import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:intl/intl.dart';
 
 class DetailKelahiranController extends GetxController {
+  final FetchData fetchData = Get.put(FetchData());
+  final KelahiranController kelahiranController =
+      Get.put(KelahiranController());
+
   final Map<String, dynamic> argsData = Get.arguments;
   KelahiranModel? kelahiranModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
+  RxString selectedPeternakIdInEditMode = ''.obs;
+  RxString selectedGender = ''.obs;
+  List<String> genders = ["Jantan", "Betina"];
+
   TextEditingController idKejadianC = TextEditingController();
   TextEditingController tanggalLaporanC = TextEditingController();
   TextEditingController tanggalLahirC = TextEditingController();
   TextEditingController lokasiC = TextEditingController();
-  TextEditingController namaPeternakC = TextEditingController();
+  //TextEditingController namaPeternakC = TextEditingController();
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController kartuTernakIndukC = TextEditingController();
   TextEditingController eartagIndukC = TextEditingController();
+  TextEditingController kodeEartagNasionalC = TextEditingController();
   TextEditingController idHewanIndukC = TextEditingController();
   TextEditingController spesiesIndukC = TextEditingController();
   TextEditingController idPejantanStrawC = TextEditingController();
@@ -45,6 +62,7 @@ class DetailKelahiranController extends GetxController {
   String originalidPeternak = "";
   String originalkartuTernakInduk = "";
   String originaleartagInduk = "";
+  String originalkodeEartagNasional = "";
   String originalidHewanInduk = "";
   String originalspesiesInduk = "";
   String originalidPejantanStraw = "";
@@ -66,7 +84,7 @@ class DetailKelahiranController extends GetxController {
     tanggalLaporanC.dispose();
     tanggalLahirC.dispose();
     lokasiC.dispose();
-    namaPeternakC.dispose();
+    //namaPeternakC.dispose();
     idPeternakC.dispose();
     kartuTernakIndukC.dispose();
     eartagIndukC.dispose();
@@ -89,14 +107,21 @@ class DetailKelahiranController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    fetchData.fetchPeternaks();
+    fetchData.fetchHewan();
+    fetchData.fetchPetugas();
+
+    selectedGender(argsData["kelamin_anak_detail"]);
+
     idKejadianC.text = argsData["id_kejadian_detail"];
     tanggalLaporanC.text = argsData["tanggal_laporan_detail"];
     tanggalLahirC.text = argsData["tanggal_lahir_detail"];
     lokasiC.text = argsData["lokasi_detail"];
-    namaPeternakC.text = argsData["nama_peternak_detail"];
+    //namaPeternakC.text = argsData["nama_peternak_detail"];
     idPeternakC.text = argsData["id_peternak_detail"];
     kartuTernakIndukC.text = argsData["kartu_ternak_induk_detail"];
     eartagIndukC.text = argsData["eartag_induk_detail"];
+    kodeEartagNasionalC.text = argsData["kodeEartagNasional"];
     idHewanIndukC.text = argsData["id_hewan_induk_detail"];
     spesiesIndukC.text = argsData["spesies_induk_detail"];
     idPejantanStrawC.text = argsData["id_pejantan_detail"];
@@ -112,14 +137,48 @@ class DetailKelahiranController extends GetxController {
     petugasPelaporC.text = argsData["petugas_pelapor_detail"];
     urutanIbC.text = argsData["urutan_ib_detail"];
 
+    ever(fetchData.selectedPeternakId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PeternakModel? selectedPeternak = fetchData.peternakList.firstWhere(
+          (peternak) => peternak.idPeternak == selectedId,
+          orElse: () => PeternakModel());
+      idPeternakC.text =
+          selectedPeternak.namaPeternak ?? argsData["id_peternak_detail"];
+      update();
+    });
+
+    ever(fetchData.selectedHewanEartag, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      HewanModel? selectedHewan = fetchData.hewanList.firstWhere(
+          (peternak) => peternak.kodeEartagNasional == selectedId,
+          orElse: () => HewanModel());
+      kodeEartagNasionalC.text =
+          selectedHewan.kodeEartagNasional ?? argsData["kodeEartagNasional"];
+      update();
+    });
+
+    ever(fetchData.selectedPetugasId, (String? selectedName) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugassss = fetchData.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedName,
+          orElse: () => PetugasModel());
+      fetchData.selectedPetugasId.value =
+          selectedPetugassss.nikPetugas ?? argsData["petugas_pelapor_detail"];
+      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
+      //     argsData["nama_peternak_hewan_detail"];
+      //print(selectedPetugasId.value);
+      update();
+    });
+
     originalidKejadian = argsData["id_kejadian_detail"];
     originaltanggalLaporan = argsData["tanggal_laporan_detail"];
     originaltanggalLahir = argsData["tanggal_lahir_detail"];
     originallokasi = argsData["lokasi_detail"];
-    originalnamaPeternak = argsData["nama_peternak_detail"];
+    // originalnamaPeternak = argsData["nama_peternak_detail"];
     originalidPeternak = argsData["id_peternak_detail"];
     originalkartuTernakInduk = argsData["kartu_ternak_induk_detail"];
     originaleartagInduk = argsData["eartag_induk_detail"];
+    originalkodeEartagNasional = argsData["kodeEartagNasional"];
     originalidHewanInduk = argsData["id_hewan_induk_detail"];
     originalspesiesInduk = argsData["spesies_induk_detail"];
     originalidPejantanStraw = argsData["id_pejantan_detail"];
@@ -138,6 +197,7 @@ class DetailKelahiranController extends GetxController {
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
+    selectedPeternakIdInEditMode.value = fetchData.selectedPeternakId.value;
     update();
   }
 
@@ -154,10 +214,13 @@ class DetailKelahiranController extends GetxController {
         tanggalLaporanC.text = originaltanggalLaporan;
         tanggalLahirC.text = originaltanggalLahir;
         lokasiC.text = originallokasi;
-        namaPeternakC.text = originalnamaPeternak;
+        //namaPeternakC.text = originalnamaPeternak;
         idPeternakC.text = originalidPeternak;
+        fetchData.selectedPeternakId.value = originalidPeternak;
         kartuTernakIndukC.text = originalkartuTernakInduk;
         eartagIndukC.text = originaleartagInduk;
+        kodeEartagNasionalC.text = originalkodeEartagNasional;
+        fetchData.selectedHewanEartag.value = originalkodeEartagNasional;
         idHewanIndukC.text = originalidHewanInduk;
         spesiesIndukC.text = originalspesiesInduk;
         idPejantanStrawC.text = originalidPejantanStraw;
@@ -169,7 +232,9 @@ class DetailKelahiranController extends GetxController {
         eartagAnakC.text = originaleartagAnak;
         idHewanAnakC.text = originalidHewanAnak;
         jenisKelaminAnakC.text = originaljenisKelaminAnak;
+        selectedGender.value = originaljenisKelaminAnak;
         kategoriC.text = originalkategori;
+        fetchData.selectedPetugasId.value = originalpetugasPelapor;
         petugasPelaporC.text = originalpetugasPelapor;
         urutanIbC.text = originalurutanIb;
 
@@ -215,10 +280,12 @@ class DetailKelahiranController extends GetxController {
           tanggalLaporanC.text,
           tanggalLahirC.text,
           lokasiC.text,
-          namaPeternakC.text,
-          idPeternakC.text,
+          //namaPeternakC.text,
+          //idPeternakC.text,
+          fetchData.selectedPeternakId.value,
           kartuTernakIndukC.text,
           eartagIndukC.text,
+          fetchData.selectedHewanEartag.value,
           idHewanIndukC.text,
           spesiesIndukC.text,
           idPejantanStrawC.text,
@@ -229,9 +296,10 @@ class DetailKelahiranController extends GetxController {
           kartuTernakAnakC.text,
           eartagAnakC.text,
           idHewanAnakC.text,
-          jenisKelaminAnakC.text,
+          selectedGender.value,
           kategoriC.text,
-          petugasPelaporC.text,
+          fetchData.selectedPetugasId.value,
+          //petugasPelaporC.text,
           urutanIbC.text,
         );
         isEditing.value = false;

@@ -14,8 +14,8 @@ class HewanApi extends SharedApi {
     try {
       var data =
           await http.get(Uri.parse('$baseUrl/hewan'), headers: getToken());
-      // print("hasil" + data.statusCode.toString());
-      // print(json.decode(data.body));
+      print("hasil" + data.statusCode.toString());
+      print(json.decode(data.body));
       if (data.statusCode == 200) {
         var jsonData = json.decode(data.body);
 
@@ -50,7 +50,7 @@ class HewanApi extends SharedApi {
       //String namaPeternak,
       String idPeternak,
       String idKandang,
-     // String nikPeternak,
+      // String nikPeternak,
       String spesies,
       String sex,
       String umur,
@@ -122,10 +122,10 @@ class HewanApi extends SharedApi {
           "kecamatan": jsonData['kecamatan'],
           "desa": jsonData['desa'],
           "alamat": jsonData['alamat'],
-        //  "namaPeternak": jsonData['namaPeternak'],
+          //  "namaPeternak": jsonData['namaPeternak'],
           "idPeternak": jsonData['idPeternak'],
           "idKandag": jsonData['idKandag'],
-         // "nikPeternak": jsonData['nikPeternak'],
+          // "nikPeternak": jsonData['nikPeternak'],
           "spesies": jsonData['spesies'],
           "sex": jsonData['sex'],
           "umur": jsonData['umur'],
@@ -187,7 +187,7 @@ class HewanApi extends SharedApi {
         "kabupaten": kabupaten,
         "kecamatan": kecamatan,
         "desa": desa,
-        "alamat":alamat,
+        "alamat": alamat,
         // "namaPeternak": namaPeternak,
         "idPeternak": idPeternak,
         "idKandang": idKandang,

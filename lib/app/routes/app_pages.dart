@@ -108,7 +108,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.NAVIGATION,
-      page: () => const NavigationView(),
+      page: () => NavigationView(),
       binding: NavigationBinding(),
     ),
     GetPage(
@@ -250,7 +250,7 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.DETAILPETERNAK,
-      page: () => const DetailPeternakView(),
+      page: () => DetailPeternakView(),
       binding: DetailPeternakBinding(),
       transition: Transition.rightToLeft,
     ),

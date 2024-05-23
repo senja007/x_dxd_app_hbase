@@ -8,6 +8,7 @@ class PengobatanController extends GetxController {
   var posts = PengobatanListModel().obs;
   final box = GetStorage();
   bool homeScreen = false;
+  RxBool isSearching = false.obs;
 
   RxList<PengobatanModel> filteredPosts = RxList<PengobatanModel>();
 
@@ -51,7 +52,7 @@ class PengobatanController extends GetxController {
     }
   }
 
-  void searchPetugas(String keyword) {
+  void searchPengobatan(String keyword) {
     final List<PengobatanModel> filteredList =
         posts.value.content!.where((pengobatan) {
       return pengobatan.idKasus!.toLowerCase().contains(keyword.toLowerCase());

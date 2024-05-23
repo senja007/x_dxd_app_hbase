@@ -1,5 +1,6 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 
@@ -131,22 +132,26 @@ class DetailPkbView extends GetView<DetailPkbController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedHewanId.value);
+                          print(controller.fetchData.selectedHewanEartag.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedHewanId.value,
-                                items: controller.hewanList
+                                value: controller
+                                    .fetchData.selectedHewanEartag.value,
+                                items: controller.fetchData.hewanList
                                     .map((HewanModel hewan) {
                                   return DropdownMenuItem<String>(
                                     value: hewan.kodeEartagNasional ?? '',
-                                    child: Text(hewan.kodeEartagNasional ?? ''),
+                                    child: Text(
+                                        "${hewan.kodeEartagNasional ?? ''}"
+                                        "\n"
+                                        "${hewan.idPeternak?.namaPeternak ?? ''}"),
                                   );
                                 }).toList(),
                                 onChanged: (String? selectedEartag) {
                                   // Update selectedPeternakId
-                                  controller.selectedHewanId.value =
-                                      selectedEartag ?? '';
+                                  controller.fetchData.selectedHewanEartag
+                                      .value = selectedEartag ?? '';
 
                                   // // Update nikPeternakC and namaPeternakC based on selectedPeternakId
                                   // HewanModel selectedHewan =
@@ -248,12 +253,13 @@ class DetailPkbView extends GetView<DetailPkbController> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          print(controller.selectedPeternakId.value);
+                          print(controller.fetchData.selectedPeternakId.value);
                         },
                         child: controller.isEditing.value
                             ? DropdownButton<String>(
-                                value: controller.selectedPeternakId.value,
-                                items: controller.peternakList
+                                value: controller
+                                    .fetchData.selectedPeternakId.value,
+                                items: controller.fetchData.peternakList
                                     .map((PeternakModel peternak) {
                                   return DropdownMenuItem<String>(
                                     value: peternak.idPeternak ?? '',
@@ -262,12 +268,13 @@ class DetailPkbView extends GetView<DetailPkbController> {
                                 }).toList(),
                                 onChanged: (String? selectedId) {
                                   // Update selectedPeternakId
-                                  controller.selectedPeternakId.value =
-                                      selectedId ?? '';
+                                  controller.fetchData.selectedPeternakId
+                                      .value = selectedId ?? '';
 
                                   // Update nikPeternakC and namaPeternakC based on selectedPeternakId
-                                  PeternakModel selectedPeternak =
-                                      controller.peternakList.firstWhere(
+                                  PeternakModel selectedPeternak = controller
+                                      .fetchData.peternakList
+                                      .firstWhere(
                                     (peternak) =>
                                         peternak.idPeternak == selectedId,
                                     orElse: () =>
@@ -610,7 +617,8 @@ class DetailPkbView extends GetView<DetailPkbController> {
                   ),
                 ),
               )),
-          Obx(() => Container(
+          Obx(
+            () => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
                 margin: const EdgeInsets.only(bottom: 16),
@@ -622,36 +630,62 @@ class DetailPkbView extends GetView<DetailPkbController> {
                   border:
                       Border.all(width: 1, color: AppColor.secondaryExtraSoft),
                 ),
-                child: TextFormField(
-                  enabled: controller.isEditing.value,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'poppins',
-                    color: Colors.black,
-                  ),
-                  maxLines: 1,
-                  controller: controller.pemeriksaKebuntinganC,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    label: Text(
-                      "Pemeriksa Kebuntingan",
-                      style: TextStyle(
-                        color: AppColor.secondarySoft,
-                        fontSize: 14,
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 0),
+                        child: Text(
+                          "Pemeriksa Kebuntingan",
+                          style: TextStyle(
+                            color: AppColor.secondarySoft,
+                            fontSize: 12,
+                          ),
+                        ),
                       ),
-                    ),
-                    floatingLabelBehavior: FloatingLabelBehavior.always,
-                    border: InputBorder.none,
-                    hintText: "Pemeriksa Kebuntingan",
-                    hintStyle: TextStyle(
-                      fontSize: 14,
-                      fontFamily: 'poppins',
-                      fontWeight: FontWeight.w500,
-                      color: AppColor.secondarySoft,
-                    ),
-                  ),
-                ),
-              )),
+                      GestureDetector(
+                        onTap: () {
+                          print(controller.fetchData.selectedPetugasId.value);
+                        },
+                        child: controller.isEditing.value
+                            ? DropdownButton<String>(
+                                value: controller
+                                    .fetchData.selectedPetugasId.value,
+                                items: controller.fetchData.petugasList
+                                    .map((PetugasModel petugas) {
+                                  return DropdownMenuItem<String>(
+                                    value: petugas.nikPetugas ?? '',
+                                    child: Text(
+                                      "${petugas.nikPetugas ?? ''}"
+                                      "\n"
+                                      "${petugas.namaPetugas ?? ''}",
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  );
+                                }).toList(),
+                                onChanged: (String? selectpetugasss) {
+                                  // Update selectedPeternakId
+                                  controller.fetchData.selectedPetugasId.value =
+                                      selectpetugasss ?? '';
+                                },
+                                hint: const Text('Pilih Pemeriksa'),
+                              )
+                            : TextField(
+                                controller: controller.pemeriksaKebuntinganC,
+                                style: const TextStyle(
+                                  fontSize: 18,
+                                  fontFamily: 'poppins',
+                                  color: Colors.black,
+                                ),
+                                decoration: const InputDecoration(
+                                  // labelText: 'ID Peternak',
+                                  border: InputBorder.none,
+                                ),
+                                readOnly: true,
+                              ),
+                      ),
+                    ])),
+          ),
           Obx(() => Container(
                 width: MediaQuery.of(context).size.width,
                 padding: const EdgeInsets.only(left: 14, right: 14, top: 4),

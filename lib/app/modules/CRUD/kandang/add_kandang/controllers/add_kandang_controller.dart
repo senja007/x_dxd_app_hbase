@@ -2,10 +2,9 @@ import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
-import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/kandang/controllers/kandang_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/kandang_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
 import 'package:flutter/cupertino.dart';
@@ -16,14 +15,14 @@ import 'package:image_picker/image_picker.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
 
 class AddKandangController extends GetxController {
+  final FetchData fetchdata = FetchData();
   KandangModel? kandangModel;
   RxBool isLoading = false.obs;
   RxBool isLoadingCreateTodo = false.obs;
   final formattedDate = ''.obs; // Gunakan .obs untuk membuat Rx variabel
   final KandangController kandangController = Get.put(KandangController());
   Rx<File?> fotoKandang = Rx<File?>(null);
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
+
   RxString strLatLong =
       'belum mendapatkan lat dan long, silakan tekan tombol'.obs;
   RxString strAlamat = 'mencari lokasi..'.obs;
@@ -36,7 +35,6 @@ class AddKandangController extends GetxController {
   RxString longitude = ''.obs;
 
   TextEditingController idKandangC = TextEditingController();
-  TextEditingController idPeternakC = TextEditingController();
   TextEditingController luasC = TextEditingController();
   TextEditingController kapasitasC = TextEditingController();
   TextEditingController nilaiBangunanC = TextEditingController();
@@ -49,7 +47,7 @@ class AddKandangController extends GetxController {
   @override
   onClose() {
     idKandangC.dispose();
-    idPeternakC.dispose();
+
     luasC.dispose();
     kapasitasC.dispose();
     nilaiBangunanC.dispose();
@@ -66,26 +64,7 @@ class AddKandangController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    // fetchProvinsiData();
-    // fetchKabupatenData(selcetedProvinsi.value);
-    fetchPeternaks();
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      return peternaks;
-    } catch (e) {
-      print('Error fetching peternaks: $e');
-      showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
+    fetchdata.fetchPeternaks();
   }
 
   Future<Position> getGeoLocationPosition() async {
@@ -215,7 +194,7 @@ class AddKandangController extends GetxController {
         throw "ID Kandang tidak boleh kosong.";
       }
 
-      if (selectedPeternakId.value.isEmpty) {
+      if (fetchdata.selectedPeternakId.value.isEmpty ?? true) {
         throw "Pilih Peternak terlebih dahulu.";
       }
 
@@ -227,7 +206,7 @@ class AddKandangController extends GetxController {
 
       kandangModel = await KandangApi().addKandangAPI(
         idKandangC.text,
-        selectedPeternakId.value,
+        fetchdata.selectedPeternakId.value,
         luasC.text,
         kapasitasC.text,
         nilaiBangunanC.text,
@@ -244,7 +223,8 @@ class AddKandangController extends GetxController {
 
       if (kandangModel != null) {
         if (kandangModel!.status == 201) {
-          final KandangController hewanController = Get.put(KandangController());
+          final KandangController hewanController =
+              Get.put(KandangController());
           hewanController.reInitialize();
           Get.back();
           showSuccessMessage("Data Hewan Baru Berhasil ditambahkan");

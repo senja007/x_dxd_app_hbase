@@ -1,6 +1,8 @@
+import 'package:crud_flutter_api/app/modules/menu/menu_view/controllers/menu_controller.dart';
 import 'package:get/get.dart';
 
 class NavigationController extends GetxController {
+  final MainMenuController mainMenuController = Get.put(MainMenuController());
   //TODO: Implement NavigationController
 
   var tabIndex = 0;

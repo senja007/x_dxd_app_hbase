@@ -45,7 +45,8 @@ class KelahiranView extends GetView<KelahiranController> {
                     itemCount: controller.filteredPosts.value.length,
                     shrinkWrap: true,
                     physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(height: 8),
+                    separatorBuilder: (context, index) =>
+                        const SizedBox(height: 8),
                     itemBuilder: (context, index) {
                       var postData = controller.filteredPosts.value[index];
                       return InkWell(
@@ -58,6 +59,8 @@ class KelahiranView extends GetView<KelahiranController> {
                               "eartag_anak_detail": "${postData.eartagAnak}",
                               "id_hewan_induk_detail":
                                   "${postData.idHewanInduk}",
+                              "kodeEartagNasional":
+                                  "${postData.kodeEartagNasional?.kodeEartagNasional}",
                               "id_hewan_anak_detail": "${postData.idHewanAnak}",
                               "id_batch_detail": "${postData.idBatchStraw}",
                               "id_pejantan_detail":
@@ -74,10 +77,8 @@ class KelahiranView extends GetView<KelahiranController> {
                               "lokasi_detail": "${postData.lokasi}",
                               "id_peternak_detail":
                                   "${postData.idPeternak?.idPeternak}",
-                              "nama_peternak_detail":
-                                  "${postData.idPeternak?.namaPeternak}",
                               "petugas_pelapor_detail":
-                                  "${postData.petugasPelapor}",
+                                  "${postData.petugasPelapor?.nikPetugas}",
                               "produsen_detail": "${postData.produsenStraw}",
                               "spesies_induk_detail":
                                   "${postData.spesiesInduk}",

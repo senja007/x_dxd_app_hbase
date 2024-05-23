@@ -1,6 +1,7 @@
 //import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/kandang_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 
 class HewanModel {
   final String? kodeEartagNasional;
@@ -18,7 +19,7 @@ class HewanModel {
   final String? sex;
   final String? umur;
   final String? identifikasiHewan;
-  final String? petugasPendaftar;
+  final PetugasModel? petugasPendaftar;
   final String? tanggalTerdaftar;
   final String? fotoHewan;
   final String? latitude;
@@ -52,8 +53,7 @@ class HewanModel {
     return HewanModel(
       status: jsonData['status'] ?? 0,
       kodeEartagNasional: jsonData['kodeEartagNasional'] ?? "",
-      noKartuTernak:
-          jsonData['noKartuTernak'] ?? "",
+      noKartuTernak: jsonData['noKartuTernak'] ?? "",
       provinsi: jsonData['provinsi'] ?? "",
       kabupaten: jsonData['kabupaten'] ?? "",
       kecamatan: jsonData['kecamatan'] ?? "",
@@ -68,7 +68,9 @@ class HewanModel {
       sex: jsonData['sex'] ?? "",
       umur: jsonData['umur'] ?? "",
       identifikasiHewan: jsonData['identifikasiHewan'] ?? "",
-      petugasPendaftar: jsonData['petugasPendaftar'] ?? "",
+      petugasPendaftar: jsonData['petugasPendaftar'] != null
+          ? PetugasModel.fromJson(jsonData['petugasPendaftar'])
+          : null,
       tanggalTerdaftar: jsonData['tanggalTerdaftar'] ?? "",
       fotoHewan: jsonData['fotoHewan'] ?? "",
       latitude: jsonData['latitude'] ?? "",

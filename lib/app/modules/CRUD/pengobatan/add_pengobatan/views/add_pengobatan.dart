@@ -22,7 +22,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
         leading: IconButton(
           icon: const Icon(Icons.arrow_back), // Ikon panah kembali
           onPressed: () {
-            Navigator.of(context).pop(); // Aksi saat tombol diklik
+            Navigator.of(context).pop(); //F Aksi saat tombol diklik
           },
         ),
         backgroundColor: const Color(0xff132137),
@@ -270,17 +270,17 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    
-                    value: controller.selectedPetugasId.value,
-                    items:
-                        controller.petugasList.map((PetugasModel petugas) {
+                    value: controller.fetchdata.selectedPetugasId.value,
+                    items: controller.fetchdata.petugasList
+                        .map((PetugasModel petugas) {
                       return DropdownMenuItem<String>(
-                        value: petugas.namaPetugas ?? '',
+                        value: petugas.nikPetugas ?? '',
                         child: Text(petugas.namaPetugas ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedNik) {
-                      controller.selectedPetugasId.value = selectedNik ?? '';
+                      controller.fetchdata.selectedPetugasId.value =
+                          selectedNik ?? '';
                     },
                     hint: const Text('Pilih Petugas'),
                   );
@@ -303,7 +303,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               controller: controller
                   .tanggalKasusC, //editing controller of this TextField
               decoration: const InputDecoration(
-                border: InputBorder.none,
+                  border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal Kasus" //label text of field
                   ),
@@ -327,7 +327,7 @@ class AddPengobatanView extends GetView<AddPengobatanController> {
               controller: controller
                   .tanggalPengobatanC, //editing controller of this TextField
               decoration: const InputDecoration(
-                border: InputBorder.none,
+                  border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
                   labelText: "Tanggal Pengobatan" //label text of field
                   ),

@@ -1,10 +1,9 @@
 import 'package:crud_flutter_api/app/data/hewan_model.dart';
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
+import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/data/pkb_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/PKB/controllers/pkb_controller.dart';
-import 'package:crud_flutter_api/app/modules/menu/hewan/controllers/hewan_controller.dart';
-import 'package:crud_flutter_api/app/services/hewan_api.dart';
-import 'package:crud_flutter_api/app/services/peternak_api.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/pkb_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
@@ -14,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailPkbController extends GetxController {
+  final FetchData fetchData = FetchData();
   final PKBController pkbController = Get.put(PKBController());
   final Map<String, dynamic> argsData = Get.arguments;
   PKBModel? pkbModel;
@@ -21,11 +21,6 @@ class DetailPkbController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
 
-  RxString selectedHewanId = ''.obs;
-  RxList<HewanModel> hewanList = <HewanModel>[].obs;
-
-  RxString selectedPeternakId = ''.obs;
-  RxList<PeternakModel> peternakList = <PeternakModel>[].obs;
   RxString selectedPeternakIdInEditMode = ''.obs;
   RxString selectedSpesies = ''.obs;
   List<String> genders = ["Jantan", "Betina"];
@@ -91,8 +86,9 @@ class DetailPkbController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPeternaks();
-    fetchHewans();
+    fetchData.fetchPeternaks();
+    fetchData.fetchHewan();
+    fetchData.fetchPetugas();
 
     selectedSpesies(argsData["spesies"]);
     isEditing.value = false;
@@ -111,25 +107,33 @@ class DetailPkbController extends GetxController {
     pemeriksaKebuntinganC.text = argsData["pemeriksa"];
     tanggalPkbC.text = argsData["tanggal"];
 
-    ever(selectedPeternakId, (String? selectedId) {
+    ever(fetchData.selectedPeternakId, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PeternakModel? selectedPeternak = peternakList.firstWhere(
+      PeternakModel? selectedPeternak = fetchData.peternakList.firstWhere(
           (peternak) => peternak.idPeternak == selectedId,
           orElse: () => PeternakModel());
-      nikPeternakC.text =
-          selectedPeternak.nikPeternak ?? argsData["nik_hewan_detail"];
-      namaPeternakC.text = selectedPeternak.namaPeternak ??
-          argsData["nama_peternak_hewan_detail"];
+      nikPeternakC.text = selectedPeternak.nikPeternak ?? argsData["nik"];
+      namaPeternakC.text = selectedPeternak.namaPeternak ?? argsData["nama"];
       update();
     });
 
-    ever(selectedHewanId, (String? selectedId) {
+    ever(fetchData.selectedHewanEartag, (String? selectedId) {
       // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      HewanModel? selectedHewan = hewanList.firstWhere(
-          (peternak) => peternak.kodeEartagNasional == selectedId,
+      HewanModel? selectedHewan = fetchData.hewanList.firstWhere(
+          (hewan) => hewan.kodeEartagNasional == selectedId,
           orElse: () => HewanModel());
       kodeEartagNasionalC.text =
           selectedHewan.kodeEartagNasional ?? argsData["kodeEartagNasional"];
+      update();
+    });
+
+    ever(fetchData.selectedPetugasId, (String? selectedId) {
+      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
+      PetugasModel? selectedPetugas = fetchData.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedId,
+          orElse: () => PetugasModel());
+      pemeriksaKebuntinganC.text =
+          selectedPetugas.nikPetugas ?? argsData["pemeriksa"];
       update();
     });
 
@@ -148,44 +152,9 @@ class DetailPkbController extends GetxController {
     originalTanggalPkb = argsData["tanggal"];
   }
 
-  Future<List<HewanModel>> fetchHewans() async {
-    try {
-      final HewanListModel hewanListModel = await HewanApi().loadHewanApi();
-      final List<HewanModel> hewans = hewanListModel.content ?? [];
-      if (hewans.isNotEmpty) {
-        selectedHewanId.value = hewans.first.kodeEartagNasional ?? '';
-      }
-      hewanList.assignAll(hewans);
-      print(selectedHewanId.value);
-      return hewans;
-    } catch (e) {
-      // print('Error fetching peternaks: $e');
-      // showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
-  Future<List<PeternakModel>> fetchPeternaks() async {
-    try {
-      final PeternakListModel peternakListModel =
-          await PeternakApi().loadPeternakApi();
-      final List<PeternakModel> peternaks = peternakListModel.content ?? [];
-      if (peternaks.isNotEmpty) {
-        selectedPeternakId.value = peternaks.first.idPeternak ?? '';
-      }
-      peternakList.assignAll(peternaks);
-      print(selectedPeternakId.value);
-      return peternaks;
-    } catch (e) {
-      // print('Error fetching peternaks: $e');
-      // showErrorMessage("Error fetching peternaks: $e");
-      return [];
-    }
-  }
-
   Future<void> tombolEdit() async {
     isEditing.value = true;
-    selectedPeternakIdInEditMode.value = selectedPeternakId.value;
+    selectedPeternakIdInEditMode.value = fetchData.selectedPeternakId.value;
     update();
   }
 
@@ -201,7 +170,7 @@ class DetailPkbController extends GetxController {
         idKejadianC.text = originalIdKejadian;
         kodeEartagNasionalC.text = originalKodeEartagNasional;
         //idHewanC.text = originalIdHewan;
-        selectedPeternakId.value = originalIdPeternak;
+        fetchData.selectedPeternakId.value = originalIdPeternak;
         idPeternakC.text = originalIdPeternak;
         nikPeternakC.text = originalNikPeternak;
         namaPeternakC.text = originalNamapeternak;
@@ -251,8 +220,8 @@ class DetailPkbController extends GetxController {
         pkbModel = await PKBApi().editPKBApi(
             idKejadianC.text,
             //idHewanC.text,
-            selectedHewanId.value,
-            selectedPeternakId.value,
+            fetchData.selectedHewanEartag.value,
+            fetchData.selectedPeternakId.value,
             nikPeternakC.text,
             namaPeternakC.text,
             jumlahC.text,
@@ -260,7 +229,7 @@ class DetailPkbController extends GetxController {
             lokasiC.text,
             selectedSpesies.value,
             umurKebuntinganC.text,
-            pemeriksaKebuntinganC.text,
+            fetchData.selectedPetugasId.value,
             tanggalPkbC.text);
         isEditing.value = false;
         if (pkbModel != null) {

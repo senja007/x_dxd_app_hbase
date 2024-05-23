@@ -87,43 +87,41 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-          
-             Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
-              margin: const EdgeInsets.only(bottom: 16),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
-              ),
-              child: TextField(
-                style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
-                maxLines: 1,
-                controller: controller.noKartuTernakC,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  label: Text(
-                    "Nomor Kartu Ternak",
-                    style: TextStyle(
-                      color: AppColor.secondarySoft,
-                      fontSize: 14,
-                    ),
-                  ),
-                  floatingLabelBehavior: FloatingLabelBehavior.always,
-                  border: InputBorder.none,
-                  hintText: "Nomor Kartu Ternak",
-                  hintStyle: TextStyle(
-                    fontSize: 14,
-                    fontFamily: 'poppins',
-                    fontWeight: FontWeight.w500,
+          Container(
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
+            margin: const EdgeInsets.only(bottom: 16),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
+              border: Border.all(width: 1, color: AppColor.secondaryExtraSoft),
+            ),
+            child: TextField(
+              style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
+              maxLines: 1,
+              controller: controller.noKartuTernakC,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                label: Text(
+                  "Nomor Kartu Ternak",
+                  style: TextStyle(
                     color: AppColor.secondarySoft,
+                    fontSize: 14,
                   ),
+                ),
+                floatingLabelBehavior: FloatingLabelBehavior.always,
+                border: InputBorder.none,
+                hintText: "Nomor Kartu Ternak",
+                hintStyle: TextStyle(
+                  fontSize: 14,
+                  fontFamily: 'poppins',
+                  fontWeight: FontWeight.w500,
+                  color: AppColor.secondarySoft,
                 ),
               ),
             ),
-          
-         Container(
+          ),
+          Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: const EdgeInsets.only(bottom: 16),
@@ -147,16 +145,20 @@ class AddHewanView extends GetView<AddHewanController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPeternakId.value,
-                    items:
-                        controller.peternakList.map((PeternakModel peternak) {
+                    value: controller.fetchdata.selectedPeternakId.value,
+                    items: controller.fetchdata.peternakList
+                        .map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
-                        child: Text(overflow: TextOverflow.ellipsis,'${peternak.namaPeternak ?? ''}  ' ' ${peternak.nikPeternak ?? ''}'),
+                        child: Text(
+                            overflow: TextOverflow.ellipsis,
+                            '${peternak.namaPeternak ?? ''}  '
+                            ' ${peternak.nikPeternak ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedPeternakId.value = selectedId ?? '';
+                      controller.fetchdata.selectedPeternakId.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih Peternak'),
                     isExpanded: true,
@@ -189,17 +191,19 @@ class AddHewanView extends GetView<AddHewanController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    
-                    value: controller.selectedKandangId.value,
-                    items:
-                        controller.kandangList.map((KandangModel kandang) {
+                    value: controller.fetchdata.selectedKandangId.value,
+                    items: controller.fetchdata.kandangList
+                        .map((KandangModel kandang) {
                       return DropdownMenuItem<String>(
                         value: kandang.idKandang ?? '',
-                        child: Text('${kandang.idPeternak!.namaPeternak ?? ''} ' '${kandang.desa ?? ''}' ' ${kandang.luas??''}'),
+                        child: Text('${kandang.idPeternak!.namaPeternak ?? ''} '
+                            '${kandang.desa ?? ''}'
+                            ' ${kandang.luas ?? ''}'),
                       );
                     }).toList(),
                     onChanged: (String? selectedNik) {
-                      controller.selectedKandangId.value = selectedNik ?? '';
+                      controller.fetchdata.selectedKandangId.value =
+                          selectedNik ?? '';
                     },
                     hint: const Text('Pilih Kandang'),
                   );
@@ -228,8 +232,8 @@ class AddHewanView extends GetView<AddHewanController> {
                   ),
                 ),
               ),
-              Obx(() =>
-                 DropdownMenu<String>(
+              Obx(
+                () => DropdownMenu<String>(
                   inputDecorationTheme: const InputDecorationTheme(
                       filled: false, iconColor: Colors.amber),
                   initialSelection: controller.selectedSpesies.value,
@@ -239,7 +243,8 @@ class AddHewanView extends GetView<AddHewanController> {
                   },
                   dropdownMenuEntries: controller.spesies
                       .map<DropdownMenuEntry<String>>((String value) {
-                    return DropdownMenuEntry<String>(value: value, label: value);
+                    return DropdownMenuEntry<String>(
+                        value: value, label: value);
                   }).toList(),
                 ),
               ),
@@ -293,8 +298,8 @@ class AddHewanView extends GetView<AddHewanController> {
             child: TextField(
               style: const TextStyle(fontSize: 14, fontFamily: 'poppins'),
               maxLines: 1,
-              controller: controller
-                  .umurC, //editing controller of this TextField
+              controller:
+                  controller.umurC, //editing controller of this TextField
               decoration: const InputDecoration(
                   border: InputBorder.none,
                   icon: Icon(Icons.calendar_today), //icon of text field
@@ -339,7 +344,7 @@ class AddHewanView extends GetView<AddHewanController> {
               ),
             ),
           ),
-         Container(
+          Container(
             width: MediaQuery.of(context).size.width,
             padding: const EdgeInsets.only(left: 14, right: 14, top: 4),
             margin: const EdgeInsets.only(bottom: 16),
@@ -363,17 +368,18 @@ class AddHewanView extends GetView<AddHewanController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    
-                    value: controller.selectedPetugasId.value,
-                    items:
-                        controller.petugasList.map((PetugasModel petugas) {
+                    value: controller.fetchdata.selectedPetugasId.value,
+                    items: controller.fetchdata.petugasList
+                        .map((PetugasModel petugas) {
+                      print(controller.fetchdata.selectedPetugasId.value);
                       return DropdownMenuItem<String>(
-                        value: petugas.namaPetugas ?? '',
+                        value: petugas.nikPetugas ?? '',
                         child: Text(petugas.namaPetugas ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedNik) {
-                      controller.selectedPetugasId.value = selectedNik ?? '';
+                      controller.fetchdata.selectedPetugasId.value =
+                          selectedNik ?? '';
                     },
                     hint: const Text('Pilih Petugas'),
                   );
@@ -429,38 +435,34 @@ class AddHewanView extends GetView<AddHewanController> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Expanded(child:
-                      Padding(
+                    Expanded(
+                      child: Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8),
                         child: Obx(
                           () => Column(
-                            crossAxisAlignment: CrossAxisAlignment.stretch, 
-                            children: [
-                              if (controller.fotoHewan.value != null)
-                                Column(
-                                  children: [
-                                    Image.file(
-                                      controller.fotoHewan.value ??
-                                          File('null'),
-                                      height: 100,
-                                      width: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                    const SizedBox(height: 8),
-                                    IconButton(
-                                      onPressed: () {
-                                        controller.removeImage();
-                                      },
-                                      icon: const Icon(Icons.delete),
-                                      color: Colors.red,
-                                      
-                                    ),
-                                    
-                                  ],
-                                  
-                                ),
-                            ]
-                          ),
+                              crossAxisAlignment: CrossAxisAlignment.stretch,
+                              children: [
+                                if (controller.fotoHewan.value != null)
+                                  Column(
+                                    children: [
+                                      Image.file(
+                                        controller.fotoHewan.value ??
+                                            File('null'),
+                                        height: 100,
+                                        width: 100,
+                                        fit: BoxFit.cover,
+                                      ),
+                                      const SizedBox(height: 8),
+                                      IconButton(
+                                        onPressed: () {
+                                          controller.removeImage();
+                                        },
+                                        icon: const Icon(Icons.delete),
+                                        color: Colors.red,
+                                      ),
+                                    ],
+                                  ),
+                              ]),
                         ),
                       ),
                     ),

@@ -119,7 +119,7 @@ class InseminasiApi extends SharedApi {
 //EDIT
   Future<InseminasiModel?> editInseminasiApi(
     String idInseminasi,
-    String eartag,
+    String kodeEartagNasional,
     //String idHewan,
     String idPembuatan,
     // String idPejantan,
@@ -130,7 +130,7 @@ class InseminasiApi extends SharedApi {
     String ibLain,
     String produsen,
     String idPeternak,
-    String namaPeternak,
+    // String namaPeternak,
     String lokasi,
     String inseminator,
     String tanggalIB,
@@ -140,7 +140,7 @@ class InseminasiApi extends SharedApi {
       showLoading();
       var bodyDataedit = {
         'idInseminasi': idInseminasi,
-        'eartag': eartag,
+        'kodeEartagNasional': kodeEartagNasional,
         //'idHewan': idHewan,
         'idPembuatan': idPembuatan,
         // 'idPejantan': idPejantan,
@@ -151,7 +151,7 @@ class InseminasiApi extends SharedApi {
         'ibLain': ibLain,
         'produsen': produsen,
         'idPeternak': idPeternak,
-        'namaPeternak': namaPeternak,
+        //  'namaPeternak': namaPeternak,
         'lokasi': lokasi,
         'inseminator': inseminator,
         'tanggalIB': tanggalIB,
@@ -174,7 +174,7 @@ class InseminasiApi extends SharedApi {
         return InseminasiModel.fromJson({
           "status": 201,
           "idInseminasi": jsonData['idInseminasi'],
-          "eartag": jsonData['eartag'],
+          "kodeEartagNasional": jsonData['kodeEartagNasional'],
           //"idHewan": jsonData['idHewan'],
           "idPembuatan": jsonData['idPembuatan'],
           // "idPejantan": jsonData['idPejantan'],
@@ -185,7 +185,7 @@ class InseminasiApi extends SharedApi {
           "ibLain": jsonData['ibLain'],
           "produsen": jsonData['produsen'],
           "idPeternak": jsonData['idPeternak'],
-          "namaPeternak": jsonData['namaPeternak'],
+          // "namaPeternak": jsonData['namaPeternak'],
           "lokasi": jsonData['lokasi'],
           "inseminator": jsonData['inseminator'],
           "tanggalIB": jsonData['tanggalIB'],

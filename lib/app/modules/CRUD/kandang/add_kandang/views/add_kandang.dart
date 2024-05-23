@@ -6,10 +6,9 @@ import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geolocator/geolocator.dart';
-
 import 'package:get/get.dart';
 
-import '../controllers/add_kandang_controller.dart';
+import 'package:crud_flutter_api/app/modules/CRUD/kandang/add_kandang/controllers/add_kandang_controller.dart';
 
 class AddKandangView extends GetView<AddKandangController> {
   const AddKandangView({super.key});
@@ -105,16 +104,17 @@ class AddKandangView extends GetView<AddKandangController> {
                 ),
                 Obx(() {
                   return DropdownButton<String>(
-                    value: controller.selectedPeternakId.value,
-                    items:
-                        controller.peternakList.map((PeternakModel peternak) {
+                    value: controller.fetchdata.selectedPeternakId.value,
+                    items: controller.fetchdata.peternakList
+                        .map((PeternakModel peternak) {
                       return DropdownMenuItem<String>(
                         value: peternak.idPeternak ?? '',
                         child: Text(peternak.namaPeternak ?? ''),
                       );
                     }).toList(),
                     onChanged: (String? selectedId) {
-                      controller.selectedPeternakId.value = selectedId ?? '';
+                      controller.fetchdata.selectedPeternakId.value =
+                          selectedId ?? '';
                     },
                     hint: const Text('Pilih Peternak'),
                   );

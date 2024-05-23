@@ -24,8 +24,8 @@ class HomeView extends GetView<HomeController> {
     'assets/images/logo.png',
   ];
 
-  final int _currentIndex = 0;
-  final CarouselController _carouselController = CarouselController();
+  //final int _currentIndex = 0;
+  //final CarouselController _carouselController = CarouselController();
 
   String get jsonKRB => '';
 
@@ -52,50 +52,110 @@ class HomeView extends GetView<HomeController> {
       ),
       body: SafeArea(
         child: SingleChildScrollView(
-          child: Container(
-            child: Column(
-              children: <Widget>[
-                const Padding(
-                  padding: EdgeInsets.all(10),
+          child: Column(
+            children: <Widget>[
+              const Padding(
+                padding: EdgeInsets.all(10),
+                child: Text(
+                  "Dinas Ketahanan Pangan Dan Pertanian",
+                  textAlign: TextAlign.left,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+              // Container(
+              //   alignment: Alignment.bottomCenter,
+              //   child: AdWidget(ad: controller.bannerAd),
+              //   width: controller.bannerAd.size.width.toDouble(),
+              //   height: controller.bannerAd.size.height.toDouble(),
+              // ),
+              const Padding(
+                  padding: EdgeInsets.all(0),
                   child: Text(
-                    "Dinas Ketahanan Pangan Dan Pertanian",
+                    "Selamat Datang Di Sistem Manajemen Aplikasi Ternak \n",
                     textAlign: TextAlign.left,
                     style: TextStyle(
                       color: Colors.black,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      fontWeight: FontWeight.normal,
                     ),
-                  ),
-                ),
-                // Container(
-                //   alignment: Alignment.bottomCenter,
-                //   child: AdWidget(ad: controller.bannerAd),
-                //   width: controller.bannerAd.size.width.toDouble(),
-                //   height: controller.bannerAd.size.height.toDouble(),
-                // ),
-                const Padding(
-                    padding: EdgeInsets.all(0),
-                    child: Text(
-                      "Selamat Datang Di Sistem Manajemen Aplikasi Ternak \n",
-                      textAlign: TextAlign.left,
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    )),
-                // Other widgets...
+                  )),
+              // Other widgets...
 
-                SizedBox(
-                  width: double.infinity,
-                  height: 250,
-                  child: CarouselSlider.builder(
-                    itemCount: imageUrls.length,
+              SizedBox(
+                width: double.infinity,
+                height: 200,
+                child: Obx(() {
+                  final items = [
+                    ...imageUrls.map((url) => {'image': url, 'type': 'image'}),
+                    ...controller.beritaNews.value.content!.map((news) => {
+                          'image': "${controller.sharedApi.imageUrl}"
+                              "${news.fotoBerita}",
+                          'title': news.judul,
+                          'content': news.isiBerita,
+                          'type': 'news'
+                        }),
+                  ];
+
+                  void _showNewsDialog(String title, String content) {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text(title),
+                          content: SingleChildScrollView(
+                            child: Text(content),
+                          ),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: Text('Tutup'),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+
+                  return CarouselSlider.builder(
+                    itemCount: items.length,
                     itemBuilder: (context, index, _) {
-                      return Image.asset(
-                        imageUrls[index],
-                        fit: BoxFit.cover,
-                      );
+                      if (items[index]['type'] == 'image') {
+                        return Image.asset(
+                          items[index]['image']!,
+                          fit: BoxFit.cover,
+                        );
+                      } else {
+                        return GestureDetector(
+                          onTap: () {
+                            _showNewsDialog(
+                              items[index]['title']!,
+                              items[index]['content']!,
+                            );
+                          },
+                          child: Column(
+                            children: [
+                              Image.network(
+                                items[index]['image']!,
+                                fit: BoxFit.cover,
+                                height: 150,
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Text(
+                                  items[index]['title'] as String,
+                                  style: TextStyle(fontSize: 16.0),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                     },
                     options: CarouselOptions(
                       autoPlay: true,
@@ -103,323 +163,315 @@ class HomeView extends GetView<HomeController> {
                       autoPlayCurve: Curves.fastOutSlowIn,
                       enlargeCenterPage: true,
                     ),
-                  ),
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Container(
-                      child: Center(
-                        child: Wrap(
-                          spacing: 80.0,
-                          runSpacing: 20.0,
-                          children: [
-                            SizedBox(
-                              width: 250,
-                              height: 30,
-                              child: Card(
-                                color: const Color(0xff132137),
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                child: const Text(
-                                  "Peta Lokasi",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
+                  );
+                }),
+              ),
+              Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Center(
+                    child: Wrap(
+                      spacing: 80.0,
+                      runSpacing: 20.0,
+                      children: [
+                        SizedBox(
+                          width: 250,
+                          height: 30,
+                          child: Card(
+                            color: const Color(0xff132137),
+                            elevation: 2.0,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0)),
+                            child: const Text(
+                              "Peta Lokasi",
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
                               ),
-                            )
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  )),
+              SizedBox(
+                width: double.maxFinite,
+                height: 250,
+                child: Obx(() {
+                  List<Marker> markersTernak = [];
+                  List<Marker> markersKandang = [];
+
+                  if (controller.posts1.value.content != null &&
+                      controller.posts3.value.content != null) {
+                    markersTernak = controller.posts1.value.content!.map((n) {
+                      return Marker(
+                        width: 25.0,
+                        height: 25.0,
+                        point: LatLng(
+                          double.tryParse(n.latitude ?? '') ?? 00.0,
+                          double.tryParse(n.longitude ?? '') ?? 00.0,
+                        ),
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/cow.png', // Ganti dengan path ke gambar Anda
+                          ),
+                        ),
+                      );
+                    }).toList();
+
+                    markersKandang = controller.posts3.value.content!.map((n) {
+                      return Marker(
+                        width: 25.0,
+                        height: 25.0,
+                        point: LatLng(
+                          double.tryParse(n.latitude ?? '') ?? 00.0,
+                          double.tryParse(n.longitude ?? '') ?? 00.0,
+                        ),
+                        child: Container(
+                          child: Image.asset(
+                            'assets/images/house.png', // Ganti dengan path ke gambar Anda
+                          ),
+                        ),
+                      );
+                    }).toList();
+                  }
+                  List<Marker> allMarkers = [
+                    ...markersTernak,
+                    ...markersKandang
+                  ];
+
+                  return FlutterMap(
+                    options: const MapOptions(
+                      initialCenter: LatLng(-8.1351667, 113.2218143),
+                      initialZoom: 9,
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                            'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+                        subdomains: const ['a', 'b', 'c'],
+                      ),
+                      if (controller.krbBoundary != null)
+                        PolygonLayer(
+                          polygons: [
+                            Polygon(
+                                points: controller.krbBoundary!,
+                                color: Color.fromARGB(17, 255, 251, 0),
+                                borderColor: Color.fromARGB(174, 172, 0, 0),
+                                borderStrokeWidth: 2,
+                                isFilled: true),
                           ],
                         ),
-                      ),
-                    )),
-                SizedBox(
-                  width: double.maxFinite,
-                  height: 250,
-                  child: Obx(() {
-                    List<Marker> markersTernak = [];
-                    List<Marker> markersKandang = [];
 
-                    if (controller.posts1.value.content != null &&
-                        controller.posts3.value.content != null) {
-                      markersTernak = controller.posts1.value.content!.map((n) {
-                        return Marker(
-                          width: 25.0,
-                          height: 25.0,
-                          point: LatLng(
-                            double.tryParse(n.latitude ?? '') ?? 00.0,
-                            double.tryParse(n.longitude ?? '') ?? 00.0,
-                          ),
-                          child: Container(
-                            child: Image.asset(
-                              'assets/images/cow.png', // Ganti dengan path ke gambar Anda
-                            ),
-                          ),
-                        );
-                      }).toList();
-
-                      markersKandang =
-                          controller.posts3.value.content!.map((n) {
-                        return Marker(
-                          width: 25.0,
-                          height: 25.0,
-                          point: LatLng(
-                            double.tryParse(n.latitude ?? '') ?? 00.0,
-                            double.tryParse(n.longitude ?? '') ?? 00.0,
-                          ),
-                          child: Container(
-                            child: Image.asset(
-                              'assets/images/house.png', // Ganti dengan path ke gambar Anda
-                            ),
-                          ),
-                        );
-                      }).toList();
-                    }
-                    List<Marker> allMarkers = [
-                      ...markersTernak,
-                      ...markersKandang
-                    ];
-
-                    return FlutterMap(
-                      options: const MapOptions(
-                        initialCenter: LatLng(-8.1351667, 113.2218143),
-                        initialZoom: 9,
-                      ),
-                      children: [
-                        TileLayer(
-                          urlTemplate:
-                              'https://tile.openstreetmap.org/{z}/{x}/{y}.png',
-                          subdomains: const ['a', 'b', 'c'],
-                        ),
-                        if (controller.krbBoundary != null)
-                          PolygonLayer(
-                            polygons: [
-                              Polygon(
-                                  points: controller.krbBoundary!,
-                                  color: Color.fromARGB(17, 255, 251, 0),
-                                  borderColor:
-                                      Color.fromARGB(174, 172, 0, 0),
-                                  borderStrokeWidth: 2,
-                                  isFilled: true),
-                            ],
-                          ),
-
-                        FutureBuilder<List<List<LatLng>>>(
-                          future: controller.someFunction(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else {
-                                // Tampilkan PolygonLayer setelah mendapatkan data
-                                return PolygonLayer(
-                                  polygons: snapshot.data!.isEmpty
-                                      ? [] // Tambahkan penanganan jika data kosong
-                                      : snapshot.data!.map((polygonPoints) {
-                                          return Polygon(
-                                              points: polygonPoints,
-                                              color:
-                                                  Color.fromARGB(123, 255, 0, 0),
-                                              borderColor: Colors.red,
-                                              borderStrokeWidth: 2,
-                                              isFilled: true);
-                                        }).toList(),
-                                );
-                              }
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              // Tampilkan loading indicator selama data dimuat
-                              return const CircularProgressIndicator();
+                      FutureBuilder<List<List<LatLng>>>(
+                        future: controller.someFunction(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
                             } else {
-                              // Tampilkan pesan default jika ada kesalahan lainnya
-                              return const Text('Data tidak dapat dimuat');
-                            }
-                          },
-                        ),
-
-
-
-                        FutureBuilder<List<List<LatLng>>>(
-                          future: controller.someFunction1(),
-                          builder: (context, snapshot) {
-                            if (snapshot.connectionState ==
-                                ConnectionState.done) {
-                              if (snapshot.hasError) {
-                                return Text('Error: ${snapshot.error}');
-                              } else {
-                                // Tampilkan PolygonLayer setelah mendapatkan data
-                                return PolygonLayer(
-                                  polygons: snapshot.data!.isEmpty
-                                      ? [] // Tambahkan penanganan jika data kosong
-                                      : snapshot.data!.map((polygonPoints) {
-                                          return Polygon(
-                                              points: polygonPoints,
-                                              color:
-                                                  Color.fromARGB(103, 255, 136, 0),
-                                              borderColor: Color.fromARGB(255, 255, 145, 0),
-                                              borderStrokeWidth: 2,
-                                              isFilled: true);
-                                        }).toList(),
-                                );
-                              }
-                            } else if (snapshot.connectionState ==
-                                ConnectionState.waiting) {
-                              // Tampilkan loading indicator selama data dimuat
-                              return const CircularProgressIndicator();
-                            } else {
-                              // Tampilkan pesan default jika ada kesalahan lainnya
-                              return const Text('Data tidak dapat dimuat');
-                            }
-                          },
-                        ),
-
-                        // FutureBuilder<List<LatLng>>(
-                        //   future: controller.someFunction(),
-                        //   builder: (context, snapshot) {
-                        //     if (snapshot.connectionState ==
-                        //         ConnectionState.done) {
-                        //       if (snapshot.hasError) {
-                        //         return Text('Error: ${snapshot.error}');
-                        //       } else {
-                        //         // Tampilkan PolygonLayer setelah mendapatkan data
-                        //         return PolygonLayer(
-                        //           polygons: [
-                        //             Polygon(
-                        //               points: snapshot.data!,
-                        //               color: Colors.blue,
-                        //               borderColor: Colors.red,
-                        //               borderStrokeWidth: 2,
-                        //             ),
-                        //           ],
-                        //         );
-                        //       }
-                        //     } else if (snapshot.connectionState ==
-                        //         ConnectionState.waiting) {
-                        //       // Tampilkan loading indicator selama data dimuat
-                        //       return const CircularProgressIndicator();
-                        //     } else {
-                        //       // Tampilkan pesan default jika ada kesalahan lainnya
-                        //       return const Text('Data tidak dapat dimuat');
-                        //     }
-                        //   },
-                        // ),
-                        PopupMarkerLayer(
-                          options: PopupMarkerLayerOptions(
-                            markers: allMarkers,
-                            popupController: controller.popupLayerController,
-                            selectedMarkerBuilder:
-                                (BuildContext context, Marker marker) {
-                              return Container(
-                                child: const Text('ini adalah'),
+                              // Tampilkan PolygonLayer setelah mendapatkan data
+                              return PolygonLayer(
+                                polygons: snapshot.data!.isEmpty
+                                    ? [] // Tambahkan penanganan jika data kosong
+                                    : snapshot.data!.map((polygonPoints) {
+                                        return Polygon(
+                                            points: polygonPoints,
+                                            color:
+                                                Color.fromARGB(123, 255, 0, 0),
+                                            borderColor: Colors.red,
+                                            borderStrokeWidth: 2,
+                                            isFilled: true);
+                                      }).toList(),
                               );
-                            },
-                          ),
-                        ),
-                      ],
-                    );
-                  }),
-                ),
-                const SizedBox(height: 3),
-                Obx(() => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildMiniCardWidget(
-                            //"assets/images/cow.png",
-                            "${controller.countKandangInKRB.value}",
-                            "Kawasan Rawan Bencana"),
-                        const SizedBox(width: 3),
-                        
-                      ],
-                    )),
-                ElevatedButton(
-                  onPressed: () async {
-                    // Ganti cara pemanggilan fungsi agar lebih sesuai dengan logika
-                    Directory? selectedDirectory =
-                        await controller.getDirectory();
+                            }
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            // Tampilkan loading indicator selama data dimuat
+                            return const CircularProgressIndicator();
+                          } else {
+                            // Tampilkan pesan default jika ada kesalahan lainnya
+                            return const Text('Data tidak dapat dimuat');
+                          }
+                        },
+                      ),
 
-                    if (selectedDirectory != null) {
-                      // Perbarui nilai Rx<Directory?>
-                      controller.savePath.value = selectedDirectory;
+                      FutureBuilder<List<List<LatLng>>>(
+                        future: controller.someFunction1(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.done) {
+                            if (snapshot.hasError) {
+                              return Text('Error: ${snapshot.error}');
+                            } else {
+                              // Tampilkan PolygonLayer setelah mendapatkan data
+                              return PolygonLayer(
+                                polygons: snapshot.data!.isEmpty
+                                    ? [] // Tambahkan penanganan jika data kosong
+                                    : snapshot.data!.map((polygonPoints) {
+                                        return Polygon(
+                                            points: polygonPoints,
+                                            color: const Color.fromARGB(
+                                                103, 255, 136, 0),
+                                            borderColor: const Color.fromARGB(
+                                                255, 255, 145, 0),
+                                            borderStrokeWidth: 2,
+                                            isFilled: true);
+                                      }).toList(),
+                              );
+                            }
+                          } else if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            // Tampilkan loading indicator selama data dimuat
+                            return const CircularProgressIndicator();
+                          } else {
+                            // Tampilkan pesan default jika ada kesalahan lainnya
+                            return const Text('Data tidak dapat dimuat');
+                          }
+                        },
+                      ),
 
-                      // Perbarui cara mengakses nilai Rx<Directory?>
-                      controller.downloadDataInKRB(controller.savePath.value);
-                    }
-                  },
-                  child: const Text("Download Data KRB"),
-                ),
-
-                const SizedBox(height: 7),
-                Padding(
-                    padding: const EdgeInsets.all(5),
-                    child: Container(
-                      child: Center(
-                        child: Wrap(
-                          spacing: 80.0,
-                          runSpacing: 20.0,
-                          children: [
-                            SizedBox(
-                              width: 250,
-                              height: 30,
-                              child: Card(
-                                color: const Color(0xff132137),
-                                elevation: 2.0,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(5.0)),
-                                child: const Text(
-                                  "Informasi Data Peternakan",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ),
-                            )
-                          ],
+                      // FutureBuilder<List<LatLng>>(
+                      //   future: controller.someFunction(),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.done) {
+                      //       if (snapshot.hasError) {
+                      //         return Text('Error: ${snapshot.error}');
+                      //       } else {
+                      //         // Tampilkan PolygonLayer setelah mendapatkan data
+                      //         return PolygonLayer(
+                      //           polygons: [
+                      //             Polygon(
+                      //               points: snapshot.data!,
+                      //               color: Colors.blue,
+                      //               borderColor: Colors.red,
+                      //               borderStrokeWidth: 2,
+                      //             ),
+                      //           ],
+                      //         );
+                      //       }
+                      //     } else if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       // Tampilkan loading indicator selama data dimuat
+                      //       return const CircularProgressIndicator();
+                      //     } else {
+                      //       // Tampilkan pesan default jika ada kesalahan lainnya
+                      //       return const Text('Data tidak dapat dimuat');
+                      //     }
+                      //   },
+                      // ),
+                      PopupMarkerLayer(
+                        options: PopupMarkerLayerOptions(
+                          markers: allMarkers,
+                          popupController: controller.popupLayerController,
+                          selectedMarkerBuilder:
+                              (BuildContext context, Marker marker) {
+                            return const Text('ini adalah');
+                          },
                         ),
                       ),
-                    )),
+                    ],
+                  );
+                }),
+              ),
+              const SizedBox(height: 3),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildMiniCardWidget(
+                          //"assets/images/cow.png",
+                          "${controller.countKandangInKRB.value}",
+                          "Kawasan Rawan Bencana"),
+                      const SizedBox(width: 3),
+                    ],
+                  )),
+              ElevatedButton(
+                onPressed: () async {
+                  // Ganti cara pemanggilan fungsi agar lebih sesuai dengan logika
+                  Directory? selectedDirectory =
+                      await controller.getDirectory();
 
-                // Other widgets...
+                  if (selectedDirectory != null) {
+                    // Perbarui nilai Rx<Directory?>
+                    controller.savePath.value = selectedDirectory;
 
-                // Organize card widgets using a Row and Spacer for spacing.
-                Obx(() => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildCardWidget(
-                            "assets/images/cow.png",
-                            "${controller.posts1.value.totalElements ?? 0}",
-                            "Ternak"),
-                        const SizedBox(width: 12),
-                        _buildCardWidget(
-                            "assets/images/man.png",
-                            "${controller.posts2.value.totalElements ?? 0}",
-                            "Peternak"),
-                      ],
-                    )),
-                Obx(() => Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _buildCardWidget(
-                            "assets/images/people.png",
-                            "${controller.posts.value.totalElements ?? 0}",
-                            "Petugas"),
-                        const SizedBox(width: 12),
-                        _buildCardWidget(
-                            "assets/images/house.png",
-                            "${controller.posts3.value.totalElements ?? 0}",
-                            "Kandang"),
-                      ],
-                    )),
+                    // Perbarui cara mengakses nilai Rx<Directory?>
+                    controller.downloadDataInKRB(controller.savePath.value);
+                  }
+                },
+                child: const Text("Download Data KRB"),
+              ),
 
-                // Other widgets...
-              ],
-            ),
+              const SizedBox(height: 7),
+              Padding(
+                  padding: const EdgeInsets.all(5),
+                  child: Container(
+                    child: Center(
+                      child: Wrap(
+                        spacing: 80.0,
+                        runSpacing: 20.0,
+                        children: [
+                          SizedBox(
+                            width: 250,
+                            height: 30,
+                            child: Card(
+                              color: const Color(0xff132137),
+                              elevation: 2.0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(5.0)),
+                              child: const Text(
+                                "Informasi Data Peternakan",
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )),
+
+              // Other widgets...
+
+              // Organize card widgets using a Row and Spacer for spacing.
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildCardWidget(
+                          "assets/images/cow.png",
+                          "${controller.posts1.value.totalElements ?? 0}",
+                          "Ternak"),
+                      const SizedBox(width: 12),
+                      _buildCardWidget(
+                          "assets/images/man.png",
+                          "${controller.posts2.value.totalElements ?? 0}",
+                          "Peternak"),
+                    ],
+                  )),
+              Obx(() => Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _buildCardWidget(
+                          "assets/images/people.png",
+                          "${controller.posts.value.totalElements ?? 0}",
+                          "Petugas"),
+                      const SizedBox(width: 12),
+                      _buildCardWidget(
+                          "assets/images/house.png",
+                          "${controller.posts3.value.totalElements ?? 0}",
+                          "Kandang"),
+                    ],
+                  )),
+
+              // Other widgets...
+            ],
           ),
         ),
       ),

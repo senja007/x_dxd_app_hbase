@@ -1,8 +1,8 @@
 import 'package:crud_flutter_api/app/data/peternak_model.dart';
 import 'package:crud_flutter_api/app/data/petugas_model.dart';
 import 'package:crud_flutter_api/app/modules/menu/peternak/controllers/peternak_controller.dart';
+import 'package:crud_flutter_api/app/services/fetch_data.dart';
 import 'package:crud_flutter_api/app/services/peternak_api.dart';
-import 'package:crud_flutter_api/app/services/petugas_api.dart';
 import 'package:crud_flutter_api/app/widgets/message/custom_alert_dialog.dart';
 import 'package:crud_flutter_api/app/widgets/message/errorMessage.dart';
 import 'package:crud_flutter_api/app/widgets/message/successMessage.dart';
@@ -11,6 +11,8 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DetailPeternakController extends GetxController {
+  final FetchData fetchdata = FetchData();
+
   //TODO: Implement DetailPostController
   final Map<String, dynamic> argsData = Get.arguments;
   PeternakModel? peternakModel;
@@ -18,8 +20,6 @@ class DetailPeternakController extends GetxController {
   RxBool isLoadingCreateTodo = false.obs;
   RxBool isEditing = false.obs;
   final formattedDate = ''.obs;
-  RxString selectedPetugas = ''.obs;
-  RxList<PetugasModel> petugasList = <PetugasModel>[].obs;
 
   TextEditingController idPeternakC = TextEditingController();
   TextEditingController nikPeternakC = TextEditingController();
@@ -50,7 +50,7 @@ class DetailPeternakController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    fetchPetugas();
+    fetchdata.fetchPetugas();
 
     idPeternakC.text = argsData["idPeternak"];
     nikPeternakC.text = argsData["nikPeternak"];
@@ -59,17 +59,17 @@ class DetailPeternakController extends GetxController {
     lokasiC.text = argsData["lokasi"];
     petugasPendaftarC.text = argsData["petugasPendaftar"];
     tanggalPendaftaranC.text = argsData["tanggalPendaftaran"];
+    // selectedPetugas.value = argsData["petugasPendaftar"];
 
-    ever(selectedPetugas, (String? selectedName) {
-      // Perbarui nilai nikPeternakC dan namaPeternakC berdasarkan selectedId
-      PetugasModel? selectedPetugassss = petugasList.firstWhere(
-          (petugas) => petugas.namaPetugas == selectedName,
+    ever(fetchdata.selectedPetugasId, (String? selectedName) {
+      PetugasModel? selectedPetugassss = fetchdata.petugasList.firstWhere(
+          (petugas) => petugas.nikPetugas == selectedName,
           orElse: () => PetugasModel());
-      selectedPetugas.value =
-          selectedPetugassss.namaPetugas ?? argsData["petugasPendaftar"];
-      // namaPeternakC.text = selectedPetugassss.namaPetugas ??
-      //     argsData["nama_peternak_hewan_detail"];
-      print(selectedPetugas.value);
+      fetchdata.selectedPetugasId.value =
+          selectedPetugassss.nikPetugas ?? argsData["petugasPendaftar"];
+      // petugasPendaftarC.text =
+      //     selectedPetugassss.nikPetugas ?? argsData["petugasPendaftar"];
+      print(fetchdata.selectedPetugasId.value);
       update();
     });
 
@@ -82,23 +82,23 @@ class DetailPeternakController extends GetxController {
     originalTanggalPendaftaran = argsData["tanggalPendaftaran"];
   }
 
-  //GET DATA PETUGAS
-  Future<List<PetugasModel>> fetchPetugas() async {
-    try {
-      final PetugasListModel petugasListModel =
-          await PetugasApi().loadPetugasApi();
-      final List<PetugasModel> petugass = petugasListModel.content ?? [];
-      if (petugass.isNotEmpty) {
-        selectedPetugas.value = petugass.first.namaPetugas ?? '';
-      }
-      petugasList.assignAll(petugass);
-      return petugass;
-    } catch (e) {
-      print('Error fetching Petugas: $e');
-      showErrorMessage("Error fetching Petugas: $e");
-      return [];
-    }
-  }
+  // //GET DATA PETUGAS
+  // Future<List<PetugasModel>> fetchPetugas() async {
+  //   try {
+  //     final PetugasListModel petugasListModel =
+  //         await PetugasApi().loadPetugasApi();
+  //     final List<PetugasModel> petugass = petugasListModel.content ?? [];
+  //     if (petugass.isNotEmpty) {
+  //       selectedPetugas.value = petugass.first.nikPetugas ?? '';
+  //     }
+  //     petugasList.assignAll(petugass);
+  //     return petugass;
+  //   } catch (e) {
+  //     print('Error fetching Petugas: $e');
+  //     showErrorMessage("Error fetching Petugas: $e");
+  //     return [];
+  //   }
+  // }
 
   Future<void> tombolEdit() async {
     isEditing.value = true;
@@ -119,7 +119,8 @@ class DetailPeternakController extends GetxController {
         namaPeternakC.text = originalNamaPeternak;
         idISIKHNASC.text = originalIdIskhnas;
         lokasiC.text = originalLokasi;
-        selectedPetugas.value = originalPetugasPendaftar;
+        // selectedPetugas.value = originalPetugasPendaftar;
+        petugasPendaftarC.text = originalPetugasPendaftar;
         tanggalPendaftaranC.text = originalTanggalPendaftaran;
 
         isEditing.value = false;
@@ -159,13 +160,14 @@ class DetailPeternakController extends GetxController {
       message: "Apakah anda ingin mengedit data Peternak ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
+        print(tanggalPendaftaranC.text);
         peternakModel = await PeternakApi().editPeternakApi(
           idPeternakC.text,
           nikPeternakC.text,
           namaPeternakC.text,
           idISIKHNASC.text,
           lokasiC.text,
-          selectedPetugas.value,
+          fetchdata.selectedPetugasId.value,
           tanggalPendaftaranC.text,
         );
         isEditing.value = false;
