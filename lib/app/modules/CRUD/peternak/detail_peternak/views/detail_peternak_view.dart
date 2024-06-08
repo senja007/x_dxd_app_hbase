@@ -17,7 +17,7 @@ class DetailPeternakView extends GetView<DetailPeternakController> {
       backgroundColor: const Color(0xffF7EBE1),
       appBar: AppBar(
         title: const Text(
-          'Tambah Data Peternak',
+          'Detail Data Peternak',
           style: TextStyle(
             color: Colors.white,
           ),

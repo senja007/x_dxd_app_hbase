@@ -21,11 +21,11 @@ class BeritaModel {
   factory BeritaModel.fromJson(Map<String, dynamic> jsonData) {
     return BeritaModel(
       status: jsonData['status'] ?? 0,
-      idBerita: jsonData['idBerita'] ?? 0,
-      judul: jsonData['judul'] ?? 0,
-      tglPembuatan: jsonData['tglPembuatan'] ?? 0,
-      isiBerita: jsonData['isiBerita'] ?? 0,
-      fotoBerita: jsonData['fotoBerita'] ?? 0,
+      idBerita: jsonData['idBerita'] ?? "",
+      judul: jsonData['judul'] ?? "",
+      tglPembuatan: jsonData['tglPembuatan'] ?? "",
+      isiBerita: jsonData['isiBerita'] ?? "",
+      fotoBerita: jsonData['fotoBerita'] ?? "",
     );
   }
 }

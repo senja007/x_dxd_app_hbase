@@ -100,8 +100,8 @@ class MainMenuView extends GetView<MainMenuController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
-            const SizedBox(width: 30),
-            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+            // const SizedBox(width: 30),
+            // buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
           ],
         ),
       ],
@@ -156,8 +156,8 @@ class MainMenuView extends GetView<MainMenuController> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             buildButton(Routes.KANDANG, 'Kandang', Icons.holiday_village),
-            const SizedBox(width: 30),
-            buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
+            // const SizedBox(width: 30),
+            // buildButton(Routes.MONITORING, 'LIVE MONITORING', Icons.monitor),
           ],
         ),
         // ... (Tambahkan menu lain sesuai kebutuhan untuk ROLE_LECTURE)
@@ -187,8 +187,8 @@ class MainMenuView extends GetView<MainMenuController> {
             const SizedBox(width: 30),
             // Tambahkan menu yang hanya terlihat untuk ROLE_STUDENT
             buildButton(Routes.TERNAKSAYA, 'Ternak Saya', Icons.pets_sharp),
-            const SizedBox(width: 30),
-            buildButton(Routes.MONITORING, 'Live Monitoring', Icons.monitor),
+            // const SizedBox(width: 30),
+            // buildButton(Routes.MONITORING, 'Live Monitoring', Icons.monitor),
           ],
         ),
         // ... (Tambahkan menu lain sesuai kebutuhan untuk ROLE_STUDENT)

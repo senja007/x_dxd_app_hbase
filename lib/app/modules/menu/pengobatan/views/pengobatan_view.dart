@@ -106,7 +106,7 @@ class PengobatanView extends GetView<PengobatanController> {
                                   Text(
                                     (postData.status == null)
                                         ? "-"
-                                        : "Nama Petugas: ${postData.namaPetugas}",
+                                        : "Nama Petugas: ${postData.namaPetugas?.namaPetugas}",
                                     style: const TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.normal),

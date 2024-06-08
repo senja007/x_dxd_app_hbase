@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class MainMenuController extends GetxController {
-  
   Rx<UserModel> user = UserModel().obs;
   final box = GetStorage();
   bool homeScreen = false;

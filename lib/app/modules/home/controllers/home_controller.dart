@@ -6,6 +6,7 @@ import 'package:crud_flutter_api/app/utils/api.dart';
 import 'package:excel/excel.dart' as excel;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'dart:math' show cos, sin, sqrt, atan2, pi;
 import 'package:path_provider/path_provider.dart';
 import 'package:file_picker/file_picker.dart';
@@ -49,6 +50,7 @@ class HomeController extends GetxController {
   Rx<KandangListModel> posts3 = KandangListModel().obs;
 
   PopupController popupLayerController = PopupController();
+  final RxList<Marker> allMarkers = <Marker>[].obs;
   SharedApi sharedApi = SharedApi();
 
   final box = GetStorage();

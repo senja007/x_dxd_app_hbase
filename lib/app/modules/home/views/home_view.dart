@@ -1,8 +1,12 @@
 import 'dart:io';
 
+import 'package:crud_flutter_api/app/data/hewan_model.dart';
+import 'package:crud_flutter_api/app/data/kandang_model.dart';
 import 'package:crud_flutter_api/app/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_map_marker_cluster/flutter_map_marker_cluster.dart';
+import 'package:flutter_map_marker_popup/extension_api.dart';
 import 'package:get/get.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
@@ -89,17 +93,20 @@ class HomeView extends GetView<HomeController> {
                 width: double.infinity,
                 height: 200,
                 child: Obx(() {
+                  final beritaContent = controller.beritaNews.value.content;
                   final items = [
                     ...imageUrls.map((url) => {'image': url, 'type': 'image'}),
-                    ...controller.beritaNews.value.content!.map((news) => {
-                          'image': "${controller.sharedApi.imageUrl}"
-                              "${news.fotoBerita}",
-                          'title': news.judul,
-                          'content': news.isiBerita,
-                          'type': 'news'
-                        }),
+                    if (beritaContent != null)
+                      ...beritaContent
+                          .map((news) => {
+                                'image':
+                                    "${controller.sharedApi.imageUrl}${news.fotoBerita}",
+                                'title': news.judul,
+                                'content': news.isiBerita,
+                                'type': 'news'
+                              })
+                          .toList(),
                   ];
-
                   void _showNewsDialog(String title, String content) {
                     showDialog(
                       context: context,
@@ -206,8 +213,8 @@ class HomeView extends GetView<HomeController> {
                       controller.posts3.value.content != null) {
                     markersTernak = controller.posts1.value.content!.map((n) {
                       return Marker(
-                        width: 25.0,
-                        height: 25.0,
+                        width: 15.0,
+                        height: 15.0,
                         point: LatLng(
                           double.tryParse(n.latitude ?? '') ?? 00.0,
                           double.tryParse(n.longitude ?? '') ?? 00.0,
@@ -222,8 +229,8 @@ class HomeView extends GetView<HomeController> {
 
                     markersKandang = controller.posts3.value.content!.map((n) {
                       return Marker(
-                        width: 25.0,
-                        height: 25.0,
+                        width: 15,
+                        height: 15,
                         point: LatLng(
                           double.tryParse(n.latitude ?? '') ?? 00.0,
                           double.tryParse(n.longitude ?? '') ?? 00.0,
@@ -245,6 +252,8 @@ class HomeView extends GetView<HomeController> {
                     options: const MapOptions(
                       initialCenter: LatLng(-8.1351667, 113.2218143),
                       initialZoom: 9,
+                      maxZoom: 18,
+                      minZoom: 4,
                     ),
                     children: [
                       TileLayer(
@@ -256,14 +265,277 @@ class HomeView extends GetView<HomeController> {
                         PolygonLayer(
                           polygons: [
                             Polygon(
-                                points: controller.krbBoundary!,
-                                color: Color.fromARGB(17, 255, 251, 0),
-                                borderColor: Color.fromARGB(174, 172, 0, 0),
-                                borderStrokeWidth: 2,
-                                isFilled: true),
+                              points: controller.krbBoundary!,
+                              color: Color.fromARGB(17, 255, 251, 0),
+                              borderColor: Color.fromARGB(174, 172, 0, 0),
+                              borderStrokeWidth: 2,
+                              isFilled: true,
+                            ),
                           ],
                         ),
+                      PopupScope(
+                        child: MarkerClusterLayerWidget(
+                          options: MarkerClusterLayerOptions(
+                            maxClusterRadius: 45,
+                            size: const Size(40, 40),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.all(50),
+                            maxZoom: 15,
+                            markers: allMarkers,
+                            popupOptions: PopupOptions(
+                                popupSnap: PopupSnap.markerTop,
+                                popupController:
+                                    controller.popupLayerController,
+                                popupBuilder:
+                                    (BuildContext context, Marker marker) {
+                                  HewanModel?
+                                      hewan; // Deklarasikan di luar try-catch
+                                  KandangModel? kandang;
+                                  try {
+                                    hewan = controller.posts1.value.content
+                                        ?.firstWhere(
+                                      (item) =>
+                                          item.latitude ==
+                                              marker.point.latitude
+                                                  .toString() &&
+                                          item.longitude ==
+                                              marker.point.longitude.toString(),
+                                      orElse: () => HewanModel(),
+                                    );
+                                  } catch (e) {
+                                    print("Error saat mencari data hewan: $e");
+                                  }
+                                  // try {
+                                  //   if (controller.posts1.value.content != null &&
+                                  //       controller
+                                  //           .posts1.value.content!.isNotEmpty) {
+                                  //     // Dapatkan data hewan dari indeks yang sesuai
+                                  //     hewan = controller.posts1.value.content!
+                                  //         .firstWhere(
+                                  //             (item) =>
+                                  //                 item.latitude ==
+                                  //                     marker.point.latitude
+                                  //                         .toString() &&
+                                  //                 item.longitude ==
+                                  //                     marker.point.longitude
+                                  //                         .toString(),
+                                  //             orElse: () =>
+                                  //                 HewanModel()); // Mengembalikan null jika tidak ditemukan
+                                  //   }
+                                  // } catch (e) {
+                                  //   print("Error saat mencari data: $e");
+                                  // }
+                                  // Dapatkan data kandang dari indeks yang sesuai
+                                  try {
+                                    kandang = controller.posts3.value.content
+                                        ?.firstWhere(
+                                      (item) =>
+                                          item.latitude ==
+                                              marker.point.latitude
+                                                  .toString() &&
+                                          item.longitude ==
+                                              marker.point.longitude.toString(),
+                                      orElse: () => KandangModel(),
+                                    );
+                                  } catch (e) {
+                                    print(
+                                        "Error saat mencari data kandang: $e");
+                                  }
+                                  // final kandang =
+                                  //     controller.posts3.value.content!.firstWhere(
+                                  //   (item) =>
+                                  //       item.latitude ==
+                                  //           marker.point.latitude.toString() &&
+                                  //       item.longitude ==
+                                  //           marker.point.longitude.toString(),
+                                  //   orElse: () =>
+                                  //       KandangModel(), // Asumsikan ada model KandangModel
+                                  // );
 
+                                  // Tampilkan informasi yang relevan dalam popup
+                                  return Card(
+                                    child: IntrinsicWidth(
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          if (hewan?.kodeEartagNasional !=
+                                              null) // Tampilkan data hewan jika ada
+                                            ListTile(
+                                              leading: const Icon(Icons.pets),
+                                              title: Text(
+                                                '${hewan?.kodeEartagNasional ?? ''}'
+                                                '\n'
+                                                '${hewan?.idPeternak?.namaPeternak ?? ''}'
+                                                '\n'
+                                                '${hewan?.spesies ?? ''}'
+                                                '\n'
+                                                '${hewan?.desa ?? ''}',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 5,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                          if (kandang
+                                                  ?.idPeternak?.namaPeternak !=
+                                              null) // Tampilkan data kandang jika ada
+                                            ListTile(
+                                              leading: const Icon(Icons.home),
+                                              title: Text(
+                                                kandang?.idPeternak
+                                                        ?.namaPeternak ??
+                                                    '',
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
+                                                textAlign: TextAlign.center,
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                            ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                }),
+                            builder: (context, markers) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Colors.blue),
+                                child: Center(
+                                  child: Text(
+                                    markers.length.toString(),
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
+                      ),
+                      // PopupMarkerLayer(
+                      //   options: PopupMarkerLayerOptions(
+                      //     markers: allMarkers,
+                      //     popupController: controller.popupLayerController,
+                      //     popupDisplayOptions: PopupDisplayOptions(
+                      //       builder: (BuildContext context, Marker marker) {
+                      //         HewanModel?
+                      //             hewan; // Deklarasikan di luar try-catch
+                      //         KandangModel? kandang;
+                      //         try {
+                      //           hewan =
+                      //               controller.posts1.value.content?.firstWhere(
+                      //             (item) =>
+                      //                 item.latitude ==
+                      //                     marker.point.latitude.toString() &&
+                      //                 item.longitude ==
+                      //                     marker.point.longitude.toString(),
+                      //             orElse: () => HewanModel(),
+                      //           );
+                      //         } catch (e) {
+                      //           print("Error saat mencari data hewan: $e");
+                      //         }
+                      //         // try {
+                      //         //   if (controller.posts1.value.content != null &&
+                      //         //       controller
+                      //         //           .posts1.value.content!.isNotEmpty) {
+                      //         //     // Dapatkan data hewan dari indeks yang sesuai
+                      //         //     hewan = controller.posts1.value.content!
+                      //         //         .firstWhere(
+                      //         //             (item) =>
+                      //         //                 item.latitude ==
+                      //         //                     marker.point.latitude
+                      //         //                         .toString() &&
+                      //         //                 item.longitude ==
+                      //         //                     marker.point.longitude
+                      //         //                         .toString(),
+                      //         //             orElse: () =>
+                      //         //                 HewanModel()); // Mengembalikan null jika tidak ditemukan
+                      //         //   }
+                      //         // } catch (e) {
+                      //         //   print("Error saat mencari data: $e");
+                      //         // }
+                      //         // Dapatkan data kandang dari indeks yang sesuai
+                      //         try {
+                      //           kandang =
+                      //               controller.posts3.value.content?.firstWhere(
+                      //             (item) =>
+                      //                 item.latitude ==
+                      //                     marker.point.latitude.toString() &&
+                      //                 item.longitude ==
+                      //                     marker.point.longitude.toString(),
+                      //             orElse: () => KandangModel(),
+                      //           );
+                      //         } catch (e) {
+                      //           print("Error saat mencari data kandang: $e");
+                      //         }
+                      //         // final kandang =
+                      //         //     controller.posts3.value.content!.firstWhere(
+                      //         //   (item) =>
+                      //         //       item.latitude ==
+                      //         //           marker.point.latitude.toString() &&
+                      //         //       item.longitude ==
+                      //         //           marker.point.longitude.toString(),
+                      //         //   orElse: () =>
+                      //         //       KandangModel(), // Asumsikan ada model KandangModel
+                      //         // );
+
+                      //         // Tampilkan informasi yang relevan dalam popup
+                      //         return Card(
+                      //           child: IntrinsicWidth(
+                      //             child: Column(
+                      //               mainAxisSize: MainAxisSize.min,
+                      //               children: [
+                      //                 if (hewan?.kodeEartagNasional !=
+                      //                     null) // Tampilkan data hewan jika ada
+                      //                   ListTile(
+                      //                     leading: const Icon(Icons.pets),
+                      //                     title: Text(
+                      //                       '${hewan?.kodeEartagNasional ?? ''}'
+                      //                       '\n'
+                      //                       '${hewan?.idPeternak?.namaPeternak ?? ''}'
+                      //                       '\n'
+                      //                       '${hewan?.spesies ?? ''}'
+                      //                       '\n'
+                      //                       '${hewan?.desa ?? ''}',
+                      //                       style: const TextStyle(
+                      //                         fontSize: 16,
+                      //                         fontWeight: FontWeight.bold,
+                      //                       ),
+                      //                       textAlign: TextAlign.center,
+                      //                       maxLines: 5,
+                      //                       overflow: TextOverflow.ellipsis,
+                      //                     ),
+                      //                   ),
+                      //                 if (kandang?.idPeternak?.namaPeternak !=
+                      //                     null) // Tampilkan data kandang jika ada
+                      //                   ListTile(
+                      //                     leading: const Icon(Icons.home),
+                      //                     title: Text(
+                      //                       kandang?.idPeternak?.namaPeternak ??
+                      //                           '',
+                      //                       style: const TextStyle(
+                      //                         fontSize: 16,
+                      //                         fontWeight: FontWeight.bold,
+                      //                       ),
+                      //                       textAlign: TextAlign.center,
+                      //                       maxLines: 1,
+                      //                       overflow: TextOverflow.ellipsis,
+                      //                     ),
+                      //                   ),
+                      //               ],
+                      //             ),
+                      //           ),
+                      //         );
+                      //       },
+                      //     ),
+                      //   ),
+                      // ),
                       FutureBuilder<List<List<LatLng>>>(
                         future: controller.someFunction(),
                         builder: (context, snapshot) {
@@ -297,7 +569,6 @@ class HomeView extends GetView<HomeController> {
                           }
                         },
                       ),
-
                       FutureBuilder<List<List<LatLng>>>(
                         future: controller.someFunction1(),
                         builder: (context, snapshot) {
@@ -332,51 +603,11 @@ class HomeView extends GetView<HomeController> {
                           }
                         },
                       ),
-
-                      // FutureBuilder<List<LatLng>>(
-                      //   future: controller.someFunction(),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.done) {
-                      //       if (snapshot.hasError) {
-                      //         return Text('Error: ${snapshot.error}');
-                      //       } else {
-                      //         // Tampilkan PolygonLayer setelah mendapatkan data
-                      //         return PolygonLayer(
-                      //           polygons: [
-                      //             Polygon(
-                      //               points: snapshot.data!,
-                      //               color: Colors.blue,
-                      //               borderColor: Colors.red,
-                      //               borderStrokeWidth: 2,
-                      //             ),
-                      //           ],
-                      //         );
-                      //       }
-                      //     } else if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       // Tampilkan loading indicator selama data dimuat
-                      //       return const CircularProgressIndicator();
-                      //     } else {
-                      //       // Tampilkan pesan default jika ada kesalahan lainnya
-                      //       return const Text('Data tidak dapat dimuat');
-                      //     }
-                      //   },
-                      // ),
-                      PopupMarkerLayer(
-                        options: PopupMarkerLayerOptions(
-                          markers: allMarkers,
-                          popupController: controller.popupLayerController,
-                          selectedMarkerBuilder:
-                              (BuildContext context, Marker marker) {
-                            return const Text('ini adalah');
-                          },
-                        ),
-                      ),
                     ],
                   );
                 }),
               ),
+
               const SizedBox(height: 3),
               Obx(() => Row(
                     mainAxisAlignment: MainAxisAlignment.center,

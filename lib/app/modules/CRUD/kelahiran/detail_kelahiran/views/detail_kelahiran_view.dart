@@ -184,8 +184,10 @@ class DetailKelahiranView extends GetView<DetailKelahiranController> {
                                       .map((HewanModel hewan) {
                                     return DropdownMenuItem<String>(
                                       value: hewan.kodeEartagNasional ?? '',
-                                      child:
-                                          Text(hewan.kodeEartagNasional ?? ''),
+                                      child: Text(
+                                          '${hewan.kodeEartagNasional ?? ''}'
+                                          '\n'
+                                          '${hewan.idPeternak?.namaPeternak}'),
                                     );
                                   }).toList(),
                                   onChanged: (String? selectedEartag) {

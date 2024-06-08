@@ -198,8 +198,8 @@ class DetailVaksinController extends GetxController {
 
   Future<void> deleteVaksin() async {
     CustomAlertDialog.showPresenceAlert(
-      title: "Hapus data todo",
-      message: "Apakah anda ingin menghapus data todo ini ?",
+      title: "Hapus data Vaksin",
+      message: "Apakah anda ingin menghapus data ini ?",
       onCancel: () => Get.back(),
       onConfirm: () async {
         vaksinModel = await VaksinApi().deleteVaksinApi(argsData["idVaksin"]);
